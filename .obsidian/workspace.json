@@ -1,0 +1,136 @@
+{
+  "main": {
+    "id": "7204a2aed8bdf5e0",
+    "type": "split",
+    "children": [
+      {
+        "id": "33223e12b044d856",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2f3644a6b440483e",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "33e39aedb0629f09",
+    "type": "split",
+    "children": [
+      {
+        "id": "b7633234378fe77e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ba7b1296865c75fc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "5b55ae76f41d082c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "ist-style",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 392.5
+  },
+  "right": {
+    "id": "75bad08b258c7b53",
+    "type": "split",
+    "children": [
+      {
+        "id": "5c59a38454666056",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4f50af9b50740b41",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": true,
+                "extraContext": true,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": true,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "5a890ecce7f8d9d0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "634107450974a8bf",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": false
+              }
+            }
+          },
+          {
+            "id": "925c8f42b32cacf1",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 266.5
+  },
+  "active": "2f3644a6b440483e",
+  "lastOpenFiles": [
+    "Chapter01_javascript基础和基本语法/Chapter01_02_变量_简单数据类型_运算符.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_03_流程控制和循环.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
+    "别人的笔记.md",
+    "content.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
+    "Chapter01_javascript基础/未命名.md",
+    "CSS/Chapter8_移动端web开发/Chapter8_移动端web开发_02_流式布局_Flexbox.md",
+    "CSS/Chapter4_盒子模型/Chapter4_盒子模型_04_Padding_margin_boxSizing.md",
+    "CSS/Chapter4_盒子模型/Chapter4_盒子模型_03_width_height_border.md"
+  ]
+}
