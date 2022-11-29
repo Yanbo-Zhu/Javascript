@@ -11,8 +11,12 @@
             "id": "2f3644a6b440483e",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
+                "mode": "preview",
+                "source": true
+              }
             }
           }
         ]
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md"
+              }
             }
           }
         ],
@@ -123,11 +131,11 @@
   "active": "2f3644a6b440483e",
   "lastOpenFiles": [
     "Chapter01_javascript基础和基本语法/Chapter01_02_变量_简单数据类型_运算符.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
     "Chapter01_javascript基础和基本语法/Chapter01_03_流程控制和循环.md",
     "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
     "别人的笔记.md",
     "content.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
     "Chapter01_javascript基础/未命名.md",
     "CSS/Chapter8_移动端web开发/Chapter8_移动端web开发_02_流式布局_Flexbox.md",
     "CSS/Chapter4_盒子模型/Chapter4_盒子模型_04_Padding_margin_boxSizing.md",
