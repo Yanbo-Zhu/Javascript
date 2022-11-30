@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "33223e12b044d856",
+        "id": "e701717feb0622ff",
         "type": "tabs",
         "children": [
           {
-            "id": "2f3644a6b440483e",
+            "id": "8456f9acb1340fbb",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
-                "mode": "preview",
-                "source": true
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -77,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -94,7 +89,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -116,9 +110,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -128,17 +120,17 @@
     "direction": "horizontal",
     "width": 266.5
   },
-  "active": "2f3644a6b440483e",
+  "active": "8456f9acb1340fbb",
   "lastOpenFiles": [
     "Chapter01_javascript基础和基本语法/Chapter01_02_变量_简单数据类型_运算符.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_03_流程控制和循环.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
     "别人的笔记.md",
-    "content.md",
-    "Chapter01_javascript基础/未命名.md",
-    "CSS/Chapter8_移动端web开发/Chapter8_移动端web开发_02_流式布局_Flexbox.md",
-    "CSS/Chapter4_盒子模型/Chapter4_盒子模型_04_Padding_margin_boxSizing.md",
-    "CSS/Chapter4_盒子模型/Chapter4_盒子模型_03_width_height_border.md"
+    "Chapter02_函数与作用域/Chapter02_01_函数.md",
+    "Chapter02_函数与作用域/Chapter02_02_作用域.md",
+    "Chapter04_DOM/Dom总览.md",
+    "Chapter04_DOM/Chapter04_01_.md",
+    "Chapter02_函数与作用域/Chapter02_03_预解析.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_03_流程控制和循环.md"
   ]
 }

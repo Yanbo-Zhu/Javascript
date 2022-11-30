@@ -14,7 +14,9 @@ https://blog.csdn.net/Augenstern_QXL/article/details/119249534
 */    
 ```
 
-# 2 输入输出语句
+# 2 Browsermethoden/输入输出语句
+Es handelt sich um Methoden, die vom Browser zur Verfügung gestellt werden.
+Verwenden Sie sie anfangs um Informationen an und vom Anwender zu transportieren.
 
 | 方法                     | 说明                            | 归属  |
 | ---------------------- | ----------------------------- | --- |
@@ -86,7 +88,11 @@ var age = 18, address ='火影村',salary = 15000;
 </script>
 ```
 
-## 3.2 变量的声明和赋值
+## 3.2 变量的声明,赋值和scope
+
+- let - blockscope
+- const - blockscope
+- var - functionscope
 
 同时声明多个变量时，只需要写一个 var， 多个变量名之间使用英文逗号隔开。
 
@@ -160,6 +166,7 @@ console.log(qq);
 变量是用来存储值的所在处，它们有名字和数据类型。 变量的数据类型决定了如何将代表这些值的位存储到计算机的内存中。
 JavaScript 是一种弱类型或者说动态语言。
 这意味着不用提前声明变量的类型，在程序运行过程中，类型会被自动确定。
+js 中根据值就就可以自动确定数据类型 , Datentypen werden in js bestimmt durch den Wert, der in ihnen gerade enthalten ist: 
 java就需要提前声明变量的类型了
 
 ```js
@@ -179,14 +186,38 @@ java就需要提前声明变量的类型了
 简单数据类型 （Number,String,Boolean,Undefined,Null）
 复杂数据类型 （object)
 
+(4) <mark> 变量的数据类型随时可以更换, 只要给入的值变了 </mark> 
+und sind somit veränderbar über die Laufzeit des Skriptes:
+
 ## 4.2 简单数据类型 / 基本数据类型
 |简单数据类型	|说明	|默认值|
 |--|---|---|
 |Number	|数字型，包含整型值和浮点型值，如21，0.21	|0|
 |Boolean	|布尔值类型，如true，false ，等价于1和0	|false|
-|Undefined	|var a; 声明了变量a但是没有赋值，此时a=undefined	|undefined（未定义的）|
+|Undefined	|var a; 声明了变量a但是没有赋值，此时a=undefined.  kein Wert, kein Typ	|undefined（未定义的）|
 |string	|字符串类型，如“张三”|“”
 |Null	|var a = null;声明了变量a为空值	|null|
+|object| hat Untertypen: object, array, function, null: kein Wert||
+
+undefined und null sind gleichzeitig Typ und Wert
+
+例子:
+```javascript
+const NUM = 2; 
+let nothing = undefined;
+let nothingAgain = null;
+let n = 0;
+let m = 1;
+let test = true;
+let sign = "1";
+
+// strings
+let text1 = "doppelte Anführungszeichen";
+let text2 = 'einfache Anführungszeichen';
+// Beides ist erlaubt und richtig.
+// Seien Sie konsistent und tun Sie es immer gleich!
+    
+```
 
 ### 4.2.1 数字型 Number
 JavaScript 数字类型既可以用来保存整数值，也可以保存小数(浮点数）。
@@ -242,20 +273,32 @@ isNaN(x) x是一个非数字类型
 console.log(isNaN(12));//false
 console.log(isNaN('风云溪'));//true
 
-### 4.2.2 字符串型 String
+### 4.2.2 字符串型 string
 
 字符串型可以是引号中的任意文本，其语法为 “双引号” 和 "单引号’’
 var strMsg = "我爱北京天安门~";		//使用双引号表示字符串
 var strMsg = '我爱北京';			  //使用单引号表示字符串
 
-因为 HTML 标签里面的属性使用的是双引号，JS 这里我们更推荐使用单引号。
+
+因为 HTML 标签里面的属性使用的是双引号，JS 这里我们更推荐使用单引号。  
 
 (1)字符串引号嵌套
 JS可以用 单引号嵌套双引号，或者用 双引号嵌套单引号（外双内单，外单内双）
 ```js
 var strMsg ='我是一个“高富帅”' //可以用 ' ' 包含 " "
 var strMsg2 ="我是'高富帅'" //可以用" "  包含  ''
+
+
+// strings
+let text1 = "doppelte Anführungszeichen";
+let text2 = 'einfache Anführungszeichen';
+// Beides ist erlaubt und richtig.
+// Seien Sie konsistent und tun Sie es immer gleich!
+
 ```
+
+
+
 
 (2)字符串转义符🔥
 类似HTML里面的特殊字符，字符串中也有特殊字符，我们称之为转义符。
@@ -327,6 +370,24 @@ console.log('Pink老师' + age);		 // Pink老师18
 console.log('Pink老师' + age + '岁啦');	// Pink老师18岁啦
 ```
 
+
+#### 4.2.2.1 template literals
+template literals sind auch strings
+
+```js
+    let tempLit = `literal`;
+    console.log(tempLit, typeof tempLit);
+    // Damit können wir auch gut Variablen auslesen.
+    console.log(`Strings können ${text1} und ${text2} enthalten!`);
+
+
+对比: 
+console.log(m + " ist gleich " + test);
+console.log(`${m} ist ungleich ${test}`);
+```
+
+
+
 ### 4.2.3 布尔型Boolean
 布尔类型有两个值：true 和 false ，其中 true 表示真（对），而 false 表示假（错）。
 布尔型和数字型相加的时候， true 的值为 1 ，false 的值为 0。
@@ -359,6 +420,8 @@ var space = null;
 console.log(space + 'pink'); //nullpink
 console.llog(space + 1); // 1 
 ```
+
+
 
 ## 4.3 获取变量数据类型
 
@@ -583,7 +646,7 @@ alert(10 + num++); // 20
 `>` 大于号	1 > 2	false
 `>=`	大于等于号(大于或者等于)	2 >= 2	true
 <=	小于等于号(小于或者等于)	3 <= 2	false
-==	判等号(会转型)	37 == 37	true
+==	判等号(会转型)	37 == 37	得到 true.   1 == true  , 结果为 true. 0 == true  , 结果为 false.   <mark> 2 == true  , 结果为 false. </mark>
 !=	不等号	37 != 37	false
 === !==	全等 要求值和数据类型都一致	37 === ‘37’	false
 
