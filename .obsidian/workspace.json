@@ -11,11 +11,28 @@
             "id": "8456f9acb1340fbb",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Chapter04_DOM/Chapter04_01_basics.md",
+                "mode": "source",
+                "source": true
+              }
+            }
+          },
+          {
+            "id": "cf1622b04c7e335f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
+                "mode": "source",
+                "source": true
+              }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -73,6 +90,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -89,6 +107,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +129,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md"
+              }
             }
           }
         ],
@@ -120,17 +141,17 @@
     "direction": "horizontal",
     "width": 266.5
   },
-  "active": "8456f9acb1340fbb",
+  "active": "cf1622b04c7e335f",
   "lastOpenFiles": [
+    "Chapter01_javascript基础和基本语法/Chapter01_03_流程控制和循环.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
+    "Chapter04_DOM/Chapter04_01_basics.md",
+    "Chapter04_DOM/Chapter04_02_事件高级.md",
+    "Chapter04_DOM/Dom总览.md",
     "Chapter01_javascript基础和基本语法/Chapter01_02_变量_简单数据类型_运算符.md",
     "别人的笔记.md",
     "Chapter02_函数与作用域/Chapter02_01_函数.md",
     "Chapter02_函数与作用域/Chapter02_02_作用域.md",
-    "Chapter04_DOM/Dom总览.md",
-    "Chapter04_DOM/Chapter04_01_.md",
-    "Chapter02_函数与作用域/Chapter02_03_预解析.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_03_流程控制和循环.md"
+    "Chapter02_函数与作用域/Chapter02_03_预解析.md"
   ]
 }

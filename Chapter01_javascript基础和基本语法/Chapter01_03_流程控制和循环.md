@@ -167,6 +167,7 @@ for(初始化变量;条件表达式;操作表达式)
 ### 2.1.1 例子
 1.输入10句"娘子晚安哈！"
 
+```js
 //基本写法
 for(var i = 1; i<=10; i++  )
     {
@@ -178,24 +179,35 @@ for(var i = 1; i<= num ;i++)
     {
         console.log('娘子晚安哈');
     }
+```
+
+
 
 
 2.求1-100之间所有整数的累加和
+
+```js
 // 求1-100所以的整数和
 var sum = 0;
 for (var i = 1; i <= 100; i++) {
     var sum = sum + i;
 }
 console.log(sum);
+```
+
 
 
 3.求1-100之间所有数的平均值
+
+```js
  // 3.求1-100之间所有数的平均值
 var sum = 0;
 for (var i = 1; i <= 100; i++) {
     var sum = sum + i;
 }
 console.log(sum / 100);
+```
+
 
 ## 2.2 ## 双重for循环
 
@@ -217,6 +229,7 @@ for(外循环的初始;外循环的条件;外形循环的操作表达式){
 打印n行n列的星星
 要求用户输入行数和列数，之后在控制台打印出用户输入行数和列数的星星
 
+```js
 var star = '';
 var row = prompt('请输入行数');
 var col = prompt('请输入列数');
@@ -227,6 +240,9 @@ for (var j = 1; j <= col; j++) {
     star += '\n';
 }
 console.log(star);
+```
+
+
 
 ## 2.3 while循环
 
@@ -246,13 +262,16 @@ while 循环和 for 循环的不同之处在于 while 循环可以做较为复�
 
 
 计算 1 ~ 100 之间所有整数的和
+```js
 var figure = 1;
-        var sum = 0;
-        while (figure <= 100) {
-            sum += figure;
-            figure++;
-        }
-        console.log('1-100的整数和为' + sum);
+var sum = 0;
+while (figure <= 100) {
+    sum += figure;
+    figure++;
+}
+console.log('1-100的整数和为' + sum);
+```
+
 
 
 ## 2.4 do while循环
@@ -282,7 +301,7 @@ do {
 continue 关键字用于立即跳出本次循环，继续下一次循环（本次循环体中 continue 之后的代码就会少执行一次）。
 
 例如，吃5个包子，第3个有虫子，就扔掉第3个，继续吃第4个第5个包子
-
+```js
 for (var i = 1; i <= 5; i++) {
  if (i == 3) {
      console.log('这个包子有虫子，扔掉');
@@ -290,16 +309,23 @@ for (var i = 1; i <= 5; i++) {
   }
   console.log('我正在吃第' + i + '个包子呢');
 }
+```
+
+
 
 ## 2.6 break关键字
 break 关键字用于立即跳出整个循环
 
 例如，吃5个包子，吃到第3个发现里面有半个虫子，其余的也不吃了
 
+```js
 for (var i = 1; i <= 5; i++) {
    if (i == 3) {
        break; // 直接退出整个for 循环，跳到整个for下面的语句
    }
    console.log('我正在吃第' + i + '个包子呢');
  }
+```
+
+
 

@@ -99,11 +99,15 @@ console.log(arr);
 ②声明一个空数组 arr。
 ③循环中的计数器 i 可以作为数组元素存入。
 由于数组的索引号是从0开始的， 因此计数器从 0 开始更合适，存入的数组元素要+1。
+
+```js
 var arr = [];
 for (var i = 0; i < 10; i++){
     arr[i] = i + 1;
 }
 console.log(arr);
+```
+
 
 ## 5.2 例子2
 2.将数组 [2, 0, 6, 1, 77, 0, 52, 0, 25, 7] 中大于等于 10 的元素选出来，放入新数组
@@ -114,6 +118,7 @@ console.log(arr);
 
 
 实现代码1：
+```js
 var arr = [2, 0, 6, 1, 77, 0, 52, 0, 25, 7];
 var newArr = [];
 // 定义一个变量 用来计算 新数组的索引号
@@ -127,9 +132,10 @@ for (var i = 0; i < arr.length; i++) {
     }
 }
 console.log(newArr);
-
+```
 
 实现代码2：
+```js
 var arr = [2, 0, 6, 1, 77, 0, 52, 0, 25, 7];
 var newArr = [];
 for (var i = 0; i < arr.length; i++) {
@@ -139,6 +145,8 @@ for (var i = 0; i < arr.length; i++) {
     }
 }
 console.log(newArr);
+```
+
 
 
 # 6 删除指定数组元素
@@ -147,6 +155,7 @@ console.log(newArr);
 将数组[2, 0, 6, 1, 77, 0, 52, 0, 25, 7]中的 0 去掉后，形成一个不包含 0 的新数组。
 
 1
+```js
 var arr = [2, 0, 6, 1, 77, 0, 52, 0, 25, 7];
 var newArr = [];
 for(var i = 0; i <arr.length; i++){
@@ -155,12 +164,16 @@ for(var i = 0; i <arr.length; i++){
     }
 }
 console.log(newArr);
+```
+
 
 2 
 //老师代码
 var arr = [2, 0, 6, 1, 77, 0, 52, 0, 25, 7];
 var newArr = [];   // 空数组的默认的长度为 0 
 // 定义一个变量 i 用来计算新数组的索引号
+
+```js
 for (var i = 0; i < arr.length; i++) {
     // 找出大于 10 的数
     if (arr[i] != 0) {
@@ -170,6 +183,8 @@ for (var i = 0; i < arr.length; i++) {
     }
 }
 console.log(newArr);
+```
+
 
 
 # 7 翻转数组
@@ -177,12 +192,14 @@ console.log(newArr);
 
 // 把旧数组索引号的第4个取过来(arr.length - 1),给新数组索引号第0个元素(newArr.length)
 
+```js
 var arr = ['red','green','blue','pink','purple'];
 var newArr = [];
 for (var i = arr.length -1; i>=0; i--){
     newArr[newArr.length] = arr[i];
 }
 console.log(newArr);
+```
 
 
 # 8 数组排序
@@ -190,6 +207,7 @@ console.log(newArr);
 
 将数组 [5, 4, 3, 2, 1]中的元素按照从小到大的顺序排序，输出： 1，2，3，4，5
 
+```js
 var arr = [5,4,3,2,1];
 for (var i = 0; i < arr.length-1; i++){ //外层循环管趟数，5个数共交换4躺
     for (var j = 0; j <= arr.length - i - 1; j++){
@@ -203,6 +221,9 @@ for (var i = 0; i < arr.length-1; i++){ //外层循环管趟数，5个数共交�
     }
 }
 console.log(arr);
+```
+
+
 
 
 # 9 案例
@@ -221,6 +242,7 @@ for(var i = 0; i < arr.length; i++ )  {
 ①声明一个求和变量 sum。
 ①遍历这个数组，把里面每个数组元素加到 sum 里面。
 ①用求和变量 sum 除以数组的长度就可以得到数组的平均值。
+```js
 var arr = [2, 6, 1, 7, 4];
 var sum = 0;
 var average = 0;
@@ -231,6 +253,7 @@ average = sum / i; //此时i为5
 //      average = sum / arr.length;
 console.log('和为' + sum);
 console.log('平均值为' + average);
+```
 
 
 3.求数组[2,6,1,77,52,25,7]中的最大值
@@ -240,6 +263,9 @@ console.log('平均值为' + average);
 ③遍历这个数组，把里面每个数组元素和 max 相比较。
 ④如果这个数组元素大于max 就把这个数组元素存到 max 里面，否则继续下一轮比较。
 ⑤最后输出这个 max。
+
+方法1
+```js
  var arr = [2, 6, 1, 77, 52, 25, 7];
         var max = arr[0];
         var temp;
@@ -252,9 +278,11 @@ console.log('平均值为' + average);
         }
         console.log('最大值为' + max);
 
+```
+
 
 方法二：
-
+```js
 var arrNum = [2,6,1,77,52,25,7];
 var maxNum = arrNum[0]; // 用来保存最大元素,默认最大值是数组中的第一个元素
 // 从0 开始循环数组里的每个元素
@@ -264,7 +292,7 @@ for(var i = 0;i< arrNum.length; i++){
         maxNum = arrNum[i]; // 保存数值到变量 maxNum
     }
 }
-
+```
 
 
 4.将数组 [‘red’, ‘green’, ‘blue’, ‘pink’] 里面的元素转换为字符串
@@ -273,6 +301,7 @@ for(var i = 0;i< arrNum.length; i++){
 
 ①需要一个新变量 str 用于存放转换完的字符串。
 ②遍历原来的数组，分别把里面数据取出来，加到字符串变量 str 里面。
+```js
 var arr = ['red','green','blue','pink'];
 var str ='';
 for(var i = 0; i < arr.length; i++){
@@ -281,12 +310,16 @@ for(var i = 0; i < arr.length; i++){
 console.log(str);
 // redgreenbluepink
 
+```
+
 
 5.将数组 [‘red’, ‘green’, ‘blue’, ‘pink’] 转换为字符串，并且用 | 或其他符号分割
 
 ①需要一个新变量用于存放转换完的字符串 str。
 ①遍历原来的数组，分别把里面数据取出来，加到字符串里面。
 ①同时在后面多加一个分隔符。
+
+```js
 var arr = ['red', 'green', 'blue', 'pink'];
 var str = '';
 var separator = '|';
@@ -295,3 +328,5 @@ for (var i = 0; i < arr.length; i++) {
 }
 console.log(str);
 // red|green|blue|pink
+
+```
