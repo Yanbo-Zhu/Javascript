@@ -4,22 +4,35 @@
     "type": "split",
     "children": [
       {
-        "id": "0f80a494952d8149",
+        "id": "77d1da12870ef6bb",
         "type": "tabs",
         "children": [
           {
-            "id": "fb29fff9ce2e1cb4",
+            "id": "44ab511cebd84273",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter03_对象和内置对象/Chapter03_04_简单类型和复杂类型.md",
-                "mode": "preview",
+                "file": "Chapter07_ES6/Chapter07_03_解构赋值.md",
+                "mode": "source",
+                "source": true
+              }
+            }
+          },
+          {
+            "id": "e63ce68b34d04da6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Chapter07_ES6/Chapter07_10_Promise对象.md",
+                "mode": "source",
                 "source": true
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -48,13 +61,21 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "ist-style",
+                "query": "迭代器",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
               }
+            }
+          },
+          {
+            "id": "697310ca3e94a8eb",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
             }
           }
         ]
@@ -77,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter03_对象和内置对象/Chapter03_04_简单类型和复杂类型.md",
+                "file": "Chapter07_ES6/Chapter07_10_Promise对象.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -94,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter03_对象和内置对象/Chapter03_04_简单类型和复杂类型.md",
+                "file": "Chapter07_ES6/Chapter07_10_Promise对象.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter03_对象和内置对象/Chapter03_04_简单类型和复杂类型.md"
+                "file": "Chapter07_ES6/Chapter07_10_Promise对象.md"
               }
             }
           }
@@ -128,17 +149,17 @@
     "direction": "horizontal",
     "width": 266.5
   },
-  "active": "fb29fff9ce2e1cb4",
+  "active": "e63ce68b34d04da6",
   "lastOpenFiles": [
-    "Chapter03_对象和内置对象/Chapter03_03_数组与字符串.md",
-    "Chapter03_对象和内置对象/Chapter03_02_内置对象_MATH_DATA.md",
-    "Chapter03_对象和内置对象/Chapter03_01_对象与内置对象.md",
-    "Chapter04_DOM/Chapter04_01_basics.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_04_数组.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_03_流程控制和循环.md",
-    "Chapter04_DOM/Chapter04_02_事件高级.md",
-    "Chapter04_DOM/Dom总览.md",
+    "Chapter07_ES6/Chapter07_15_数据类型Symbol.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
+    "Chapter06_JS高级/Chapter06_04_函数进阶2.md",
+    "Chapter07_ES6/Chapter07_01_ES6 介绍.md",
     "Chapter01_javascript基础和基本语法/Chapter01_02_变量_简单数据类型_运算符.md",
-    "别人的笔记.md"
+    "Chapter07_ES6/Chapter07_16_迭代器与生成器.md",
+    "Chapter07_ES6/Chapter07_10_Promise对象.md",
+    "Chapter07_ES6/Chapter07_12_es6模块化.md",
+    "Chapter07_ES6/Chapter07_06_对象的扩展.md",
+    "Chapter07_ES6/Chapter07_03_数据扩展.md"
   ]
 }

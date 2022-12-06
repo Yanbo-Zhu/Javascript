@@ -72,10 +72,16 @@ BOM (Browser Object Model，简称BOM) 是指浏览器对象模型，它提供�
 面向对象是软件开发中的一种重要的编程思想，其优点非常多。
 
 
-# 3 JS初体验
+# 3 断点调试
+浏览器中按 F12–> sources -->找到需要调试的文件–>在程序的某一行设置断点(在行数点一下)
+刷新浏览器
+Watch: 监视，通过watch可以监视变量的值的变化，非常的常用
+F11: 程序单步执行，让程序一行一行的执行，这个时候，观察watch中变量的值的变化
+
+# 4 JS引入方式
 JS 有3中书写位置，分别为行内、内嵌和外部
 
-## 3.1 行内式JS
+## 4.1 行内式JS
 由于现代网页开发提倡结构、样式、行为的分离，即分离HTML、CSS、 JavaScript三部分的代码，避免直接写在HTML标签的属性中，从而更有利于维 护。因此在实际开发中不推荐使用行内式。
 
 `<input type="button" value="点我试试" onclink="javascript:alert('Hello World')" />`
@@ -86,7 +92,7 @@ JS 有3中书写位置，分别为行内、内嵌和外部
 4. 引号易错，引号多层嵌套匹配时，非常容易弄混
 5.  特殊情况下使用
 
-## 3.2 内嵌式JS
+## 4.2 内嵌式JS
 ```javascript
 <script>
      alert('Hello World!');
@@ -98,16 +104,172 @@ JS 有3中书写位置，分别为行内、内嵌和外部
 内嵌 JS 是学习时常用的方式
 
 
-## 3.3 外部JS
-`<script src="my.js"></script>`
+## 4.3 外部JS
 
+放入 `</head> ` 中
+`<script src="my.js"></script>`
+`<script src="00types.js" defer async></script>`
 利于HTML页面代码结构化，把单独JS代码独立到HTML页面之外，既美观，又方便
 引用外部JS文件的script标签中间不可以写代码
 适合于JS代码量比较大的情况
 
+# 5 引入方式: die Attribute defer und async
+https://www.mediaevent.de/javascript/programm-struktur.html
 
-## 断点调试
-浏览器中按 F12–> sources -->找到需要调试的文件–>在程序的某一行设置断点(在行数点一下)
-刷新浏览器
-Watch: 监视，通过watch可以监视变量的值的变化，非常的常用
-F11: 程序单步执行，让程序一行一行的执行，这个时候，观察watch中变量的值的变化
+1. Externe Scripte werden mit async asynchron – parallel zu anderen Ressourcen – geladen. 
+2. defer verspricht dem Browser, dass die Webseite nicht durch Anweisungen wie document.write geändert wird.
+
+
+## 5.1 Ablauf
+Der Browser interpretiert das HTML-Dokument Zeile für Zeile. Steht das script-Tag im head-Tag der Seite, wird der Browser das Javascript an Ort und Stelle ausführen.
+
+
+### 5.1.1 将 js script 放入 head 中出现的问题
+
+Die meisten Funktionen können allerdings erst ausgeführt werden, wenn bestimmte Elemente der Webseite geladen sind. Der Browser muss die angesprochenen Elemente bereits geladen haben, sonst entsteht ein Javascript-Fehler.
+Wenn es gute Gründe gibt, Javascript bereits im head zu laden, rangiert das Script nach den CSS-Dateien.
+
+
+```html
+<html lang="de">
+<head>
+   <title>Wohin mit dem script-Tag?</title>
+   <link media="screen" href="style.css">
+   <script>
+      let header = querySelector ('header'); <-- Fehlermeldung
+   </script>                                        |
+</head>                                             |
+<body>                                              |
+   <header>           existiert erst hier <---------+
+       …
+   </header>
+</body>
+</html>
+```
+
+如何解决这个问题
+Die Ausführung des Scripts muss mit onload oder addEventListener unterbrochen und zurückgestellt werden, bis das Dom geladen ist und durchquert werden kann.
+```js
+<head>
+   <script>
+      window.addEventListener ('load', function () {
+         let header = querySelector ('header');
+      });
+   </script>
+</head>
+<body>
+   <header>
+       …
+   </header>
+</body>
+```
+
+Die Logik für das Anhalten des Scripts und das Registrieren des Events, bei dem das Script fortgesetzt werden soll, ist kompliziert. In der Vergangenheit musste das Javascript darum zu wilden Konstruktionen greifen.
+
+### 5.1.2 将 js script 放入 html 末端 不会出现问题
+
+Es ist einfacher, das Script am Ende der HTML-Seite vor dem schließenden body-Tag unterzubringen. Die generelle Regel lautet:
+CSS-Dateien im head, Javascript am Ende der Webseite einbinden.
+
+
+```html
+<html lang="de">
+<head>
+   …
+</head>
+<body>
+   <div id="header"> … </div>
+   
+   <script src="/jquery.min.js"></script>
+   <script>
+      alert ("Hallo World!");
+      document.getElementById("header");
+   </script>
+</body>
+</html>
+```
+
+## 5.2 async and  defer
+
+### 5.2.1 Script ohne async / defer laden 会出现的问题
+
+Auch wenn das Script am Ende der Seite geladen wird und selbst wenn die Seite bereits im Browser gerendert ist, kann der Benutzer vor dem Laden und Interpretieren des Scripts nicht auf Links zugreifen und nicht scrollen.
+
+![Script ohne defer und ohne async laden](https://www.mediaevent.de/javascript/svg/programm-struktur-ohne-defer-async.svg)
+
+
+### 5.2.2 Script asynchron laden的优势
+
+Aufbau der Seite的时候, 有html 相关的元素出现,  Browser就同时开始 laden das 相关的Script. 
+- zuerst geladen zuerst ausgeführt
+优点是:  kürzt die Ladezeit und das Script kann sofort ausgeführt werden.
+
+Mit _async_ lädt der Browser das Script parallel zu anderen Ressourcen und beginnt derweil mit dem Aufbau der Seite. <mark>Sobald das Script geladen ist, entsteht eine Pause, weil der Browser das Script erst interpretieren muss.</mark>
+
+Vorzugsweise sollten externe Scripts asynchron geladen werden. 
+Für Third Party-Scripte ist _async_ ein Muss – wenn deren Server gerade in die Knie geht, zieht das Script die eigene Seite in den Abgrund. 深渊
+Das asynchrone Laden von externen Scripten kürzt die Ladezeit und das Script kann sofort ausgeführt werden.
+
+async kann aber auch ein Dilemma sein (进退两难), denn es ist nicht vorhersehbar, wann das Script tatsächlich geladen und ausführbar ist.
+
+![Script asynchron mit async laden](https://www.mediaevent.de/javascript/svg/programm-struktur-async.svg)
+
+### 5.2.3 Laden mit defer verzögern的优势
+
+Aufbau der Seite的最后, 等到其他komponenten都被 laden 完成,  Browser才开始 laden das Script 
+
+Das [defer-Attribut im script-Tag](https://www.mediaevent.de/html/script.html) verspricht dem Browser, dass die Webseite nicht durch Anweisungen wie _document.write_ (was sowieso unerwünscht ist) geändert wird. 
+<mark>Der Browser verschiebt das Laden und Ausführen des Scripts, bis alle anderen Komponenten geladen und die Seite geparst ist.</mark>
+
+Es ist nicht einfach vorauszusehen, wann das Script tatsächlich vollständig geladen ist. Theoretisch sollte das der Fall sein, sobald das DOM geladen ist, direkt bevor [_DOMContentLoaded_](https://www.mediaevent.de/javascript/dom-content-loaded.html "dom content loaded") feuert.
+
+Die Ladezeit der Seite wird immer noch durch das Laden des Scripts verlängert. Der Benutzer kann Links noch nicht benutzen und noch nicht scrollen.
+![Script mit defer laden](https://www.mediaevent.de/javascript/svg/programm-struktur-defer-async.svg)
+
+### 5.2.4 DOMContentLoaded mit defer / async
+优点是 Scripte 不会阻碍 Rendern der Seite
+
+Sowohl async als auch defer weisen den Browser an, die Seite zu laden und aufzubauen, und die Scripte im Hintergrund auszuführen. Die Scripte sollen den Aufbau des DOM und das Rendern der Seite nicht blockieren.
+
+|async|defer|
+|---|---|
+|Mit async führt der Browser Scripte in der Reihenfolge zuerst geladen zuerst ausgeführt aus. Das zuerst geladene Script läuft zuerst, egal an welcher Stelle das Script im DOM erscheint.|Mit defer führt der Browser die Script in der Reihenfolge aus, in der sie aufgeführt sind.|
+|Scripte mit async können geladen und ausgeführt werden während das Dokument noch nicht vollständig geladen wurde, etwa wenn das Script klein oder im Cache ist und das Dokument lang genug.|Scripts mit defer müssen warten, bis das Dokument geladen und geparst ist, also bis DOMContentLoaded.|
+
+
+## 5.3 Script Insertion
+某些 Javascript 中的 东西, 对于某个 html 的render 并不需要.  这一部分的东西 (in java script), 会在 所有的东西 都被加载后,才会被加在 
+Wenn Javascript nicht für den Aufbau der Seite benötigt wird, muss ein externes Script erst geladen werden, wenn das DOM und alle Elemente geladen sind.
+
+![Script nachladen](https://www.mediaevent.de/javascript/svg/programm-struktur-script-insertion.svg)
+
+Mit _async_ ist _Script Insertion_ im Grunde genommen überflüssig geworden.
+Dafür sorgen ein paar Zeilen Javascript am Ende der Seite.
+
+
+Javascript nachladen
+```js
+function loadScriptAfter() {
+   let script = document.createElement("script");
+   script.src = "script.js";
+   document.body.appendChild(script);
+}
+
+if (window.addEventListener) {
+   window.addEventListener("load", loadScriptAfter);
+} else if (window.attachEvent) {
+   window.attachEvent("onload", loadScriptAfter);
+} else {
+   window.onload = loadScriptAfter;
+}
+
+```
+
+
+## 5.4 Ladezeiten verkürzen
+
+Das Auslagern von Javascript in eine externe Scriptdatei kann die Performance von Webseiten verbessern. Wenn die Scripte auf mehreren Webseiten eingesetzt werden, liegen die Scripte beim Aufrufe einer weiteren Seite bereits im Cache des Browsers.
+
+Wenn Design und Entwicklung der Webseite abgeschlossen sind, wurden früher externe Javascript-Dateien so weit wie möglich zu einer Script-Datei zusammengeführt. Weniger HTTP-Requests – das reduziert die Ladezeit.
+
+Mit HTTP/2 fällt diese Optimierung weniger ins Gewicht, zudem hat uns ECMAScript 6 den [Export und Import von Script-Dateien als Module](https://www.mediaevent.de/javascript/import-export.html) mitgebracht.
