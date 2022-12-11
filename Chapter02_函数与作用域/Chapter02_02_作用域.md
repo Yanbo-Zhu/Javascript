@@ -4,7 +4,7 @@
 JavaScript (ES6前) 中的作用域有两种：
 - 全局作用域
 - 局部作用域(函数作用域)
-- 
+
 ## 1.1 全局作用域
 作用于所有代码执行的环境(整个 script 标签内部)或者一个独立的 js 文件
 
@@ -73,7 +73,7 @@ funtion fn() { //外部函数
     var num = 20;
     
     function fun() { //内部函数
-        console.log(num);  // 20 ,一级一级访问
+        console.log(num);  // 20 , 不是10, 一级一级访问
     }
 }
 ```

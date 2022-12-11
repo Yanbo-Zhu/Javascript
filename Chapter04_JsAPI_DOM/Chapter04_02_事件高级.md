@@ -14,7 +14,10 @@
 |同一个元素同一个事件只能设置一个处理函数，最后注册的处理函数将会覆盖前面注册的处理函数	|按注册顺序依次执行|
 
 
-1 addEventListener事件监听方式
+### 1.1.1 addEventListener事件监听方式
+https://www.runoob.com/jsref/met-document-addeventlistener.html
+https://www.cnblogs.com/embrace-ly/p/10570052.html
+
 eventTarget.addEventListener()方法将指定的监听器注册到 eventTarget（目标对象）上
 当该对象触发指定的事件时，就会执行事件处理函数
 eventTarget.addEventListener(type,listener[,useCapture])
@@ -23,6 +26,9 @@ eventTarget.addEventListener(type,listener[,useCapture])
 - type:事件类型字符串，比如click,mouseover,注意这里不要带on
 - listener：事件处理函数，事件发生时，会调用该监听函数
 - useCapture：可选参数，是一个布尔值，默认是 false。学完 DOM 事件流后，我们再进一步学习
+    - 如果是 true，表示在事件捕获阶段调用事件处理程序；  就是从 最祖先的 element 到 目前的element
+    - 如果是 false (不写默认就是false),表示在事件冒泡阶段调用事件处理程序, 就是 目前的element 上升到 祖先的element 
+
 ```html
 <body>
     <button>传统注册事件</button>
@@ -55,9 +61,142 @@ eventTarget.addEventListener(type,listener[,useCapture])
 
 ```
 
+#### 1.1.1.1 
+您可以在文档中添加许多事件，添加的事件不会覆盖已存在的事件。
+document.addEventListener("click", myFunction);
+document.addEventListener("click", someOtherFunction);
+
+您可以在文档中添加不同类型的事件: 
+document.addEventListener("mouseover", myFunction);
+document.addEventListener("click", someOtherFunction);
+document.addEventListener("mouseout", someOtherFunction);
+
+#### 1.1.1.2 使用 函数引用 函数调用 和匿名函数的 区别
+使用 函数引用, 或者 匿名函数: showallElements: 当 click 这个p 标签 的时候, 才会运行 showallElements funktion
+- 因为  showallElements 代表的是 该函数的 储存地址, 而不是函数结果 
+使用 函数调用:  showallElements (): 页面一旦加载,  showallElements funktion 就被运行, 不管你有没有点击 p 标签 
+- 因为  showallElements () 代表的是函数结果 
+
+用 引用函数 或者 匿名函数 (action 发生后 才会执行 funktion)
+```js
+    // Mit click auf p soll die folgende Funktion ausgeführt werden.
+    function showAllElements(){
+        for(let i=0; i<document.body.childNodes.length; i++){
+            console.log(document.body.childNodes[i]);
+        }
+    }
+    // Funktionsreferenz, damit die Funktion auf click aufgerufen werden kann.
+    p.addEventListener("click",showAllElements);
+```
 
 
-2 attachEvent事件监听方式(兼容)
+```js
+ document.getElementById("btn").addEventListener("click",
+   function(){
+     add(p1,p2);
+   })
+// 若直接传add(p1,p2),不需要点击，直接显示运算结果。
+
+```
+
+#### 1.1.1.3 更多例子
+
+##### 1.1.1.3.1 点击图片 来更换图片的颜色
+```js
+// Ändern von Attributen
+const pic = document.querySelector("img");
+// console.log(pic);
+function changeImage(){
+    // console.log(pic.alt, pic.src);
+    if(pic.alt === "Die Sonne :-)"){
+        pic.src = "pics/sonneSad.jpg"
+        pic.alt = "Die Sonne :-(";
+    }
+    else{
+        pic.src = "pics/sonne.png";
+        pic.alt = "Die Sonne :-)";
+    }
+}
+// changeImage();
+
+pic.addEventListener("click",changeImage,false);
+//    addEventListener("event",Funktionsreferenz, Propagation)
+
+// styles manipulieren über die class
+const changeStyle = () => pic.classList.toggle("invert");
+pic.addEventListener("mouseover", changeStyle, false);
+```
+
+##### 1.1.1.3.2 阻止submit 这个 button 的默认行为
+
+Defautl behavior von Submit: Page neue laden. page neue laden 导致  feld in Form leer machen
+
+
+```js
+    const submit = document.querySelector("[type=submit]");
+    // console.log(submit);
+
+    const test = () => console.log("test");
+
+    //Defautl behavior von Submit: Page neue laden und feld leer machen
+
+    // ohne Unterdrücken des default
+    // submit.addEventListener("click",test,false);
+
+
+    // mit Unterdrücken des default
+    submit.addEventListener("click",
+        function (e) {
+            test();
+            console.log(e);  // e 是 event 类型的变量
+            e.preventDefault();   //  重点是这句话
+        },
+        false);
+```
+
+
+```html
+<form>
+    <fieldset>
+        <legend>Kenntnisse</legend>
+        <div>
+            <label	for="knowhow">Dein Knowhow</label>
+            <input	id="knowhow"
+                    list="lang"
+                    required>
+            <datalist	id="lang">
+                <option value="JavaScript">
+                <option value="CSS">
+                <option value="HTML">
+            </datalist>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Wie ist Deine Stimmung?</legend>
+        <div>
+            <label	for="good">Super!</label>
+            <input	type="radio"
+                    id="good"
+                    value="g"
+                    name="mood"
+                    checked>
+        </div>
+        <div>
+            <label	for="bad">Geht so.</label>
+            <input	type="radio"
+                    id="bad"
+                    value="b"
+                    name="mood">
+        </div>
+    </fieldset>
+    <div>
+        <input type="reset">
+        <input type="submit">
+    </div>
+</form>
+```
+
+### 1.1.2 attachEvent事件监听方式(兼容)
 - eventTarget.attachEvent()方法将指定的监听器注册到 eventTarget（目标对象） 上
 - 当该对象触发指定的事件时，指定的回调函数就会被执行
 
@@ -67,7 +206,7 @@ eventNameWithOn：事件类型字符串，比如 onclick 、onmouseover ，这�
 callback： 事件处理函数，当目标触发事件时回调函数被调用
 ie9以前的版本支持
 
-3 注册事件兼容性解决方案
+### 1.1.3 注册事件兼容性解决方案
 兼容性处理的原则：首先照顾大多数浏览器，再处理特殊浏览器
 ```js
  function addEventListener(element, eventName, fn) {
@@ -86,7 +225,7 @@ ie9以前的版本支持
 
 ## 1.2 删除事件(解绑事件)
 
-1 removeEventListener删除事件方式
+### 1.2.1 removeEventListener删除事件方式
 eventTarget.removeEventListener(type,listener[,useCapture]);
 
 该方法接收三个参数：
@@ -94,7 +233,15 @@ type:事件类型字符串，比如click,mouseover,注意这里不要带on
 listener：事件处理函数，事件发生时，会调用该监听函数
 useCapture：可选参数，是一个布尔值，默认是 false。学完 DOM 事件流后，我们再进一步学习
 
-2 detachEvent删除事件方式(兼容)
+```js
+// 向文档添加事件句柄
+document.addEventListener("mousemove", myFunction);
+
+// 移除文档的事件句柄
+document.removeEventListener("mousemove", myFunction);
+```
+
+### 1.2.2 detachEvent删除事件方式(兼容)
 eventTarget.detachEvent(eventNameWithOn,callback);
 
 该方法接收两个参数：
@@ -102,7 +249,7 @@ eventNameWithOn：事件类型字符串，比如 onclick 、onmouseover ，这�
 callback： 事件处理函数，当目标触发事件时回调函数被调用
 ie9以前的版本支持
 
-3 传统事件删除方式
+### 1.2.3 传统事件删除方式
 eventTarget.onclick = null;
 
 事件删除示例：
@@ -137,7 +284,7 @@ eventTarget.onclick = null;
 ```
 
 
-4 删除事件兼容性解决方案
+### 1.2.4 删除事件兼容性解决方案
 ```js
  function removeEventListener(element, eventName, fn) {
       // 判断当前浏览器是否支持 removeEventListener 方法
@@ -151,7 +298,7 @@ eventTarget.onclick = null;
 ```
 
 
-## 1.3 DOM事件流
+## 1.3 DOM事件流 
 - 事件流描述的是从页面中接收事件的顺序
 - 事件发生时会在元素节点之间按照特定的顺序传播，这个传播过程即DOM事件流
 
@@ -232,9 +379,61 @@ son -> father ->body -> html -> document
 ### 1.3.3 小结
 - JS 代码中只能执行捕获或者冒泡其中的一个阶段
 - onclick 和 attachEvent只能得到冒泡阶段
-- addEventListener(type,listener[,useCapture])第三个参数如果是 true，表示在事件捕获阶段调用事件处理程序；如果是 false (不写默认就是false),表示在事件冒泡阶段调用事件处理程序
+- addEventListener(type,listener[,useCapture])第三个参数
+    - 如果是 true，表示在事件捕获阶段调用事件处理程序；
+    - 如果是 false (不写默认就是false),表示在事件冒泡阶段调用事件处理程序
 - 实际开发中我们很少使用事件捕获，我们更关注事件冒泡。
 - 有些事件是没有冒泡的，比如 onblur、onfocus、onmouseenter、onmouseleave
+
+### 1.3.4 例子
+
+```js
+(function init() {
+    "use strict";
+
+    const allElements = document.querySelectorAll("*");
+    // console.log(allElements);
+
+    const showAll = el => console.log(el);
+
+    for (let i = 0; i < allElements.length; i++) {
+        allElements[i].addEventListener("click",
+            function (e) {
+                showAll(allElements[i]);
+                //e.stopPropagation()
+            },
+            false);
+    }
+
+    // propagation reicht ein event hoch, an alle Vorfahren,
+    // die dasselbe event nutzen.
+    // false und true beeinflussen die Reihenfolge
+    // zum Aussetzen: stopPropagation
+})();
+```
+
+不加上 e.stopPropagation(): 
+当前点击的元素的 每个祖先 元素 都会执行一遍 showAll(allElements[i]);
+![](image/Chapter04_事件高级_addEventListener_Propagation_01.png)
+
+加上 e.stopPropagation(): 
+只有 当前点击的元素的 直接父亲 元素 会执行一遍 showAll(allElements[i]);
+![](image/Chapter04_事件高级_addEventListener_Propagation_02.png)
+
+
+#### 1.3.4.1 propagation
+https://www.jianshu.com/p/919b9e5adb55
+https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
+
+propagation reicht ein event hoch, an alle Vorfahren, die dasselbe event nutzen
+
+The stopPropagation() method of the Event interface prevents further propagation of the current event in the capturing and bubbling phases. It does not, however, prevent any default behaviors from occurring; for instance, clicks on links are still processed. 
+
+根据DOM事件流机制，在元素上触发的大多数事件都会冒泡传递到该元素的所有祖辈元素上，如果这些祖辈元素上也绑定了相应的事件处理函数，就会触发执行这些函数。
+
+使用stopPropagation()函数可以阻止当前事件向祖辈元素的冒泡传递，也就是说该事件不会触发执行当前元素的任何祖辈元素的任何事件处理函数。
+
+该函数只阻止事件向祖辈元素的传播，不会阻止该元素自身绑定的其他事件处理函数的函数。event.stopImmediatePropagation()不仅会阻止事件向祖辈元素的传播，还会阻止该元素绑定的其他(尚未执行的)事件处理函数的执行。
 
 ## 1.4 事件对象
 ```js

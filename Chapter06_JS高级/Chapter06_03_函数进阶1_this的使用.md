@@ -1,97 +1,5 @@
-# 1 函数的定义方式
-1. 函数声明方式 function 关键字(命名函数)
-2. 函数表达式(匿名函数)
-3. new Function()
-    1. var fn = new Function('参数1','参数2',.....,'函数体');
 
-
-- Function 里面参数都必须是字符串格式
-- 第三种方式执行效率低，也不方便书写，因此较少使用
-- 函数也属于对象
-- 所有函数都是 Function 的实例(对象)
-    - ![在这里插入图片描述](https://img-blog.csdnimg.cn/51f9b4f2353649d485ab68a68e2dfae7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5ZCE56eNX0RlbW8=,size_20,color_FFFFFF,t_70,g_se,x_16)
-
-
-```html
-<body>
-    <script>
-        //  函数的定义方式
-
-        // 1. 自定义函数(命名函数) 
-
-        function fn() {};
-
-        // 2. 函数表达式 (匿名函数)
-
-        var fun = function() {};
-
-
-        // 3. 利用 new Function('参数1','参数2', '函数体');
-		//             Function 里面参数都必须是字符串格式，执行效率低，较少写
-
-        var f = new Function('a', 'b', 'console.log(a + b)');
-        f(1, 2);
-        // 4. 所有函数都是 Function 的实例(对象)
-        console.dir(f);
-        // 5. 函数也属于对象
-        console.log(f instanceof Object);
-    </script>
-</body>
-
-```
-
-
-
-# 2 函数的调用方式
-1. 普通函数
-2. 对象的方法
-3. 构造函数
-4. 绑定事件函数
-5. 定时器函数
-6. 立即执行函数
-
-```html
-<body>
-    <script>
-        // 函数的调用方式
-
-        // 1. 普通函数
-        function fn() {
-            console.log('人生的巅峰');
-
-        }
-        // fn();   fn.call()
-        
-        // 2. 对象的方法
-        var o = {
-            sayHi: function() {
-                console.log('人生的巅峰');
-
-            }
-        }
-        o.sayHi();
-        // 3. 构造函数
-        function Star() {};
-        new Star();
-        
-        // 4. 绑定事件函数
-        // btn.onclick = function() {};   // 点击了按钮就可以调用这个函数
-        
-        // 5. 定时器函数
-        // setInterval(function() {}, 1000);  这个函数是定时器自动1秒钟调用一次
-        
-        // 6. 立即执行函数
-        (function() {
-            console.log('人生的巅峰');
-        })();
-        // 立即执行函数是自动调用
-    </script>
-</body>
-
-```
-
-
-# 3 函数内this的指向
+# 1 函数内this的指向
 this指向，是当我们调用函数的时候确定的，调用方式的不同决定了this的指向不同，一般我们指向我们的调用者
 
 |调用方式|	this指向|
@@ -146,10 +54,10 @@ this指向，是当我们调用函数的时候确定的，调用方式的不同�
 ```
 
 
-# 4 改变函数内部this指向
+# 2 改变函数内部this指向
 JavaScript 为我们专门提供了一些函数方法来帮我们处理函数内部 this 的指向问题，常用的有 bind(),call(),apply()三种方法
 
-## 4.1 call() 方法
+## 2.1 call() 方法
 - call()方法调用一个对象，简单理解为调用函数的方式，但是它可以改变函数的this指向
 - fun.call(thisArg,arg1,arg2,.....)
     - thisArg: 在 fun 函数运行时指定的 this 值
@@ -191,7 +99,7 @@ JavaScript 为我们专门提供了一些函数方法来帮我们处理函数内
 ```
 
 
-## 4.2 apply()方法
+## 2.2 apply()方法
 - apply()方法调用一个函数，简单理解为调用函数的方式，但是它可以改变函数的 this指向
 - fun.apply(thisArg,[argsArray])
     - thisArg: 在 fun 函数运行时指定的 this 值
@@ -231,7 +139,7 @@ JavaScript 为我们专门提供了一些函数方法来帮我们处理函数内
 ```
 
 
-## 4.3 bind()方法
+## 2.3 bind()方法
 bind()方法不会调用函数。但是能改变函数内部 this指向
 fun.bind(thisArg,arg1,arg2,....)
 返回由指定的 this值和初始化参数改造的 原函数拷贝
@@ -286,7 +194,7 @@ fun.bind(thisArg,arg1,arg2,....)
 ```
 
 
-## 4.4 总结
+## 2.4 总结
 call apply bind 总结：
 
 相同点：

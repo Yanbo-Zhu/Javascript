@@ -25,7 +25,7 @@ DOM在我们实际开发中主要用来操作元素。
  - 通过 HTML5 新增的方法获取
  - 特殊元素获取
 
-## 2.2 getElementByld()
+## 2.2 根据ID获取 getElementByld()
 使用 getElementByld() 方法可以获取带ID的元素对象
     doucument.getElementByld('id名')
 
@@ -50,7 +50,7 @@ DOM在我们实际开发中主要用来操作元素。
 ## 2.3 根据标签名获取
 根据标签名获取，使用 getElementByTagName() 方法可以返回带有指定标签名的对象的集合
 
-## 2.4 doucument.getElementByTagName()
+### 2.3.1 doucument.getElementByTagName()
 
 doucument.getElementsByTagName('标签名');
 
@@ -84,7 +84,7 @@ doucument.getElementsByTagName('标签名');
 ```
 
 
-### 2.4.1 element.getElementsByTagName
+### 2.3.2 element.getElementsByTagName
 还可以根据标签名获取某个元素（父元素）内部所有指定标签名的子元素,获取的时候不包括父元素自己
     element.getElementsByTagName('标签名')
 
@@ -101,15 +101,14 @@ ol.getElementsByTagName('li');
 ```
 
 
-## 2.5 通过H5新增方法获取
+## 2.4 通过H5新增方法获取
 
-### 2.5.1 getElementsByClassName
+### 2.4.1 根据类名获取 document.getElementsByClassName
 根据类名返回元素对象合集
-
 document.getElementsByClassName('类名')
-document.getElementsByClassName('类名'); 
 
-### 2.5.2 document.querySelector
+
+### 2.4.2 document.querySelector
 根据指定选择器返回第一个元素对象
 
 document.querySelector('选择器');
@@ -119,14 +118,14 @@ document.querySelector('选择器');
 // id选择器 #nav
 var firstBox = document.querySelector('.box');
 
-### 2.5.3 document.querySelectorAll
+### 2.4.3 document.querySelectorAll
 根据指定选择器返回所有元素对象
     document.querySelectorAll('选择器');
 
 注意：
 querySelector 和 querySelectorAll 里面的选择器需要加符号,比如: document.querySelector('#nav');
 
-### 2.5.4 例子
+### 2.4.4 例子
 ```js
 <script>
     // 1. getElementsByClassName 根据类名获得某些元素集合
@@ -144,11 +143,17 @@ querySelector 和 querySelectorAll 里面的选择器需要加符号,比如: doc
     console.log(allBox);
     var lis = document.querySelectorAll('li');
     console.log(lis);
+
+
+   const p = document.querySelector("p");
+    console.log(p);
+
+    const allRadios = Array.from(document.querySelectorAll("[type=radio]"));
 </script>
 ```
 
 
-## 2.6 获取特殊元素
+## 2.5 获取特殊元素 document.XX
 1 获取body元素
 返回body元素对象: document.body;
 
@@ -311,12 +316,82 @@ div.style.width = '250px';
 </body>
 ```
 
+## 4.4 document.createElement("div")
 
-## 4.4 总结
+The Element.classList is a read-only property that returns a live DOMTokenList collection of the class attributes of the element. This can then be used to manipulate the class list.
+
+返回 这个 element  被加上了那些 class (class 定义在 css 中 )
+
+1
+```js
+
+const div = document.createElement("div");
+div.className = "foo";
+
+// our starting state: <div class="foo"></div>
+console.log(div.outerHTML);
+
+// use the classList API to remove and add classes
+div.classList.remove("foo");
+div.classList.add("anotherclass");
+
+// <div class="anotherclass"></div>
+console.log(div.outerHTML);
+
+// if visible is set remove it, otherwise add it
+div.classList.toggle("visible");
+
+// add/remove visible, depending on test conditional, i less than 10
+div.classList.toggle("visible", i < 10);
+
+console.log(div.classList.contains("foo"));
+
+// add or remove multiple classes
+div.classList.add("foo", "bar", "baz");
+div.classList.remove("foo", "bar", "baz");
+
+// add or remove multiple classes using spread syntax
+const cls = ["foo", "bar"];
+div.classList.add(...cls);
+div.classList.remove(...cls);
+
+// replace class "foo" with class "bar"
+div.classList.replace("foo", "bar");
+
+```
+
+
+2
+
+```html
+<figure>
+    <img src="pics/sonne.png" alt="Die Sonne :-)">
+    <figcaption>Deine Laune zählt!</figcaption>
+</figure>
+```
+
+```css
+.invert{
+	filter: invert();  // 改变 度 
+}
+```
+
+```js
+    // Ändern von Attributen
+    const pic = document.querySelector("img");
+    // console.log(pic);
+    
+// styles manipulieren über die class
+    const changeStyle = () => pic.classList.toggle("invert");  // if invert is already set to pic , 就 remove it (invert), otherwise add it
+    pic.addEventListener("mouseover", changeStyle, false);   // 鼠标划过图片上方的说, 就会启动 changestyle 这个 funktion 
+```
+
+
+## 4.5 总结
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/f6835ead437948e3804c4432ceb812ad.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
-## 4.5 排他思想
+## 4.6 排他思想
 如果有同一组元素，我们相要某一个元素实现某种样式，需要用到循环的排他思想算法：
 
 1. 所有元素全部清除样式（干掉其他人）
@@ -354,22 +429,22 @@ div.style.width = '250px';
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/c4ab0beac7444b208441727a380b437e.gif#pic_center)
 
-## 4.6 自定义属性
-### 4.6.1 获取属性值
+## 4.7 自定义属性
+### 4.7.1 获取属性值 element.getAttribute('属性');
 1 获取内置属性值(元素本身自带的属性)
 element.属性;
 
 2 获取自定义的属性
 element.getAttribute('属性');
 
-### 4.6.2 设置属性值
+### 4.7.2 设置属性值 element.setAttribute('属性','值');
 设置内置属性值
 element.属性 = '值';
 
 主要设置自定义的属性
 element.setAttribute('属性','值');
 
-### 4.6.3 移除属性
+### 4.7.3 移除属性 element.removeAttribute('属性');
 element.removeAttribute('属性');
 
 ```html 
@@ -398,21 +473,22 @@ element.removeAttribute('属性');
 ```
 
 
-## 4.7 H5自定义属性
+## 4.8 H5自定义属性
 自定义属性目的：
 - 保存并保存数据，有些数据可以保存到页面中而不用保存到数据库中
 - 有些自定义属性很容易引起歧义，不容易判断到底是内置属性还是自定义的，所以H5有了规定
 
-### 4.7.1 设置H5自定义属性
+### 4.8.1 设置H5自定义属性
 H5规定自定义属性 data-开头作为属性名并赋值
 
 ```html
 <div data-index = "1"></>
+
 // 或者使用JavaScript设置
 div.setAttribute('data-index',1);
 ```
 
-### 4.7.2 获取H5自定义属性
+### 4.8.2 获取H5自定义属性
 - 兼容性获取 element.getAttribute('data-index')
 - H5新增的：element.dataset.index 或element.dataset['index'] IE11才开始支持
 
@@ -539,13 +615,13 @@ parentNode.children(非标准)
 ```
 
 
-### 5.3.1 第一个子结点
+### 5.3.1 第一个子结点 parentNode.firstChild
 parentNode.firstChild
 
 firstChild 返回第一个子节点，找不到则返回null
 同样，也是包含所有的节点
 
-### 5.3.2 最后一个子结点
+### 5.3.2 最后一个子结点 parentNode.lastChild
 parentNode.lastChild
 
 lastChild 返回最后一个子节点，找不到则返回null
@@ -579,14 +655,14 @@ lastChild 返回最后一个子节点，找不到则返回null
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/dde9c5a059d34c8da3641043a4ecb7df.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
 
-### 5.3.3 第一个子结点(兼容性)
+### 5.3.3 第一个子结点 parentNode.firstElementChild
 parentNode.firstElementChild
 
 - firstElementChild 返回第一个子节点，找不到则返回null
 - 有兼容性问题，IE9以上才支持
 
 
-### 5.3.4 最后一个子结点(兼容性)
+### 5.3.4 最后一个子结点parentNode.lastElementChild
 parentNode.lastElementChild
 - lastElementChild 返回最后一个子节点，找不到则返回null
 - 有兼容性问题，IE9以上才支持
@@ -637,26 +713,26 @@ parentNode.chilren[parentNode.chilren.length - 1]
 
 
 ## 5.4 兄弟节点
-### 5.4.1 下一个兄弟节点
+### 5.4.1 下一个兄弟节点 node.nextSibling
 node.nextSibling
 
 - nextSibling 返回当前元素的下一个兄弟元素节点，找不到则返回null
 - 同样，也是包含所有的节点
 
-### 5.4.2 上一个兄弟节点
+### 5.4.2 上一个兄弟节点 node.previousSibling
 node.previousSibling
 
 previousSibling 返回当前元素上一个兄弟元素节点，找不到则返回null
 
 同样，也是包含所有的节点
 
-### 5.4.3 下一个兄弟节点(兼容性)
+### 5.4.3 下一个兄弟节点 node.nextElementSibling
 node.nextElementSibling
 
 nextElementSibling 返回当前元素下一个兄弟元素节点，找不到则返回null
 有兼容性问题，IE9才支持
 
-### 5.4.4 上一个兄弟节点(兼容性)
+### 5.4.4 上一个兄弟节点 node.previousElementSibling
 node.previousElementSibling
 
 previousElementSibling 返回当前元素上一个兄弟元素节点，找不到则返回null
@@ -698,12 +774,12 @@ function getNextElementSibling(element) {
 
 ## 5.5 节点操作 
 
-### 5.5.1 创建节点
+### 5.5.1 创建节点 document.createElement('tagName');
 document.createElement('tagName');
 document.createElement() 方法创建由 tagName 指定的HTML 元素
 因为这些元素原先不存在，是根据我们的需求动态生成的，所以我们也称为动态创建元素节点
 
-### 5.5.2 添加节点
+### 5.5.2 添加节点 node.appendChild(child) node.insertBefore(child,指定元素)
 node.appendChild(child)
     node.appendChild() 方法将一个节点添加到指定父节点的子节点列表末尾。类似于 CSS 里面的 after 伪元素。
 
@@ -731,12 +807,12 @@ node.insertBefore(child,指定元素)
 ```
 
 
-### 5.5.3 删除节点
+### 5.5.3 删除节点 node.removeChild(child)
 node.removeChild(child)
 
 node.removeChild()方法从 DOM 中删除一个子节点，返回删除的节点
 
-### 5.5.4 复制节点(克隆节点)
+### 5.5.4 复制节点(克隆节点) node.cloneNode()
 node.cloneNode()
 
 node.cloneNode()方法返回调用该方法的节点的一个副本。 也称为克隆节点/拷贝节点

@@ -105,6 +105,10 @@ f() // world
 
 通常情况下，定义了默认值的参数，应该是函数的尾参数。因为这样比较容易看出来，到底省略了哪些参数。如果非尾部的参数设置默认值，实际上这个参数是没法省略的。
 
+
+1
+上面代码中，有默认值的参数都不是尾参数。这时，无法只省略该参数，而不省略它后面的参数，除非显式输入`undefined`。
+
 ```js
 // 例一
 function f(x = 1, y) {
@@ -127,9 +131,9 @@ f(1, ,2) // 报错
 f(1, undefined, 2) // [1, 5, 2]
 ```
 
-上面代码中，有默认值的参数都不是尾参数。这时，无法只省略该参数，而不省略它后面的参数，除非显式输入`undefined`。
-
-如果传入`undefined`，将触发该参数等于默认值，`null`则没有这个效果。
+2
+如果传入`undefined`，将触发该参数等于默认值，
+传入 `null`, 不会触发 默认值。
 
 ```js
 function foo(x = 5, y = 6) {
@@ -144,6 +148,30 @@ foo(undefined, null)
 
 ### 1.1.6 函数参数默认值的应用
 
+#### 1.1.6.1 通过一个例子了解全部
+
+```js
+const power = (base,exponent=2) => {
+    let result = 1;
+    for(let i=0; i<exponent; i++){
+        result *= base;
+    }
+    console.log(base, exponent, typeof exponent);
+  return result;  
+}
+
+console.log(power(2,3)); // 结果为 (2 3 'number', 8)  替代掉 默认值
+console.log(power(2)); //  结果为 (2 2 'number', 4)    使用了默认值
+console.log(power()); //  结果为 (undefined 2 'number', NaN)    使用了默认值
+console.log(power(2,2,2)); // 结果为 (2 2 'number', 4)    超出的那个 根本就没使用 
+console.log(power(null,5)); // 结果为 (null 5 'number', 0)  null 被转变为0
+console.log(power(true,2)); // 结果为 (true 2 'number', 1 )  true 被转变为 1 , false 会被 转化为 数值 0  
+console.log(power(2,"Hurra")); //结果为 (2 'Hurra' 'string', 1 )   string 无法转为任何数值 , string 为 NaN : not a number 
+console.log(power("bla",5));  // 结果为 (bla 5 number, NaN )  string 无法转为任何数值 , string 为 NaN : not a number 
+}
+```
+
+#### 1.1.6.2 其他
 **接收很多参数的时候**
 
 ```javascript
