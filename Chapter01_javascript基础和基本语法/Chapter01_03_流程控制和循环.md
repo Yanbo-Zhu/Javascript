@@ -329,3 +329,41 @@ for (var i = 1; i <= 5; i++) {
 
 
 
+## 2.7 for, forEach(), for ... in 的区别 
+
+什么样的数据类型 适用于那种循环
+for         Listen, Arrays
+forEach()   Nodelist Arrays
+for ... in  Objekt
+
+```js
+const allRadios = document.querySelectorAll("[type=radio]");
+
+// for
+// 要以 Array/ listen 的方式 去 呼唤 allRadios 中的每个单元
+for (let i = 0; i < allRadios.length; i++) {
+    if (allRadios[i].checked) {
+        mood = allRadios[i].value;
+        console.log(allRadios[i]);
+        break; // break hier weil nur ein radio true zurück geben kann, anders für checkbox und option, wenn multiple
+    }
+}
+
+// forEach
+// 要以 Nodelist Arrays 的方式 去 呼唤 allRadios 中的每个单元 
+// radio 是自己定义的命名的 变量  用于后面的 function 的使用 
+allRadios.forEach(radio => {
+    if(radio.checked)
+        mood = radio.value;
+}); 
+
+// for ... in
+// üblich für object, hier nur für Syntax
+// 要以 Objekt 的方式 去 呼唤 allRadios 中的每个单元 
+// radio 是自己定义的命名的 变量  用于后面的 function 的使用 
+for(let radio in allRadios){
+    if(allRadios[radio].checked)
+        mood = allRadios[radio].value;
+} 
+```
+

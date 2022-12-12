@@ -13,9 +13,53 @@ Ein HTML-Dokument ist hierarchisch, wie eine Baumstruktur, aus vielen Knoten auf
 Der oberste oder Wurzelknoten ist das Dokument selbst, das document.
 Mit js kann man auf das DOM zugreifen, es auslesen, Knoten löschen, ändern oder hinzufügen.
 
-# 2 获取元素
 
-## 2.1 如何获取页面元素
+# 2 DOM主要操作
+对于DOM操作，我们主要针对子元素的操作，主要有
+
+创建
+增
+删
+改
+查
+属性操作
+时间操作
+
+## 2.1 创建
+document.write
+innerHTML
+createElement
+
+## 2.2 增
+appendChild
+insertBefore
+
+## 2.3 删
+removeChild
+
+## 2.4 改
+主要修改dom的元素属性，dom元素的内容、属性、表单的值等
+修改元素属性：src、href、title 等
+修改普通元素内容：innerHTML、innerText
+修改表单元素：value、type、disabled
+修改元素样式：style、className
+
+## 2.5 查
+主要获取查询dom的元素
+DOM提供的API方法：getElementById、getElementsByTagName (古老用法，不推荐)
+H5提供的新方法：querySelector、querySelectorAll (提倡)
+利用节点操作获取元素：父(parentNode)、子(children)、兄(previousElementSibling、nextElementSibling) 提倡
+
+## 2.6 属性操作
+主要针对于自定义属性
+setAttribute：设置dom的属性值
+getAttribute：得到dom的属性值
+removeAttribute：移除属性
+
+
+# 3 获取元素
+
+## 3.1 如何获取页面元素
 DOM在我们实际开发中主要用来操作元素。
 我们如何来获取页面中的元素呢?
 
@@ -25,7 +69,72 @@ DOM在我们实际开发中主要用来操作元素。
  - 通过 HTML5 新增的方法获取
  - 特殊元素获取
 
-## 2.2 根据ID获取 getElementByld()
+## 3.2 使用不同method, 其返回值的类型
+
+
+Einzelne Elemente (object):
+- getElementById()
+- getElementByQuerySelector()
+
+Listen von Elementen:
+- getElementsByTagName()
+- getElementsByClassName()
+- getElementsByName()
+- getElementsByQuerySelectorAll()
+
+HTML Collections
+- collection
+
+### 3.2.1 Einzelne Elemente (object)
+
+Die id finden Sie im HTML-Dokument
+```js
+const inc = document.getElementById("include");
+console.log(inc);
+console.log(typeof inc);
+console.log(inc.id);
+console.log(inc.innerHTML);
+console.log(inc.childNodes);
+```
+
+Für den QuerySelector 
+kann man jeden gültigen CSS-Selektor einsetzen.
+```js
+const code = document.querySelector("article:first-of-type code");
+console.log(code, typeof code);
+// ginge auch einfacher, hier nur "code" :-)
+```
+
+    
+
+### 3.2.2 Listen von Elementen
+```js
+ const h2 = document.getElementsByTagName("h2");
+console.log(h2);
+
+const heading = document.getElementsByClassName("heading");
+console.log(heading[0].innerHTML);
+
+const allP = document.querySelectorAll("p");
+console.log(allP);
+
+const allRadio = document.getElementsByName("comprehension");
+console.log(allRadio);
+
+for(let i=0; i<allRadio.length; i++){
+    console.log(allRadio[i].checked);
+}
+```
+   
+
+### 3.2.3 HTML Collections
+```js
+const form = document.forms[0];
+console.log(form);
+```
+
+
+## 3.3 根据ID获取 getElementByld()
 使用 getElementByld() 方法可以获取带ID的元素对象
     doucument.getElementByld('id名')
 
@@ -47,17 +156,34 @@ DOM在我们实际开发中主要用来操作元素。
 ```
 
 
-## 2.3 根据标签名获取
+## 3.4 根据标签名获取  getElementByTagName()
+还可以根据标签名获取某个元素（父元素）内部所有指定标签名的子元素,获取的时候不包括父元素自己
+    element.getElementsByTagName('标签名')
+
 根据标签名获取，使用 getElementByTagName() 方法可以返回带有指定标签名的对象的集合
-
-### 2.3.1 doucument.getElementByTagName()
-
-doucument.getElementsByTagName('标签名');
 
 - 因为得到的是一个对象的集合，所以我们想要操作里面的元素就需要遍历
 - 得到元素对象是动态的
 - 返回的是获取过来元素对象的集合，以伪数组的形式存储
 - 如果获取不到元素，则返回为空的伪数组(因为获取不到对象)
+
+
+1
+ol.getElementsByTagName('li');
+
+注意：父元素必须是单个对象(必须指明是哪一个元素对象)，获取的时候不包括父元素自己
+
+```html
+<script>
+	//element.getElementsByTagName('标签名'); 父元素必须是指定的单个元素
+    var ol = document.getElementById('ol');
+    console.log(ol.getElementsByTagName('li'));
+</script>
+```
+
+
+2 
+document.getElementsByTagName('标签名');
 
 ```html
 
@@ -83,32 +209,15 @@ doucument.getElementsByTagName('标签名');
 
 ```
 
+## 3.5 通过H5新增方法获取
 
-### 2.3.2 element.getElementsByTagName
-还可以根据标签名获取某个元素（父元素）内部所有指定标签名的子元素,获取的时候不包括父元素自己
-    element.getElementsByTagName('标签名')
-
-ol.getElementsByTagName('li');
-
-注意：父元素必须是单个对象(必须指明是哪一个元素对象)，获取的时候不包括父元素自己
-
-```html
-<script>
-	//element.getElementsByTagName('标签名'); 父元素必须是指定的单个元素
-    var ol = document.getElementById('ol');
-    console.log(ol.getElementsByTagName('li'));
-</script>
-```
-
-
-## 2.4 通过H5新增方法获取
-
-### 2.4.1 根据类名获取 document.getElementsByClassName
+### 3.5.1 根据类名获取 getElementsByClassName
 根据类名返回元素对象合集
 document.getElementsByClassName('类名')
+ol.getElementsByClassName('类名')
 
 
-### 2.4.2 document.querySelector
+### 3.5.2 querySelector
 根据指定选择器返回第一个元素对象
 
 document.querySelector('选择器');
@@ -118,14 +227,14 @@ document.querySelector('选择器');
 // id选择器 #nav
 var firstBox = document.querySelector('.box');
 
-### 2.4.3 document.querySelectorAll
+### 3.5.3 querySelectorAll
 根据指定选择器返回所有元素对象
     document.querySelectorAll('选择器');
 
 注意：
 querySelector 和 querySelectorAll 里面的选择器需要加符号,比如: document.querySelector('#nav');
 
-### 2.4.4 例子
+### 3.5.4 例子
 ```js
 <script>
     // 1. getElementsByClassName 根据类名获得某些元素集合
@@ -153,7 +262,7 @@ querySelector 和 querySelectorAll 里面的选择器需要加符号,比如: doc
 ```
 
 
-## 2.5 获取特殊元素 document.XX
+## 3.6 获取特殊元素 document.XX
 1 获取body元素
 返回body元素对象: document.body;
 
@@ -164,79 +273,18 @@ querySelector 和 querySelectorAll 里面的选择器需要加符号,比如: doc
 const forms = document.forms;
 const form = document.forms[0];
 
-# 3 事件基础
 
-
-## 3.1 事件概述
-JavaScript 使我们有能力创建动态页面，而事件是可以被 JavaScript 侦测到的行为。
-
-简单理解： 触发— 响应机制。
-
-网页中的每个元素都可以产生某些可以触发 JavaScript 的事件，例如，我们可以在用户点击某按钮时产生一个事件，然后去执行某些操作。
-
-## 3.2 事件三要素
-事件源(谁)
-事件类型(什么事件)
-事件处理程序(做啥)
-
-```html
-<script>
-    // 点击一个按钮，弹出对话框
-    // 1. 事件是有三部分组成  事件源  事件类型  事件处理程序   我们也称为事件三要素
-    //(1) 事件源 事件被触发的对象   谁  按钮
-    var btn = document.getElementById('btn');
-    //(2) 事件类型  如何触发 什么事件 比如鼠标点击(onclick) 还是鼠标经过 还是键盘按下
-    //(3) 事件处理程序  通过一个函数赋值的方式 完成
-    btn.onclick = function() {
-        alert('点秋香');
-    }
-</script>
-```
-
-
-## 3.3 执行事件的步骤
-获取事件源
-注册事件(绑定事件)
-添加事件处理程序(采取函数赋值形式)
-```js
-<script>
-    // 执行事件步骤
-    // 点击div 控制台输出 我被选中了
-    // 1. 获取事件源
-    var div = document.querySelector('div');
-    // 2.绑定事件 注册事件
-    // div.onclick 
-    // 3.添加事件处理程序 
-    div.onclick = function() {
-        console.log('我被选中了');
-    }
-</script>
-```
-
-
-## 3.4 鼠标事件
-|鼠标事件|	触发条件|
-|--|--|
-|onclick|	鼠标点击左键触发|
-|onmouseover|	鼠标经过触发|
-|onmouseout|	鼠标离开触发|
-|onfocus|	获得鼠标焦点触发|
-|onblur	|失去鼠标焦点触发|
-|onmousemove|	鼠标移动触发|
-|onmouseup|	鼠标弹起触发|
-|onmousedown|	鼠标按下触发|
-
-# 4 操作元素
+# 4 改变元素
 
 JavaScript 的 DOM 操作可以改变网页内容、结构和样式，我们可以利用 DOM 操作元素来改变元素里面的内容 、属性等。注意以下都是属性
 
 ## 4.1 改变元素内容
-1 从起始位置到终止位置的内容，但它去除html标签，同时空格和换行也会去掉。
-element.innerText
+1  element.innerText
+从起始位置到终止位置的内容，但它去除html标签，同时空格和换行也会去掉。
 
-2 起始位置到终止位置的全部内容，包括HTML标签，同时保留空格和换行
+2 element.innerHTML
 
-element.innerHTML
+起始位置到终止位置的全部内容，包括HTML标签，同时保留空格和换行
 
 ```html
 <body>
@@ -263,6 +311,9 @@ element.innerHTML
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/f3394f40561e45c299c09d7bbecdb513.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
+
+
+
 ## 4.2 改变元素属性
 
 ```html
@@ -276,7 +327,7 @@ input.selected = true / false;
 input.disabled = true / false;
 ```
 
-## 4.3 改变样式属性
+## 4.3 改变样式属性 element.className
 我们可以通过 JS 修改元素的大小、颜色、位置等样式。
 
 1 行内样式操作
@@ -316,7 +367,23 @@ div.style.width = '250px';
 </body>
 ```
 
-## 4.4 document.createElement("div")
+```js
+    function changePic(mood) {
+        if (mood === "g") {
+            pic.parentElement.className = "happy";
+            pic.src = "pics/sonne.png";
+            pic.alt = ":-)";
+        }
+        else {
+            pic.parentElement.className = "sad";
+            pic.src = "pics/sonneSad.jpg";
+            pic.alt = ":-(";
+        }
+    }
+```
+
+
+### 4.3.1 element.classList: 给 element 强加上一个css中的class
 
 The Element.classList is a read-only property that returns a live DOMTokenList collection of the class attributes of the element. This can then be used to manipulate the class list.
 
@@ -361,37 +428,14 @@ div.classList.replace("foo", "bar");
 ```
 
 
-2
-
-```html
-<figure>
-    <img src="pics/sonne.png" alt="Die Sonne :-)">
-    <figcaption>Deine Laune zählt!</figcaption>
-</figure>
-```
-
-```css
-.invert{
-	filter: invert();  // 改变 度 
-}
-```
-
-```js
-    // Ändern von Attributen
-    const pic = document.querySelector("img");
-    // console.log(pic);
-    
-// styles manipulieren über die class
-    const changeStyle = () => pic.classList.toggle("invert");  // if invert is already set to pic , 就 remove it (invert), otherwise add it
-    pic.addEventListener("mouseover", changeStyle, false);   // 鼠标划过图片上方的说, 就会启动 changestyle 这个 funktion 
-```
 
 
-## 4.5 总结
+
+## 4.4 总结
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/f6835ead437948e3804c4432ceb812ad.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
-## 4.6 排他思想
+## 4.5 排他思想
 如果有同一组元素，我们相要某一个元素实现某种样式，需要用到循环的排他思想算法：
 
 1. 所有元素全部清除样式（干掉其他人）
@@ -429,24 +473,40 @@ div.classList.replace("foo", "bar");
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/c4ab0beac7444b208441727a380b437e.gif#pic_center)
 
-## 4.7 自定义属性
-### 4.7.1 获取属性值 element.getAttribute('属性');
+## 4.6 自定义属性
+### 4.6.1 获取属性值 element.getAttribute();
 1 获取内置属性值(元素本身自带的属性)
 element.属性;
 
 2 获取自定义的属性
 element.getAttribute('属性');
 
-### 4.7.2 设置属性值 element.setAttribute('属性','值');
+### 4.6.2 设置属性值 element.setAttribute();
 设置内置属性值
 element.属性 = '值';
 
 主要设置自定义的属性
 element.setAttribute('属性','值');
 
-### 4.7.3 移除属性 element.removeAttribute('属性');
+
+```js
+let form = document.forms[0];
+form.setAttribute("novalidate",true);
+// 之前 <form> xxx </form>
+// 之后 <form novalidate> xxx </form>
+
+
+
+let form = document.forms[0];
+form.setAttribute("id","yzh");
+// 之前 <form> xxx </form>
+// 之后 <form id="yzh"> xxx </form>
+```
+
+### 4.6.3 移除属性 element.removeAttribute();
 element.removeAttribute('属性');
 
+### 4.6.4 例子
 ```html 
 <body>
     <div id="demo" index="1" class="nav"></div>
@@ -469,16 +529,15 @@ element.removeAttribute('属性');
         div.removeAttribute('index');
     </script>
 </body>
-
 ```
 
 
-## 4.8 H5自定义属性
+## 4.7 H5中新增的 自定义属性
 自定义属性目的：
 - 保存并保存数据，有些数据可以保存到页面中而不用保存到数据库中
 - 有些自定义属性很容易引起歧义，不容易判断到底是内置属性还是自定义的，所以H5有了规定
 
-### 4.8.1 设置H5自定义属性
+### 4.7.1 H5 新增的 设置自定义属性的方法
 H5规定自定义属性 data-开头作为属性名并赋值
 
 ```html
@@ -488,7 +547,7 @@ H5规定自定义属性 data-开头作为属性名并赋值
 div.setAttribute('data-index',1);
 ```
 
-### 4.8.2 获取H5自定义属性
+### 4.7.2 H5 新增的 获取H5自定义属性的方法
 - 兼容性获取 element.getAttribute('data-index')
 - H5新增的：element.dataset.index 或element.dataset['index'] IE11才开始支持
 
@@ -535,6 +594,9 @@ HTML DOM 树中的所有节点均可通过 JavaScript 进行访问，所有 HTML
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/f176c025b5ff43468d53ed4d49259812.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
 一般的，节点至少拥有nodeType（节点类型）、nodeName（节点名称）和nodeValue（节点值）这三个基本属性。
+
+
+### 5.1.1 nodeType
 - 元素节点：nodeType 为1
 - 属性节点：nodeType 为2
 - 文本节点：nodeType 为3(文本节点包括文字、空格、换行等)
@@ -542,9 +604,19 @@ HTML DOM 树中的所有节点均可通过 JavaScript 进行访问，所有 HTML
 我们在实际开发中，节点操作主要操作的是元素节点
 利用 DOM 树可以把节点划分为不同的层级关系，常见的是父子兄层级关系。
 
-## 5.2 父级节点
-node.parentNode
+### 5.1.2 nodeName
+nodeName 必须要用大写
+```js
+if (form.lastElementChild.nodeName !== "P") // Elemente sind immer UPPERCASE, 所以这里用P, 不用小写的p. 小写的p 匹配不到
 
+let message = document.createElement("p");// createElement 中 可以用小写的 
+```
+
+
+## 5.2 父级节点
+node.parentNode 或者  node.parentElement
+
+1 parentNode
 - parentNode属性可以返回某节点的父结点，注意是最近的一个父结点
 - 如果指定的节点没有父结点则返回null
 ```html
@@ -572,6 +644,19 @@ node.parentNode
         console.log(erweima.parentNode);
     </script>
 </body>
+```
+
+
+2 parentElement
+```js
+const pic = document.querySelector("img");
+
+console.log(pic.parentElement);
+function sky(mood) {
+    if (mood === "happy") pic.parentElement.className = "happy";
+    else pic.parentElement.className = "sad";
+}
+    
 ```
 
 
@@ -774,12 +859,50 @@ function getNextElementSibling(element) {
 
 ## 5.5 节点操作 
 
-### 5.5.1 创建节点 document.createElement('tagName');
+### 5.5.1 创建节点 
+
+#### 5.5.1.1 document.createElement('tagName');
 document.createElement('tagName');
 document.createElement() 方法创建由 tagName 指定的HTML 元素
 因为这些元素原先不存在，是根据我们的需求动态生成的，所以我们也称为动态创建元素节点
 
-### 5.5.2 添加节点 node.appendChild(child) node.insertBefore(child,指定元素)
+
+```js
+
+const div = document.createElement("div");
+div.className = "foo";
+
+// our starting state: <div class="foo"></div>
+console.log(div.outerHTML);
+
+```
+
+
+#### 5.5.1.2 document.createTextNode
+```js
+function feedback(user) {
+    // Element erzeugen
+    let message = document.createElement("p");
+    
+    // neues Element mit content und/oder Attributen bestücken
+    let text = document.createTextNode("Danke " + user);
+}
+
+
+function showMessage(field, explanation) {
+    // Falls messages vorhanden sind, werden diese vorher gelöscht
+    deleteMessage();
+    let message = document.createElement("p");
+    let text = field.parentElement.firstElementChild.innerHTML + " " + explanation + "!";
+    console.log(text);
+    message.appendChild(document.createTextNode(text));
+    form.appendChild(message);
+};
+
+```
+
+
+### 5.5.2 添加节点 node.appendChild(child), node.insertBefore(child,指定元素)
 node.appendChild(child)
     node.appendChild() 方法将一个节点添加到指定父节点的子节点列表末尾。类似于 CSS 里面的 after 伪元素。
 
@@ -806,11 +929,24 @@ node.insertBefore(child,指定元素)
 </body>
 ```
 
+```js
+const form = document.forms[0];
+function feedback(user) {
+    // Element erzeugen
+    let message = document.createElement("p");
+    // neues Element mit content und/oder Attributen bestücken
+    let text = document.createTextNode("Danke " + user);
+    // content in neues Element einfügen
+    message.appendChild(text);
+    // vollständiges Element in das Dokument einfügen
+    form.appendChild(message);
+}
+```
 
 ### 5.5.3 删除节点 node.removeChild(child)
 node.removeChild(child)
 
-node.removeChild()方法从 DOM 中删除一个子节点，返回删除的节点
+node.removeChild()方法从 DOM 中删除 node节点下的一个子节点，返回删除的节点
 
 ### 5.5.4 复制节点(克隆节点) node.cloneNode()
 node.cloneNode()
@@ -880,46 +1016,29 @@ node.cloneNode()方法返回调用该方法的节点的一个副本。 也称为
 ```
 
 
+2
 
-# 6 DOM核心
-对于DOM操作，我们主要针对子元素的操作，主要有
+```html
+<figure>
+    <img src="pics/sonne.png" alt="Die Sonne :-)">
+    <figcaption>Deine Laune zählt!</figcaption>
+</figure>
+```
 
-创建
-增
-删
-改
-查
-属性操作
-时间操作
+```css
+.invert{
+	filter: invert();  // 改变 度 
+}
+```
 
-## 6.1 创建
-document.write
-innerHTML
-createElement
+```js
+    // Ändern von Attributen
+    const pic = document.querySelector("img");
+    // console.log(pic);
+    
+// styles manipulieren über die class
+    const changeStyle = () => pic.classList.toggle("invert");  // if invert is already set to pic , 就 remove it (invert), otherwise add it
+    pic.addEventListener("mouseover", changeStyle, false);   // 鼠标划过图片上方的说, 就会启动 changestyle 这个 funktion 
+```
 
-## 6.2 增
-appendChild
-insertBefore
-
-## 6.3 删
-removeChild
-
-## 6.4 改
-主要修改dom的元素属性，dom元素的内容、属性、表单的值等
-修改元素属性：src、href、title 等
-修改普通元素内容：innerHTML、innerText
-修改表单元素：value、type、disabled
-修改元素样式：style、className
-
-## 6.5 查
-主要获取查询dom的元素
-DOM提供的API方法：getElementById、getElementsByTagName (古老用法，不推荐)
-H5提供的新方法：querySelector、querySelectorAll (提倡)
-利用节点操作获取元素：父(parentNode)、子(children)、兄(previousElementSibling、nextElementSibling) 提倡
-
-## 6.6 属性操作
-主要针对于自定义属性
-setAttribute：设置dom的属性值
-getAttribute：得到dom的属性值
-removeAttribute：移除属性
 

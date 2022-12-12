@@ -5,20 +5,22 @@
 
 ES6 规定了可以使用 “箭头” `=>` 来定义一个函数，语法更加简洁。它没有自己的 `this`、`arguments`、`super` 或 `new.target`，箭头函数表达式更适用于那些本来需要匿名函数的地方，但它不能用作构造函数。
 
-# 2 特点
+
+# 2 箭头函数和匿名函数的转换
+e= > {}  
+等效于 function() = {}
+
+# 3 特点
 
 - 箭头函数是匿名函数
 - 更短的函数，优雅简洁； 不需要写 argments
--  keine hoisting的意思是 : 不用先定义后使用. funtionk 可以, 先 ausfuhre, 然后在下一行 进行 这个 funtion 的 decalre 
+- arrow function hat keine hoisting的意思是 : 不用先定义后使用. funtionk 可以, 先 ausfuhre, 然后在下一行 进行 这个 funtion 的 decalre 
 - 箭头函数不使用 this, 不会创建自己的 this，它只会从自己的作用域链的上一层继承 this；
+    - 函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
 - 不能绑定 arguments， 只能使用 `...args` 展开运算来获取当前参数的数组。
-
-# 3 注意点
-
-（1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
-（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
-（3）不可以使用arguments对象，因为箭头函数不会创建自己的 this, 该对象在函数体内不存在。如果要用，可以用Rest参数代替。
-（4）不可以使用yield命令，因此箭头函数不能用作Generator函数。
+    - 不可以使用arguments对象，因为箭头函数不会创建自己的 this, 该对象在函数体内不存在。如果要用，可以用Rest参数代替。
+- 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+- 不可以使用yield命令，因此箭头函数不能用作Generator函数。
 
 ## 3.1 不能用作构造器
 
@@ -156,7 +158,7 @@ var getTempItem = id => ({ id: id, name: "Temp" });
 
 
 # 6 语法注意点
-## 6.1 箭头函数可以与变量解构结合使用。
+## 6.1 箭头函数可以与变量解构结合使用
 ```js
 const full = ({first,last}) => first + ' ' + last;
 
