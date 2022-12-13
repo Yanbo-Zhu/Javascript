@@ -655,6 +655,51 @@ This event is not cancelable and does not bubble.
 	}, false );
 ```
 
+
+4 Radio Button
+https://stackoverflow.com/questions/58606047/how-to-use-on-addeventlistener-on-radio-button-in-plain-javascript
+best practice in this scenario would be to listen to the "change" event rather than "click", then it doesn't fire unnecessarily when the user clicks an already-selected radio.
+
+```css
+<label>
+  <input name="contract_duration" type="radio" value="6-Months"/>
+  <span>6-Months</span>
+</label>
+
+<label>
+  <input name="contract_duration" type="radio" value="1-Year"/>
+  <span>1-Year</span>
+</label>
+
+<label>
+  <input name="contract_duration" type="radio" value="2-Years"/>
+  <span>2-Years</span>
+</label>
+```
+
+
+```js
+if (document.querySelector('input[name="contract_duration"]')) {
+  document.querySelectorAll('input[name="contract_duration"]').forEach((elem) => {
+    elem.addEventListener("change", function(event) {
+      var item = event.target.value;
+      console.log(item);
+    });
+  });
+}
+
+let contact = document.querySelectorAll('input[name="contract_duration"]');
+                                  // or '.your_radio_class_name'
+
+for (let i = 0; i < contact.length; i++) {
+  contact[i].addEventListener("change", function() {
+    let val = this.value; // this == the clicked radio,
+    console.log(val);
+  });
+}
+```
+
+
 ## 6.2 attachEvent事件监听方式(兼容)
 - eventTarget.attachEvent()方法将指定的监听器注册到 eventTarget（目标对象） 上
 - 当该对象触发指定的事件时，指定的回调函数就会被执行

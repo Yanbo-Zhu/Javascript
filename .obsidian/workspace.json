@@ -4,31 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "00d5eb2b7d00340e",
+        "id": "2cdee4f97b3f3317",
         "type": "tabs",
         "children": [
           {
-            "id": "7960d4d1ea386615",
+            "id": "541366d3f8021c67",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "5396a11e98b355a5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Chapter02_函数与作用域/Chapter02_01_函数.md",
-                "mode": "source",
-                "source": true
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -97,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -136,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -148,14 +128,14 @@
     "direction": "horizontal",
     "width": 325.5
   },
-  "active": "7960d4d1ea386615",
+  "active": "541366d3f8021c67",
   "lastOpenFiles": [
-    "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
-    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
     "Chapter04_JsAPI_DOM/Chapter04_03_表单验证中的用dom.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_02_变量_简单数据类型_运算符.md",
     "Chapter02_函数与作用域/Chapter02_01_函数.md",
     "Chapter01_javascript基础和基本语法/Chapter01_02_注释_browsermethod.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_02_变量_简单数据类型_运算符.md",
+    "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
+    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
     "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
     "Chapter04_JsAPI_DOM/Chapter04_00_Dom总览.md",
     "Chapter07_ES6/Chapter07_04_函数的扩展_箭头函数.md",

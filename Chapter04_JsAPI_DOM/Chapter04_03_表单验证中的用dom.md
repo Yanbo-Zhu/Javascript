@@ -165,3 +165,9 @@ Fields[i].validity
 Fields[i].validity.valid
 - Fields[i].validity  下其中一项为 Fields[i].validity.valid
 - 值为 True oder false 
+
+
+# 3 form element 可以用的 method
+```js
+formPersonalInfo.reset(); // löschen die Formulareingaben.
+```
