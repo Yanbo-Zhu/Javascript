@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "别人的笔记.md",
-                "mode": "preview",
+                "file": "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
+                "mode": "source",
                 "source": true
               }
             }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "createTextNode",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +65,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "别人的笔记.md",
+                "file": "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "别人的笔记.md",
+                "file": "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "别人的笔记.md"
+                "file": "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md"
               }
             }
           }
@@ -138,15 +139,15 @@
   },
   "active": "541366d3f8021c67",
   "lastOpenFiles": [
-    "Chapter04_JsAPI_DOM/Chapter04_03_表单验证中的用dom.md",
     "Chapter02_函数与作用域/Chapter02_01_函数.md",
+    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
+    "别人的笔记.md",
+    "Chapter04_JsAPI_DOM/Chapter04_03_表单验证中的用dom.md",
     "Chapter01_javascript基础和基本语法/Chapter01_02_注释_browsermethod.md",
     "Chapter01_javascript基础和基本语法/Chapter01_02_变量_简单数据类型_运算符.md",
     "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
-    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
     "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
     "Chapter04_JsAPI_DOM/Chapter04_00_Dom总览.md",
-    "Chapter07_ES6/Chapter07_04_函数的扩展_箭头函数.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_03_流程控制和循环.md"
+    "Chapter07_ES6/Chapter07_04_函数的扩展_箭头函数.md"
   ]
 }

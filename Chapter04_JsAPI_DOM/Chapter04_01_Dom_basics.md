@@ -902,6 +902,55 @@ function showMessage(field, explanation) {
 ```
 
 
+`document.createTextNode` prevents text from being rendered as html. 
+https://stackoverflow.com/questions/13041388/javascript-trying-to-add-linebreak-inside-create-text-node-method
+所以 使用 下面这样 都是 无效的, 无法在 html 中显示出 为换行
+```js
+
+1
+<script>
+/*jslint browser:true */
+var i;
+var out = document.getElementById("output");
+var args = ["aaa", "bbb", "ccc", "ddd", 1, 2, 4 + 4];
+function displayArgs() {
+    "use strict";
+    for (i = 0; i < args.length; i++) {
+        out.appendChild(document.createTextNode(args[i] + "<br>"));
+    }
+}
+
+displayArgs(args);
+</script>
+
+========
+2
+alertInformation += (" The required Filed \"" + element.name + "\": wasn't inputed or doesn't match pattern" + '<br/>')  // 无效的
+alertInformation += (" The required Filed \"" + element.name + "\": wasn't inputed or doesn't match pattern" + "\n") // 无效的
+
+
+// Element erzeugen
+let message = document.createElement("p");
+
+// neues Element mit content und/oder Attributen bestücken
+let text = document.createTextNode(alertInformation);
+
+// content in neues Element einfügen
+message.appendChild(text);
+
+// vollständiges Element in das Dokument einfügen
+form.appendChild(message);
+
+```
+
+使用 `myDiv.innerHTML = 'blah!<br/>';` 是有效的
+```js
+var myDiv = document.createElement("div");
+myDiv.id = 'myDiv';
+myDiv.innerHTML = 'blah!<br/>';
+document.body.appendChild(myDiv);
+```
+
 ### 5.5.2 添加节点 node.appendChild(child), node.insertBefore(child,指定元素)
 node.appendChild(child)
     node.appendChild() 方法将一个节点添加到指定父节点的子节点列表末尾。类似于 CSS 里面的 after 伪元素。

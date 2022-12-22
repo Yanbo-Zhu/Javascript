@@ -393,7 +393,9 @@ alert(resNum);          // 27
 
 
 ## 7.3 return 的返回值
-return 只能返回一个值。如果用逗号隔开多个值，以最后一个为准
+
+### 7.3.1 返回一个值
+return 返回一个值。如果用逗号隔开多个值，以最后一个为准
 ```js
 function add(num1，num2){
     //函数体
@@ -402,6 +404,70 @@ function add(num1，num2){
 var resNum = add(21,6); // 调用函数，传入两个实参，并通过 resNum 接收函数返回值
 alert(resNum);          // 6
 ```
+
+### 7.3.2 返回多个值
+
+1. 使用数组的方式
+```js
+function getData()
+{
+  var names=new Array("oec2003","oec2004");
+  return names;
+}
+function getNames()
+{
+  var names=getData();
+  alert(getData()[0]); //返回oec2003
+}
+```
+
+
+2.将数据封装在Json中返回
+```js
+function getData()
+{
+  var info={"name":"oec2003","age":"25"};
+  return info;
+}
+function getInfo()
+{
+  var info=getData();
+  var name=info["name"];
+  var age=info["age"];
+  alert("姓名："+name+" 年龄："+age);
+}
+```
+
+
+3.通过对象的属性访问方法
+```js
+function add(a,b){
+    var sum;
+    var sub
+    return{
+      sum:a+b,
+      sub:a-b
+    }
+  }
+  var obj = add(5,2);
+  console.log(obj.sum);
+  console.log(obj.sub);
+
+
+=========
+在这种情况下， `const { age, name } = getDetails()`中的`age`和`name`的顺序不再重要，因为它们是命名参数。
+
+const getDetails = () => {
+  return { 
+    age : 37 , 
+    name : 'Flavio'
+  }
+}
+ 
+const { age , name } = getDetails ()
+```
+
+
 
 
 ## 7.4 小结
