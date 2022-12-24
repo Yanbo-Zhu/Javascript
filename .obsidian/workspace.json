@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "541366d3f8021c67",
+            "id": "9be2a769c42b7b78",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
+                "file": "Chapter03_对象和内置对象/Chapter03_03_数组.md",
                 "mode": "source",
                 "source": true
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "createTextNode",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,8 +65,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -86,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
+                "file": "Chapter03_对象和内置对象/Chapter03_03_数组.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
+                "file": "Chapter03_对象和内置对象/Chapter03_03_数组.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md"
+                "file": "Chapter03_对象和内置对象/Chapter03_03_数组.md"
               }
             }
           }
@@ -137,17 +136,29 @@
     "direction": "horizontal",
     "width": 325.5
   },
-  "active": "541366d3f8021c67",
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "markdown-importer:打开 Markdown 格式转换器": false,
+      "workspaces:管理工作区布局": false
+    }
+  },
+  "active": "9be2a769c42b7b78",
   "lastOpenFiles": [
+    "Chapter03_对象和内置对象/Chapter03_03_字符串.md",
+    "Chapter03_对象和内置对象/Chapter03_03_数组.md",
+    "Chapter05_JsAPI_BOM/Chapter05_01.md",
+    "别人的笔记.md",
+    "Chapter03_对象和内置对象/Chapter03_04_值类型和引用类型.md",
+    "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
     "Chapter02_函数与作用域/Chapter02_01_函数.md",
     "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
-    "别人的笔记.md",
     "Chapter04_JsAPI_DOM/Chapter04_03_表单验证中的用dom.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_02_注释_browsermethod.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_02_变量_简单数据类型_运算符.md",
-    "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
-    "Chapter04_JsAPI_DOM/Chapter04_00_Dom总览.md",
-    "Chapter07_ES6/Chapter07_04_函数的扩展_箭头函数.md"
+    "Chapter01_javascript基础和基本语法/Chapter01_02_注释_browsermethod.md"
   ]
 }
