@@ -138,7 +138,7 @@ java就需要提前声明变量的类型了
 (4) <mark> 变量的数据类型随时可以更换, 只要给入的值变了 </mark> 
 und sind somit veränderbar über die Laufzeit des Skriptes:
 
-## 2.2 简单数据类型 / 基本数据类型
+## 2.2 简单数据类型 / 基本数据类型 Number,String,Boolean,Undefined,Null, empty
 |简单数据类型	|说明	|默认值|
 |--|---|---|
 |Number	|数字型，包含整型值和浮点型值，如21，0.21	|0|

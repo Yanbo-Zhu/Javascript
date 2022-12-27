@@ -1,25 +1,12 @@
-# 1 注释
 
-1 单行注释 :  // xxx
-快捷键ctrl + /
-
-2 多行注释
-快捷键 shift + alt + a
-
-```
-/*
-    多行注释
-*/    
-```
-
-# 2 Browsermethoden/输入输出语句
+# 1 Browsermethoden/输入输出语句
 Es handelt sich um Methoden, die vom Browser zur Verfügung gestellt werden.
 Verwenden Sie sie anfangs um Informationen an und vom Anwender zu transportieren.
 
 | 方法                     | 说明                            | 归属  |
 | ---------------------- | ----------------------------- | --- |
 | alert(msg);            | 浏览器弹出警示框. 主要用来显示消息给用户         | 浏览器 |
-| console.log(msg);      | 浏览器控制台打印输出信息. 用来给程序员看自己运行时的消息 | 浏览器 |
+| console.log(msg);      | 浏览器控制台打印输出信息. 用来给程序员看自己运行时的消息 , console.log(allP, typeof allP); 可以一次性输入多个变量| 浏览器 |
 |console.clear();|||
 | prompt(info);          | 浏览看弹出输入框，用户可以输入               | 浏览器 |
 | document.write()文档页面输出 |                               |     |
@@ -35,7 +22,7 @@ Verwenden Sie sie anfangs um Informationen an und vom Anwender zu transportieren
 
 - document.write()文档页面输出 : 直接在页面输出
 
-## 2.1 例子
+## 1.1 例子
 
 ```js
     <script>

@@ -218,6 +218,7 @@ ol.getElementsByClassName('类名')
 
 
 ### 3.5.2 querySelector
+https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
 根据指定选择器返回第一个元素对象
 
 document.querySelector('选择器');
@@ -226,6 +227,24 @@ document.querySelector('选择器');
 // 类选择器.box 
 // id选择器 #nav
 var firstBox = document.querySelector('.box');
+
+```js
+querySelector('*')
+
+querySelector('input')
+
+querySelector('input[name="pwd"]')
+querySelector('input[value="pwd"]')
+querySelector('input[type="reset"]')
+querySelector('input[type="reset"] input[value="pwd"]') // 这样做是会报错, 是无效的
+
+querySelector('[name="pwd"]')
+
+
+//Here, the first <input> element with the name "login" (<input name="login"/>) located inside a <div> whose class is "user-panel main" (<div class="user-panel main">) in the document is returned:
+const el = document.querySelector("div.user-panel.main input[name='login']");
+
+```
 
 ### 3.5.3 querySelectorAll
 根据指定选择器返回所有元素对象

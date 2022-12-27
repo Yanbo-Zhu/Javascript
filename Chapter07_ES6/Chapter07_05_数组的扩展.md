@@ -1,6 +1,7 @@
 # 1 数组的扩展
 
-## 1.1 扩展运算符
+## 1.1 扩展运算符 spreads arguments into a real Array
+https://www.mediaevent.de/javascript/spread-operator.html
 
 ### 1.1.1 含义
 
