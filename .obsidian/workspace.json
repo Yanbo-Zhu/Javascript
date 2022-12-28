@@ -18,8 +18,19 @@
                 "source": true
               }
             }
+          },
+          {
+            "id": "11c0df5fe3d15c9f",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.1.9"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -148,7 +159,7 @@
       "workspaces:管理工作区布局": false
     }
   },
-  "active": "5164cdfa18b4e436",
+  "active": "11c0df5fe3d15c9f",
   "lastOpenFiles": [
     "Chapter03_对象和内置对象/Chapter03_03_数组array.md",
     "Chapter02_函数与作用域/Chapter02_01_函数.md",
