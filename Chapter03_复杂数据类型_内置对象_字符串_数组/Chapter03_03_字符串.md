@@ -1,7 +1,7 @@
 
 
-# 2 字符串对象
-## 2.1 基本包装类型
+# 1 字符串对象
+## 1.1 基本包装类型
 为了方便操作基本数据类型，JavaScript 还提供了三个特殊的引用类型：String、Number和 Boolean。
 基本包装类型就是把简单数据类型包装成为复杂数据类型，这样基本数据类型就有了属性和方法。
 
@@ -21,7 +21,7 @@ str = temp;
 temp = null;
 
 
-## 2.2 字符串的不可变
+## 1.2 字符串的不可变
 指的是里面的值不可变，虽然看上去可以改变内容，但其实是地址变了，内存中新开辟了一个内存空间。
 
 ```js
@@ -40,7 +40,7 @@ console.log(str);
 
 
 
-## 2.3 根据字符返回位置
+## 1.3 根据字符返回位置
 字符串所有的方法，都不会修改字符串本身(字符串是不可变的)，操作完成会返回一个新的字符串
 
 方法名	说明
@@ -58,7 +58,7 @@ lastIndexOf():	从后往前找，只找第一个匹配的
 
 
 
-### 2.3.1 返回字符位置
+### 1.3.1 返回字符位置
 查找字符串 “abcoefoxyozzopp” 中所有o出现的位置以及次数
 
 核心算法：先查找第一个o出现的位置
@@ -79,7 +79,7 @@ console.log('o出现的次数是: ' + num);
 ```
 
 
-## 2.4 根据位置返回字符
+## 1.4 根据位置返回字符
 |方法名	|说明|	使用|
 |---|---|---|
 |charAt(index)|	返回指定位置的字符(index字符串的索引号)	|str.charAt(0)|
@@ -142,7 +142,7 @@ console.log('o出现的次数是: ' + num);
 
 ```
 
-## 2.5 字符串操作方法
+## 1.5 字符串操作方法
 方法名	说明
 concat(str1,str2,str3…): 	concat() 方法用于连接两个或对各字符串。拼接字符串🔥
 substr(start,length): 	从 start 位置开始(索引号), length 取的个数。🔥
@@ -162,7 +162,7 @@ substring(start,end): 	从 start 位置开始，截取到 end 位置 ，end 取�
 ```
 
 
-## 2.6 replace()方法
+### 1.5.1 replace()方法
 replace() 方法用于在字符串中用一些字符替换另一些字符
 
 其使用格式：replace(被替换的字符,要替换为的字符串)
@@ -183,7 +183,7 @@ replace() 方法用于在字符串中用一些字符替换另一些字符
 
 
 
-## 2.7 split()方法
+### 1.5.2 split()方法
 split() 方法用于切分字符串，它可以将字符串切分为数组。在切分完毕之后，返回的是一个新数组。
 
 例如下面代码：
@@ -205,6 +205,27 @@ console.log(str.split(','));
 </script>
 ```
 
-## 2.8 大小写转换
+### 1.5.3 大小写转换
 toUpperCase() 转换大写
 toLowerCase() 转换小写
+
+
+## 1.6 内插 string Interpolation 
+
+使用 ${} 两边必须写上  ``, 不能用""
+`` 代表 string literal .  man muss nicht mit ""  arbeiten. Es ist ganz hilfreich bei css selectoren
+
+```js
+
+1 
+let objFunc = {};
+objFunc.show = function(par){
+    return console.log(`Parameter: ${par}`, this);
+};
+objFunc.show(true);
+
+2 
+let n = 1;
+console.log(n);
+console.log(`${n*5} weiter Text`);
+```

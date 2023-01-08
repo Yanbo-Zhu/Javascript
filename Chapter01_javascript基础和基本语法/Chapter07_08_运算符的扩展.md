@@ -248,7 +248,7 @@ lhs || (middle ?? rhs);
 lhs ?? (middle || rhs);
 ```
 
-# 3.1 逻辑赋值运算符 
+# 4 逻辑赋值运算符 
 
 ES2021 引入了三个新的逻辑赋值运算符（logical assignment operators），将逻辑运算符与赋值运算符进行结合。
 

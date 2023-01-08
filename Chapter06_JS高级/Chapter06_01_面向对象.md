@@ -67,6 +67,10 @@ constructor函数只要 new 生成实例时，就会自动调用这个函数，�
 - 构造函数不需要加 function 关键字
 
 ### 1.3.3 类中添加方法
+
+sind Klassen bei ihrer Deklaration fest? Oder können z.b. Methoden oder Attribute in der Laufzeit hinzufügen/löschen
+答案是  man 可以 in laufzeit 中随便 往一个 已经存在的 class 中 添加 Methoden oder Attribute
+
 语法：
 ```js
 class Person {

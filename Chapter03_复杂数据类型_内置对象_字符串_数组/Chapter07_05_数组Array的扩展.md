@@ -18,7 +18,58 @@ console.log(1, ...[2, 3, 4], 5)
 // [<div>, <div>, <div>]
 ```
 
-该运算符主要用于函数调用。
+1扩展运算符可以将数组或者对象转为用逗号分隔的参数序列。
+```js
+let aty = [1, 2, 3];
+// ...ary  // 1, 2, 3
+console.log(...ary);  // 1 2 3 
+```
+
+2可以把对象里面的内容展开,合并到一个新的对象里面
+```js
+        let obj = {
+            name:"zhangsan",
+            age:12
+        }
+        let obj2 = {
+            gender:'男',
+            love:"meat",
+            ...obj
+        }
+        console.log(...obj);
+```
+
+
+
+2扩展运算符可以应用于合并数组。
+```js
+//方法一 
+let ary1 = [1, 2, 3];
+let ary2 = [3, 4, 5];
+let ary3 = [...ary1, ...ary2];  
+// 方法二
+ary1.push(...ary2);
+```
+
+
+3 将类(伪)数组或可遍历对象转换为正真的数组
+```js
+let oDivs = document.getElemenetsByTagName('div');
+oDivs = [...oDivs];
+```
+
+4 可以把展开结果作为函数的实参
+
+```javascript
+let arr1 = [12,34,56]
+let fn = (a,b,c)=>{
+    console.log(a+b+c)
+}
+fn(...arr1)
+```
+
+
+1 该运算符主要用于函数调用。
 
 ```js
 function push(array, ...items) {
@@ -35,7 +86,7 @@ add(...numbers) // 42
 
 上面代码中，`array.push(...items)`和`add(...numbers)`这两行，都是函数的调用，它们都使用了扩展运算符。该运算符将一个数组，变为参数序列。
 
-扩展运算符与正常的函数参数可以结合使用，非常灵活。
+2 扩展运算符与正常的函数参数可以结合使用，非常灵活。
 
 ```js
 function f(v, w, x, y, z) { }
@@ -43,7 +94,7 @@ const args = [0, 1];
 f(-1, ...args, 2, ...[3]);
 ```
 
-扩展运算符后面还可以放置表达式。
+3 扩展运算符后面还可以放置表达式。
 
 ```js
 const arr = [
@@ -52,7 +103,7 @@ const arr = [
 ];
 ```
 
-如果扩展运算符后面是一个空数组，则不产生任何效果。
+4 如果扩展运算符后面是一个空数组，则不产生任何效果。
 
 ```js
 [...[], 1]
@@ -279,6 +330,29 @@ Array.from(arrayLike[, mapFn[, thisArg]])
 | mapFn     | 如果指定了该参数，新数组中的每个元素会执行该回调函数  |
 | thisArg   | 可选参数，执行回调函数 mapFn 时 this 对象 |
 
+1 将类(伪)数组或可遍历对象转换为正真的数组
+```js
+let arrayLike = {
+     '0': 'a',
+     '1': 'b',
+     '2': 'c',
+     length: 3
+ };
+let arr2 = Array.from(arrayLike); // ['a', 'b', 'c']    
+```
+ 
+2 方法还可以接受第二个参数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组。
+```js
+let arrayLike = {
+    "0": 1,
+    "1": 2,
+    "length": 2
+}
+let newAry = Array.from(aryLike, item => item * 2)
+```
+
+
+
 ### 1.2.3 类数组转化
 
 所谓类数组对象，就是指可以通过索引属性访问元素，并且对象拥有 length 属性，类数组对象一般是以下这样的结构：
@@ -476,8 +550,9 @@ function ArrayOf(){
 }
 ```
 
-## 1.4 find()，findIndex(),findLast()，findLastIndex()
+## 1.4 find()，findIndex(), findLast()，findLastIndex()
 
+1
 数组实例的`find()`方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为`true`的成员，然后返回该成员。如果没有符合条件的成员，则返回`undefined`。
 
 ```js
@@ -495,6 +570,7 @@ function ArrayOf(){
 
 上面代码中，`find()`方法的回调函数可以接受三个参数，依次为当前的值、当前的位置和原数组。
 
+2 
 数组实例的`findIndex()`方法的用法与`find()`方法非常类似，返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回`-1`。
 
 ```js
@@ -527,7 +603,10 @@ let person = {name: 'John', age: 20};
 
 上面代码中，`indexOf()`方法无法识别数组的`NaN`成员，但是`findIndex()`方法可以借助`Object.is()`方法做到。
 
-`find()`和`findIndex()`都是从数组的0号位，依次向后检查。[ES2022](https://github.com/tc39/proposal-array-find-from-last) 新增了两个方法`findLast()`和`findLastIndex()`，从数组的最后一个成员开始，依次向前检查，其他都保持不变。
+`find()`和`findIndex()`都是从数组的0号位，依次向后检查。
+
+3 
+[ES2022](https://github.com/tc39/proposal-array-find-from-last) 新增了两个方法`findLast()`和`findLastIndex()`，从数组的最后一个成员开始，依次向前检查，其他都保持不变。
 
 ```js
 const array = [
@@ -859,7 +938,7 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 ```
 
 ## 1.12 12.includes()
-
+表示某个数组是否包含给定的值，返回布尔值
 `Array.prototype.includes`方法返回一个布尔值，表示某个数组是否包含给定的值，与字符串的`includes`方法类似。ES2016 引入了该方法。
 
 ```js

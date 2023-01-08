@@ -535,11 +535,16 @@ document.addEventListener("mouseover", myFunction);
 document.addEventListener("click", someOtherFunction);
 document.addEventListener("mouseout", someOtherFunction);
 
-### 6.1.2 使用 函数引用 函数调用 和匿名函数的 区别
-使用 函数引用, 或者 匿名函数: showallElements: 当 click 这个p 标签 的时候, 才会运行 showallElements funktion
-- 因为  showallElements 代表的是 该函数的 储存地址, 而不是函数结果 
-使用 函数调用:  showallElements (): 页面一旦加载,  showallElements funktion 就被运行, 不管你有没有点击 p 标签 
-- 因为  showallElements () 代表的是函数结果 
+### 6.1.2 使用 函数引用, 函数调用 , 匿名函数的 区别
+`p.addEventLoistener("click", showAllElemts)`
+`p.addEventLoistener("click", showAllElemts())`
+
+- 使用 函数引用, 或者 匿名函数: showallElements: 
+    - 当 click 这个p 标签 的时候, 才会运行 showallElements funktion. 而且之后点击 p 标签， showallElements 这个funtion, 也会被运行。 而且可以运行多次 
+    - 因为  showallElements 代表的是 该函数的 储存地址, 而不是函数结果 
+- 使用 函数调用:  showallElements (): 
+    - 页面一旦加载,  showallElements funktion 就被运行, 不管你有没有点击 p 标签 , 而且之后点击 p 标签， showallElements 这个funtion, 也不会在被运行了。 一次都不会被运行， 怎么click 都没有用. 
+    - 因为  showallElements () 代表的是函数结果 
 
 用 引用函数 或者 匿名函数 (action 发生后 才会执行 funktion)
 ```js

@@ -45,7 +45,7 @@ console.log(window.num);
 
 # 2 window 对象的常见事件
 ## 2.1 窗口加载事件
-### 2.1.1 window.onload 
+### 2.1.1 window.onload 或者 window.addEventListener("load",function(){});
 window.onload是窗口（页面）加载事件，当文档内容完全加载完成会触发该事件（包括图像，脚本文件，CSS文件等），就调用的处理函数。
 
 ```js

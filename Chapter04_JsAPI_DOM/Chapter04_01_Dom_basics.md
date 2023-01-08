@@ -298,6 +298,8 @@ const form = document.forms[0];
 JavaScript 的 DOM 操作可以改变网页内容、结构和样式，我们可以利用 DOM 操作元素来改变元素里面的内容 、属性等。注意以下都是属性
 
 ## 4.1 改变元素内容
+https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+
 1  element.innerText
 从起始位置到终止位置的内容，但它去除html标签，同时空格和换行也会去掉。
 
@@ -331,7 +333,31 @@ JavaScript 的 DOM 操作可以改变网页内容、结构和样式，我们可�
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/f3394f40561e45c299c09d7bbecdb513.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
 
+3  element.textContent
 
+```js
+doFoo.onclick = () => {
+  const myNode = document.getElementById("foo");
+  myNode.textContent = '';
+}
+
+```
+
+
+4 element.replaceChildren(...arrayOfNewChildren);
+
+In 2022+, use the replaceChildren() API!
+Replacing all children can now be done with the (cross-browser supported) replaceChildren API:
+    `container.replaceChildren(...arrayOfNewChildren);`
+
+This will do both:
+- remove all existing children, and
+- append all of the given new children, in one operation.
+
+You can also use this same API to just remove existing children, without replacing them:
+    `container.replaceChildren();`
+
+This is fully supported in Chrome/Edge 86+, Firefox 78+, and Safari 14+. It is fully specified behavior. This is likely to be faster than any other proposed method here, since the removal of old children and addition of new children is done without requiring innerHTML, and in one step instead of multiple.
 
 ## 4.2 改变元素属性
 
@@ -496,9 +522,12 @@ div.classList.replace("foo", "bar");
 ### 4.6.1 获取属性值 element.getAttribute();
 1 获取内置属性值(元素本身自带的属性)
 element.属性;
+form_YZH.id
 
 2 获取自定义的属性
 element.getAttribute('属性');
+
+form_YZH.getAttribute('id');
 
 ### 4.6.2 设置属性值 element.setAttribute();
 设置内置属性值
@@ -898,6 +927,9 @@ console.log(div.outerHTML);
 
 
 #### 5.5.1.2 document.createTextNode
+document.createTextNode("Danke " + user);
+没有创造任何新的节点, 没有创造 名字为 "text" 的节点
+
 ```js
 function feedback(user) {
     // Element erzeugen
@@ -914,7 +946,7 @@ function showMessage(field, explanation) {
     let message = document.createElement("p");
     let text = field.parentElement.firstElementChild.innerHTML + " " + explanation + "!";
     console.log(text);
-    message.appendChild(document.createTextNode(text));
+    message.appendChild(document.createTextNode(text));  // 原来为 <p></p>, 添加完了以后变为 <p>Danke, yanbo</p>
     form.appendChild(message);
 };
 

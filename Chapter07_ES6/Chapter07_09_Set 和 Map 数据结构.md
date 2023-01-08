@@ -27,6 +27,11 @@ console.log(s);		// Set(2) { 1, 2 }
 
 ## 1.2 Set 实例的方法和属性
 
+add(value): 添加某个值，返回Set结构本身
+delete(value): 删除某个值，返回一个布尔值，表示删除是否成功
+has(value): 返回一个布尔值，表示该值是否为Set的成员
+clear(): 清除所有成员，没有返回值
+
 ### 1.2.1 add 方法
 
 ```javascript

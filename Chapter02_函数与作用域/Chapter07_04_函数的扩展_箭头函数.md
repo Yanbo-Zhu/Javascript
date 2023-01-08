@@ -6,46 +6,10 @@
 ES6 规定了可以使用 “箭头” `=>` 来定义一个函数，语法更加简洁。它没有自己的 `this`、`arguments`、`super` 或 `new.target`，箭头函数表达式更适用于那些本来需要匿名函数的地方，但它不能用作构造函数。
 
 
-# 2 箭头函数和匿名函数的转换
-e= > {}  
-等效于 function() = {}
-
-# 3 特点
-
-- 箭头函数是匿名函数
-- 更短的函数，优雅简洁； 不需要写 argments
-- arrow function hat keine hoisting的意思是 : 不用先定义后使用. funtionk 可以, 先 ausfuhre, 然后在下一行 进行 这个 funtion 的 decalre 
-- 箭头函数不使用 this, 不会创建自己的 this，它只会从自己的作用域链的上一层继承 this；
-    - 函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
-- 不能绑定 arguments， 只能使用 `...args` 展开运算来获取当前参数的数组。
-    - 不可以使用arguments对象，因为箭头函数不会创建自己的 this, 该对象在函数体内不存在。如果要用，可以用Rest参数代替。
-- 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
-- 不可以使用yield命令，因此箭头函数不能用作Generator函数。
-
-## 3.1 不能用作构造器
-
-箭头函数不能用作构造器，和 new 一起用会抛出错误。
-
-```js
-var Foo = () => {};
-var foo = new Foo(); // TypeError: Foo is not a constructor
-```
-
-## 3.2 没有 prototype 属性
-
-箭头函数没有 prototype 属性。
-
-```js
-var Foo = () => {};
-console.log(Foo.prototype); // undefined
-```
-
-## 3.3 不能使用 yield 命令
-
-yield 关键字通常不能在箭头函数中使用，因此箭头函数不能用作 Generator 函数。
 
 
-# 4 认识箭头函数
+
+# 2 认识箭头函数
 
 普通函数：
 
@@ -68,9 +32,41 @@ const add = (x, y) => {
 console.log(add(1, 1));        // 2
 ```
 
-# 5 写法
+```js
+() => {}    
+const fn = () => {}
 
-## 5.1 省略写法
+
+var f = v => v;
+上面的箭头函数等同于：
+var f = function(v) {
+  return v;
+};
+```
+
+# 3 写法
+
+## 3.1 行参个数和省略写法
+
+如果箭头函数不需要参数或多个参数：
+```js
+var f = () => 5;
+//等同于
+var f = function(){return 5};
+
+var sum = (num1,num2) => num1 + num2;
+//等同于
+var sum = function(num1,num2){return num1 + num2}
+```
+
+如果形参只有一个，可以省略小括号
+```js
+function fn(v){
+    retuen v;
+} 
+const fn = v => v;
+```
+
 
 ```javascript
 const add = (x) => {
@@ -98,7 +94,32 @@ var sum = (num1,num2) => num1 + num2;
 var sum = function(num1,num2){return num1 + num2}
 ```
 
-## 5.2 单行函数体
+## 3.2 代码数量
+函数体中只有一句代码，且代码的执行结果就是返回值，可以省略大括号
+```js
+function sum(num1, num2) {
+    return num1 + num2;
+}    
+const sum = (num1, num2) => num1 + num2;
+```
+
+如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
+```js
+var sum = (num1, num2) => { return num1 + num2; }
+1
+由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
+
+var getTempItem = id => ({ id: id, name: "Temp" });
+```
+
+
+由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
+
+```javascript
+va#r getTempItem = id => ({ id: id, name: "Temp" });
+```
+
+## 3.3 单行函数体
 函数体中只有一句代码，且代码的执行结果就是返回值，可以省略大括号
 ```javascript
 const add = (x, y) => {
@@ -115,7 +136,7 @@ const add = (x, y) => {
 const add = (x, y) => x + y; 
 ```
 
-## 5.3 单行函数体, 函数带返回对象 
+### 3.3.1 单行函数体, 函数带返回对象 
 
 
 由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
@@ -137,7 +158,7 @@ const add = (x, y) => ({value: x + y});
 
 ```
 
-## 5.4 多行函数体
+### 3.3.2 多行函数体
 如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
 ```js
 var getTempItem = id => ({ id: id, name: "Temp" });
@@ -145,7 +166,7 @@ var getTempItem = id => ({ id: id, name: "Temp" });
 ```
 
 
-## 5.5 简化回调函数
+## 3.4 简化回调函数
 ```js
 //ES5写法
 [1,2,3].map(function(x)){
@@ -157,8 +178,9 @@ var getTempItem = id => ({ id: id, name: "Temp" });
 ```
 
 
-# 6 语法注意点
-## 6.1 箭头函数可以与变量解构结合使用
+
+# 4 语法注意点
+## 4.1 箭头函数可以与变量解构结合使用
 ```js
 const full = ({first,last}) => first + ' ' + last;
 
@@ -169,7 +191,7 @@ function full(person){
 ```
 
 
-## 6.2 函数传递参数设置默认值
+## 4.2 函数传递参数设置默认值
 语法:function 函数名(形参1=默认值1,形参2=默认值2){ }
 ```js
        function fn(a){
@@ -188,7 +210,88 @@ function full(person){
         var fn = (a=10)=>console.log(a)
 ```
 
-# 7 this 指向
+
+# 5 特点
+
+- 箭头函数是匿名函数
+- 更短的函数，优雅简洁； 不需要写 argments
+- arrow function hat keine hoisting的意思是 : 不用先定义后使用. funtionk 可以, 先 ausfuhre, 然后在下一行 进行 这个 funtion 的 decalre 
+- 箭头函数不使用 this, 不会创建自己的 this，它只会从自己的作用域链的上一层继承 this；
+    - 函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+- 不能绑定 arguments， 该对象在函数体内不存在。只能使用 `...args` 展开运算来获取当前参数的数组。
+    - 不可以使用arguments对象，因为箭头函数不会创建自己的 this, 该对象在函数体内不存在。
+    - 如果要用，可以用Rest参数代替。
+- 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+- 不可以使用yield命令，因此箭头函数不能用作Generator函数。
+
+（1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+（3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。
+（4）不可以使用yield命令，因此箭头函数不能用作Generator函数。
+
+
+## 5.1 箭头函数不使用 this, 不会创建自己的 this，
+```js
+    let objFunc = {};
+    objFunc.show = function(par){
+        return console.log(`Parameter: ${par}`, this);  // this 处 打印为 show f(par)
+    };
+    objFunc.show(true);
+    
+    // kein this für Arrow Functions
+    let objArrow = {};
+    objArrow.show = par => console.log(`Parameter: ${par}`, this);   // this 处 打印为 undefinied 
+    objArrow.show(true);
+    
+```
+
+## 5.2 不能用作构造器
+
+箭头函数不能用作构造器，和 new 一起用会抛出错误。
+
+```js
+var Foo = () => {};
+var foo = new Foo(); // TypeError: Foo is not a constructor
+```
+
+## 5.3 没有 prototype 属性
+
+箭头函数没有 prototype 属性。
+
+```js
+var Foo = () => {};
+console.log(Foo.prototype); // undefined
+```
+
+## 5.4 不能使用 yield 命令
+
+yield 关键字通常不能在箭头函数中使用，因此箭头函数不能用作 Generator 函数。
+
+
+
+# 6 箭头函数和匿名函数的转换
+e= > {}  
+等效于 function() = {}
+
+# 7 箭头函数里面的this
+
+箭头函数里面的this，绑定定义时所在的作用域，而不是指向运行时所在的作用域。
+this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正是因为它没有this，所以也就不能用作构造函数。
+
+(箭头函数导致this总是指向函数定义生效时所在的对象)
+
+```js
+const obj = { name: '张三'}
+function fn () {
+    console.log(this); // obj 
+    return () => {
+        console.log(this) // obj 
+    }
+}
+const resFn = fn.call(obj);
+resFn();
+```
+
 ## 7.1 全局作用域中的 this 指向
 
 ```javascript
