@@ -1,316 +1,40 @@
-# 1 数组的扩展
 
-## 1.1 扩展运算符 spreads arguments into a real Array
-https://www.mediaevent.de/javascript/spread-operator.html
 
-### 1.1.1 含义
+# 1 其他数据类型与数组之间的转化 
 
-扩展运算符（spread）是三个点（`...`）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。
 
-```js
-console.log(...[1, 2, 3])
-// 1 2 3
+## 1.1 其他数据类型转化为数组 Array.from()
 
-console.log(1, ...[2, 3, 4], 5)
-// 1 2 3 4 5
+本节讲解了字符串的 `Array.from()` 方法的使用，用于将类数组对象和可迭代的对象转化真正的数组，在编程中主要用于更加方便的初始化一个有默认值的数组，还可以用于将获取的 html 的 DOM 对象转化为数组，可以使用数组方法进行操作。
 
-[...document.querySelectorAll('div')]
-// [<div>, <div>, <div>]
-```
-
-1扩展运算符可以将数组或者对象转为用逗号分隔的参数序列。
-```js
-let aty = [1, 2, 3];
-// ...ary  // 1, 2, 3
-console.log(...ary);  // 1 2 3 
-```
-
-2可以把对象里面的内容展开,合并到一个新的对象里面
-```js
-        let obj = {
-            name:"zhangsan",
-            age:12
-        }
-        let obj2 = {
-            gender:'男',
-            love:"meat",
-            ...obj
-        }
-        console.log(...obj);
-```
-
-
-
-2扩展运算符可以应用于合并数组。
-```js
-//方法一 
-let ary1 = [1, 2, 3];
-let ary2 = [3, 4, 5];
-let ary3 = [...ary1, ...ary2];  
-// 方法二
-ary1.push(...ary2);
-```
-
-
-3 将类(伪)数组或可遍历对象转换为正真的数组
-```js
-let oDivs = document.getElemenetsByTagName('div');
-oDivs = [...oDivs];
-```
-
-4 可以把展开结果作为函数的实参
-
-```javascript
-let arr1 = [12,34,56]
-let fn = (a,b,c)=>{
-    console.log(a+b+c)
-}
-fn(...arr1)
-```
-
-
-1 该运算符主要用于函数调用。
-
-```js
-function push(array, ...items) {
-  array.push(...items);
-}
-
-function add(x, y) {
-  return x + y;
-}
-
-const numbers = [4, 38];
-add(...numbers) // 42
-```
-
-上面代码中，`array.push(...items)`和`add(...numbers)`这两行，都是函数的调用，它们都使用了扩展运算符。该运算符将一个数组，变为参数序列。
-
-2 扩展运算符与正常的函数参数可以结合使用，非常灵活。
-
-```js
-function f(v, w, x, y, z) { }
-const args = [0, 1];
-f(-1, ...args, 2, ...[3]);
-```
-
-3 扩展运算符后面还可以放置表达式。
-
-```js
-const arr = [
-  ...(x > 0 ? ['a'] : []),
-  'b',
-];
-```
-
-4 如果扩展运算符后面是一个空数组，则不产生任何效果。
-
-```js
-[...[], 1]
-// [1]
-```
-
-注意，只有函数调用时，扩展运算符才可以放在圆括号中，否则会报错。
-
-```js
-(...[1, 2])
-// Uncaught SyntaxError: Unexpected number
-
-console.log((...[1, 2]))
-// Uncaught SyntaxError: Unexpected number
-
-console.log(...[1, 2])
-// 1 2
-```
-
-上面三种情况，扩展运算符都放在圆括号里面，但是前两种情况会报错，因为扩展运算符所在的括号不是函数调用。
-
-### 1.1.2 替代函数的 apply() 方法
-
-由于扩展运算符可以展开数组，所以不再需要`apply()`方法将数组转为函数的参数了。
-
-```js
-// ES5 的写法
-function f(x, y, z) {
-  // ...
-}
-var args = [0, 1, 2];
-f.apply(null, args);
-
-// ES6 的写法
-function f(x, y, z) {
-  // ...
-}
-let args = [0, 1, 2];
-f(...args);
-```
-
-下面是扩展运算符取代`apply()`方法的一个实际的例子，应用`Math.max()`方法，简化求出一个数组最大元素的写法。
-
-```js
-// ES5 的写法
-Math.max.apply(null, [14, 3, 77])
-
-// ES6 的写法
-Math.max(...[14, 3, 77])
-
-// 等同于
-Math.max(14, 3, 77);
-```
-
-上面代码中，由于 JavaScript 不提供求数组最大元素的函数，所以只能套用`Math.max()`函数，将数组转为一个参数序列，然后求最大值。有了扩展运算符以后，就可以直接用`Math.max()`了。
-
-另一个例子是通过`push()`函数，将一个数组添加到另一个数组的尾部。
-
-```js
-// ES5 的写法
-var arr1 = [0, 1, 2];
-var arr2 = [3, 4, 5];
-Array.prototype.push.apply(arr1, arr2);
-
-// ES6 的写法
-let arr1 = [0, 1, 2];
-let arr2 = [3, 4, 5];
-arr1.push(...arr2);
-```
-
-上面代码的 ES5 写法中，`push()`方法的参数不能是数组，所以只好通过`apply()`方法变通使用`push()`方法。有了扩展运算符，就可以直接将数组传入`push()`方法。
-
-下面是另外一个例子。
-
-```js
-// ES5
-new (Date.bind.apply(Date, [null, 2015, 1, 1]))
-
-// ES6
-new Date(...[2015, 1, 1]);
-```
-
-### 1.1.3 扩展运算符的应用
-
-
-(0)扩展运算符可以将数组或者对象转为用逗号分隔的参数序列。
-```js
-let aty = [1, 2, 3];
-// ...ary  // 1, 2, 3
-console.log(...ary);  // 1 2 3 
-```
-
-**（1）复制数组**
-
-数组是复合的数据类型，直接复制的话，只是复制了指向底层数据结构的指针，而不是克隆一个全新的数组。
-
-```js
-const a1 = [1, 2];
-const a2 = a1;
-
-a2[0] = 2;
-a1 // [2, 2]
-```
-
-上面代码中，`a2`并不是`a1`的克隆，而是指向同一份数据的另一个指针。修改`a2`，会直接导致`a1`的变化。
-
-ES5 只能用变通方法来复制数组。
-
-```js
-const a1 = [1, 2];
-const a2 = a1.concat();
-
-a2[0] = 2;
-a1 // [1, 2]
-```
-
-上面代码中，`a1`会返回原数组的克隆，再修改`a2`就不会对`a1`产生影响。
-
-扩展运算符提供了复制数组的简便写法。
-
-```js
-const a1 = [1, 2];
-// 写法
-const a2 = [...a1];
-```
-
-上面的两种写法，`a2`都是`a1`的克隆。
-
-**（2）合并数组**
-
-扩展运算符提供了数组合并的新写法。
-
-```js
-const arr1 = ['a', 'b'];
-const arr2 = ['c'];
-const arr3 = ['d', 'e'];
-
-// ES5 的合并数组
-arr1.concat(arr2, arr3);
-// [ 'a', 'b', 'c', 'd', 'e' ]
-
-// ES6 的合并数组
-[...arr1, ...arr2, ...arr3]
-// [ 'a', 'b', 'c', 'd', 'e' ]
-```
-
-不过，这两种方法都是浅拷贝，使用的时候需要注意。
-
-```js
-const a1 = [{ foo: 1 }];
-const a2 = [{ bar: 2 }];
-
-const a3 = a1.concat(a2);
-const a4 = [...a1, ...a2];
-
-a3[0] === a1[0] // true
-a4[0] === a1[0] // true
-```
-
-上面代码中，`a3`和`a4`是用两种不同方法合并而成的新数组，但是它们的成员都是对原数组成员的引用，这就是浅拷贝。如果修改了引用指向的值，会同步反映到新数组。
-
-**(4）字符串转为数组**
-
-扩展运算符还可以将字符串转为真正的数组。
-
-```js
-console.log(...'alex');                // a l e x
-console.log('a', 'l', 'e', 'x');    // a l e x
-
-console.log([...'alex']);            // [ 'a', 'l', 'e', 'x' ]
-// ES6 之前字符串转数组是通过：'alex'.split('');
-```
-
-**（5）类数组转为数组**
-
-```js
-// arguments
-function func() {
-    console.log(arguments);            // [Arguments] { '0': 1, '1': 2 }
-    console.log([...arguments]);    // [ 1, 2 ]
-}
-func(1, 2);
-
-// NodeList
-console.log([...document.querySelectorAll('p')].push);
-```
-
-
-**（6）可以把展开结果作为函数的实参 **
-
-```javascript
-let arr1 = [12,34,56]
-let fn = (a,b,c)=>{
-    console.log(a+b+c)
-}
-fn(...arr1)
-```
-
-## 1.2 Array.from()
-
-### 1.2.1 前言
 
 在前端开发中经常会遇到类数组，但是我们不能直接使用数组的方法，需要先把类数组转化为数组。本节介绍 ES6 数组的新增方法 `Array.from()`，该方法用于将类数组对象（array-like）和可遍历的对象（iterable）转换为真正的数组进行使用。
 
-### 1.2.2 方法详情
+Array.from() 只是没有永久改变这个变量的数据类型:  die Umwandlung der Collection in ein Array ist nur temporär,Die Variable allP verweist immer noch auf eine Collection
+DOM Elementen 储存进array 
+```js
+// Listen aus DOM Elementen sind Collections
+let allP = document.getElementsByTagName("p");
+console.log(allP,typeof allP);  // 显示为 HTMLCollection(4) [p, p, p, p] 'object'
+console.log(Array.from(allP), typeof Array.from(allP));
 
-#### 1.2.2.1 基本语法
+// folgendes ist nicht möglich, weil allP kein Array ist.
+// allP 是一个 HTMLCollection 的数据类型
+// ForEach 是一个 array method , forEach 不能 对非array数据类型 的 变量 进行使用 
+// 所以这里会报错: Uncaught TypeError: allP.forEach is not a function 
+allP.forEach(element => {
+    console.log(element);
+});
+
+// Um Array Methoden auf sie anzuwenden, müssen sie in ein Array umgewandelt werden. 使用 Array.from 函数 , 将其转换为 array 类型 
+Array.from(allP).forEach(element => {
+    console.log(element);
+});
+
+```
+
+
+### 1.1.1 基本语法
 
 `Array.from()` 方法会接收一个类数组对象然后返回一个真正的数组实例，返回的数组可以调用数组的所有方法。
 
@@ -353,7 +77,7 @@ let newAry = Array.from(aryLike, item => item * 2)
 
 
 
-### 1.2.3 类数组转化
+### 1.1.2 类数组转化
 
 所谓类数组对象，就是指可以通过索引属性访问元素，并且对象拥有 length 属性，类数组对象一般是以下这样的结构：
 
@@ -381,7 +105,7 @@ var arr = Array.from(arrLike);
 console.log(arr)  // ['apple', 'banana', 'orange']
 ```
 
-#### 1.2.3.1 第二个参数 —— 回调函数
+#### 1.1.2.1 第二个参数 —— 回调函数
 
 在 `Array.from` 中第二个参数是一个类似 map 函数的回调函数，该回调函数会依次接收数组中的每一项作为传入的参数，然后对传入值进行处理，最得到一个新的数组。
 `Array.from(obj, mapFn, thisArg)` 也可以用 map 改写成这样 `Array.from(obj).map(mapFn, thisArg)`。
@@ -407,7 +131,7 @@ let newAry = Array.from(aryLike, item => item * 2)
 
 上面的例子展示了，`Array.from` 的参数可以使用 `map` 方法来进行替换，它们是等价的操作。
 
-#### 1.2.3.2 第三个参数 ——this
+#### 1.1.2.2 第三个参数 ——this
 
 `Array.from` 中第三个参数可以对回调函数中 this 的指向进行绑定，该参数是非常有用的，我们可以将被处理的数据和处理对象分离，将各种不同的处理数据的方法封装到不同的的对象中去，处理方法采用相同的名字。
 
@@ -428,7 +152,7 @@ Array.from([1, 2, 3, 4, 5], function (x){
 
 定义一个 `obj` 对象可以认作是，`Array.from` 回调函数中处理数据的方法集合，`handle` 是其中的一个方法，把 `obj` 作为第三个参数传给 `Array.from` 这样在回调函数中可以通过 `this` 来拿到 `obj` 对象。
 
-#### 1.2.3.3 从字符串里生成数组
+#### 1.1.2.3 从字符串里生成数组
 
 `Array.from()` 在传入字符串时，会把字符串的每一项都拆成单个的字符串作为数组中的一项。
 
@@ -437,7 +161,7 @@ Array.from('imooc');
 // [ "i", "m", "o", "o", "c" ]
 ```
 
-#### 1.2.3.4 从 Set 中生成数组
+#### 1.1.2.4 从 Set 中生成数组
 
 用 `Set` 定义的数组对象，可以使用 `Array.from()` 得到一个正常的数组。
 
@@ -449,7 +173,7 @@ Array.from(set);
 
 上面的代码中创建了一个 Set 数据结构，把实例传入 `Array.from()` 可以得到一个真正的数组。
 
-#### 1.2.3.5 从 Map 中生成数组
+#### 1.1.2.5 从 Map 中生成数组
 
 `Map` 对象保存的是一个个键值对，`Map` 中的参数是一个数组或是一个可迭代的对象。 `Array.from()` 可以把 Map 实例转换为一个二维数组。
 
@@ -459,12 +183,12 @@ const map = new Map([[1, 2], [2, 4], [4, 8]]);
 Array.from(map);  // [[1, 2], [2, 4], [4, 8]]
 ```
 
-### 1.2.4 使用案例
+### 1.1.3 使用案例
 
 
 
 
-#### 1.2.4.1 创建一个包含从 0 到 99 (n) 的连续整数的数组
+#### 1.1.3.1 创建一个包含从 0 到 99 (n) 的连续整数的数组
 
 1. 一般情况下我们可以使用 for 循环来实现。
 
@@ -493,7 +217,7 @@ var arr = Array.from({length:100}).map(function(item,index){return index});
 
 `Array.from({length:100})` 可以定义一个可迭代的数组，数组的每一项都是 undefined，这样就非常方便的定义出所需要的数组了，但是这样定义的数组性能最差，具体可以参考 [constArray](https://jsperf.com/constarray/4) 的测试结果。
 
-#### 1.2.4.2 数组去重合并
+#### 1.1.3.2 数组去重合并
 
 ```js
 function combine(){ 
@@ -507,11 +231,8 @@ console.log(combine(m,n));                     // [1, 2, 3]
 
 首先定义一个去重数组函数，通过 concat 把传入的数组进行合并到一个新的数组中去，通过 new Set () 可以对 arr 进行去重操作，再使用 `Array.from()` 返回一个拷贝后的数组。
 
-### 1.2.5 小结
 
-本节讲解了字符串的 `Array.from()` 方法的使用，用于将类数组对象和可迭代的对象转化真正的数组，在编程中主要用于更加方便的初始化一个有默认值的数组，还可以用于将获取的 html 的 DOM 对象转化为数组，可以使用数组方法进行操作。
-
-## 1.3 Array.of()
+## 1.2 将一组值转换为数组 Array.of()
 
 `Array.of()`方法用于将一组值，转换为数组。
 
@@ -550,7 +271,187 @@ function ArrayOf(){
 }
 ```
 
-## 1.4 find()，findIndex(), findLast()，findLastIndex()
+## 1.3 数组和字符串之间的转变 toString()	join()
+
+### 1.3.1 数组转成字符串 
+|方法名	|说明	|返回值|
+|---|---|---|
+|toString()	|把数组转换成字符串，逗号分隔每一项	|返回一个字符串|
+|join(‘分隔符’)	|方法用于把数组中的所有元素转换为一个字符串	|返回一个字符串|
+
+```js
+// 1.toString() 将我们的数组转换为字符串
+var arr = [1, 2, 3];
+console.log(arr.toString()); // 1,2,3
+
+// 2.join('分隔符')
+var arr1 = ['green', 'blue', 'red'];
+console.log(arr1.join()); // 不写默认用逗号分割
+console.log(arr1.join('-')); //  green-blue-red
+console.log(arr1.join('&')); // green&blue&red
+
+console.log(listOfStuff);
+let listAsString = "";
+listAsString = listOfStuff.join();
+console.log(listAsString, typeof listAsString);
+// das Komma ist der default Seperator 
+
+let letters = ["H","a","l","l","o"];
+listAsString = letters.join("");
+console.log(listAsString);
+
+```
+
+### 1.3.2 字符串转为数组  split ()
+```js
+//ist die Umkehrung von join() 
+
+let alleNames = "Max, Klaus, Susi";
+let eachName = alleNames.split(",");
+console.log(eachName); // ['Max', ' Klaus', ' Susi']
+
+
+// string内不含comma  但是 delimiter 设置成 comma
+// 结果是 整个String 会变成 唯一一个 element in a array 
+let alleNames = "Max Klaus Susi";
+let eachName = alleNames.split(",");
+console.log(eachName); // [Max Klaus Susi]
+
+```
+
+# 2 isArray()
+
+
+本节介绍了判断一个值是数组类型的方法 `Array.isArray()` 此方法可以很准确地判断数组，学习了在 ES5 中判断数组类型的几个方法的缺陷。在不支持 ES6 的情况下也可以通过 `Object.prototype.toString` 自定义 `Array.isArray()` 方法。
+
+
+
+在程序中判断数组是很常见的应用，但在 ES5 中没有能严格判断 JS 对象是否为数组，都会存在一定的问题，比较受广大认可的是借助 toString 来进行判断，很显然这样不是很简洁。ES6 提供了 `Array.isArray()` 方法更加简洁地判断 JS 对象是否为数组。
+
+### 2.1.1 方法详情
+
+判断 JS 对象，如果值是 `Array`，则为 true; 否则为 false。
+
+**语法使用：**
+
+```js
+Array.isArray(obj)
+```
+
+**参数解释：**
+
+| 参数  | 描述          |
+|:--- |:----------- |
+| obj | 需要检测的 JS 对象 |
+
+### 2.1.2 ES5 中判断数组的方法
+
+通常使用 `typeof` 来判断变量的数据类型，但是对数组得到不一样的结果
+
+```js
+// 基本类型
+typeof 123;  //number
+typeof "123"; //string
+typeof true; //boolean
+
+// 引用类型
+typeof [1,2,3]; //object
+```
+
+上面的代码中，对于基本类型的判断没有问题，但是判断数组时，返回了 object 显然不能使用 `typeof` 来作为判断数组的方法。
+
+#### 2.1.2.1 通过 instanceof 判断
+
+`instanceof` 运算符用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链。
+
+`instanceof` 可以用来判断数组是否存在，判断方式如下：
+
+```js
+var arr = ['a', 'b', 'c'];
+console.log(arr instanceof Array);            // true 
+console.log(arr.constructor === Array;); // true
+```
+
+在解释上面的代码时，先看下数组的原型链指向示意图：
+
+![image-20220826200454480](https://i0.hdslb.com/bfs/album/a5e71101dce3f5bf36c1e004cba8b699f804fcb7.png)
+
+数组实例的原型链指向的是 `Array.prototype` 属性，`instanceof` 运算符就是用来检测 `Array.prototype` 属性是否存在于数组的原型链上，上面代码中的 arr 变量就是一个数组，所有拥有 `Array.prototype` 属性，返回值 `true`，这样就很好的判断数组类型了。
+
+但是，需要注意的是，`prototype` 属性是可以修改的，所以并不是最初判断为 `true` 就一定永远为真。
+
+#### 2.1.2.2 通过 constructor 判断
+
+我们知道，Array 是 JavaScript 内置的构造函数，构造函数属性（prototype）的 `constructor` 指向构造函数（见下图），那么通过 `constructor` 属性也可以判断是否为一个数组。
+
+```js
+var arr = new Array('a', 'b', 'c');
+arr.constructor === Array;    //true
+```
+
+下面我们通过构造函数的示意图来进行分析：
+
+![image-20220826200839160](https://i0.hdslb.com/bfs/album/679d04cac62904c293f0e7db186700ab8d6390a8.png)
+
+由上面的示意图可以知道，我们 new 出来的实例对象上的原型对象有 `constructor` 属性指向构造函数 Array，由此我们可以判断一个数组类型。
+
+但是 `constructor` 是可以被重写，所以不能确保一定是数组，如下示例：
+
+```js
+var str = 'abc';
+str.constructor = Array;
+str.constructor === Array // true
+```
+
+上面的代码中，str 显然不是数组，但是可以把 `constructor` 指向 Array 构造函数，这样再去进行判断就是有问题的了。
+
+`constructor` 和 `instanceof` 也存在同样问题，不同执行环境下，`constructor` 的判断也有可能不正确。
+
+### 2.1.3 Array.isArray () 的使用
+
+下面我们通过示例来看下 `Array.isArray()` 是怎样判断数组的。
+
+```js
+// 下面的函数调用都返回 true
+Array.isArray([]);
+Array.isArray([10]);
+Array.isArray(new Array());
+Array.isArray(new Array('a', 'b', 'c'))
+// 鲜为人知的事实：其实 Array.prototype 也是一个数组。
+Array.isArray(Array.prototype); 
+
+// 下面的函数调用都返回 false
+Array.isArray();
+Array.isArray({});
+Array.isArray(null);
+Array.isArray(undefined);
+Array.isArray(17);
+Array.isArray('Array');
+Array.isArray(true);
+Array.isArray(false);
+Array.isArray(new Uint8Array(32))
+Array.isArray({ __proto__: Array.prototype });
+```
+
+上面的代码中对 JavaScript 中的数据类型做验证，可以很好地区分数组类型。
+
+### 2.1.4 自定义 isArray
+
+在 ES5 中比较通用的方法是使用 `Object.prototype.toString` 去判断一个值的类型，也是各大主流库的标准。在不支持 ES6 语法的环境下可以使用下面的方法给 `Array` 上添加 `isArray` 方法
+
+```js
+if (!Array.isArray){
+  Array.isArray = function(arg){
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  };
+}
+```
+
+
+# 3 数组的其他方法
+
+
+## 3.1 find()，findIndex(), findLast()，findLastIndex()
 
 1
 数组实例的`find()`方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为`true`的成员，然后返回该成员。如果没有符合条件的成员，则返回`undefined`。
@@ -622,7 +523,31 @@ array.findLastIndex(n => n.value % 2 === 1); // 2
 
 上面示例中，`findLast()`和`findLastIndex()`从数组结尾开始，寻找第一个`value`属性为奇数的成员。结果，该成员是`{ value: 3 }`，位置是2号位。
 
-## 1.5 filter()
+## 3.2 filter()
+
+array.filter(function(currentValue,index,arr))
+filter()方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素，主要用于筛选数组
+注意它直接返回一个新数组
+-   currentValue : 数组当前项的值
+-   index ：数组当前项的索引
+-   arr : 数组对象本身
+
+```html
+<body>
+    <script>
+        // filter 筛选数组
+        var arr = [12, 66, 4, 88, 3, 7];
+        var newArr = arr.filter(function(value, index) {
+            // return value >= 20;
+            return value % 2 === 0;
+        });
+        console.log(newArr);
+    </script>
+</body>
+
+```
+
+
 
 `filter()`方法用于过滤数组成员，满足条件的成员组成一个新数组返回。
 
@@ -671,7 +596,7 @@ arr.filter(myFilter, obj) // [8, 4, 9]
 
 上面代码中，过滤器`myFilter()`内部有`this`变量，它可以被`filter()`方法的第二个参数`obj`绑定，返回大于`3`的成员。
 
-## 1.6 map()
+## 3.3 map()
 
 `map()`方法将数组的所有成员依次传入参数函数，然后把每一次的执行结果组成一个新数组返回。
 
@@ -725,7 +650,7 @@ var f = function (n) { return 'a' };
 
 上面代码中，`map()`方法不会跳过`undefined`和`null`，但是会跳过空位。
 
-## 1.7 reduce()
+## 3.4 reduce()
 
 `reduce()`方法依次处理数组的每个成员，最终累计为一个值。它们的差别是，`reduce()`是从左到右处理（从第一个成员到最后一个成员）。
 
@@ -807,11 +732,48 @@ function add(prev, cur) {
 */
 ```
 
-## 1.8 some()，every()
+## 3.5 some()，every()
+
 
 这两个方法类似“断言”（assert），返回一个布尔值，表示判断数组成员是否符合某种条件。
 
 它们接受一个函数作为参数，所有数组成员依次执行该函数。该函数接受三个参数：当前成员、当前位置和整个数组，然后返回一个布尔值。
+
+注意，对于空数组，`some`方法返回`false`，`every`方法返回`true`，回调函数都不会执行。
+
+```js
+function isEven(x) { return x % 2 === 0 }
+
+[].some(isEven) // false
+[].every(isEven) // true
+```
+
+`some`和`every`方法还可以接受第二个参数，用来绑定参数函数内部的`this`变量。
+
+### 3.5.1 some()
+some()方法用于检测数组中的元素是否满足指定条件（查找数组中是否有满足条件的元素）
+注意它返回的是布尔值，如果查找到这个元素，就返回true，如果查找不到就返回false
+如果找到第一个满足条件的元素，则终止循环，不再继续查找
+-   currentValue : 数组当前项的值
+-   index ：数组当前项的索引
+-   arr : 数组对象本身
+
+
+```html
+<body>
+    <script>
+        // some 查找数组中是否有满足条件的元素 
+        var arr1 = ['red', 'pink', 'blue'];
+        var flag1 = arr1.some(function(value) {
+            return value == 'pink';
+        });
+        console.log(flag1);
+        // 1. filter 也是查找满足条件的元素 返回的是一个数组 而且是把所有满足条件的元素返回回来
+        // 2. some 也是查找满足条件的元素是否存在  返回的是一个布尔值 如果查找到第一个满足条件的元素就终止循环
+    </script>
+</body>
+```
+
 
 `some`方法是只要一个成员的返回值是`true`，则整个`some`方法的返回值就是`true`，否则返回`false`。
 
@@ -825,6 +787,9 @@ arr.some(function (elem, index, arr) {
 
 上面代码中，如果数组`arr`有一个成员大于等于3，`some`方法就返回`true`。
 
+### 3.5.2 every()
+
+
 `every`方法是所有成员的返回值都是`true`，整个`every`方法才返回`true`，否则返回`false`。
 
 ```js
@@ -837,18 +802,9 @@ arr.every(function (elem, index, arr) {
 
 上面代码中，数组`arr`并非所有成员大于等于`3`，所以返回`false`。
 
-注意，对于空数组，`some`方法返回`false`，`every`方法返回`true`，回调函数都不会执行。
 
-```js
-function isEven(x) { return x % 2 === 0 }
 
-[].some(isEven) // false
-[].every(isEven) // true
-```
-
-`some`和`every`方法还可以接受第二个参数，用来绑定参数函数内部的`this`变量。
-
-## 1.9 fill()
+## 3.6 fill()
 
 `arr.fill(value[, start[, end]])`方法用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止索引。
 起始索引，默认值为 0。
@@ -887,7 +843,7 @@ arr
 // [[5], [5], [5]]
 ```
 
-## 1.10 10.at()
+## 3.7 10.at()
 
 长久以来，JavaScript 不支持数组的负索引，如果要引用数组的最后一个成员，不能写成`arr[-1]`，只能使用`arr[arr.length - 1]`。
 
@@ -913,7 +869,7 @@ sentence.at(-100) // undefined
 sentence.at(100) // undefined
 ```
 
-## 1.11 11.entries()，keys() 和 values()
+## 3.8 11.entries()，keys() 和 values()
 
 ES6 提供三个新的方法——`entries()`，`keys()`和`values()`——用于遍历数组。它们都返回一个遍历器对象，可以用`for...of`循环进行遍历，唯一的区别是`keys()`是对键名的遍历、`values()`是对键值的遍历，`entries()`是对键值对的遍历。
 
@@ -937,7 +893,7 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 // 1 "b"
 ```
 
-## 1.12 12.includes()
+## 3.9 12.includes()
 表示某个数组是否包含给定的值，返回布尔值
 `Array.prototype.includes`方法返回一个布尔值，表示某个数组是否包含给定的值，与字符串的`includes`方法类似。ES2016 引入了该方法。
 
@@ -981,7 +937,7 @@ if (arr.indexOf(el) !== -1) {
 - Map 结构的`has`方法，是用来查找键名的，比如`Map.prototype.has(key)`、`WeakMap.prototype.has(key)`、`Reflect.has(target, propertyKey)`。
 - Set 结构的`has`方法，是用来查找值的，比如`Set.prototype.has(value)`、`WeakSet.prototype.has(value)`。
 
-## 1.13 13.toReversed()，toSorted()，toSpliced()，with()
+## 3.10 13.toReversed()，toSorted()，toSpliced()，with()
 
 很多数组的传统方法会改变原数组，比如`push()`、`pop()`、`shift()`、`unshift()`等等。数组只要调用了这些方法，它的值就变了。现在有一个提案，允许对数组进行操作时，不改变原数组，而返回一个原数组的拷贝。
 
@@ -1021,131 +977,3 @@ correctionNeeded.with(1, 2) // [1, 2, 3]
 correctionNeeded // [1, 1, 3]
 ```
 
-## 1.14 14.isArray()
-
-### 1.14.1 前言
-
-在程序中判断数组是很常见的应用，但在 ES5 中没有能严格判断 JS 对象是否为数组，都会存在一定的问题，比较受广大认可的是借助 toString 来进行判断，很显然这样不是很简洁。ES6 提供了 `Array.isArray()` 方法更加简洁地判断 JS 对象是否为数组。
-
-### 1.14.2 方法详情
-
-判断 JS 对象，如果值是 `Array`，则为 true; 否则为 false。
-
-**语法使用：**
-
-```js
-Array.isArray(obj)
-```
-
-**参数解释：**
-
-| 参数  | 描述          |
-|:--- |:----------- |
-| obj | 需要检测的 JS 对象 |
-
-### 1.14.3 ES5 中判断数组的方法
-
-通常使用 `typeof` 来判断变量的数据类型，但是对数组得到不一样的结果
-
-```js
-// 基本类型
-typeof 123;  //number
-typeof "123"; //string
-typeof true; //boolean
-
-// 引用类型
-typeof [1,2,3]; //object
-```
-
-上面的代码中，对于基本类型的判断没有问题，但是判断数组时，返回了 object 显然不能使用 `typeof` 来作为判断数组的方法。
-
-#### 1.14.3.1 通过 instanceof 判断
-
-`instanceof` 运算符用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链。
-
-`instanceof` 可以用来判断数组是否存在，判断方式如下：
-
-```js
-var arr = ['a', 'b', 'c'];
-console.log(arr instanceof Array);            // true 
-console.log(arr.constructor === Array;); // true
-```
-
-在解释上面的代码时，先看下数组的原型链指向示意图：
-
-![image-20220826200454480](https://i0.hdslb.com/bfs/album/a5e71101dce3f5bf36c1e004cba8b699f804fcb7.png)
-
-数组实例的原型链指向的是 `Array.prototype` 属性，`instanceof` 运算符就是用来检测 `Array.prototype` 属性是否存在于数组的原型链上，上面代码中的 arr 变量就是一个数组，所有拥有 `Array.prototype` 属性，返回值 `true`，这样就很好的判断数组类型了。
-
-但是，需要注意的是，`prototype` 属性是可以修改的，所以并不是最初判断为 `true` 就一定永远为真。
-
-#### 1.14.3.2 通过 constructor 判断
-
-我们知道，Array 是 JavaScript 内置的构造函数，构造函数属性（prototype）的 `constructor` 指向构造函数（见下图），那么通过 `constructor` 属性也可以判断是否为一个数组。
-
-```js
-var arr = new Array('a', 'b', 'c');
-arr.constructor === Array;    //true
-```
-
-下面我们通过构造函数的示意图来进行分析：
-
-![image-20220826200839160](https://i0.hdslb.com/bfs/album/679d04cac62904c293f0e7db186700ab8d6390a8.png)
-
-由上面的示意图可以知道，我们 new 出来的实例对象上的原型对象有 `constructor` 属性指向构造函数 Array，由此我们可以判断一个数组类型。
-
-但是 `constructor` 是可以被重写，所以不能确保一定是数组，如下示例：
-
-```js
-var str = 'abc';
-str.constructor = Array;
-str.constructor === Array // true
-```
-
-上面的代码中，str 显然不是数组，但是可以把 `constructor` 指向 Array 构造函数，这样再去进行判断就是有问题的了。
-
-`constructor` 和 `instanceof` 也存在同样问题，不同执行环境下，`constructor` 的判断也有可能不正确。
-
-### 1.14.4 Array.isArray () 的使用
-
-下面我们通过示例来看下 `Array.isArray()` 是怎样判断数组的。
-
-```js
-// 下面的函数调用都返回 true
-Array.isArray([]);
-Array.isArray([10]);
-Array.isArray(new Array());
-Array.isArray(new Array('a', 'b', 'c'))
-// 鲜为人知的事实：其实 Array.prototype 也是一个数组。
-Array.isArray(Array.prototype); 
-
-// 下面的函数调用都返回 false
-Array.isArray();
-Array.isArray({});
-Array.isArray(null);
-Array.isArray(undefined);
-Array.isArray(17);
-Array.isArray('Array');
-Array.isArray(true);
-Array.isArray(false);
-Array.isArray(new Uint8Array(32))
-Array.isArray({ __proto__: Array.prototype });
-```
-
-上面的代码中对 JavaScript 中的数据类型做验证，可以很好地区分数组类型。
-
-### 1.14.5 自定义 isArray
-
-在 ES5 中比较通用的方法是使用 `Object.prototype.toString` 去判断一个值的类型，也是各大主流库的标准。在不支持 ES6 语法的环境下可以使用下面的方法给 `Array` 上添加 `isArray` 方法
-
-```js
-if (!Array.isArray){
-  Array.isArray = function(arg){
-    return Object.prototype.toString.call(arg) === '[object Array]';
-  };
-}
-```
-
-### 1.14.6 小结
-
-本节介绍了判断一个值是数组类型的方法 `Array.isArray()` 此方法可以很准确地判断数组，学习了在 ES5 中判断数组类型的几个方法的缺陷。在不支持 ES6 的情况下也可以通过 `Object.prototype.toString` 自定义 `Array.isArray()` 方法。

@@ -1,12 +1,9 @@
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/b55a7b4391df4f058cc8003baf0565db.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
-
-
-
-# 1 总览
+# 1 3种对象
 JavaScript 中的对象分为3种：自定义对象 、内置对象、 浏览器对象
 
-# 2 对象
+# 2 对象理论
 在 JavaScript 中，对象是一组无序的相关属性和方法的集合，所有的事物都是对象，例如字符串、数值、数组、函数等。
 
 对象是由属性和方法组成的：
@@ -27,14 +24,14 @@ console.log(anyObject, typeof anyObject);
 ```
 
 
-## 2.1 创建对象
+# 3 创建对象
 在 JavaScript 中，现阶段我们可以采用三种方式创建对象（object）：
 
 利用字面量创建对象
 利用 new Object创建对象
 利用构造函数创建对象
 
-### 2.1.1 与创建数组的不同 
+## 3.1 与创建数组的不同 
 ```js
 let objectNoProps = {};
 console.log(objectNoProps, typeof objectNoProps);
@@ -43,13 +40,13 @@ let arrNoProps = [];
 console.log(arrNoProps, typeof arrNoProps);	
 ```
 
-### 2.1.2 利用字面量创建对象
+## 3.2 利用字面量创建对象 
 对象字面量：就是花括号 { } 里面包含了表达这个具体事物（对象）的属性和方法
 
 { } 里面采取键值对的形式表示
-
 键：相当于属性名
 值：相当于属性值，可以是任意类型的值（数字类型、字符串类型、布尔类型，函数类型等）
+
 ```js
 var star = {
     name : 'pink',
@@ -63,9 +60,88 @@ var star = {
 // 方法冒号后面跟的是一个匿名函数
 ```
 
+### 3.2.1 属性简写
+ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。
+
+```js
+const foo = 'bar';
+const baz = {foo};
+baz // {foo: "bar"}
+
+// 等同于
+const baz = {foo: foo};
+```
+
+上面代码中，变量`foo`直接写在大括号里面。这时，属性名就是变量名, 属性值就是变量值。下面是另一个例子。
+
+```js
+function f(x, y) {
+  return {x, y};
+}
+
+// 等同于
+
+function f(x, y) {
+  return {x: x, y: y};
+}
+
+f(1, 2) // Object {x: 1, y: 2}
+```
 
 
-### 2.1.3 利用 new Object 创建对象
+### 3.2.2 方法简写
+除了属性简写，方法也可以简写。
+
+```js
+const o = {
+  method() {
+    return "Hello!";
+  }
+};
+
+// 等同于
+
+const o = {
+  method: function() {
+    return "Hello!";
+  }
+};
+```
+
+### 3.2.3 例子
+
+```js
+let birth = '2000/01/01';
+
+const Person = {
+
+  name: '张三',
+
+  //等同于birth: birth
+  birth,
+
+  // 等同于hello: function ()...
+  hello() { console.log('我的名字是', this.name); }
+
+};
+```
+
+这种写法用于函数的返回值，将会非常方便。
+
+```js
+function getPoint() {
+  const x = 1;
+  const y = 10;
+  return {x, y};
+}
+
+getPoint()
+// {x:1, y:10}
+```
+
+
+
+## 3.3 利用 new Object 创建对象
 跟之前的 new Array() 原理一致：var 对象名 = new Object();
 
 使用的格式：对象.属性 = 值
@@ -86,14 +162,56 @@ obj.sayHi();
 
 ```
 
+## 3.4 用 Object.create ()
+
+按照一个已经有的 object 来创造 另外一个 object 
+// 这个objekt  "objOneFormProto" wird nach Objekt  "protoObj"modelliert , 从而被产生 
+
+```js
+
+let protoObj = {
+    show(par){
+        console.log(`${this.type} is ${par}`);
+    }
+};
+
+let objOneFromProto = Object.create(protoObj); // 这个objekt  "objOneFormProto" wird nach Objekt  "protoObj"modelliert , 从而被产生 
 
 
-### 2.1.4 利用构造函数创建对象
+objOneFromProto.type = "simple object";
+objOneFromProto.show("still an object"); 
+
+console.log(Object.getPrototypeOf(objOneFromProto));
+console.log(Object.getPrototypeOf(objOneFromProto) === Object.prototype);  // false
+console.log(Object.getPrototypeOf(objOneFromProto) === protoObj); // true
+
+
+```
+
+
+## 3.5 利用构造函数创建对象 ( function 构造函数名() { } )
 构造函数 ：是一种特殊的函数，主要用来初始化对象，即为对象成员变量赋初始值，它总与 new 运算符一起使用。我们可以把对象中一些公共的属性和方法抽取出来，然后封装到这个函数里面。
 
 在 js 中，使用构造函数要时要注意以下两点：
 - 构造函数用于创建某一类对象，其首字母要大写
 - 构造函数要和 new 一起使用才有意义
+- 构造函数名字首字母要大写
+- 函数内的属性和方法前面需要添加 this ，表示当前对象的属性和方法。
+- 构造函数中不需要 return 返回结果。
+- 当我们创建对象的时候，必须用 new 来调用构造函数。
+
+构造函数和对象
+- 构造函数，如 Stars()，抽象了对象的公共部分，封装到了函数里面，它泛指某一大类（class）
+- 创建对象，如 new Stars()，特指某一个，通过 new 关键字创建对象的过程我们也称为对象实例化
+
+
+new关键字
+new 在执行时会做四件事:
+1. 在内存中创建一个新的空对象。
+2. 让 this 指向这个新的对象。
+3. 执行构造函数里面的代码，给这个新对象添加属性和方法
+4. 返回这个新对象（所以构造函数里面不需要return）
+
 
 ```js
 //构造函数的语法格式
@@ -102,6 +220,19 @@ function 构造函数名() {
     this.方法 = function() {}
 }
 new 构造函数名();
+```
+
+```js
+
+// noch einfacher
+function Tree(type){
+    this.type = type;
+}
+
+let oakTree = new Tree();
+oakTree.type = "Oak";
+console.log(oakTree);
+
 ```
 
 ```js
@@ -129,36 +260,34 @@ ldh.sing('冰雨');
 var zxy = new Star('张学友',19,'男');
 ```
 
-
-- 构造函数名字首字母要大写
-- 函数内的属性和方法前面需要添加 this ，表示当前对象的属性和方法。
-- 构造函数中不需要 return 返回结果。
-- 当我们创建对象的时候，必须用 new 来调用构造函数。
-
-构造函数和对象
-- 构造函数，如 Stars()，抽象了对象的公共部分，封装到了函数里面，它泛指某一大类（class）
-- 创建对象，如 new Stars()，特指某一个，通过 new 关键字创建对象的过程我们也称为对象实例化
-
-
-new关键字
-new 在执行时会做四件事:
-
-1. 在内存中创建一个新的空对象。
-2. 让 this 指向这个新的对象。
-3. 执行构造函数里面的代码，给这个新对象添加属性和方法
-4. 返回这个新对象（所以构造函数里面不需要return）
-
-## 2.2 object 的 constructor
+### 3.5.1 Verwendung von Prototype für Klassenähnliche Konstrukte
 
 ```js
-console.log(anyObject.constructor); // 返回值为 Object() { [native code] }
+1 
+let protoFlower = {
+    showType(type){
+        console.log(`I am a ${type}!`);
+    }
+};
+
+// Konstruktor Funktion
+function CreateFlower(type){
+    let flower = Object.create(protoFlower);
+    flower.type = type;
+    return flower;
+}
+
+console.log(CreateFlower("Rose"));
+console.log(CreateFlower("Tulip"));
+
+
 ```
 
 
-## 2.3 object的property
+# 4 object的property
 
 
-### 2.3.1 object的property 的调用
+## 4.1 object的property 的调用
 
 - 对象里面的属性调用 : 对象.属性名 ，这个小点 . 就理解为“ 的 ”
 - 对象里面属性的另一种调用方式 : 对象[‘属性名’]，注意方括号里面的属性必须加引号，我们后面会用
@@ -178,14 +307,13 @@ star.sayHi();              // 调用 sayHi 方法,注意，一定不要忘记带
 - 方法：对象里面的函数称为方法，方法不需要声明，使用==“对象.方法名()”==的方式就可以调用，方法用来描述该对象的行为和功能。
 
 
-### 2.3.2 call some unknown property
+## 4.2 call some unknown property
 ```js
 console.log(anyObject.living); // 返回 undefined
-
 ```
 
 
-### 2.3.3 检查一个属性是否存在 
+## 4.3 检查一个属性是否存在 
 ```js
 	// check for a property
 	console.log("firstName" in anyObject); // 返回 true or false 
@@ -193,14 +321,14 @@ console.log(anyObject.living); // 返回 undefined
 ```
 
 
-### 2.3.4 showing keys and values
+## 4.4 showing keys and values
 ```js
 console.log(Object.keys(anyOtherObject));
 console.log(Object.values(anyOtherObject));
 ```
 
 
-### 2.3.5 遍历对象的属性
+## 4.5 遍历对象的属性
 - for...in 语句用于对数组或者对象的属性进行循环操作
 - let item in 
 
@@ -247,7 +375,7 @@ for (let item in anyObject){
 }
 ```
 
-#### 2.3.5.1 property 为 array 类型
+### 4.5.1 property 为 array 类型
 ```js
 (function init(){
 	"use strict";
@@ -298,7 +426,7 @@ for (let item in anyObject){
 
 
 
-### 2.3.6 添加删除 property
+## 4.6 添加删除 property
 
 ```js
 anyObject.living = true;
@@ -309,9 +437,13 @@ console.log(anyObject.living);  // 返回 undefined
 
 ```
 
+# 5 object 的 method
+## 5.1 method can also be properties of objects
 
-## 2.4 functions can also be properties of objects
+Funktionsdeklaration, die den neuen Objekten als Property hinzugefügt wird.
+
 ```js
+1 
 anyObject.func = () => { return console.log("function as property of an object!") };
 
 anyObject.func();
@@ -319,23 +451,40 @@ console.log(typeof anyObject.func);  // 返回值为 function
 
 ```
 
+```js
 
-## 2.5 copying objects
+function showThis(par){
+    console.log(`The ${this.type} is ${par}`);
+}
+
+let objOne = {
+    type : 42,
+    showThis
+};
+
+let objTwo = {
+    type : "blablabla",
+    showThis
+};
+
+console.log(objOne);
+console.log(objTwo);
+
+objOne.showThis("my property");
+objTwo.showThis("MY property!!");
+
+```
+
+# 6 Copying objects
 ```js
 let anyOtherObject = {};
 Object.assign(anyOtherObject, anyObject);
 ```
 
 
-# 3 object 的使用 rules
-- declare objects as literals whenever possible
-- if using DOM-objects like <img>, use built-in-constructors
-- sometimes you need a constructor 
-    for similar objects : make your own constructor 
-    function ConstruktorName(){};
-    let o=new ConstruktorName();
 
-# 4 Constructors
+
+# 7 Constructors
 But, don't overuse Object() or Array(), there are some problems you should know of.
 	1. Declare as expression. It's short and easy to read.
 	2. Objects are mutable.
@@ -343,7 +492,22 @@ But, don't overuse Object() or Array(), there are some problems you should know 
 	4. There is delegation to other Constructors of the type object, which might surprise you!
 
 
-## 4.1 built in Constructors:
+## 7.1 object 的constructors的 rules
+- declare objects as literals whenever possible
+- if using DOM-objects like <img>, use built-in-constructors
+- sometimes you need a constructor 
+    for similar objects : make your own constructor 
+    function ConstruktorName(){};
+    let o=new ConstruktorName();
+
+## 7.2 打印object的constructor
+
+```js
+console.log(anyObject.constructor); // 返回值为 Object() { [native code] }
+```
+
+
+## 7.3 built in Constructors:
 Object();
 Array();
 Function();
@@ -351,7 +515,6 @@ Number();
 String();
 Boolean();
 RegEx()
-
 
 
 ```js
@@ -362,7 +525,7 @@ console.log(typeof obj); // object
 ```
 
 
-### 4.1.1 i.e. in DOM:  Image()
+### 7.3.1 i.e. in DOM:  Image()
 
 ```js
 /*Use of built-in-constructors with browsers.*/
@@ -378,7 +541,7 @@ console.log(sonneDOM.width, sonneDOM.height, sonneDOM.src, sonneDOM.alt, sonneDO
 console.log(sonne.width, sonne.height, sonne.src, sonne.alt, sonne.title);
 ```
 
-## 4.2 Customized constructors
+## 7.4 Customized constructors
 
 Customized constructors instead of built-in-constructors!
 ```js
@@ -447,7 +610,7 @@ console.log(PlantArrow);
 ```
 
 
-### 4.2.1 使用上述的Customized constructors
+### 7.4.1 使用上述的Customized constructors
 ```js
 // defining objects
 let tree = new Plant(10000, "green", "Tree");
@@ -460,7 +623,7 @@ console.log(flower.constructor, typeof flower);
 
 ```
 
-## 4.3 return 值
+## 7.5 return 值
 objects invoked with new always return an object usually this, but you can return any object
 
 ```js

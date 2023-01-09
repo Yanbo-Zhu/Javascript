@@ -4,47 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "2cdee4f97b3f3317",
+        "id": "6b1db9bac6733743",
         "type": "tabs",
         "children": [
           {
-            "id": "35ec35ea81e9ab53",
+            "id": "17e84120892cc399",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter07_ES6/Chapter07_09_Set 和 Map 数据结构.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "f7fbe53bd53af517",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Chapter01_javascript基础和基本语法/Chapter01_02_简单数据类型.md",
-                "mode": "preview",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "da48f919fb658960",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Chapter07_ES6/Chapter07_12_es6模块化Module.md",
+                "file": "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
                 "mode": "source",
                 "source": true
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -73,10 +48,10 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "模板字符串",
+                "query": "json",
                 "matchingCase": false,
                 "explainSearch": false,
-                "collapseAll": true,
+                "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
               }
@@ -110,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter07_ES6/Chapter07_12_es6模块化Module.md",
+                "file": "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter07_ES6/Chapter07_12_es6模块化Module.md",
+                "file": "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter07_ES6/Chapter07_12_es6模块化Module.md"
+                "file": "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md"
               }
             }
           }
@@ -159,7 +134,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 402.5
+    "width": 305.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -173,17 +148,17 @@
       "workspaces:管理工作区布局": false
     }
   },
-  "active": "da48f919fb658960",
+  "active": "17e84120892cc399",
   "lastOpenFiles": [
-    "Chapter07_ES6/Chapter07_15_数据类型Symbol.md",
-    "Chapter03_复杂数据类型_类和对象/Chapter07_13_Class的语法.md",
-    "Chapter07_ES6/Chapter07_11_async 函数.md",
-    "Chapter07_ES6/Chapter07_12_es6模块化Module.md",
-    "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter07_10_字符串的扩展.md",
+    "Chapter03_复杂数据类型_类和对象/Chapter03_02_Object这个class.md",
+    "Chapter05_JsAPI_BOM/Chapter05_01.md",
+    "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
+    "Chapter04_JsAPI_DOM/Chapter04_03_表单验证中的用dom.md",
+    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
+    "Chapter03_复杂数据类型_类和对象/Chapter03_04_值类型和引用类型.md",
     "Chapter07_ES6/Chapter07_10_Promise对象.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_02_运算符.md",
-    "Chapter01_javascript基础和基本语法/Chapter07_08_运算符的扩展.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_02_简单数据类型.md",
-    "Chapter03_复杂数据类型_类和对象/Chapter07_06_对象object的扩展.md"
+    "Chapter02_函数与作用域/Chapter02_01_函数.md",
+    "Chapter03_复杂数据类型_类和对象/类_Chapter07_13_ES6_Class的语法.md",
+    "Chapter03_复杂数据类型_类和对象/对象_Chapter03_01_对象object.md"
   ]
 }

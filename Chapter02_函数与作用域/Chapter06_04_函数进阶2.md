@@ -1,6 +1,6 @@
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/217fe88037bf47a394f147a8de0971f0.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70)
 
-# 1 严格模式
+# 1 严格模式 use strict
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode?retiredLocale=de#invoking_strict_mode
 
 JavaScript's strict mode is a way to opt in to a restricted variant of JavaScript, thereby implicitly opting-out of "sloppy mode". Strict mode isn't just a subset: it intentionally has different semantics from normal code. 
@@ -171,7 +171,7 @@ Strict mode makes several changes to normal JavaScript semantics:
 ```
 
 
-# 2 高阶函数
+# 2 高阶函数 (对其他函数进行操作的函数，)
 高阶函数是对其他函数进行操作的函数，
 1. 它接收函数作为参数或
 2. 将函数作为返回值输出
@@ -214,7 +214,7 @@ Strict mode makes several changes to normal JavaScript semantics:
 同理函数也可以作为返回值传递回来
 
 
-# 3 闭包
+# 3 闭包(访问另一个函数作用域中的变量的函数)
 ## 3.1 变量作用域
 变量根据作用域的不同分为两种：全局变量和局部变量
 
@@ -343,7 +343,7 @@ Strict mode makes several changes to normal JavaScript semantics:
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/bf8930961044466f966d04b802286cf5.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
 
-# 4 递归 
+# 4 递归函数 
 
 如果一个函数在内部可以调用其本身，那么这个函数就是递归函数
 简单理解： 函数内部自己调用自己，这个函数就是递归函数

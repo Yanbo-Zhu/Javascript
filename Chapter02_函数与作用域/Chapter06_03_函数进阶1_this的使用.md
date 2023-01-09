@@ -55,7 +55,7 @@ this指向，是当我们调用函数的时候确定的，调用方式的不同�
 
 
 # 2 改变函数内部this指向
-JavaScript 为我们专门提供了一些函数方法来帮我们处理函数内部 this 的指向问题，常用的有 bind(),call(),apply()三种方法
+JavaScript 为我们专门提供了一些函数方法来帮我们处理函数内部 this 的指向问题，常用的有 bind(), call(), apply()三种方法
 
 ## 2.1 call() 方法
 - call()方法调用一个对象，简单理解为调用函数的方式，但是它可以改变函数的this指向
@@ -64,6 +64,33 @@ JavaScript 为我们专门提供了一些函数方法来帮我们处理函数内
     - arg1,arg2: 传递的其他参数
 - 返回值就是函数的返回值，因为它就是调用函数
 - 因此当我们想改变 this 指向，同时想调用这个函数的时候，可以使用 call，比如继承
+
+
+```js
+function showThis(par){
+    console.log(`The ${this.type} is ${par}`);
+}
+
+let objOne = {
+    type : 42,
+    showThis
+};
+
+let objTwo = {
+    type : "blablabla",
+    showThis
+};
+
+console.log(objOne); // 显示为 {type: 42, showThis: f }
+console.log(objTwo); // 显示为 {type: 'blablabla', showThis: f }
+
+objOne.showThis("my property");  // The 42 is my property
+objTwo.showThis("MY property!!");  // The blablabla is MY property!!
+
+// passing "this" mit call()
+showThis.call(objOne, "called with call()!");  // The 42 is called with call()!
+
+```
 
 ```html
 <body>

@@ -1,6 +1,5 @@
-# 1 字符串的扩展
 
-## 1.1 模板字符串 (使用反引号） `xx`
+# 1 模板字符串 (使用反引号） `xx`
 
 ### 1.1.1 认识模板字符串
 1、声明（反引号）
@@ -238,7 +237,10 @@ console.log(greet); // 哈哈哈哈 追不到我吧 我就是这么强大 哈哈
 
 <img src="https://i0.hdslb.com/bfs/album/55bc9aaadc9819646ff0adc3ab841d8d9247fd03.png" alt="image-20220315130229559" style="zoom:50%;" />
 
-## 1.2 includes(), startsWith(), endsWith()
+# 2 字符串的方法
+
+
+## 2.1 includes(), startsWith(), endsWith()
 
 传统上，JavaScript 只有`indexOf`方法，可以用来确定一个字符串是否包含在另一个字符串中。ES6 又提供了三种新方法。
 
@@ -266,7 +268,7 @@ s.includes('Hello', 6) // false
 
 上面代码表示，使用第二个参数`n`时，`endsWith`的行为与其他两个方法有所不同。它针对前`n`个字符，而其他两个方法针对从第`n`个位置直到字符串结束。
 
-## 1.3 repeat()
+## 2.2 repeat()
 
 `repeat`方法返回一个新字符串，表示将原字符串重复`n`次。
 
@@ -310,7 +312,7 @@ s.includes('Hello', 6) // false
 'na'.repeat('3') // "nanana"
 ```
 
-## 1.4 padStart()，padEnd()
+## 2.3 padStart()，padEnd()
 
 ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。`padStart()`用于头部补全，`padEnd()`用于尾部补全。
 
@@ -360,7 +362,7 @@ ES2017 引入了字符串补全长度的功能。如果某个字符串不够指�
 '09-12'.padStart(10, 'YYYY-MM-DD') // "YYYY-09-12"
 ```
 
-## 1.5 trimStart()，trimEnd()
+## 2.4 trimStart()，trimEnd()
 
 `trimStart()`和`trimEnd()`这两个方法，它们的行为与`trim()`一致，`trimStart()`消除字符串头部的空格，`trimEnd()`消除尾部的空格。它们返回的都是新字符串，不会修改原始字符串。
 
@@ -378,7 +380,7 @@ s.trimEnd() // "  abc"
 
 浏览器还部署了额外的两个方法，`trimLeft()`是`trimStart()`的别名，`trimRight()`是`trimEnd()`的别名。
 
-## 1.6 at()
+## 2.5 at()
 
 `at()`方法接受一个整数作为参数，返回参数指定位置的字符，支持负索引（即倒数的位置）。
 

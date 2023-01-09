@@ -1,5 +1,5 @@
 
-# 3 内置对象
+# 1 内置对象
 JavaScript 中的对象分为3种：自定义对象 、内置对象、 浏览器对象
 内置对象就是指 JS 语言自带的一些对象，这些对象供开发者使用，并提供了一些常用的或是最基本而必要的功能
 JavaScript 提供了多个内置对象：Math、 Date 、Array、String等
@@ -13,7 +13,7 @@ MDN: https://developer.mozilla.org/zh-CN/
 通过 demo 进行测试
 
 
-# 1 Math对象
+# 2 Math对象
 Math 对象不是构造函数，它具有数学常数和函数的属性和方法。跟数学相关的运算（求绝对值，取整、最大值等）可以使用 Math 中的成员。
 
 // Math数学对象，不是一个构造函数，所以我们不需要new 来调用，而是直接使用里面的属性和方法即可
@@ -24,14 +24,26 @@ Math.ceil()             // 向上取整
 Math.round()            // 四舍五入版 就近取整   注意 -3.5   结果是  -3 
 Math.abs()		 		// 绝对值
 Math.max()/Math.min()	// 求最大和最小值 
+Math.sign()     //  Math.sign 判断一个数到底为正数(是则返回1) 负数(是则返回-1) 还是零(是则返回0)
+Math.trunc()     //  Math.trunc 将数字的小数部分去掉
 注意：上面的方法必须带括号
 
-
+```js
 console.log(Math.PI);  
 console.log(Math.max(1,99,3)); // 99
 
+// 6. Math.trunc 将数字的小数部分去掉
+console.log(Math.trunc(23.5643654));
 
-## 1.1 练习：封装自己的数学对象
+// 7. Math.sign 判断一个数到底为正数(是则返回1) 负数(是则返回-1) 还是零(是则返回0)
+console.log(Math.sign(100));
+console.log(Math.sign(0));
+console.log(Math.sign(-100));
+```
+
+
+
+## 2.1 练习：封装自己的数学对象
 
 利用对象封装自己的数学对象，里面有PI 最大值 和最小值
 ```js
@@ -63,7 +75,7 @@ console.log(myMath.min(1, 5, 9));
 
 
 
-## 1.2 Math绝对值和三个取整方法
+## 2.2 Math绝对值和三个取整方法
 Math.abs() 取绝对值
 三个取整方法：
 Math.floor() : 向下取整
@@ -93,7 +105,7 @@ console.log(Math.round(-1.5)); // -1
 ```
 
 
-## 1.3 随机数方法random()
+## 2.3 随机数方法random()
 random() 方法可以随机返回一个小数，其取值范围是 `[0，1)，左闭右开 0 <= x < 1`
 得到一个两数之间的随机整数，包括第一个数，不包括第二个数
 
@@ -131,18 +143,66 @@ while(true) { //死循环 ，需要退出循环条件
 }
 ```
 
+# 3 ES6_Number对象
 
-# 2 Date日期对象
+Number.EPSILON 是 js表示的最小精度，主要用在浮点数运算两个数的差值小于Number.EPSILON，这认为这两个数相等
+Number.isFinite 检测一个数值是否为有限数
+Number.isNaN  检测一个数是否为NaN
+Number.parseFloat Number.parseInt 字符串转数
+Number.isInteger 判断一个数是否为正数
+
+```js
+// 0. Number.EPSILON 是 js表示的最小精度，主要用在浮点数运算两个数的差值小于Number.EPSILON，这认为这两个数相等
+console.log(0.1 + 0.2 === 0.3); //返回false
+//只有这样来判断：
+function equal(a, b) {
+    if (Math.abs(a - b) < Number.EPSILON) {
+        return true;
+    } else {
+        return false;
+    }
+}
+console.log(equal(0.1 + 0.2, 0.3)); //这样才返回true
+
+//1. 进制
+let b = 0b1010; //二进制
+let o = 0o777; //八进制
+let d = 100; //十进制
+let x = 0xff; //十六进制
+console.log(b);
+console.log(o);
+console.log(d);
+console.log(x);
+
+// 2. Number.isFinite 检测一个数值是否为有限数
+console.log(Number.isFinite(100));
+console.log(Number.isFinite(100 / 0));
+console.log(Number.isFinite(Infinity)); //无穷
+
+// 3. Number.isNaN  检测一个数是否为NaN
+console.log(Number.isNaN(123));
+
+// 4. Number.parseFloat Number.parseInt 字符串转数
+console.log(Number.parseInt('4243fdg23')); //4243
+console.log(Number.parseFloat('42.43fdg')); //42.43
+
+// 5. Number.isInteger 判断一个数是否为正数
+console.log(Number.isInteger(2.4));
+
+
+```
+
+# 4 Date日期对象
 Date 对象和 Math 对象不一样，他是一个构造函数，所以我们需要实例化后才能使用
 
 Date 实例用来处理日期和时间
 
-## 2.1 Date()方法的使用
-### 2.1.1 获取当前时间必须实例化
+## 4.1 Date()方法的使用
+### 4.1.1 获取当前时间必须实例化
 var now = new Date();
 console.log(now);
 
-### 2.1.2 Date()构造函数的参数
+### 4.1.2 Date()构造函数的参数
 如果括号里面有时间，就返回参数里面的时间。例如日期格式字符串为 ‘2019-5-1’，可以写成new Date('2019-5-1') 或者 new Date('2019/5/1')
 
 如果Date()不写参数，就返回当前时间
@@ -165,7 +225,7 @@ console.log(data2);
 ```
 
 
-## 2.2 日期格式化
+## 4.2 日期格式化
 我们想要 2019-8-8 8:8:8 格式的日期，要怎么办？
 
 需要获取日期指定的部分，所以我们要手动的得到这种格式
@@ -214,7 +274,7 @@ console.log(getTimer());
 
 
 
-## 2.3 获取日期的总的毫秒形式
+## 4.3 获取日期的总的毫秒形式
 date.valueOf() ：得到现在时间距离1970.1.1总的毫秒数
 date.getTime() ：得到现在时间距离1970.1.1总的毫秒数
 

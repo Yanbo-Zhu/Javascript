@@ -115,10 +115,316 @@ alert(arrStus.length);  // 3
 
 
 
-# 3 数组的方法
+
+# 3 扩展运算符 ES6 spreads arguments into a real Array
+https://www.mediaevent.de/javascript/spread-operator.html
+
+## 3.1 含义
+
+扩展运算符（spread）是三个点（`...`）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。
+
+```js
+console.log(...[1, 2, 3])
+// 1 2 3
+
+console.log(1, ...[2, 3, 4], 5)
+// 1 2 3 4 5
+
+[...document.querySelectorAll('div')]
+// [<div>, <div>, <div>]
+```
+
+1扩展运算符可以将数组或者对象转为用逗号分隔的参数序列。
+```js
+let aty = [1, 2, 3];
+// ...ary  // 1, 2, 3
+console.log(...ary);  // 1 2 3 
+```
+
+2可以把对象里面的内容展开,合并到一个新的对象里面
+```js
+        let obj = {
+            name:"zhangsan",
+            age:12
+        }
+        let obj2 = {
+            gender:'男',
+            love:"meat",
+            ...obj
+        }
+        console.log(...obj);
+```
 
 
-## 3.1 遍历数组 (for, forEach(), for in )
+
+2扩展运算符可以应用于合并数组。
+```js
+//方法一 
+let ary1 = [1, 2, 3];
+let ary2 = [3, 4, 5];
+let ary3 = [...ary1, ...ary2];  
+// 方法二
+ary1.push(...ary2);
+```
+
+
+3 将类(伪)数组或可遍历对象转换为正真的数组
+```js
+let oDivs = document.getElemenetsByTagName('div');
+oDivs = [...oDivs];
+```
+
+4 可以把展开结果作为函数的实参
+
+```javascript
+let arr1 = [12,34,56]
+let fn = (a,b,c)=>{
+    console.log(a+b+c)
+}
+fn(...arr1)
+```
+
+
+1 该运算符主要用于函数调用。
+
+```js
+function push(array, ...items) {
+  array.push(...items);
+}
+
+function add(x, y) {
+  return x + y;
+}
+
+const numbers = [4, 38];
+add(...numbers) // 42
+```
+
+上面代码中，`array.push(...items)`和`add(...numbers)`这两行，都是函数的调用，它们都使用了扩展运算符。该运算符将一个数组，变为参数序列。
+
+2 扩展运算符与正常的函数参数可以结合使用，非常灵活。
+
+```js
+function f(v, w, x, y, z) { }
+const args = [0, 1];
+f(-1, ...args, 2, ...[3]);
+```
+
+3 扩展运算符后面还可以放置表达式。
+
+```js
+const arr = [
+  ...(x > 0 ? ['a'] : []),
+  'b',
+];
+```
+
+4 如果扩展运算符后面是一个空数组，则不产生任何效果。
+
+```js
+[...[], 1]
+// [1]
+```
+
+注意，只有函数调用时，扩展运算符才可以放在圆括号中，否则会报错。
+
+```js
+(...[1, 2])
+// Uncaught SyntaxError: Unexpected number
+
+console.log((...[1, 2]))
+// Uncaught SyntaxError: Unexpected number
+
+console.log(...[1, 2])
+// 1 2
+```
+
+上面三种情况，扩展运算符都放在圆括号里面，但是前两种情况会报错，因为扩展运算符所在的括号不是函数调用。
+
+## 3.2 替代函数的 apply() 方法
+
+由于扩展运算符可以展开数组，所以不再需要`apply()`方法将数组转为函数的参数了。
+
+```js
+// ES5 的写法
+function f(x, y, z) {
+  // ...
+}
+var args = [0, 1, 2];
+f.apply(null, args);
+
+// ES6 的写法
+function f(x, y, z) {
+  // ...
+}
+let args = [0, 1, 2];
+f(...args);
+```
+
+下面是扩展运算符取代`apply()`方法的一个实际的例子，应用`Math.max()`方法，简化求出一个数组最大元素的写法。
+
+```js
+// ES5 的写法
+Math.max.apply(null, [14, 3, 77])
+
+// ES6 的写法
+Math.max(...[14, 3, 77])
+
+// 等同于
+Math.max(14, 3, 77);
+```
+
+上面代码中，由于 JavaScript 不提供求数组最大元素的函数，所以只能套用`Math.max()`函数，将数组转为一个参数序列，然后求最大值。有了扩展运算符以后，就可以直接用`Math.max()`了。
+
+另一个例子是通过`push()`函数，将一个数组添加到另一个数组的尾部。
+
+```js
+// ES5 的写法
+var arr1 = [0, 1, 2];
+var arr2 = [3, 4, 5];
+Array.prototype.push.apply(arr1, arr2);
+
+// ES6 的写法
+let arr1 = [0, 1, 2];
+let arr2 = [3, 4, 5];
+arr1.push(...arr2);
+```
+
+上面代码的 ES5 写法中，`push()`方法的参数不能是数组，所以只好通过`apply()`方法变通使用`push()`方法。有了扩展运算符，就可以直接将数组传入`push()`方法。
+
+下面是另外一个例子。
+
+```js
+// ES5
+new (Date.bind.apply(Date, [null, 2015, 1, 1]))
+
+// ES6
+new Date(...[2015, 1, 1]);
+```
+
+## 3.3 扩展运算符的应用
+
+
+(0)扩展运算符可以将数组或者对象转为用逗号分隔的参数序列。
+```js
+let aty = [1, 2, 3];
+// ...ary  // 1, 2, 3
+console.log(...ary);  // 1 2 3 
+```
+
+**（1）复制数组**
+
+数组是复合的数据类型，直接复制的话，只是复制了指向底层数据结构的指针，而不是克隆一个全新的数组。
+
+```js
+const a1 = [1, 2];
+const a2 = a1;
+
+a2[0] = 2;
+a1 // [2, 2]
+```
+
+上面代码中，`a2`并不是`a1`的克隆，而是指向同一份数据的另一个指针。修改`a2`，会直接导致`a1`的变化。
+
+ES5 只能用变通方法来复制数组。
+
+```js
+const a1 = [1, 2];
+const a2 = a1.concat();
+
+a2[0] = 2;
+a1 // [1, 2]
+```
+
+上面代码中，`a1`会返回原数组的克隆，再修改`a2`就不会对`a1`产生影响。
+
+扩展运算符提供了复制数组的简便写法。
+
+```js
+const a1 = [1, 2];
+// 写法
+const a2 = [...a1];
+```
+
+上面的两种写法，`a2`都是`a1`的克隆。
+
+**（2）合并数组**
+
+扩展运算符提供了数组合并的新写法。
+
+```js
+const arr1 = ['a', 'b'];
+const arr2 = ['c'];
+const arr3 = ['d', 'e'];
+
+// ES5 的合并数组
+arr1.concat(arr2, arr3);
+// [ 'a', 'b', 'c', 'd', 'e' ]
+
+// ES6 的合并数组
+[...arr1, ...arr2, ...arr3]
+// [ 'a', 'b', 'c', 'd', 'e' ]
+```
+
+不过，这两种方法都是浅拷贝，使用的时候需要注意。
+
+```js
+const a1 = [{ foo: 1 }];
+const a2 = [{ bar: 2 }];
+
+const a3 = a1.concat(a2);
+const a4 = [...a1, ...a2];
+
+a3[0] === a1[0] // true
+a4[0] === a1[0] // true
+```
+
+上面代码中，`a3`和`a4`是用两种不同方法合并而成的新数组，但是它们的成员都是对原数组成员的引用，这就是浅拷贝。如果修改了引用指向的值，会同步反映到新数组。
+
+**(4）字符串转为数组**
+
+扩展运算符还可以将字符串转为真正的数组。
+
+```js
+console.log(...'alex');                // a l e x
+console.log('a', 'l', 'e', 'x');    // a l e x
+
+console.log([...'alex']);            // [ 'a', 'l', 'e', 'x' ]
+// ES6 之前字符串转数组是通过：'alex'.split('');
+```
+
+**（5）类数组转为数组**
+
+```js
+// arguments
+function func() {
+    console.log(arguments);            // [Arguments] { '0': 1, '1': 2 }
+    console.log([...arguments]);    // [ 1, 2 ]
+}
+func(1, 2);
+
+// NodeList
+console.log([...document.querySelectorAll('p')].push);
+```
+
+
+**（6）可以把展开结果作为函数的实参 **
+
+```javascript
+let arr1 = [12,34,56]
+let fn = (a,b,c)=>{
+    console.log(a+b+c)
+}
+fn(...arr1)
+```
+
+
+
+
+# 4 数组的方法
+
+
+## 4.1 遍历数组 (for, forEach(), for in )
 
 用 listOfStuff[i].value 是无效的, 是会报错的 
 
@@ -224,8 +530,33 @@ listOfStuff.forEach(element => {
   console.log(denseForEach(listOfStuff, "listOfStuff: "));
 ```
 
+## 1.1 forEach()
+array.forEach(function(currentValue,index,arr))
 
-## 3.2 数组中新增元素
+currentValue : 数组当前项的值
+index: 数组当前项的索引
+arr: 数组对象本身
+
+```html
+<body>
+    <script>
+        // forEach 迭代(遍历) 数组
+        var arr = [1, 2, 3];
+        var sum = 0;
+        arr.forEach(function(value, index, array) {
+            console.log('每个数组元素' + value);
+            console.log('每个数组元素的索引号' + index);
+            console.log('数组本身' + array);
+            sum += value;
+        })
+        console.log(sum);
+    </script>
+</body>
+```
+
+
+
+## 4.2 数组中新增元素
 ①通过修改 length 长度新增数组元素
 可以通过修改 length 长度来实现数组扩容的目的
 
@@ -252,7 +583,7 @@ arr[4] = 'hotpink';
 console.log(arr);
 
 
-### 3.2.1 例子
+### 4.2.1 例子
 
 1.新建一个数组，里面存放10个整数（ 1~10）， 要求使用循环追加的方式输出： [1,2,3,4,5,6,7,8,9,10]
 
@@ -308,7 +639,7 @@ console.log(newArr);
 ```
 
 
-## 3.3 删除指定数组元素
+## 4.3 删除指定数组元素
 
 
 将数组[2, 0, 6, 1, 77, 0, 52, 0, 25, 7]中的 0 去掉后，形成一个不包含 0 的新数组。
@@ -347,7 +678,7 @@ console.log(newArr);
 
 
 
-## 3.4 修改数组元素的其他方法
+## 4.4 修改数组元素的方法 push() pop() unshift() shift()
 |方法名	|说明|	返回值|
 |--|--|--|
 |listOfStuff[8] = 100; | listOfStuff 原先只有 4 位, 直接在第八位 插入 100 ||
@@ -393,7 +724,28 @@ for (var i = 0; i < arr.length; i++) {
 console.log(newArr);
 ```
 
-## 3.5 翻转数组
+
+
+## 4.5 翻转数组 reverse()	
+|方法名	|说明	|是否修改原数组|
+|---|---|---|
+|reverse()	|颠倒数组中元素的顺序，无参数	|该方法会改变原来的数组，返回新数组|
+|sort()|	对数组的元素进行排序	|该方法会改变原来的数组，返回新数组|
+
+1
+
+```js
+// 1.翻转数组
+var arr = ['pink','red','blue'];
+arr.reverse();
+console.log(arr);  
+
+反转前: ['H', 'a', 'l', 'l', 'o', '!']
+反转后: ['!', 'o', 'l', 'l', 'a', 'H']
+
+```
+
+2 
 将数组 [‘red’, ‘green’, ‘blue’, ‘pink’, ‘purple’] 的内容反过来存放
 
 // 把旧数组索引号的第4个取过来(arr.length - 1),给新数组索引号第0个元素(newArr.length)
@@ -409,29 +761,14 @@ console.log(newArr);
 
 
 
-## 3.6 数组排序
+## 4.6 数组排序 sort()
+
 |方法名	|说明	|是否修改原数组|
 |---|---|---|
 |reverse()	|颠倒数组中元素的顺序，无参数	|该方法会改变原来的数组，返回新数组|
 |sort()|	对数组的元素进行排序	|该方法会改变原来的数组，返回新数组|
 
-
-
-### 3.6.1 reverse()	
-```js
-// 1.翻转数组
-var arr = ['pink','red','blue'];
-arr.reverse();
-console.log(arr);  
-
-反转前: ['H', 'a', 'l', 'l', 'o', '!']
-反转后: ['!', 'o', 'l', 'l', 'a', 'H']
-
-```
-
-### 3.6.2 sort()
-
-#### 3.6.2.1 不给入自定义的 vergleichsfunktion
+### 4.6.1 不给入自定义的 vergleichsfunktion
 按照  alphabetisch 排序
 Wird kein Argument übergeben, dann wird das array alphabetisch sortiert.
 
@@ -465,7 +802,7 @@ console.log(listOfStuff);  // [1, 2, 3, empty, true, 'Hallo Welt', false, null, 
 console.log(listOfStuff.sort()); // [1, 100, 2, 3, 'Hallo Welt', false, null, true, empty × 3]    
 ```
 
-#### 3.6.2.2 自定义的 Vergleichsfunktion 
+### 4.6.2 自定义的 Vergleichsfunktion 
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 
 A 为当前元素, b 为下一个元素 
@@ -513,7 +850,7 @@ listOfNumbers.sort((a,b) => a-b);
 
 ```
 
-#### 3.6.2.3 冒泡排序
+### 4.6.3 冒泡排序
 将数组 [5, 4, 3, 2, 1]中的元素按照从小到大的顺序排序，输出： 1，2，3，4，5
 
 ```js
@@ -534,7 +871,7 @@ console.log(arr);
 
 
 
-## 3.7 数组索引 indexOf() lastIndexOf()
+## 4.7 数组索引 indexOf() lastIndexOf()
 |方法名	|说明|	返回值|
 |---|---|---|
 |indexOf(true, 4)或者 indexOf("Z") 	|数组中查找给定元素的第一个索引	|如果存在返回索引号，如果不存在，则返回-1, gibt den index eines gesuchten Wertes zurück, Wird ein Wert nicht gefunden, liefert sie -1 zurück|
@@ -563,7 +900,7 @@ console.log(listOfStuff.indexOf("Z")); // 结果是 找不到 显示  -1
 ``` 
 
 
-### 3.7.1 数组去重
+### 4.7.1 数组去重
 
 分析：把旧数组里面不重复的元素选取出来放到新数组中，重复的元素只保留一个，放到新数组中去重。
 
@@ -588,88 +925,15 @@ console.log(demo);
 
 
 
-## 3.8 数组和字符串之间的转变
 
-### 3.8.1 数组转成字符串 
-|方法名	|说明	|返回值|
-|---|---|---|
-|toString()	|把数组转换成字符串，逗号分隔每一项	|返回一个字符串|
-|join(‘分隔符’)	|方法用于把数组中的所有元素转换为一个字符串	|返回一个字符串|
-
-```js
-// 1.toString() 将我们的数组转换为字符串
-var arr = [1, 2, 3];
-console.log(arr.toString()); // 1,2,3
-
-// 2.join('分隔符')
-var arr1 = ['green', 'blue', 'red'];
-console.log(arr1.join()); // 不写默认用逗号分割
-console.log(arr1.join('-')); //  green-blue-red
-console.log(arr1.join('&')); // green&blue&red
-
-console.log(listOfStuff);
-let listAsString = "";
-listAsString = listOfStuff.join();
-console.log(listAsString, typeof listAsString);
-// das Komma ist der default Seperator 
-
-let letters = ["H","a","l","l","o"];
-listAsString = letters.join("");
-console.log(listAsString);
-
-```
-
-### 3.8.2 字符串转为数组  split ()
-```js
-//ist die Umkehrung von join() 
-
-let alleNames = "Max, Klaus, Susi";
-let eachName = alleNames.split(",");
-console.log(eachName); // ['Max', ' Klaus', ' Susi']
-
-
-// string内不含comma  但是 delimiter 设置成 comma
-// 结果是 整个String 会变成 唯一一个 element in a array 
-let alleNames = "Max Klaus Susi";
-let eachName = alleNames.split(",");
-console.log(eachName); // [Max Klaus Susi]
-
-```
-
-
-
-## 3.9 其他数据类型转化为数组:  Array.from()
-Array.from() 只是没有永久改变这个变量的数据类型:  die Umwandlung der Collection in ein Array ist nur temporär,Die Variable allP verweist immer noch auf eine Collection
-DOM Elementen 储存进array 
-```js
-// Listen aus DOM Elementen sind Collections
-let allP = document.getElementsByTagName("p");
-console.log(allP,typeof allP);  // 显示为 HTMLCollection(4) [p, p, p, p] 'object'
-console.log(Array.from(allP), typeof Array.from(allP));
-
-// folgendes ist nicht möglich, weil allP kein Array ist.
-// allP 是一个 HTMLCollection 的数据类型
-// ForEach 是一个 array method , forEach 不能 对非array数据类型 的 变量 进行使用 
-// 所以这里会报错: Uncaught TypeError: allP.forEach is not a function 
-allP.forEach(element => {
-    console.log(element);
-});
-
-// Um Array Methoden auf sie anzuwenden, müssen sie in ein Array umgewandelt werden. 使用 Array.from 函数 , 将其转换为 array 类型 
-Array.from(allP).forEach(element => {
-    console.log(element);
-});
-
-```
-
-## 3.10 数组的连接截取 
+## 4.8 数组的连接截取 
 |方法名	|说明	|返回值|
 |---|---|---|
 |concat()	|连接两个或多个数组 不影响原数组	|返回一个新的数组, 原来的数组不受影响|
 |slice()|	数组截取slice(begin,end)	|返回被截取项目的新数组,  原来的数组不受影响|
 |splice()	|数组删除splice(第几个开始要删除的个数), 从某个位置移除数组的几个元素 ，并在这个位置上添加新元素|原数组被改为被删除项目后的数组，会return一个数组, 这个额数据包含了 那些元素被删除了|
 
-### 3.10.1 concat()
+### 4.8.1 concat()
 ```js
  console.log(numbers); // [1, 7, 10, 40, 102]
  let newList=numbers.concat(4,5);  
@@ -682,7 +946,7 @@ Array.from(allP).forEach(element => {
 ```
 
 
-### 3.10.2 slice()
+### 4.8.2 slice()
 给入两个值 
  Die Methode gibt einen beliebigen Teilbereich aus einem array zurück.   Mit zwei Argumenten werden Anfang und Ende des Teilbereiches spezifiziert. 
  Dabei wird der Wert des ersten Argumentes mit ausgegeben, aber nicht der des zweiten. Das ursprüngliche array wird nicht verändert.
@@ -707,7 +971,7 @@ Negative Argumente beginnen mit dem Teilbereich am Ende des arrays, zählen aber
  console.log(numbers.slice(-3));
 ```
 
-### 3.10.3 splice()
+### 4.8.3 splice()
 entfernen und hinzufügen
 
  Mit dieser Methode können Elemente sowohl eingefügt als auch entfernt werden.  Dabei wird das ursprüngliche array verändert.
@@ -746,7 +1010,7 @@ console.log(listOfStuff);
 
 ```
 
-# 4 案例
+# 5 案例
 
 1.请将 [“关羽”,“张飞”,“马超”,“赵云”,“黄忠”,“刘备”,“姜维”]; 数组里的元素依次打印到控制台
 
@@ -851,7 +1115,7 @@ console.log(str);
 
 ```
 
-## 4.1 案例: hangman
+## 5.1 案例: hangman
 
 https://codepen.io/cathydutton/pen/JjpxMm
 https://codesandbox.io/s/z9fhk?file=/src/index.js:3525-3536

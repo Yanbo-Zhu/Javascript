@@ -205,14 +205,48 @@ console.log(str.split(','));
 </script>
 ```
 
-### 1.5.3 大小写转换
+### 1.5.3 大小写转换 toUpperCase(), toLowerCase()
 toUpperCase() 转换大写
 toLowerCase() 转换小写
 
 
-## 1.6 内插 string Interpolation 
+## 1.6 trim()
+​ str.trim()
+trim()方法会从一个字符串的两端删除空白字符
+trim()方法并不影响原字符串本身，它返回的是一个新的字符串
 
-使用 ${} 两边必须写上  ``, 不能用""
+```html
+<body>
+    <input type="text"> <button>点击</button>
+    <div></div>
+    <script>
+        // trim 方法去除字符串两侧空格
+        var str = '   an  dy   ';
+        console.log(str);
+        var str1 = str.trim();
+        console.log(str1);
+        var input = document.querySelector('input');
+        var btn = document.querySelector('button');
+        var div = document.querySelector('div');
+        btn.onclick = function() {
+            var str = input.value.trim();
+            if (str === '') {
+                alert('请输入内容');
+            } else {
+                console.log(str);
+                console.log(str.length);
+                div.innerHTML = str;
+            }
+        }
+    </script>
+</body>
+```
+
+
+
+## 1.7 内插 string Interpolation 
+
+使用 ${} 两边必须写上  \`\`, 不能用""
 `` 代表 string literal .  man muss nicht mit ""  arbeiten. Es ist ganz hilfreich bei css selectoren
 
 ```js
