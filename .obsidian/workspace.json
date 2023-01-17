@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
+                "file": "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md",
                 "mode": "source",
                 "source": true
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "json",
+                "query": "formdata",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
+                "file": "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
+                "file": "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md"
+                "file": "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md"
               }
             }
           }
@@ -150,15 +150,15 @@
   },
   "active": "17e84120892cc399",
   "lastOpenFiles": [
+    "Chapter02_函数与作用域/Chapter02_01_函数.md",
+    "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md",
+    "Chapter02_函数与作用域/Chapter06_03_函数进阶1_this的使用.md",
+    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
+    "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
+    "Chapter01_变量与作用域/Chapter07_02_创建变量_let和const和var.md",
     "Chapter03_复杂数据类型_类和对象/Chapter03_02_Object这个class.md",
     "Chapter05_JsAPI_BOM/Chapter05_01.md",
-    "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
-    "Chapter04_JsAPI_DOM/Chapter04_03_表单验证中的用dom.md",
-    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
-    "Chapter03_复杂数据类型_类和对象/Chapter03_04_值类型和引用类型.md",
-    "Chapter07_ES6/Chapter07_10_Promise对象.md",
-    "Chapter02_函数与作用域/Chapter02_01_函数.md",
-    "Chapter03_复杂数据类型_类和对象/类_Chapter07_13_ES6_Class的语法.md",
-    "Chapter03_复杂数据类型_类和对象/对象_Chapter03_01_对象object.md"
+    "Chapter04_JsAPI_DOM/Chapter04_03_表单验证中的用dom.md"
   ]
 }
