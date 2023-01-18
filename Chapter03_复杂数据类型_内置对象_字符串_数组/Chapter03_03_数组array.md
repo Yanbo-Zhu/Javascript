@@ -530,7 +530,7 @@ listOfStuff.forEach(element => {
   console.log(denseForEach(listOfStuff, "listOfStuff: "));
 ```
 
-## 1.1 forEach()
+## 4.2 forEach()
 array.forEach(function(currentValue,index,arr))
 
 currentValue : 数组当前项的值
@@ -556,7 +556,7 @@ arr: 数组对象本身
 
 
 
-## 4.2 数组中新增元素
+## 4.3 数组中新增元素
 ①通过修改 length 长度新增数组元素
 可以通过修改 length 长度来实现数组扩容的目的
 
@@ -583,7 +583,7 @@ arr[4] = 'hotpink';
 console.log(arr);
 
 
-### 4.2.1 例子
+### 4.3.1 例子
 
 1.新建一个数组，里面存放10个整数（ 1~10）， 要求使用循环追加的方式输出： [1,2,3,4,5,6,7,8,9,10]
 
@@ -639,7 +639,7 @@ console.log(newArr);
 ```
 
 
-## 4.3 删除指定数组元素
+## 4.4 删除指定数组元素
 
 
 将数组[2, 0, 6, 1, 77, 0, 52, 0, 25, 7]中的 0 去掉后，形成一个不包含 0 的新数组。
@@ -678,7 +678,7 @@ console.log(newArr);
 
 
 
-## 4.4 修改数组元素的方法 push() pop() unshift() shift()
+## 4.5 修改数组元素的方法 push() pop() unshift() shift()
 |方法名	|说明|	返回值|
 |--|--|--|
 |listOfStuff[8] = 100; | listOfStuff 原先只有 4 位, 直接在第八位 插入 100 ||
@@ -726,7 +726,7 @@ console.log(newArr);
 
 
 
-## 4.5 翻转数组 reverse()	
+## 4.6 翻转数组 reverse()	
 |方法名	|说明	|是否修改原数组|
 |---|---|---|
 |reverse()	|颠倒数组中元素的顺序，无参数	|该方法会改变原来的数组，返回新数组|
@@ -761,14 +761,14 @@ console.log(newArr);
 
 
 
-## 4.6 数组排序 sort()
+## 4.7 数组排序 sort()
 
 |方法名	|说明	|是否修改原数组|
 |---|---|---|
 |reverse()	|颠倒数组中元素的顺序，无参数	|该方法会改变原来的数组，返回新数组|
 |sort()|	对数组的元素进行排序	|该方法会改变原来的数组，返回新数组|
 
-### 4.6.1 不给入自定义的 vergleichsfunktion
+### 4.7.1 不给入自定义的 vergleichsfunktion
 按照  alphabetisch 排序
 Wird kein Argument übergeben, dann wird das array alphabetisch sortiert.
 
@@ -802,7 +802,7 @@ console.log(listOfStuff);  // [1, 2, 3, empty, true, 'Hallo Welt', false, null, 
 console.log(listOfStuff.sort()); // [1, 100, 2, 3, 'Hallo Welt', false, null, true, empty × 3]    
 ```
 
-### 4.6.2 自定义的 Vergleichsfunktion 
+### 4.7.2 自定义的 Vergleichsfunktion 
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 
 A 为当前元素, b 为下一个元素 
@@ -850,7 +850,7 @@ listOfNumbers.sort((a,b) => a-b);
 
 ```
 
-### 4.6.3 冒泡排序
+### 4.7.3 冒泡排序
 将数组 [5, 4, 3, 2, 1]中的元素按照从小到大的顺序排序，输出： 1，2，3，4，5
 
 ```js
@@ -871,7 +871,7 @@ console.log(arr);
 
 
 
-## 4.7 数组索引 indexOf() lastIndexOf()
+## 4.8 数组索引 indexOf() lastIndexOf()
 |方法名	|说明|	返回值|
 |---|---|---|
 |indexOf(true, 4)或者 indexOf("Z") 	|数组中查找给定元素的第一个索引	|如果存在返回索引号，如果不存在，则返回-1, gibt den index eines gesuchten Wertes zurück, Wird ein Wert nicht gefunden, liefert sie -1 zurück|
@@ -900,7 +900,7 @@ console.log(listOfStuff.indexOf("Z")); // 结果是 找不到 显示  -1
 ``` 
 
 
-### 4.7.1 数组去重
+### 4.8.1 数组去重
 
 分析：把旧数组里面不重复的元素选取出来放到新数组中，重复的元素只保留一个，放到新数组中去重。
 
@@ -926,14 +926,14 @@ console.log(demo);
 
 
 
-## 4.8 数组的连接截取 
+## 4.9 数组的连接截取 
 |方法名	|说明	|返回值|
 |---|---|---|
 |concat()	|连接两个或多个数组 不影响原数组	|返回一个新的数组, 原来的数组不受影响|
 |slice()|	数组截取slice(begin,end)	|返回被截取项目的新数组,  原来的数组不受影响|
 |splice()	|数组删除splice(第几个开始要删除的个数), 从某个位置移除数组的几个元素 ，并在这个位置上添加新元素|原数组被改为被删除项目后的数组，会return一个数组, 这个额数据包含了 那些元素被删除了|
 
-### 4.8.1 concat()
+### 4.9.1 concat()
 ```js
  console.log(numbers); // [1, 7, 10, 40, 102]
  let newList=numbers.concat(4,5);  
@@ -946,7 +946,7 @@ console.log(demo);
 ```
 
 
-### 4.8.2 slice()
+### 4.9.2 slice()
 给入两个值 
  Die Methode gibt einen beliebigen Teilbereich aus einem array zurück.   Mit zwei Argumenten werden Anfang und Ende des Teilbereiches spezifiziert. 
  Dabei wird der Wert des ersten Argumentes mit ausgegeben, aber nicht der des zweiten. Das ursprüngliche array wird nicht verändert.
@@ -971,7 +971,7 @@ Negative Argumente beginnen mit dem Teilbereich am Ende des arrays, zählen aber
  console.log(numbers.slice(-3));
 ```
 
-### 4.8.3 splice()
+### 4.9.3 splice()
 entfernen und hinzufügen
 
  Mit dieser Methode können Elemente sowohl eingefügt als auch entfernt werden.  Dabei wird das ursprüngliche array verändert.

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md",
+                "file": "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_03_数组array.md",
                 "mode": "source",
                 "source": true
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "formdata",
+                "query": "hangman",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +65,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md",
+                "file": "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_03_数组array.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md",
+                "file": "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_03_数组array.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md"
+                "file": "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_03_数组array.md"
               }
             }
           }
@@ -150,15 +151,15 @@
   },
   "active": "17e84120892cc399",
   "lastOpenFiles": [
+    "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
+    "Chapter03_复杂数据类型_类和对象/Chapter03_04_值类型和引用类型.md",
     "Chapter02_函数与作用域/Chapter02_01_函数.md",
+    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
+    "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
     "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted.md",
     "Chapter02_函数与作用域/Chapter06_03_函数进阶1_this的使用.md",
-    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
-    "Chapter03_复杂数据类型_类和对象/Chapter03_05_Object和Json相互转换.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
     "Chapter01_变量与作用域/Chapter07_02_创建变量_let和const和var.md",
-    "Chapter03_复杂数据类型_类和对象/Chapter03_02_Object这个class.md",
-    "Chapter05_JsAPI_BOM/Chapter05_01.md",
-    "Chapter04_JsAPI_DOM/Chapter04_03_表单验证中的用dom.md"
+    "Chapter03_复杂数据类型_类和对象/Chapter03_02_Object这个class.md"
   ]
 }
