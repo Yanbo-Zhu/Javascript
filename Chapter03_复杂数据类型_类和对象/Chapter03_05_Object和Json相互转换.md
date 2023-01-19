@@ -1,6 +1,76 @@
 
 # 1 总览 
 JSON: JavaScript Object Notation
+
+
+
+# 2 Formatdefinition
+JSON kennt also Objekte, Arrays, Zeichenketten, Zahlen, boolsche Werte oder den null-Wert. 
+
+Zum Schluss noch einmal die Fakten zusammengefasst:
+
+-   **Objekte** beginnen mit { und enden mit }
+-   Ein Objekt kann eine ungeordnete Liste von Eigenschaften enthalten, die durch Kommata getrennt werden
+-   **Eigenschaften** bestehen aus einem Namen und einem Wert
+-   **Namen** sind immer Zeichenketten
+-   Ein **Wert** kann ein Objekt sein, eine Zeichenkette, ein Array, eine Zahl, boolsche Werte oder der null-Wert
+-   **Zeichenketten** beginnen und enden mit Anführungszeichen "
+-   **Array** beginnen mit [ und enden mit ], sie können geordnete Wertlisten enthalten, die durch Kommata getrennt werden
+-   Boolsche Werte sind true oder false, Anführungszeichen sind nicht nötig
+-   **Zahlen** sind die Ziffern von 0-9, negative Zahlen sind möglich, Dezimalpunkte ebenfalls
+-   Auch **Leerräume** sind erlaubt
+
+
+## 2.1 Objekte
+Objekte sind ungeordnete Mengen von Name-Wert-Paaren, sie werden wie folgt deklariert:
+
+[![8 7 object.gif](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/3/3f/8_7_object.gif)](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/3/3f/8_7_object.gif)
+
+Ein Objekt kann beliebig viele Name-Wert-Paare enthalten.
+
+## 2.2 Arrays
+Arrays sind, wie erwähnt, geordnete Wertlisten. Sie werden von eckigen Klammern eingeschlossen und durch Kommata getrennt:
+
+[![8 7 array.gif](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/a/a8/8_7_array.gif)](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/a/a8/8_7_array.gif)
+
+
+## 2.3 Werte
+Werte können aus diversen Formaten bestehen, Objekte, Arrays, Zeichenketten und weiteren. Die folgende Abbildung zeigt die Formate, die Werte annehmen können in der korrekten Deklaration.
+
+[![8 7 value.gif](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/3/32/8_7_value.gif)](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/3/32/8_7_value.gif)
+
+Eine Verschachtelung der Strukturen (z.B. ist ein Wert, ein Objekt mit einem Array) ist möglich.
+
+## 2.4 Zeichenketten
+Zeichenketten können aus keinem (" ") bis mehreren Unicode-Zeichen bestehen. Jede Zeichenkette, egal ob leer oder nicht, wird von doppelten Anführungszeichen umschlossen.
+
+" " (leere Zeichenkette)
+
+"Ich bin eine Zeichenkette." (Zeichenkette mit Inhalt)
+
+Des Weiteren können Zeichenketten noch Escape-Sequenzen mit einem einzelnen weiteren Zeichen sein, die unterschiedliche Bedeutungen haben ("\Escape-Sequenz"). Die wichtigsten sind im folgenden erklärt:
+
+-   \" – ein Anführungszeichen, das ausgegeben werden soll
+-   \\ – ein Backslash
+-   \/ – ein Slash
+-   \b – diese Zeile enthält ein Backspace
+-   \n – eine neue Zeile beginnen
+
+## 2.5 Zahlen
+Zahlen in JSON sind denen in z.B. Java sehr ähnlich. Hexadezimale Zahlen allerdings, sind hier nicht möglich. Zahlen können folgende Elemente enthalten:
+-   die Ziffern 0-9 (1234)
+-   ein negatives Vorzeichen (-1234)
+-   ein Punkt als Dezimaltrennung (12.34)
+-   ein e (oder E) für einen Exponenten, gefolgt von einem + oder – und den Ziffern 0-9 (12e+34)
+
+
+# 3 Unterschied zu XML
+JSON ist ein Datenaustauschformat, XML ist ein Datenauszeichnungsformat.
+
+Dort wo XML auch zum Datenaustausch verwendet wird, sollte immer die Auszeichnungsfähigkeit dieser Sprache wichtig sein. Andererseits ergibt es keinen Sinn, XML zu verwenden, wenn man seine Anforderungen mit einfacheren Schlüssel-/Wert-Paaren technisch abdecken kann, die viel angemessener in JSON repräsentiert werden können.
+
+# 4 普通 object 和 json 转换 
+
 - Objekte in flat data konvertieren zum Senden und Speichern
 - key sind "string". 从 fomular 中获得的 nummber , 也会自动在获取的时候, 转为 string 这种 data type 
 - values sind einfache Ausdrücke, Funktionen sind hier nicht erlaubt  
@@ -11,15 +81,13 @@ JSON: JavaScript Object Notation
         - 可以 是  hobbies : ["turnen","tanzen","tischlern"],
 
 
-# 2 普通 object 和 json 转换 
-
 1 ins JSON konvertieren
 JSON.stringify(simplePerson); 
 
 2 aus JSON konvertieren
 JSON.parse(personFlat)
 
-## 2.1 例子
+## 4.1 例子
 
 ```js
 
@@ -68,7 +136,7 @@ JSON.parse(personFlat)
 }
 ```
 
-# 3 convert FormData (HTML5 object) to JSON
+# 5 convert FormData (HTML5 object) to JSON
 
 https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
 

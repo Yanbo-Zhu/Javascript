@@ -3,7 +3,7 @@
 # 1 其他数据类型与数组之间的转化 
 
 
-## 1.1 其他数据类型转化为数组 Array.from()
+## 1.1 Array.from(): 其他数据类型转化为数组
 
 本节讲解了字符串的 `Array.from()` 方法的使用，用于将类数组对象和可迭代的对象转化真正的数组，在编程中主要用于更加方便的初始化一个有默认值的数组，还可以用于将获取的 html 的 DOM 对象转化为数组，可以使用数组方法进行操作。
 
@@ -232,7 +232,7 @@ console.log(combine(m,n));                     // [1, 2, 3]
 首先定义一个去重数组函数，通过 concat 把传入的数组进行合并到一个新的数组中去，通过 new Set () 可以对 arr 进行去重操作，再使用 `Array.from()` 返回一个拷贝后的数组。
 
 
-## 1.2 将一组值转换为数组 Array.of()
+## 1.2 Array.of(): 将一组值转换为数组 
 
 `Array.of()`方法用于将一组值，转换为数组。
 
@@ -523,7 +523,16 @@ array.findLastIndex(n => n.value % 2 === 1); // 2
 
 上面示例中，`findLast()`和`findLastIndex()`从数组结尾开始，寻找第一个`value`属性为奇数的成员。结果，该成员是`{ value: 3 }`，位置是2号位。
 
-## 3.2 filter()
+## 3.2 flat()
+
+Dimension des Arrays auf 1 herabsetzen, alle Werte
+```js
+let a = [0, 1, 2, 3, 4, [5, 6, null]];
+a.flat(Infinity);  // 0,1,2,3,4,5,6,
+
+```
+  
+## 3.3 filter()
 
 array.filter(function(currentValue,index,arr))
 filter()方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素，主要用于筛选数组
@@ -531,6 +540,14 @@ filter()方法创建一个新的数组，新数组中的元素是通过检查指
 -   currentValue : 数组当前项的值
 -   index ：数组当前项的索引
 -   arr : 数组对象本身
+
+```js
+let a = [0, 1, 2, 3, 4, [5, 6, null]];
+
+// Das Filtern auf genau jene Elemente, für die die Bedingung WAHR lautet (hier: ungerade Zahlen)
+a.filter((i) => {return i % 2 == 1 ? true : false;});  // 1,3
+
+```
 
 ```html
 <body>
@@ -596,9 +613,18 @@ arr.filter(myFilter, obj) // [8, 4, 9]
 
 上面代码中，过滤器`myFilter()`内部有`this`变量，它可以被`filter()`方法的第二个参数`obj`绑定，返回大于`3`的成员。
 
-## 3.3 map()
+## 3.4 map()
 
 `map()`方法将数组的所有成员依次传入参数函数，然后把每一次的执行结果组成一个新数组返回。
+
+```js
+    let a = [0, 1, 2, 3, 4, [5, 6, null]];
+
+ // Die Abbildung jeden Wertes auf je ein Funktionsergebnis (hier: gerade Zahlen)
+    a.map((i) => {return i * 2;});  // 0,2,4,6,8,NaN
+
+    
+```
 
 ```js
 var numbers = [1, 2, 3];
@@ -650,7 +676,7 @@ var f = function (n) { return 'a' };
 
 上面代码中，`map()`方法不会跳过`undefined`和`null`，但是会跳过空位。
 
-## 3.4 reduce()
+## 3.5 reduce()
 
 `reduce()`方法依次处理数组的每个成员，最终累计为一个值。它们的差别是，`reduce()`是从左到右处理（从第一个成员到最后一个成员）。
 
@@ -666,6 +692,13 @@ var f = function (n) { return 'a' };
 // 6 4
 // 10 5
 //最后结果：15
+
+
+   // Die Reduktion des Array-Inhalts (hier: 10 und das einzelne Array [5,6,null] !)
+       let a = [0, 1, 2, 3, 4, [5, 6, null]];
+    a.reduce((p, n) => {return p + n;});  // 105,6,
+
+    
 ```
 
 上面代码中，`reduce()`方法用来求出数组所有成员的和。`reduce()`的参数是一个函数，数组每个成员都会依次执行这个函数。如果数组有 n 个成员，这个参数函数就会执行 n - 1 次。
@@ -732,7 +765,7 @@ function add(prev, cur) {
 */
 ```
 
-## 3.5 some()，every()
+## 3.6 some()，every()
 
 
 这两个方法类似“断言”（assert），返回一个布尔值，表示判断数组成员是否符合某种条件。
@@ -750,7 +783,7 @@ function isEven(x) { return x % 2 === 0 }
 
 `some`和`every`方法还可以接受第二个参数，用来绑定参数函数内部的`this`变量。
 
-### 3.5.1 some()
+### 3.6.1 some()
 some()方法用于检测数组中的元素是否满足指定条件（查找数组中是否有满足条件的元素）
 注意它返回的是布尔值，如果查找到这个元素，就返回true，如果查找不到就返回false
 如果找到第一个满足条件的元素，则终止循环，不再继续查找
@@ -787,7 +820,7 @@ arr.some(function (elem, index, arr) {
 
 上面代码中，如果数组`arr`有一个成员大于等于3，`some`方法就返回`true`。
 
-### 3.5.2 every()
+### 3.6.2 every()
 
 
 `every`方法是所有成员的返回值都是`true`，整个`every`方法才返回`true`，否则返回`false`。
@@ -804,7 +837,7 @@ arr.every(function (elem, index, arr) {
 
 
 
-## 3.6 fill()
+## 3.7 fill()
 
 `arr.fill(value[, start[, end]])`方法用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止索引。
 起始索引，默认值为 0。
@@ -843,7 +876,7 @@ arr
 // [[5], [5], [5]]
 ```
 
-## 3.7 10.at()
+## 3.8 10.at()
 
 长久以来，JavaScript 不支持数组的负索引，如果要引用数组的最后一个成员，不能写成`arr[-1]`，只能使用`arr[arr.length - 1]`。
 
@@ -869,7 +902,7 @@ sentence.at(-100) // undefined
 sentence.at(100) // undefined
 ```
 
-## 3.8 11.entries()，keys() 和 values()
+## 3.9 11.entries()，keys() 和 values()
 
 ES6 提供三个新的方法——`entries()`，`keys()`和`values()`——用于遍历数组。它们都返回一个遍历器对象，可以用`for...of`循环进行遍历，唯一的区别是`keys()`是对键名的遍历、`values()`是对键值的遍历，`entries()`是对键值对的遍历。
 
@@ -893,7 +926,7 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 // 1 "b"
 ```
 
-## 3.9 12.includes()
+## 3.10 12.includes()
 表示某个数组是否包含给定的值，返回布尔值
 `Array.prototype.includes`方法返回一个布尔值，表示某个数组是否包含给定的值，与字符串的`includes`方法类似。ES2016 引入了该方法。
 
@@ -937,7 +970,7 @@ if (arr.indexOf(el) !== -1) {
 - Map 结构的`has`方法，是用来查找键名的，比如`Map.prototype.has(key)`、`WeakMap.prototype.has(key)`、`Reflect.has(target, propertyKey)`。
 - Set 结构的`has`方法，是用来查找值的，比如`Set.prototype.has(value)`、`WeakSet.prototype.has(value)`。
 
-## 3.10 13.toReversed()，toSorted()，toSpliced()，with()
+## 3.11 13.toReversed()，toSorted()，toSpliced()，with()
 
 很多数组的传统方法会改变原数组，比如`push()`、`pop()`、`shift()`、`unshift()`等等。数组只要调用了这些方法，它的值就变了。现在有一个提案，允许对数组进行操作时，不改变原数组，而返回一个原数组的拷贝。
 

@@ -1566,3 +1566,49 @@ console.log('网站服务器启动成功');
 
 
 ```
+
+# 2 德语资料 
+
+ES17 kennt die neuen Schlüsselworte async und await. Damit werden eine Methode als asynchron deklariert und mit await die Auswertung eines sog. Promises in der asynchronen Methode abgewartet. Ein Promise ist ein Ausdruck, der erst zu einem späteren Zeitpunkt evaluiert wird. Zuerst ein simples Beispiel eines Promises ohne async und await, das mit function* notiert wird:
+
+    // Beispiel f. e. Generator (Basis für async und await), der ein Promise zurück gibt
+    // mit function*
+    function* meingenerator() {
+	let a = 1;
+	let b = 1;
+	while (true) {
+	    // Fibo-Zahlen
+	    [a, b] = [b, a + b];
+	    yield a;
+	}
+    }
+
+yield wartet auf das Entgegennehmen des Wertes, hier den Inhalt der Variable 'a'. Mit next() wird von außen der aktuelle Wert abgeholt und blockiert (d.h. gewartet), solange er noch nicht da ist. Technisch gesprochen löst next() das mit yield getroffene Promise ein.
+
+Zur Verwendung unseres neuen Generators etwas Code:
+
+// generierte Werte, das Feld 'done' im Wertepaar aus next() ist hier stets FALSCH,
+// weil der Generator nicht terminiert
+let gg = meingenerator();
+gg.next().value; // 1
+gg.next().value; // 2
+gg.next().value; // 3
+
+Generatoren können, wie hier in diesem Beispiel, unendlich laufen, oder aber auch endlich sein.
+
+AUFGABE
+
+Warum sollte man nicht meingenerator() selbst in den Aufrufen nutzen? Probieren Sie es.
+
+Nun async und await zur Veranschaulichung, sie sind sog. 'syntaktischer Zucker' auf Promises, yield und next(), d.h. machen sie genießbarer:
+
+async function deferred() {
+  let promise = new Promise((resolve, reject) =>
+  {resolve(3 + 4);});
+  document.writeln(promise);
+  let myeval = await promise;
+  document.writeln(myeval);
+}
+deferred();
+
+Das angezeigte Ergebnis lautet [object Promise] 7. Ersteres ist das Promise (nicht evaluiert), letzteres ist das evaluierte Ergebnis aus dem Promise. reject() wird im Fehlerfall aufgerufen (im Beispiel nicht gezeigt).

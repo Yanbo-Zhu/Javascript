@@ -26,6 +26,38 @@ CommonJS =>NodeJS、Browserify
 AMD =>requireJS
 CMD=>seaJS
 
+### 1.1.1 例子
+
+Die Einbindung von Modulen impliziert den Strict-Modus und ist hier beispielhaft mit Im- und Export dargestellt, mit dem Ergebnis eines alerts 'Ich bin m2.js':
+```html
+<!doctype html>
+<html>
+  <head>
+    <title>Module (MJS)</title>
+    <script type="module" src="./m1.js"></script>
+  </head>
+  <body>
+  </body>
+</html>
+```
+
+
+```js
+m1.js:
+import { m2 } from './m2.js';
+
+m2();
+
+m2.js:
+function m2() {
+    alert("Ich bin m2.js");
+}
+
+export { m2 };
+```
+
+M2 exportiert seine Funktion m2 die von M1 importiert wird. M1 wird wiederum von der Webseite eingebunden, beachten Sie type="module". Module sollten die Endung .mjs tragen.
+
 ## 1.2 Module的基本用法
 
 > 注意：Module 要生效，必须在服务器环境下才能执行。

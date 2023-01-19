@@ -3,12 +3,36 @@
 # 1 流程控制
 
 流程控制主要有三种结构，分别是顺序结构、分支结构和循环结构，这三种结构代表三种代码执行的顺序
-
-## 1.1 分支结构
-
 JS 语言提供了两种分支结构语句：JS 语句 switch语句
 
-### 1.1.1 if语句
+## 1.1 三元表达式
+
+语法结构 : 表达式1 ? 表达式2 : 表达式3
+执行思路
+
+如果表达式1为true，则返回表达式2的值, 
+如果表达式1为false，则返回表达式3的值
+
+
+### 1.1.1 案例：数字补0
+
+用户输入数字，如果数字小于10，则在前面补0，比如01，09，
+如果数字大于10，则不需要补，比如20
+
+```js
+var figuer = prompt('请输入0~59之间的一个数字');
+        var result = figuer < 10 ? '0' + figuer : figue
+        alert(result);
+```
+
+
+## 1.2 if 语句
+
+
+
+Für den Vergleich existieren zwei Operatoren, == und `===`. Dabei vergleich == den Wert der Operanden und `===` den Wert als auch den Typ der Operanden.
+
+### 1.2.1 if语句
 // 条件成立执行代码，否则什么也不做
 if (条件表达式) {
     //条件成立执行的代码语句
@@ -27,7 +51,7 @@ if(usrAge >= 18)
 ```
 
 
-### 1.1.2 if else 语句
+### 1.2.2 if else 语句
 // 条件成立，执行if里面代码，否则执行else里面的代码
 if(条件表达式)
 {
@@ -38,7 +62,7 @@ else
         //[否则]执行的代码
     }
 
-#### 1.1.2.1 案例：判断闰年
+#### 1.2.2.1 案例：判断闰年
 
 接收用户输入的年份，如果是闰年就弹出闰年，否则弹出是平年
 算法：能被4整除且不能整除100的为闰年（如2004年就是闰年，1901年不是闰年）或者能够被 400 整除的就是闰年
@@ -57,7 +81,7 @@ else
 ```
 
 
-### 1.1.3 if else if 语句
+### 1.2.3 if else if 语句
 
 ```js
 if(条件表达式1)
@@ -79,7 +103,7 @@ else
 ```
 
 
-### 1.1.4 案例:
+### 1.2.4 案例
 接收用户输入的分数，根据分数输出对应的等级字母 A、B、C、D、E
 
 其中：
@@ -111,24 +135,6 @@ else
 
 
 
-## 1.2 三元表达式
-
-语法结构 : 表达式1 ? 表达式2 : 表达式3
-执行思路
-
-如果表达式1为true，则返回表达式2的值,如果表达式1为false，则返回表达式3的值
-
-
-### 1.2.1 案例：数字补0
-
-用户输入数字，如果数字小于10，则在前面补0，比如01，09，
-如果数字大于10，则不需要补，比如20
-
-```js
-var figuer = prompt('请输入0~59之间的一个数字');
-        var result = figuer < 10 ? '0' + figuer : figue
-        alert(result);
-```
 
 ## 1.3 switch
 - switch ：开关 转换 ， case ：小例子 选项
@@ -140,6 +146,20 @@ var figuer = prompt('请输入0~59之间的一个数字');
 - 执行case 里面的语句时，如果没有break，则继续执行下一个case里面的语句
 
 ```js
+
+let variable;
+
+switch(variable){
+
+ case 1 : //Anweisungen
+ break;
+ case 2 : //Anweisungen
+ break;
+ case 3 : //Anweisungen
+ break;
+ default : //Anweisungen
+}
+
 // 用户在弹出框里面输入一个水果，如果有就弹出该水果的价格， 如果没有该水果就弹出“没有此水果”
 var fruit = prompt('请您输入查询的苹果');
 switch (fruit) {
@@ -159,10 +179,24 @@ switch (fruit) {
 ## 2.1 for循环
 在程序中，一组被重复执行的语句被称之为循环体，能否继续重复执行，取决于循环的终止条件。由循环体及循环的终止条件组成的语句，被称之为循环语句
 
+```js
 for(初始化变量;条件表达式;操作表达式)
 {
    //循环体
 }
+
+let end=10;
+
+ for(let i=0; i<10; i++){
+   //Die Anweisungen hier werden 10x ausgeführt.
+ }
+
+```
+
+Initialisierungswert – dieser initialisiert die Zählervariable, sie läuft bei for-Schleifen mit und ist meist diejenige, die in den Befehlen erhöht wird
+Bedingung – solange diese erfüllt ist, wird die Schleife ausgeführt
+Anweisungen – diese werden ausgeführt, solange bzw. so oft die for-Schleife durchläuft, also solange die Bedingung noch erfüllt ist
+Befehle – nach jedem Durchlauf der Schleife werden die Befehle ausgeführt, meist wird der Zähler erhöht. Dies geschieht am Ende, also erst wenn die Schleife einmal durchlaufen wurde.
 
 ### 2.1.1 例子
 1.输入10句"娘子晚安哈！"
@@ -299,6 +333,19 @@ do {
 
 ## 2.5 continue 关键字
 continue 关键字用于立即跳出本次循环，继续下一次循环（本次循环体中 continue 之后的代码就会少执行一次）。
+Während break; Schleifen abbrechen lässt, sorgt continue; dafür, dass die Schleife sofort wieder von vorne beginnt. 
+Alle Anweisungen die nach continue; aufgeführt sind, werden dann außer Acht gelassen.
+
+```js
+for(Initialisierungswert; Bedingung; Befehl){
+    //Anweisung 1
+    if(Bedingung){
+        continue;
+        //Anweisung 3   // 这个不会被执行 了
+    }
+    //Anweisung 2  // 这个还会被执行 
+}
+```
 
 例如，吃5个包子，第3个有虫子，就扔掉第3个，继续吃第4个第5个包子
 ```js
@@ -315,6 +362,21 @@ for (var i = 1; i <= 5; i++) {
 
 ## 2.6 break关键字
 break 关键字用于立即跳出整个循环
+Zu diesem Zweck gibt es den JavaScript-Befehl break;, der das Verlassen der ganzen Schleife erzwingt. 
+Der JS-Interpreter arbeitet anschließend nach der unterbrochenen Anweisung weiter. 
+Oft findet man diesen Befehl in einer if-Abfrage, die selbst wieder in einer Schleife steht.
+
+```js
+while(Bedingung){
+     //Anweisungen
+     if(Bedingung){
+        //Anweisungen
+     }else{
+        //Anweisungen
+        break; // while schleifer wird unterbrochen 
+     }
+}
+```
 
 例如，吃5个包子，吃到第3个发现里面有半个虫子，其余的也不吃了
 

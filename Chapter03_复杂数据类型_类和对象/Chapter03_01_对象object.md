@@ -289,11 +289,15 @@ console.log(CreateFlower("Tulip"));
 
 ## 4.1 object的property 的调用
 
-- 对象里面的属性调用 : 对象.属性名 ，这个小点 . 就理解为“ 的 ”
-- 对象里面属性的另一种调用方式 : 对象[‘属性名’]，注意方括号里面的属性必须加引号，我们后面会用
+- 对象里面的属性调用 (Punktnotation) : 对象.属性名 ，这个小点 . 就理解为“ 的 ”
+- 对象里面属性的另一种调用方式 (Klammernotation) : 对象[‘属性名’]，注意方括号里面的属性必须加引号，我们后面会用
 - 对象里面的方法调用：对象.方法名() ，注意这个方法名字后面一定加括号
 
 ```js
+
+objektname.eigenschaftsname // Punktnotation
+objekt['eigenschaftsname'] // Klammernotation
+
 console.log(star.name)     // 调用名字属性
 console.log(star['name'])  // 调用名字属性
 star.sayHi();              // 调用 sayHi 方法,注意，一定不要忘记带后面的括号
@@ -441,6 +445,19 @@ console.log(anyObject.living);  // 返回 undefined
 ## 5.1 method can also be properties of objects
 
 Funktionsdeklaration, die den neuen Objekten als Property hinzugefügt wird.
+
+```js
+//  Das Objekt computer wird mit seinen Eigenschaften und der Methode hochfahren() in Literal-Schreibweise angelegt. Die Methode hochfahren() wird aufgerufen.
+var computer = { 
+marke :  'Dell',
+farbe : 'silber',
+art : 'Laptop',
+hochfahren: function () { alert('Herzlich Willkommen');}
+};
+
+computer.hochfahren();
+
+```
 
 ```js
 1 

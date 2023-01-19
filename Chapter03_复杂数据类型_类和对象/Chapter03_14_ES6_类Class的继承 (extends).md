@@ -1,4 +1,4 @@
-# 1 Class继承 
+# 1 Class继承  Vererbung
 
 ## 1.1 类的注意点
 
@@ -975,14 +975,23 @@ xiaomi.photo();
 xiaomi.playGame();
 ```
 
+## 1.8 Prototypenkette 
 
+Da JavaScript bis ECMAscript 5 rein objektbasiert arbeitet, gibt es keine objektorientierte Vererbung die auf Klassen basiert, sondern die **prototypenbasierte Vererbung**. Wie im obigen Video bereits verdeutlicht, verweisen hier einzelne Objekte auf ihre Prototypen und bilden so eine **Prototypenkette**. Der letzte Prototyp verweist auf den Wert null.
 
-## 1.8 类的 prototype 属性和`__proto__`属性
+[![Prototype-Kette.png](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/thumb/d/d4/Prototype-Kette.png/680px-Prototype-Kette.png)](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/d/d4/Prototype-Kette.png)
+
+## 1.9 类的 prototype 属性和`__proto__`属性
+
+Prototypen sind zuerst einmal ein Entwurfsmuster der Gang-of-Four um Gamma et al., wir haben sie bereits im Script vorher kennengelernt. Das Entwurfsmuster ist in Javascript leicht nutzbar.
+
+Wie wir bereits wissen, gibt man mit new einer Funktion ein neues (leeres) Objekt mit, dessen Referenz in der Variable this innerhalb des Scopes in der Funktion gespeichert ist. Das Objekt, auf das this zeigt, muss entsprechend im Konstruktor mit allen Eigenschaften gefüllt werden, z. B. this.name = name usw. Objekte können sehr individuell mit Eigenschaften versehen werden.
+
+Wollte man viele Objekte mit gleichen Eigenschaften schaffen, so bot sich ergänzend die Verwendung eines Prototyps an, d.h. eines Objekts, das man klonen konnte. Neben this gibt es hierzu die spezielle Eigenschaft prototype: Eine mit new aufgerufene Funktion referenziert in dem reservierten Feld __proto__ den Inhalt von prototype des Aufrufers und bekommt eine eigene, leere Eigenschaft prototype. Alte OO-Implementierungen in Javascript verwenden prototype häufig und nutzen __proto__ um z. B. Aspekte der Vererbung nachzuahmen.
 
 大多数浏览器的 ES5 实现之中，每一个对象都有`__proto__`属性，指向对应的构造函数的`prototype`属性。Class 作为构造函数的语法糖，同时有`prototype`属性和`__proto__`属性，因此同时存在两条继承链。
 
 （1）子类的`__proto__`属性，表示构造函数的继承，总是指向父类。
-
 （2）子类`prototype`属性的`__proto__`属性，表示方法的继承，总是指向父类的`prototype`属性。
 
 ```js
@@ -1031,7 +1040,7 @@ A.prototype.__proto__ === Object.prototype // true
 
 这种情况下，`A`作为一个基类（即不存在任何继承），就是一个普通函数，所以直接继承`Function.prototype`。但是，`A`调用后返回一个空对象（即`Object`实例），所以`A.prototype.__proto__`指向构造函数（`Object`）的`prototype`属性。
 
-## 1.9 实例的`__proto__`属性
+## 1.10 实例的`__proto__`属性
 
 子类实例的`__proto__`属性的`__proto__`属性，指向父类实例的`__proto__`属性。也就是说，子类的原型的原型，是父类的原型。
 

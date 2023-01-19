@@ -102,6 +102,13 @@ function fn() {...}
 function 函数名(){
      //函数体代码
 }
+
+function myFunc(par1, par2){
+
+  //Programmblock, Anweisungen
+  return Wert;
+}
+myFunc(42,"Hallo Welt"); //par1=42, par2="Hallo Welt"
 ```
 
 ```js
@@ -110,6 +117,8 @@ function fn() {...}
 
 // 调用  
 fn();  
+
+
 ```
 
 
@@ -124,12 +133,27 @@ fn();
 // 这是函数表达式写法，匿名函数后面跟分号结束
 var fn = function(){...};
 
+let func = functions(par1){
+ //Do something with par1
+}
+
 // 调用的方式，函数调用必须写到函数体下面
 fn();
 ```
 
+## 3.2 Immediately Invoked Function Expression
+Funktionen können auch in einem Arbeitsgang deklariert und ausgeführt werden. Auch die IIFE gelten als Ausdruck.
 
-## 3.2 调用函数/Funktionsaufruf
+```js
+(function(e){
+    return e;
+})();
+
+```
+
+
+
+## 3.3 调用函数/Funktionsaufruf
 
 函数名(); //通过调用函数名来执行函数体代码
 
@@ -138,7 +162,7 @@ fn();
 注意：声明函数本身并不会执行代码，只有调用函数时才会执行函数体代码。
 
 
-### 3.2.1 函数的调用方式
+### 3.3.1 函数的调用方式
 1. 普通函数
 2. 对象的方法
 3. 构造函数
@@ -188,7 +212,7 @@ fn();
 ```
 
 
-## 3.3 引用函数/Funktionsreferenz
+## 3.4 引用函数/Funktionsreferenz
 不加 () 使用函数
 
 ```js
@@ -210,8 +234,7 @@ squareTwo;
     console.log(takeSquareTwo);
 ```
 
-
-# 4 引用函数与调用函数的区别
+## 3.5 引用函数与调用函数的区别
 https://blog.csdn.net/miao_9/article/details/76418984
 
 引用函数与调用函数的差别与函数名称后是否附有括号()有关。函数引用只会单独出现，但函数调用则必定后随括号，很多时候还附有自变量。
@@ -273,12 +296,14 @@ console.log(a === b); // false
 ```
 
 
-# 5 函数的封装
+
+
+# 4 函数的封装
 函数的封装是把一个或者多个功能通过函数的方式封装起来，对外只提供一个简单的函数接口
 
-# 6 函数的参数
+# 5 函数的参数
 
-## 6.1 形参和实参
+## 5.1 形参和实参
 行参 parameter: 
 - 在声明函数时，可以在函数名称后面的小括号中添加一些参数，这些参数被称为形参，
 - 形式上的参数 函数定义的时候 传递的参数 当前并不知道是什么
@@ -316,7 +341,7 @@ getSum(6，5) //11
 ```
 
 
-## 6.2 形参和实参个数不匹配
+## 5.2 形参和实参个数不匹配
 
 |参数个数| 说明|
 |--|--|
@@ -339,7 +364,7 @@ sum(200);                  // 实参个数少于形参，多的形参定义为un
 ```
 
 
-## 6.3 小结
+## 5.3 小结
 - 函数可以带参数也可以不带参数
 - 声明函数的时候，函数名括号里面的是形参，形参的默认值为 undefined
 - 调用函数的时候，函数名括号里面的是实参
@@ -349,9 +374,9 @@ sum(200);                  // 实参个数少于形参，多的形参定义为un
 
 
 
-# 7 带 return 的函数
+# 6 带 return 的函数
 
-## 7.1 return语句
+## 6.1 return语句
 有的时候，我们会希望函数将值返回给调用者，此时通过使用 return 语句就可以实现。
 
 - 在使用 return 语句时，函数会停止执行，并返回指定的值
@@ -380,7 +405,7 @@ sum();      // 此时 sum 的值就等于666，因为 return 语句会把自身�
 ```
 
 
-## 7.2 return 终止函数
+## 6.2 return 终止函数
 return 语句之后的代码不被执行
 ```js
 function add(num1，num2){
@@ -394,9 +419,9 @@ alert(resNum);          // 27
 ```
 
 
-## 7.3 return 的返回值
+## 6.3 return 的返回值
 
-### 7.3.1 返回一个值
+### 6.3.1 返回一个值
 return 返回一个值。如果用逗号隔开多个值，以最后一个为准
 ```js
 function add(num1，num2){
@@ -407,7 +432,7 @@ var resNum = add(21,6); // 调用函数，传入两个实参，并通过 resNum 
 alert(resNum);          // 6
 ```
 
-### 7.3.2 返回多个值
+### 6.3.2 返回多个值
 
 1. 使用数组的方式
 ```js
@@ -472,19 +497,19 @@ const { age , name } = getDetails ()
 
 
 
-## 7.4 小结
+## 6.4 小结
 函数都是有返回值的
 
 如果有 return ，则返回 return 后面的值
 如果没有 return，则返回 undefined
 
-## 7.5 break、continue、return 的区别
+## 6.5 break、continue、return 的区别
 
 break ： 结束当前循环体(如 for、while)
 continue ：跳出本次循环，继续执行下次循环(如for、while)
 return ：不仅可以退出循环，还能够返回 return 语句中的值，同时还可以结束当前的函数体内的代码
 
-## 7.6 回调函数例子
+## 6.6 回调函数例子
 1.利用函数求任意两个数的最大值
 ```js
 function getMax(num1, num2) {
@@ -560,7 +585,7 @@ function sort(arr) {
 
 
 
-# 8 arguments对象的使用
+# 7 arguments对象的使用
 当我们不确定有多少个参数传递的时候，可以用 arguments 来获取。在 JavaScript 中，arguments 实际上它是当前函数的一个内置对象。所有函数都内置了一个 arguments 对象，arguments 对象中存储了传递的所有实参。
 
 arguments存放的是传递过来的实参
@@ -612,11 +637,11 @@ function funcArgs(x,y,z){
 }
 ```
 
-## 8.1 
+## 7.1 
 
 
 
-# 9 函数块内 调用另外一个函数
+# 8 函数块内 调用另外一个函数
 因为每个函数都是独立的代码块，用于完成特殊任务，因此经常会用到函数相互调用的情况。具体演示在下面的函数练习中会有。
 
 3.输入一个年份，判断是否是闰年（闰年：能被4整除并且不能被100整数，或者能被400整除）

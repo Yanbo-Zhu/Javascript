@@ -1,9 +1,9 @@
 https://blog.csdn.net/Augenstern_QXL/article/details/119249534
 
 
-# 2 数据类型
+# 1 数据类型
 
-## 2.1 数据类型简介
+## 1.1 数据类型简介
 
 （1）为何需要数据类型
 在计算机中，不同的数据所需占用的存储空间是不同的，为了便于把数据分成所需内存大小不同的数据，充分利用存储空间，于是定义了不同的数据类型。
@@ -39,10 +39,23 @@ java就需要提前声明变量的类型了
 (4) <mark> 变量的数据类型随时可以更换, 只要给入的值变了 </mark> 
 und sind somit veränderbar über die Laufzeit des Skriptes:
 
-## 2.2 简单数据类型 / 基本数据类型 Number,String,Boolean,Undefined,Null, empty
+
+## 1.2 复杂数据类型 Zusammengesetzte Datentypen:
+* Object
+* Array
+* Function
+
 |简单数据类型	|说明	|默认值|
 |--|---|---|
-|Number	|数字型，包含整型值和浮点型值，如21，0.21	|0|
+|object| hat Untertypen: object, array, function, null: kein Wert||
+
+## 1.3 简单数据类型 / 基本数据类型 Einfache Datentypen
+
+Number,String,Boolean,Undefined,Null, empty
+
+|简单数据类型	|说明	|默认值|
+|--|---|---|
+|Number	|数字型，包含整型值和浮点型值，如21，0.21. Gleitkommazahlen mit einem Wertebereich von 64bit	|0|
 |Boolean	|布尔值类型，如true，false ，等价于1和0	|false|
 |Undefined	|var a; 声明了变量a但是没有赋值，此时a=undefined.  kein Wert, kein Typ	|undefined（未定义的）|
 |string	|字符串类型，如“张三”|“”
@@ -69,7 +82,7 @@ let text2 = 'einfache Anführungszeichen';
     
 ```
 
-### 2.2.1 数字型 Number
+### 1.3.1 数字型 Number
 JavaScript 数字类型既可以用来保存整数值，也可以保存小数(浮点数）。
 
 var age = 21; // 整数
@@ -123,7 +136,17 @@ isNaN(x) x是一个非数字类型
 console.log(isNaN(12));//false
 console.log(isNaN('风云溪'));//true
 
-### 2.2.2 字符串型 string
+#### 1.3.1.1 小数和证书相互转化 parseInt, parsefloat
+
+parseInt("Zahl" oder Variable) – wandelt eine Zeichenkette in eine ganze Zahl um
+parseFloat("Zahl" oder Variable) – wandelt eine Zeichenkette in eine Fließkommazahl um. (Aufpassen: es wird ein Punkt, kein Komma verwendet!)
+
+```js
+let jahreszahl = parseInt(jahreszahl); //liefert 2000 als Zahl
+jahreszahl = parseFloat("200.9"); //liefert die Zahl 200.9
+```
+
+### 1.3.2 字符串型 string
 
 字符串型可以是引号中的任意文本，其语法为 “双引号” 和 "单引号’’
 var strMsg = "我爱北京天安门~";		//使用双引号表示字符串
@@ -144,7 +167,6 @@ let text1 = "doppelte Anführungszeichen";
 let text2 = 'einfache Anführungszeichen';
 // Beides ist erlaubt und richtig.
 // Seien Sie konsistent und tun Sie es immer gleich!
-
 ```
 
 
@@ -156,12 +178,14 @@ let text2 = 'einfache Anführungszeichen';
 转义符都是 \ 开头的，常用的转义符及其说明如下：
 
 转义符	解释说明
-\n	 换行符，n是newline
+\n	 换行符，n是newline. bewirkt eine neue Zeile
 \ \	斜杠\
 \ ’	   单引号
 \ ‘’	双引号
-\ t	tab 缩进
+\ t	tab 缩进 erzeugt einen Tabulator
 \ b	空格，b是blank的意思
+\f  erzeugt einen Seitenvorschub
+
 
 (3)字符串长度🔥
 字符串是由若干字符组成的，这些字符的数量就是字符串的长度。通过字符串的 length 属性可以获取整个字符串的长度。
@@ -221,7 +245,7 @@ console.log('Pink老师' + age + '岁啦');	// Pink老师18岁啦
 ```
 
 
-#### 2.2.2.1 template literals
+#### 1.3.2.1 template literals
 template literals sind auch strings
 
 ```js
@@ -238,7 +262,7 @@ console.log(`${m} ist ungleich ${test}`);
 
 
 
-### 2.2.3 布尔型Boolean
+### 1.3.3 布尔型Boolean
 布尔类型有两个值：true 和 false ，其中 true 表示真（对），而 false 表示假（错）。
 布尔型和数字型相加的时候， true 的值为 1 ，false 的值为 0。
 ```js
@@ -248,7 +272,7 @@ console.log(flag + 1); // 2 true当加法来看当1来看，flase当0来看
 ```
 
 
-### 2.2.4 undefined未定义🔥
+### 1.3.4 undefined未定义
 一个声明后没有被赋值的变量会有一个默认值 undefined ( 如果进行相连或者相加时，注意结果）
 ```js
 // 如果一个变量声明未赋值，就是undefined 未定义数据类型
@@ -263,7 +287,7 @@ console.log(variable + 18); //NaN
 
 2.undefined 和 数字相加，最后结果是NaN
 
-### 2.2.5 空值null
+### 1.3.5 空值null
 一个声明变量给 null 值，里面存的值为空
 ```js
 var space = null;
@@ -273,9 +297,9 @@ console.llog(space + 1); // 1
 
 
 
-## 2.3 获取变量数据类型
+## 1.4 获取变量数据类型
 
-### 2.3.1 typeof
+### 1.4.1 typeof
 typeof 可用来获取检测变量的数据类型
 ```js
 var num = 18;
@@ -310,7 +334,7 @@ console.log(age);
 console.log(typeof age);//string
 ```
 
-### 2.3.2 字面量
+### 1.4.2 字面量
 字面量是在源代码中一个固定值的表示法，通俗来说，就是字面量表示 如何表达这个值。
 
 - 数字字面量：8，9，10
@@ -335,7 +359,7 @@ console.log(typeof age);//string
 
 ```
 
-## 2.4 数据类型转换
+## 1.5 数据类型转换
 使用表单、prompt 获取过来的数据默认是字符串类型的，此时就不能直接简单的进行加法运算，而需要转换变量的数据类型。通俗来说，就是把一种数据类型的变量转换成另外一种数据类型。
 
 我们通常会实现3种方式的转换：
@@ -344,7 +368,7 @@ console.log(typeof age);//string
 转换为数字型
 转换为布尔型
 
-### 2.4.1 转换为字符串型🔥
+### 1.5.1 转换为字符串型🔥
 |方式	|说明	|案例|
 |--|--|--|
 |toString()	|转成字符串	|var num = 1; alert(num.toString());|
@@ -368,7 +392,7 @@ console.log(String(num));
 
 
 
-### 2.4.2 转换为数字型🔥
+### 1.5.2 转换为数字型🔥
 |方式	|说明|	案例|
 |---|---|---|
 |parselnt(string)函数	|将string类型转成整数数值型	|parselnt(‘78’)|
@@ -404,7 +428,7 @@ console.log('123' * 1);  // 123
 1.注意 parseInt 和 parseFloat ，这两个是重点
 2.隐式转换是我们在进行算数运算的时候，JS自动转换了数据类型
 
-### 2.4.3 转换为布尔型
+### 1.5.3 转换为布尔型
 |方法	|说明	|案例|
 |---|---|---|
 |Boolean()函数	|其他类型转成布尔值	|Boolean(‘true’);|

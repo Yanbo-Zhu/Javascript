@@ -1,8 +1,12 @@
 # 1 引子
 
+Immer wenn wir eine Deklaration vornehmen, wird diese an den Anfang des scripts gehoben. Das bezeichnet man als hoisting.
+
+
 JavaScript 代码是由浏览器中的 JavaScript 解析器来执行的。JavaScript 解析器在运行 JavaScript 代码的时候分为两步：预解析和代码执行。
 - <mark> 预解析：js引擎会把js里面所有的 var 还有 function 提升到当前作用域的最前面</mark> 
 - 代码执行：从上到下执行JS语句
+
 
 预解析只会发生在
 - 通过 var 定义的变量
@@ -12,10 +16,27 @@ JavaScript 代码是由浏览器中的 JavaScript 解析器来执行的。JavaSc
 预解析不会发生在
 - 用匿名函数 声明的 function 不会被预解析 : ` var fn = function(){...};`
 -  箭头函数 不会被预解析 : `const num3 = () => {....}`
- 
+- 不会发生在 let, const 的 变量上 
+
+## 1.1 只提升 不初始化
+
+
+
+Allerdings ist zu beachten, daß nur die Deklaration gehoisted wird und nicht die Initialisierung.
 学习预解析能够让我们知道为什么在变量声明之前访问变量的值是 undefined，为什么在函数声明之前就可以调用函数。
 
 首先来看几段代码和结果：
+
+
+```js
+//num existiert zwar, aber hat den Wert undefined
+
+var num = 42;
+
+//jetzt erst hat num den Wert 42.
+```
+
+
 
 ```js
 1

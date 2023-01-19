@@ -7,12 +7,12 @@
 |?|var	|let	|const|
 |---|---|---|---|
 |scope|函数级作用域|	块级作用域|	块级作用域|
-|预解析|变量提升	|不存在变量提升|	不存在变量提升|
+|预解析 gehoisten, Hoist |变量提升	|不存在变量提升|	不存在变量提升|
 |值的变化|值可更改|	值可更改	|值不可更改|
 
-1. 使用var声明的变量，其作用域为该语句所在的函数内，且存在变量提升现象。
-2. 使用let声明的变量，其作用域为该语句所在的代码块内，不存在变量提升。
-3. 使用 const 声明的常量，在后面出现的代码中不能修改该常量的值。
+1. 使用var声明的变量，其作用域为该语句所在的函数内，且存在变量提升现象。  die Variable ist gültig in der Funktion, in der sie deklariert wird
+2. 使用let声明的变量，其作用域为该语句所在的代码块内，不存在变量提升。 die Variable ist gültig in dem Anweisungsblock, in dem sie deklariert wird
+3. 使用 const 声明的常量，在后面出现的代码中不能修改该常量的值。  die Variable hat einen festen unveränderlichen Wert
 
 ### 1.1.1 let、const与var的区别
 1. let和const不能重复声明变量

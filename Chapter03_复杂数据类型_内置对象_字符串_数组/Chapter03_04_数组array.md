@@ -101,6 +101,10 @@ console.log(Array.isArray(obj));   // false
 var arrStus = [1,2,3];
 //获取数组中的第2个元素
 alert(arrStus[1]);
+//
+listOfNames[3]="Susanne";
+
+
 
 ## 2.4 数组的长度
 使用“数组名.length”可以访问数组元素的数量（数组长度）
@@ -422,6 +426,20 @@ fn(...arr1)
 
 
 # 4 数组的方法
+
+push()
+pop()
+shift()
+unshift()
+join()
+split()
+reverse()
+sort()
+concat()
+splice()
+slice()
+indexOf()
+lastIndexOf()
 
 
 ## 4.1 遍历数组 (for, forEach(), for in )

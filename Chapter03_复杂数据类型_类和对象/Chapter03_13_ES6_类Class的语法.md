@@ -15,7 +15,7 @@
 类抽象了对象的公共部分，它泛指某一大类（class）
 对象特指某一个，通过类实例化一个具体的对象
 
-
+## 2.1 老的定义一个 class 的方式 (现在已经不用了 )
 JavaScript 语言中，生成实例对象的传统方法是通过构造函数。下面是一个例子。
 
 ```js
@@ -29,6 +29,20 @@ Point.prototype.toString = function () {
 };
 
 var p = new Point(1, 2);
+```
+
+```js
+function Cat() {
+
+ this.sleeping = false;
+ this.sleep = function() {this.sleeping = true; return this;}
+ this.say = function() {return this.sleeping ? "Zzzzz" : "Miau" ;}
+}
+
+var cat = new Cat();
+  console.log(cat.say());
+  console.log(cat.sleep().say());
+  console.log(cat.say()); 
 ```
 
 上面这种写法跟传统的面向对象语言（比如 C++ 和 Java）差异很大，很容易让新学习这门语言的程序员感到困惑。
@@ -51,8 +65,24 @@ class Point {
 }
 ```
 
+## 2.2 新的定义一个 class 的方式 ( 正在用 )
+```js
+class Cat {
 
-## 2.1 constructor()的写法
+ constructor() {
+   this.sleeping = false;
+ }
+ sleep() {
+   this.sleeping = true;
+   return this;
+ }
+ say() {
+   return this.sleeping ? "Zzzzz" : "Miau";
+ }
+}
+```
+
+## 2.3 constructor()的写法
 
 上面代码定义了一个“类”，可以看到里面有一个`constructor()`方法，这就是构造方法，而`this`关键字则代表实例对象。
 
@@ -69,11 +99,11 @@ Point === Point.prototype.constructor // true
 
 
 
-## 2.2 method 的写法
+## 2.4 method 的写法
 `Point`类除了构造方法，还定义了一个`toString()`方法。注意，定义`toString()`方法的时候，前面不需要加上`function`这个关键字，直接把函数定义放进去了就可以了。另外，方法与方法之间不需要逗号分隔，加了会报错。
 
 
-## 2.3 用 new 生产 类的实例
+## 2.5 用 new 生产 类的实例
 使用的时候，也是直接对类使用`new`命令，跟构造函数的用法完全一致。
 
 ```js
@@ -88,7 +118,7 @@ b.doStuff() // "stuff"
 ```
 
 
-## 2.4 构造函数的`prototype`属性
+## 2.6 构造函数的`prototype`属性
 构造函数的`prototype`属性，在 ES6 的“类”上面继续存在。事实上，类的所有方法都定义在类的`prototype`属性上面。
 
 ```js
@@ -150,7 +180,7 @@ Point.prototype.constructor === Point // true
 ```
 
 
-## 2.5 方法 为 不可枚举的, 还是 可枚举的
+## 2.7 方法 为 不可枚举的, 还是 可枚举的
 另外，类的内部所有定义的方法，都是不可枚举的（non-enumerable）。
 
 ```js
