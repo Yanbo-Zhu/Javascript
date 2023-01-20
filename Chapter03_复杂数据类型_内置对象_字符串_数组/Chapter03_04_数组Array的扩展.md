@@ -876,7 +876,7 @@ arr
 // [[5], [5], [5]]
 ```
 
-## 3.8 10.at()
+## 3.8 at()
 
 长久以来，JavaScript 不支持数组的负索引，如果要引用数组的最后一个成员，不能写成`arr[-1]`，只能使用`arr[arr.length - 1]`。
 
@@ -902,7 +902,7 @@ sentence.at(-100) // undefined
 sentence.at(100) // undefined
 ```
 
-## 3.9 11.entries()，keys() 和 values()
+## 3.9 entries()，keys() 和 values()
 
 ES6 提供三个新的方法——`entries()`，`keys()`和`values()`——用于遍历数组。它们都返回一个遍历器对象，可以用`for...of`循环进行遍历，唯一的区别是`keys()`是对键名的遍历、`values()`是对键值的遍历，`entries()`是对键值对的遍历。
 
@@ -926,7 +926,7 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 // 1 "b"
 ```
 
-## 3.10 12.includes()
+## 3.10 includes()
 表示某个数组是否包含给定的值，返回布尔值
 `Array.prototype.includes`方法返回一个布尔值，表示某个数组是否包含给定的值，与字符串的`includes`方法类似。ES2016 引入了该方法。
 
@@ -970,7 +970,7 @@ if (arr.indexOf(el) !== -1) {
 - Map 结构的`has`方法，是用来查找键名的，比如`Map.prototype.has(key)`、`WeakMap.prototype.has(key)`、`Reflect.has(target, propertyKey)`。
 - Set 结构的`has`方法，是用来查找值的，比如`Set.prototype.has(value)`、`WeakSet.prototype.has(value)`。
 
-## 3.11 13.toReversed()，toSorted()，toSpliced()，with()
+## 3.11 toReversed()，toSorted()，toSpliced()，with()
 
 很多数组的传统方法会改变原数组，比如`push()`、`pop()`、`shift()`、`unshift()`等等。数组只要调用了这些方法，它的值就变了。现在有一个提案，允许对数组进行操作时，不改变原数组，而返回一个原数组的拷贝。
 

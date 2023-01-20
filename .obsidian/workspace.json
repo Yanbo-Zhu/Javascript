@@ -8,43 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "17e84120892cc399",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Chapter01_javascript基础和基本语法/Chapter01_01_javascript初识.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "7696b7334c9af208",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Chapter07_ES6/Chapter07_12_es6模块化Module.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
             "id": "f3f1da03a65d48a1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter07_ES6/Chapter07_00_杂.md",
+                "file": "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_04_数组Array的扩展.md",
                 "mode": "source",
                 "source": true
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -110,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter07_ES6/Chapter07_00_杂.md",
+                "file": "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_04_数组Array的扩展.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter07_ES6/Chapter07_00_杂.md",
+                "file": "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_04_数组Array的扩展.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter07_ES6/Chapter07_00_杂.md"
+                "file": "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_04_数组Array的扩展.md"
               }
             }
           }
@@ -175,15 +150,15 @@
   },
   "active": "f3f1da03a65d48a1",
   "lastOpenFiles": [
-    "Chapter02_函数与作用域/Chapter06_03_函数进阶1_this的使用.md",
     "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_04_数组array.md",
-    "Chapter07_ES6/Chapter07_00_杂.md",
-    "Chapter07_ES6/Chapter07_12_es6模块化Module.md",
-    "Chapter07_ES6/Chapter07_01_ES6 介绍.md",
-    "Chapter07_ES6/Chapter07_11_async 函数.md",
-    "Chapter07_ES6/Chapter07_10_Promise对象.md",
-    "Chapter02_函数与作用域/Chapter02_03_预解析_gehoisted_Hoisting.md",
+    "Chapter03_复杂数据类型_内置对象_字符串_数组/Chapter03_04_数组Array的扩展.md",
+    "Chapter04_JsAPI_DOM/Chapter04_02_事件Event.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_03_流程控制和循环.md",
     "Chapter02_函数与作用域/Chapter02_01_函数.md",
-    "Chapter01_javascript基础和基本语法/Chapter01_02_browserMethod.md"
+    "Chapter04_JsAPI_DOM/Chapter04_01_Dom_basics.md",
+    "Chapter04_JsAPI_DOM/Chapter04_03_表单验证中的用dom.md",
+    "Chapter01_javascript基础和基本语法/Chapter01_05_正则表达式.md",
+    "Chapter03_复杂数据类型_类和对象/Chapter03_07_ES6_类Class的method和property.md",
+    "Chapter02_函数与作用域/Chapter02_05_函数进阶.md"
   ]
 }

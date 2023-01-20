@@ -95,7 +95,7 @@ document -> html -> body -> father -> son
 - document -> html -> body -> father -> son
 - 先看 document 的事件，没有；再看 html 的事件，没有；再看 body 的事件，没有；再看 father 的事件，有就先执行；再看 son 的事件，再执行。
 
-## 2.2 冒泡阶段/ Bubble phase 
+## 2.2 冒泡阶段/ Propagation phase 
 son -> father ->body -> html -> document
 
 我们点击子盒子，会弹出 son、father、document
@@ -393,9 +393,9 @@ event对象代表事件的状态，跟事件相关的一系列信息的集合
 # 5 常用的键盘事件
 |键盘事件	触发条件|
 |----|----|
-|onkeyup	|某个键盘按键被松开时触发|
-|onkeydown	|某个键盘按键被按下时触发|
-|onkeypress	|某个键盘按键被按下时触发，但是它不识别功能键，比如 ctrl shift 箭头等|
+|keyup	|某个键盘按键被松开时触发|
+|keydown	|某个键盘按键被按下时触发|
+|keypress	|某个键盘按键被按下时触发，但是它不识别功能键，比如 ctrl shift 箭头等|
 
 
 如果使用addEventListener 不需要加 on
@@ -433,9 +433,10 @@ onkeypress 和前面2个的区别是，它不识别功能键，比如左右箭�
 ## 5.1 键盘对象属性
 |键盘事件对象 属性|	说明|
 |--|--|
-|keyCode	|返回该键值的ASCII值|
+|keyCode	|返回该键值的ASCII值. 已经废弃. event.keyCode === 1|
+|key	|现在使用这个 event.key === 'Enter'|
 
-onkeydown和 onkeyup 不区分字母大小写，onkeypress 区分字母大小写。
+keydown和 keyup 不区分字母大小写，keypress 区分字母大小写。
 在我们实际开发中，我们更多的使用keydown和keyup， 它能识别所有的键（包括功能键）
 Keypress 不识别功能键，但是keyCode属性能区分大小写，返回不同的ASCII值
 
@@ -465,6 +466,8 @@ Keypress 不识别功能键，但是keyCode属性能区分大小写，返回不�
 
 
 # 6 注册事件(绑定事件)
+https://vfhwebp.eduloop.de/loop/Aufbau_eine_js-scripts
+
 给元素添加事件，称为注册事件或者绑定事件。
 
 注册事件有两种方式：传统方式和方法监听注册方式
@@ -484,11 +487,19 @@ https://www.cnblogs.com/embrace-ly/p/10570052.html
 
 eventTarget.addEventListener()方法将指定的监听器注册到 eventTarget（目标对象）上
 当该对象触发指定的事件时，就会执行事件处理函数
-eventTarget.addEventListener(type,listener[,useCapture])
+Die Methode addEventListener lauscht auf ein bestimmtes Event und ruft bei Eintritt des events eine Funktion auf. 
+
+syntax
+```js
+eventTarget.addEventListener(typeOfevent,eventFunction,[useCapture])
+addEventListener("event",Funktionsreferenz,capture)
+addEventListener("event", anonyme Funktion als Wrapper für Funktionsaufrufe, captures)
+```
+
 
 该方法接收三个参数：
-- type:事件类型字符串，比如click,mouseover,注意这里不要带on
-- listener：事件处理函数，事件发生时，会调用该监听函数
+- typeOfevent: 事件类型字符串，比如click,mouseover,注意这里不要带on
+- eventFunction：事件处理函数，事件发生时，会调用该监听函数
 - useCapture：可选参数，是一个布尔值，默认是 false。学完 DOM 事件流后，我们再进一步学习
     - 如果是 true，表示在事件捕获阶段调用事件处理程序；  就是从 最祖先的 element 到 目前的element
     - 如果是 false (不写默认就是false),表示在事件冒泡阶段调用事件处理程序, 就是 目前的element 上升到 祖先的element 
@@ -536,13 +547,40 @@ document.addEventListener("click", someOtherFunction);
 document.addEventListener("mouseout", someOtherFunction);
 
 ### 6.1.2 使用 函数引用, 函数调用 , 匿名函数的 区别
-`p.addEventLoistener("click", showAllElemts)`
-`p.addEventLoistener("click", showAllElemts())`
 
-- 使用 函数引用, 或者 匿名函数: showallElements: 
+```js
+eventTarget.addEventListener(typeOfevent,eventFunction,[useCapture])
+addEventListener("event",Funktionsreferenz,capture)
+addEventListener("event", anonyme Funktion als Wrapper für Funktionsaufrufe, captures)
+```
+
+```js
+p.addEventLoistener("click", myFunction)  //Referenz
+p.addEventLoistener("click", myFunction()) //Aufruf und sofortige einmalige Abarbeitung
+p .addEventListener("click",
+   function(event){  // anonyme Funktion als Wrapper für Funktionsaufrufe
+    add(p1,p2);  
+    e.preventDefault();            
+    e.stopPropagation(); // stop 停止  Propagation 传播
+        
+})
+
+```
+
+Das Problem mit der Referenzierung ist, daß so keine Argumente an die Funktion übergeben werden können
+Man behilft sich mit einer Wrapper-Funktion, die anonym ist, weil sie sofort aufgerufen wird und deshalb keinen Namen benötigt. Über die anonyme Funktion können wir auch gleich auf das event zugreifen, sofern wir der Funktion einen Parameter geben.
+
+使用 函数引用, 或者 匿名函数 是对的 
+
+- 使用 函数引用, : showallElements: 
     - 当 click 这个p 标签 的时候, 才会运行 showallElements funktion. 而且之后点击 p 标签， showallElements 这个funtion, 也会被运行。 而且可以运行多次 
     - 因为  showallElements 代表的是 该函数的 储存地址, 而不是函数结果 
+    - Das Problem mit der Referenzierung ist, daß so keine Argumente an die Funktion übergeben werden können
+- 使用 匿名函数 function(event){ add(p1,p2); e.preventDefault();}      (anonyme Funktion als Wrapper für Funktionsaufrufe)
+    - Man behilft sich mit einer Wrapper-Funktion, die anonym ist, weil sie sofort aufgerufen wird und deshalb keinen Namen benötigt. 
+    - Über die anonyme Funktion können wir auch gleich auf das event zugreifen, sofern wir der Funktion einen Parameter geben.
 - 使用 函数调用:  showallElements (): 
+    - Aufruf und sofortige einmalige Abarbeitung
     - 页面一旦加载,  showallElements funktion 就被运行, 不管你有没有点击 p 标签 , 而且之后点击 p 标签， showallElements 这个funtion, 也不会在被运行了。 一次都不会被运行， 怎么click 都没有用. 
     - 因为  showallElements () 代表的是函数结果 
 
@@ -568,7 +606,21 @@ document.addEventListener("mouseout", someOtherFunction);
 
 ```
 
-### 6.1.3 例子
+### 6.1.3 useCapture
+为什么是 propagation: Das event wird hochgereicht und man bezeichnet das als propagation. 
+- useCapture：可选参数，是一个布尔值，默认是 false。学完 DOM 事件流后，我们再进一步学习
+    - 如果是 false (不写默认就是false), 表示在事件冒泡阶段 (propagation phase) 调用事件处理程序, 就是 目前的element 上升到 祖先的element     (von Kind zu Vorfahren weitergegeben.  )
+    - 如果是 true，表示在事件捕获阶段调用事件处理程序；  就是从 最祖先的 element 到 目前的element. (von Vorfahren zu Nachfahren.)
+
+useCapture= false, 就是先在element本身处理 这个event, 然后再往上升 , 这个 funktion 再在 vorfahren 中 被 abgearbeitet  (  Immer wenn eine Funktion auf ein event hin abgearbeitet wird, dann werden auch die Funktionen auf dasselbe event in allen Vorfahren abgearbeitet. )
+Das event wird hochgereicht und man bezeichnet das als propagation. 
+Gesteuert wird das über den dritten Parameter in der Methode addEventListener(). 
+- Dabei ist false der default und die events werden von Kind zu Vorfahren weitergegeben. 
+- Mit dem Wert true kehrt sich die Reihenfolge um, von Vorfahren zu Nachfahren.
+
+Über das event aus der anonymen Funktion können wir mit der Methode stopPropagation() dieses Verhalten unterbinden.
+
+### 6.1.4 例子
 1 点击图片 来更换图片的颜色
 ```js
 // Ändern von Attributen
@@ -850,6 +902,25 @@ eventTarget.onclick = null;
 ## 8.1 阻止submit 这个 button 的默认行为
 
 Defautl behavior von Submit: Page neue laden. page neue laden 导致  feld in Form leer machen
+
+Formular sendet die entgegen genommenen Daten an die im action-Attribut spezifizierte Adresse und leert alle Formularfelder. Das ist nicht immer wünschenswert. 
+Hat der Anwender z.B. einige Felder ausgefüllt, aber einige nicht richtig, dann muß er nach dem Absenden alle Felder wieder neu ausfüllen. Das ist nicht benutzerfreundlich.
+
+Den Default können wir unterbinden, genauso wie wir den capture-Parameter im addEventListener() unterbunden haben, über das event mit der Methode preventDefault().
+
+```js
+{
+
+"use strict";
+let submit = document.querySelector(["type=submit"]);
+const doSomeThing = (el) => {
+ //do something like checking a form
+}
+submit.addEventListener("click",function(e){
+                                  donSomeThing();
+                                  e.preventDefault();},false);
+}
+```
 
 
 ```js

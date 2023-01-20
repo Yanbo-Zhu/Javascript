@@ -1,4 +1,8 @@
 # 1 什么是DOM
+Das Document Object Model ist eine allgemeine Vorgehensweise, um auf Bestandteile eines Dokumentes zugreifen zu können. 
+Es bietet eine Schnittstelle für Script- und Programmiersprachen, sodass alle dieselben Funktionen aufrufen können und wurde vom W3C empfohlen.
+Programmierschnittstelle für HTML- und XML-Dokumente
+
 文档对象模型（Document Object Model，简称 DOM），是 W3C 组织推荐的处理可扩展标记语言（HTML或者XML）的标准编程接口
 W3C 已经定义了一系列的 DOM 接口，通过这些 DOM 接口可以改变网页的内容、结构和样式。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/fc42557d25be4683881c2f0f231bc778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
@@ -14,7 +18,7 @@ Der oberste oder Wurzelknoten ist das Dokument selbst, das document.
 Mit js kann man auf das DOM zugreifen, es auslesen, Knoten löschen, ändern oder hinzufügen.
 
 
-# 2 DOM主要操作
+# 2 DOM操作总览
 对于DOM操作，我们主要针对子元素的操作，主要有
 
 创建
@@ -25,32 +29,39 @@ Mit js kann man auf das DOM zugreifen, es auslesen, Knoten löschen, ändern ode
 属性操作
 时间操作
 
-## 2.1 创建
+DOM kann für folgende Funktionen im Programmcode verwendet werden:
+- Veränderung des Seiteninhaltes
+- Erstellung kompletter Dokumente
+- Navigation durch ein Dokument (sowohl durch Inhalt als auch durch Strukturierung)
+- Löschen und Einfügen von Elementen
+- Veränderung der Eigenschaften der Elemente
+
+1创建
 document.write
 innerHTML
 createElement
 
-## 2.2 增
+2 增
 appendChild
 insertBefore
 
-## 2.3 删
+3 删
 removeChild
 
-## 2.4 改
+4  改
 主要修改dom的元素属性，dom元素的内容、属性、表单的值等
 修改元素属性：src、href、title 等
 修改普通元素内容：innerHTML、innerText
 修改表单元素：value、type、disabled
 修改元素样式：style、className
 
-## 2.5 查
+5  查
 主要获取查询dom的元素
 DOM提供的API方法：getElementById、getElementsByTagName (古老用法，不推荐)
 H5提供的新方法：querySelector、querySelectorAll (提倡)
 利用节点操作获取元素：父(parentNode)、子(children)、兄(previousElementSibling、nextElementSibling) 提倡
 
-## 2.6 属性操作
+6 属性操作
 主要针对于自定义属性
 setAttribute：设置dom的属性值
 getAttribute：得到dom的属性值
@@ -59,7 +70,7 @@ removeAttribute：移除属性
 
 # 3 获取元素
 
-## 3.1 如何获取页面元素
+## 3.1 方法总览
 DOM在我们实际开发中主要用来操作元素。
 我们如何来获取页面中的元素呢?
 
@@ -69,7 +80,18 @@ DOM在我们实际开发中主要用来操作元素。
  - 通过 HTML5 新增的方法获取
  - 特殊元素获取
 
-## 3.2 使用不同method, 其返回值的类型
+
+|x|x|
+|---|---|
+|document.getElementById("wertDerId") |Diese Methode greift auf das Element im HTML-Dokument zu, welches eine id mit dem entsprechenden Wert besitzt.|
+|document.getElementsByTagName("elementBezeichner") |Diese Methode greift auf eine Nodelist von allen Elementen zu, die als Argument übergeben werden. Z.B. alle` <p>` oder alle `<img>.`|
+|document.getElementsByClassName("wertImAttributClass")  | Diese Methode greift ebenfalls auf eine Nodelist zu, nämlich alle Elemente, die das Attribut class. mit einem bestimmten in der Parameterliste spezifizierten Wert besitzen.|
+|document.getElementsByName("wertImAttributName") | Diese Methode wird in Formularen verwendet, gibt auch eine Nodelist wieder und bezieht sich auf alle Elemente, die das name. Attribut verwenden, mit dme entsprechenden Wert.|
+|document.querySelectorAll("jederBeliebigeCSSselektor") |Auch mit dieser Methode bekommen wir eine Nodelist, nämlich alle Elemente, die mit dem in der Parameterliste spezifizierten Selektor angesprochen werden können.|
+|document.querySelector("jederBeliebigeCSSselektor")  | Diese Methode greift nur das erste Element welches den entsprechenden CSS-Selektor verwenden könnte.|
+
+
+## 3.2 使用不同方法, 其返回值的类型
 
 
 Einzelne Elemente (object):
@@ -84,6 +106,8 @@ Listen von Elementen:
 
 HTML Collections
 - collection
+
+
 
 ### 3.2.1 Einzelne Elemente (object)
 
@@ -134,7 +158,23 @@ console.log(form);
 ```
 
 
-## 3.3 根据ID获取 getElementByld()
+
+## 3.3 获取特殊元素 document.XX
+1 获取body元素
+返回body元素对象: document.body;
+
+2 获取html元素
+返回html元素对象: document.documentElement;
+
+3 获取forms元素
+const forms = document.forms;
+const form = document.forms[0];
+
+
+
+
+## 3.4 根据ID获取 getElementByld()
+返回 一个 element 
 使用 getElementByld() 方法可以获取带ID的元素对象
     doucument.getElementByld('id名')
 
@@ -156,7 +196,8 @@ console.log(form);
 ```
 
 
-## 3.4 根据标签名获取  getElementByTagName()
+## 3.5 根据标签名获取  getElementByTagName()
+返回一个 array 
 还可以根据标签名获取某个元素（父元素）内部所有指定标签名的子元素,获取的时候不包括父元素自己
     element.getElementsByTagName('标签名')
 
@@ -209,23 +250,27 @@ document.getElementsByTagName('标签名');
 
 ```
 
-## 3.5 通过H5新增方法获取
 
-### 3.5.1 根据类名获取 getElementsByClassName
+## 3.6 根据类名获取 getElementsByClassName()
 根据类名返回元素对象合集
 document.getElementsByClassName('类名')
 ol.getElementsByClassName('类名')
 
 
-### 3.5.2 querySelector
+## 3.7 根据AttributName获取  getElementsByName()
+document.getElementsByName("wertImAttributName")
+
+
+
+## 3.8 querySelector
 https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
-根据指定选择器返回第一个元素对象
+根据指定选择器返回第一个元素对象. 返回一个 erste Element  
 
 document.querySelector('选择器');
 
 // 切记里面的选择器需要加符号 
 // 类选择器.box 
-// id选择器 #nav
+// id选择器 `#nav`
 var firstBox = document.querySelector('.box');
 
 ```js
@@ -246,14 +291,16 @@ const el = document.querySelector("div.user-panel.main input[name='login']");
 
 ```
 
-### 3.5.3 querySelectorAll
+## 3.9 querySelectorAll
+返回 nodelist
 根据指定选择器返回所有元素对象
     document.querySelectorAll('选择器');
+
+Auch mit dieser Methode bekommen wir eine Nodelist, nämlich alle Elemente, die mit dem in der Parameterliste spezifizierten Selektor angesprochen werden können.
 
 注意：
 querySelector 和 querySelectorAll 里面的选择器需要加符号,比如: document.querySelector('#nav');
 
-### 3.5.4 例子
 ```js
 <script>
     // 1. getElementsByClassName 根据类名获得某些元素集合
@@ -281,30 +328,23 @@ querySelector 和 querySelectorAll 里面的选择器需要加符号,比如: doc
 ```
 
 
-## 3.6 获取特殊元素 document.XX
-1 获取body元素
-返回body元素对象: document.body;
-
-2 获取html元素
-返回html元素对象: document.documentElement;
-
-3 获取forms元素
-const forms = document.forms;
-const form = document.forms[0];
-
 
 # 4 改变元素
 
 JavaScript 的 DOM 操作可以改变网页内容、结构和样式，我们可以利用 DOM 操作元素来改变元素里面的内容 、属性等。注意以下都是属性
 
-## 4.1 改变元素内容
+
+## 4.1 总结
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/f6835ead437948e3804c4432ceb812ad.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
+
+## 4.2 改变元素内容
 https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
 
 1  element.innerText
 从起始位置到终止位置的内容，但它去除html标签，同时空格和换行也会去掉。
 
 2 element.innerHTML
-
 起始位置到终止位置的全部内容，包括HTML标签，同时保留空格和换行
 
 ```html
@@ -359,9 +399,9 @@ You can also use this same API to just remove existing children, without replaci
 
 This is fully supported in Chrome/Edge 86+, Firefox 78+, and Safari 14+. It is fully specified behavior. This is likely to be faster than any other proposed method here, since the removal of old children and addition of new children is done without requiring innerHTML, and in one step instead of multiple.
 
-## 4.2 改变元素属性
+## 4.3 改变元素属性
 
-```html
+```js
 // img.属性
 img.src = "xxx";
 
@@ -372,7 +412,7 @@ input.selected = true / false;
 input.disabled = true / false;
 ```
 
-## 4.3 改变样式属性 element.className
+## 4.4 改变样式属性 element.className
 我们可以通过 JS 修改元素的大小、颜色、位置等样式。
 
 1 行内样式操作
@@ -428,7 +468,7 @@ div.style.width = '250px';
 ```
 
 
-### 4.3.1 element.classList: 给 element 强加上一个css中的class
+### 4.4.1 element.classList: 给 element 强加上一个css中的class
 
 The Element.classList is a read-only property that returns a live DOMTokenList collection of the class attributes of the element. This can then be used to manipulate the class list.
 
@@ -476,9 +516,6 @@ div.classList.replace("foo", "bar");
 
 
 
-## 4.4 总结
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/f6835ead437948e3804c4432ceb812ad.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
 ## 4.5 排他思想
 如果有同一组元素，我们相要某一个元素实现某种样式，需要用到循环的排他思想算法：
@@ -518,8 +555,9 @@ div.classList.replace("foo", "bar");
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/c4ab0beac7444b208441727a380b437e.gif#pic_center)
 
-## 4.6 自定义属性
-### 4.6.1 获取属性值 element.getAttribute();
+# 5 属性操作
+## 5.1 属性操作
+### 5.1.1 获取属性值 element.getAttribute();
 1 获取内置属性值(元素本身自带的属性)
 element.属性;
 form_YZH.id
@@ -529,7 +567,7 @@ element.getAttribute('属性');
 
 form_YZH.getAttribute('id');
 
-### 4.6.2 设置属性值 element.setAttribute();
+### 5.1.2 设置属性值 element.setAttribute();
 设置内置属性值
 element.属性 = '值';
 
@@ -551,10 +589,10 @@ form.setAttribute("id","yzh");
 // 之后 <form id="yzh"> xxx </form>
 ```
 
-### 4.6.3 移除属性 element.removeAttribute();
+### 5.1.3 移除属性 element.removeAttribute();
 element.removeAttribute('属性');
 
-### 4.6.4 例子
+### 5.1.4 例子
 ```html 
 <body>
     <div id="demo" index="1" class="nav"></div>
@@ -580,12 +618,12 @@ element.removeAttribute('属性');
 ```
 
 
-## 4.7 H5中新增的 自定义属性
+## 5.2 自定义属性 (H5中新增)
 自定义属性目的：
 - 保存并保存数据，有些数据可以保存到页面中而不用保存到数据库中
 - 有些自定义属性很容易引起歧义，不容易判断到底是内置属性还是自定义的，所以H5有了规定
 
-### 4.7.1 H5 新增的 设置自定义属性的方法
+### 5.2.1 设置自定义属性
 H5规定自定义属性 data-开头作为属性名并赋值
 
 ```html
@@ -595,7 +633,7 @@ H5规定自定义属性 data-开头作为属性名并赋值
 div.setAttribute('data-index',1);
 ```
 
-### 4.7.2 H5 新增的 获取H5自定义属性的方法
+### 5.2.2 获取自定义属性
 - 兼容性获取 element.getAttribute('data-index')
 - H5新增的：element.dataset.index 或element.dataset['index'] IE11才开始支持
 
@@ -620,7 +658,7 @@ div.setAttribute('data-index',1);
 </body>
 ```
 
-# 5 节点操作
+# 6 节点操作
 
 获取元素通常使用两种方式：
 
@@ -632,19 +670,36 @@ div.setAttribute('data-index',1);
 |逻辑性不强，繁琐	||
 
 这两种方式都可以获取元素节点，我们后面都会使用，但是节点操作更简单
-一般的，节点至少拥有三个基本属性
 
-## 5.1 节点概述
+
+## 6.1 节点概述 Struktur des Dokumentes
 网页中的所有内容都是节点（标签、属性、文本、注释等），在DOM 中，节点使用 node 来表示。
-
+Es gibt Vorfahren, Nachfahren, Eltern, Kinder und Geschwister.
 HTML DOM 树中的所有节点均可通过 JavaScript 进行访问，所有 HTML 元素（节点）均可被修改，也可以创建或删除。
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/f176c025b5ff43468d53ed4d49259812.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
-一般的，节点至少拥有nodeType（节点类型）、nodeName（节点名称）和nodeValue（节点值）这三个基本属性。
+一般的，节点至少拥有三个基本属性. 节点至少拥有nodeType（节点类型）、nodeName（节点名称）和nodeValue（节点值）这三个基本属性。  
 
 
-### 5.1.1 nodeType
+Es gibt verschiedene Arten von Knoten. Die wichtigsten hierbei sind:
+- Der Dokumentknoten stellt die gesamte Struktur dar
+- Der Wurzelknoten ist der Beginn des Dokumentes
+- Ein Dokumentfragmentknoten zeigt nur einen Teil der Baumstruktur
+- Ein Elementknoten ist ein Element aus HTML oder XML
+- Ein Attributknoten entspricht einem Attribut aus der HTML- oder XML-Sprache
+- Ein Textknoten stellt lediglich den Textinhalt eines Elementes bzw. eines Attributes dar
+
+例子
+[![6 5 dombaum uebung.gif](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/2/26/6_5_dombaum_uebung.gif)](https://vfhwebp.eduloop.de/mediawiki/images/vfhwebp.eduloop.de/2/26/6_5_dombaum_uebung.gif)
+Der in der Übung gezeigte Wurzelknoten html besitzt als Kinder(child nodes) die Elementknoten head und body, ist also ein Elternteil(parent nodes) von ihnen. \
+head und body werden Geschwister(siblings) genannt. 
+Vom Wurzelknoten ausgehend kann man jeden anderen Knoten erreichen. 
+Desweiteren ist html ein Vorfahrenelement von h1 und title ein Nachfahrenelement von html.
+
+
+### 6.1.1 nodeType
+同一个 Element 内还有 Elementknoten, Attributknoten und Textknoten.
 - 元素节点：nodeType 为1
 - 属性节点：nodeType 为2
 - 文本节点：nodeType 为3(文本节点包括文字、空格、换行等)
@@ -652,7 +707,7 @@ HTML DOM 树中的所有节点均可通过 JavaScript 进行访问，所有 HTML
 我们在实际开发中，节点操作主要操作的是元素节点
 利用 DOM 树可以把节点划分为不同的层级关系，常见的是父子兄层级关系。
 
-### 5.1.2 nodeName
+### 6.1.2 nodeName
 nodeName 必须要用大写
 ```js
 if (form.lastElementChild.nodeName !== "P") // Elemente sind immer UPPERCASE, 所以这里用P, 不用小写的p. 小写的p 匹配不到
@@ -660,8 +715,66 @@ if (form.lastElementChild.nodeName !== "P") // Elemente sind immer UPPERCASE, �
 let message = document.createElement("p");// createElement 中 可以用小写的 
 ```
 
+## 6.2 节点总览
 
-## 5.2 父级节点
+|Eigenschaft	|Erläuterung|
+|--|--|
+|nodeName	|HTML-Element eines Knotens wird als Zeichenkette ausgegeben ( "body")|
+|nodeType	|Tag = 1, Attribut = 2, Text = 3|
+|childNodes|返回当前节点的所有子节点。|
+|firstChild|	erstes Element im childNodes-Array, erster Kindsknoten, childNodes[0]|
+|lastChild	|letztes Element im childNodes-Array, letzter Kindsknoten, childNodes[n] |
+|nextSibling	|das nächste Kind des Elternknotens|
+|previousSibling	|das vorherige Kind des Elternknotens|
+|parentNode	|der Elternknoten|
+|childElementCount|返回子元素（不包括文本节点和注释）的个数|
+|children|返回当前节点的所有元素子节点。 为 childNodes 的元素版本|
+|firstElementChild|	Das erste Kindsknotenelement. 指向第一个子元素；firstChild的元素版。|
+|lastElementChild	|Das letzte Kindsknotenelement. 指向最后    一个子元素；lastChild的元素版。|
+|previousElementSibling|	Das vorherige Kindselement des Elternknoten bzw. das vorherige Geschwisterknotenelement.指向前一个同辈元素；previousSibling的元素版。 |
+|nextElementSibling	|Das nächste Kindselement des Elternknoten bzw. das nächste Geschwisterknotenelement.指向最后一个同辈元素；nextSibling的元素版。 |
+
+### 6.2.1 firstChild派系 和 firstElementChild派系 比较
+firstChild一派返回全部元素，包括空格以及元素等，而firstElementChild这一派比较高冷，它看不起文本和注释这点“小钱”. 
+- 共同点
+    - 它们的共同点都是获取父节点下第一个节点对象。
+- 不同点
+    - 对于文本元素，firstElementChild不能返回，而firstChild则可以. firstChild可以获取文本元素而firstElemenChild不能 . 
+    - 所以如果父元素下的子元素不存在其他element元素，而是文本元素或注释，firstElementChild则会报错。
+    - 但是firstElementChild只会获取元素节点对象，从名称就可以看出来，firstChild则可以获取文本节点对象（当然也可以获取元素节点对象）. 比如空格和换行都被当做文本节点。
+    - 区别在于 firstChild 返回第一个子节点作为元素节点，包含文本节点或注释节点（取决于哪个是第一个），而 firstElementChild 返回第一个子节点作为元素节点（忽略文本和注释节点）。
+
+例子
+1 firstChild返回的除了元素节点，还可能是文本节点或注释节点。
+```
+<div id="div1">
+  <h1>hello</h1>
+</div>
+
+let div1 = document.getElementById('div1');
+console.log(div1.childNodes);
+console.log(div1.firstChild);
+
+```
+结果如图所示：此次的返回结果除了包含h1标签之外，还有两个文本节点。他们是div和h1之间的回车和空格。  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210219111843306.png)
+
+2 `firstElementChild` 属性返回当前节点的第一个**元素**子节点（注意是只返回元素子节点，不包括文本结点和注释结点）。如果没有任何元素子节点，则返回 null。
+```
+<div id="div1">
+  <h1>hello</h1>
+</div>
+
+let div1 = document.getElementById('div1');
+console.log(div1.children);
+console.log(div1.firstElementChild);
+```
+结果如图所示：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210219112439323.png)  
+`lastElementChild` 属性返回当前节点的最后一个**元素**子节点，如果不存在任何元素子节点，则返回null。
+
+
+## 6.3 父级节点  (node.parentNode 或者 node.parentElement)
 node.parentNode 或者  node.parentElement
 
 1 parentNode
@@ -708,7 +821,7 @@ function sky(mood) {
 ```
 
 
-## 5.3 子结点
+## 6.4 子结点
 parentNode.childNodes(标准)
 - parentNode.childNodes 返回包含指定节点的子节点的集合，该集合为即时更新的集合
 - 返回值包含了所有的子结点，包括元素节点，文本节点等
@@ -748,13 +861,13 @@ parentNode.children(非标准)
 ```
 
 
-### 5.3.1 第一个子结点 parentNode.firstChild
+### 6.4.1 parentNode.firstChild
 parentNode.firstChild
 
 firstChild 返回第一个子节点，找不到则返回null
 同样，也是包含所有的节点
 
-### 5.3.2 最后一个子结点 parentNode.lastChild
+### 6.4.2 parentNode.lastChild
 parentNode.lastChild
 
 lastChild 返回最后一个子节点，找不到则返回null
@@ -788,19 +901,19 @@ lastChild 返回最后一个子节点，找不到则返回null
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/dde9c5a059d34c8da3641043a4ecb7df.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
 
-### 5.3.3 第一个子结点 parentNode.firstElementChild
+### 6.4.3 parentNode.firstElementChild
 parentNode.firstElementChild
 
 - firstElementChild 返回第一个子节点，找不到则返回null
 - 有兼容性问题，IE9以上才支持
 
 
-### 5.3.4 最后一个子结点parentNode.lastElementChild
+### 6.4.4 parentNode.lastElementChild
 parentNode.lastElementChild
 - lastElementChild 返回最后一个子节点，找不到则返回null
 - 有兼容性问题，IE9以上才支持
 
-### 5.3.5 解决方案
+### 6.4.5 解决方案
 实际开发中，firstChild 和 lastChild 包含其他节点，操作不方便，而 firstElementChild 和 lastElementChild 又有兼容性问题，那么我们如何获取第一个子元素节点或最后一个子元素节点呢？
 
 解决方案
@@ -845,27 +958,31 @@ parentNode.chilren[parentNode.chilren.length - 1]
 ```
 
 
-## 5.4 兄弟节点
-### 5.4.1 下一个兄弟节点 node.nextSibling
+## 6.5 兄弟节点
+Mit firstElementChild, lastElementChild, previousElementSibling und nextElementSibling können Sie auf Elemente der jeweiligen Knoten zugreifen. Gibt es keine Elemente an der Stelle wird der Wert Null zurückgegeben.
+
+如果找不到的话, 就返回 Null 
+
+### 6.5.1 node.nextSibling
 node.nextSibling
 
 - nextSibling 返回当前元素的下一个兄弟元素节点，找不到则返回null
 - 同样，也是包含所有的节点
 
-### 5.4.2 上一个兄弟节点 node.previousSibling
+### 6.5.2 node.previousSibling
 node.previousSibling
 
 previousSibling 返回当前元素上一个兄弟元素节点，找不到则返回null
 
 同样，也是包含所有的节点
 
-### 5.4.3 下一个兄弟节点 node.nextElementSibling
+### 6.5.3 node.nextElementSibling
 node.nextElementSibling
 
 nextElementSibling 返回当前元素下一个兄弟元素节点，找不到则返回null
 有兼容性问题，IE9才支持
 
-### 5.4.4 上一个兄弟节点 node.previousElementSibling
+### 6.5.4 node.previousElementSibling
 node.previousElementSibling
 
 previousElementSibling 返回当前元素上一个兄弟元素节点，找不到则返回null
@@ -905,11 +1022,24 @@ function getNextElementSibling(element) {
 ```
 
 
-## 5.5 节点操作 
+## 6.6 节点操作 
 
-### 5.5.1 创建节点 
+### 6.6.1 总览 
 
-#### 5.5.1.1 document.createElement('tagName');
+|Methode	|Syntax	|Erläuterung|
+|---|---|---|
+|appendChild	|[Elternknoten].appendChild( [Kindknoten]);	|hängt den Kindknoten an den Elternknoten an|
+|hasChildNodes|	[Knotenname].hasChildNodes();	|gibt einen booleschen Wert aus, der aussagt ob Kinder vorhanden sind oder nicht|
+|createElement|	document.createElement( [HTML-Element]);	|erzeugt einen Knoten, der aus dem HTML-Element besteht|
+|removeNode|	[Knotenname].removeNode( [alles?]);	|der Knoten wird aus dem Baum entfernt, steht in Klammern der Wert true, werden auch alle Kindknoten entfernt|
+|cloneNode|	[Knotenname].cloneNode( [alles?]);	|erzeugt ein Duplikat des angegebenen Knotens, ist der Wert in Klammern true, werden auch alle Kindknoten dupliziert|
+|replaceNode|	[Alter Knoten].replaceNode( [Neuer Knoten]);	|der alte Knoten wird durch den neuen ersetzt|
+|setAttribute|	[Knotenname].setAttribute( [Attributname], [Attributwert]);	|der Knoten erhält ein zusätzliches Attribut|
+|insertBefore|	[Elternknoten].insertBefore( [neuer Kindknoten], [folgender Kindknoten]);	|es wird ein neuer Kindknoten in den Elternknoten eingefüg|
+
+### 6.6.2 创建节点 
+
+#### 6.6.2.1 document.createElement('tagName');
 document.createElement('tagName');
 document.createElement() 方法创建由 tagName 指定的HTML 元素
 因为这些元素原先不存在，是根据我们的需求动态生成的，所以我们也称为动态创建元素节点
@@ -926,7 +1056,7 @@ console.log(div.outerHTML);
 ```
 
 
-#### 5.5.1.2 document.createTextNode
+#### 6.6.2.2 document.createTextNode
 document.createTextNode("Danke " + user);
 没有创造任何新的节点, 没有创造 名字为 "text" 的节点
 
@@ -1002,7 +1132,11 @@ myDiv.innerHTML = 'blah!<br/>';
 document.body.appendChild(myDiv);
 ```
 
-### 5.5.2 添加节点 node.appendChild(child), node.insertBefore(child,指定元素)
+### 6.6.3 [Knotenname].hasChildNodes();	
+
+### 6.6.4 替代节点 [Alter Knoten].replaceNode( [Neuer Knoten]);
+
+### 6.6.5 添加节点 node.appendChild(child), node.insertBefore(child,指定元素)
 node.appendChild(child)
     node.appendChild() 方法将一个节点添加到指定父节点的子节点列表末尾。类似于 CSS 里面的 after 伪元素。
 
@@ -1043,12 +1177,12 @@ function feedback(user) {
 }
 ```
 
-### 5.5.3 删除节点 node.removeChild(child)
+### 6.6.6 删除节点 node.removeChild(child)
 node.removeChild(child)
 
 node.removeChild()方法从 DOM 中删除 node节点下的一个子节点，返回删除的节点
 
-### 5.5.4 复制节点(克隆节点) node.cloneNode()
+### 6.6.7 复制节点(克隆节点) node.cloneNode()
 node.cloneNode()
 
 node.cloneNode()方法返回调用该方法的节点的一个副本。 也称为克隆节点/拷贝节点
@@ -1074,7 +1208,7 @@ node.cloneNode()方法返回调用该方法的节点的一个副本。 也称为
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/78d882e140344b47b288cbf90fd79a50.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
-### 5.5.5 面试题
+### 6.6.8 面试题
 三种动态创建元素的区别
 
 - doucument.write()

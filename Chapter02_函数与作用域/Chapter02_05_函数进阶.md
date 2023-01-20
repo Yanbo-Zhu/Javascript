@@ -1,12 +1,14 @@
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/217fe88037bf47a394f147a8de0971f0.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70)
 
-# 2 高阶函数 (对其他函数进行操作的函数，)
+
+
+# 1 高阶函数 (对其他函数进行操作的函数，)
 高阶函数是对其他函数进行操作的函数，
 1. 它接收函数作为参数或
 2. 将函数作为返回值输出
 
 
-## 2.1 接收函数作为参数
+## 1.1 接收函数作为参数
 
 ```html
 <body>
@@ -28,7 +30,7 @@
 ```
 
 
-## 2.2 将函数作为返回值
+## 1.2 将函数作为返回值
 ```html
 <script>
     function fn(){
@@ -43,15 +45,15 @@
 同理函数也可以作为返回值传递回来
 
 
-# 3 闭包(访问另一个函数作用域中的变量的函数)
-## 3.1 变量作用域
+# 2 闭包(访问另一个函数作用域中的变量的函数)
+## 2.1 变量作用域
 变量根据作用域的不同分为两种：全局变量和局部变量
 
 函数内部可以使用全局变量
 函数外部不可以使用局部变量
 当函数执行完毕，本作用域内的局部变量会销毁。
 
-## 3.2 什么是闭包
+## 2.2 什么是闭包
 闭包指有权访问另一个函数作用域中的变量的函数
 简单理解：一个作用域可以访问另外一个函数内部的局部变量
 
@@ -74,7 +76,7 @@
 ```
 
 
-## 3.3 在chrome中调试闭包
+## 2.3 在chrome中调试闭包
 打开浏览器，按 F12 键启动 chrome 调试工具。
 
 设置断点。
@@ -84,7 +86,7 @@
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/487a2da725794758b4e1e2cf54c1aa18.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
-## 3.4 闭包的作用
+## 2.4 闭包的作用
 延伸变量的作用范围
 ```html
 <body>
@@ -106,8 +108,8 @@
 ```
 
 
-## 3.5 闭包练习
-### 3.5.1 点击li输出索引号
+## 2.5 闭包练习
+### 2.5.1 点击li输出索引号
 ```html
 <body>
     <ul class="nav">
@@ -146,7 +148,7 @@
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/1d0b66c23bae4baabc2f014fc939c812.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
-### 3.5.2 定时器中的闭包
+### 2.5.2 定时器中的闭包
 ```html
 <body>
     <ul class="nav">
@@ -172,7 +174,7 @@
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/bf8930961044466f966d04b802286cf5.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
 
-# 4 递归函数 
+# 3 递归函数 
 
 如果一个函数在内部可以调用其本身，那么这个函数就是递归函数
 简单理解： 函数内部自己调用自己，这个函数就是递归函数
@@ -200,12 +202,12 @@
 
 
 
-## 4.1 浅拷贝和深拷贝
+## 3.1 浅拷贝和深拷贝
 1. 浅拷贝只是拷贝一层，更深层次对象级别的只拷贝引用
 2. 深拷贝拷贝多层，每一级别的数据都会拷贝
 3. Object.assign(target,....sources) ES6新增方法可以浅拷贝
 
-### 4.1.1 浅拷贝
+### 3.1.1 浅拷贝
 
 ```js
 // 浅拷贝只是拷贝一层，更深层次对象级别的只拷贝引用
@@ -227,7 +229,7 @@ Object.assign(o,obj);
 ```
 
 
-### 4.1.2 深拷贝
+### 3.1.2 深拷贝
 // 深拷贝拷贝多层，每一级别的数据都会拷贝
 
 ```js
