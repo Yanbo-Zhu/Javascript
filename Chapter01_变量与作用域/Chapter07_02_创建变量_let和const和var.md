@@ -1,7 +1,71 @@
+
+https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/
+
 # 1 总览
 
 
-## 1.1 let、const、var 的总览
+## 1.1 let,const, var的德语解析 
+
+
+In JavaScript, im Gegensatz zu z.B. Java oder C, müssen wir uns keine Gedanken darüber machen, welchen Typ unsere Variable hat. Wir müssen keine int oder long vor Zahlen, double oder float vor Gleitkommazahlen setzen.
+
+In JavaScript gibt es drei Arten von Variablen: `var`, `let` und `const`. Sie können alle Datentypen speichern. Wir können schreiben zum Beispiel: `const x = 1`, `const haha = 'haha'`, `const arr = [true, true, 'Pferd']`, usw. Es gibt jedoch einen wesentlichen Unterschied zwischen diesen Variablentypen:
+
+1 let
+let weist einer Variable einen Wert zu, der geändert werden kann. Wir können sie zunächst deklarieren und später initialisieren.
+
+let 的variable , 
+同一个variable name 不能被 多次 deklaiert werden 
+
+```js
+let number = 1;
+let string = "IntroProg";
+let bool;
+
+number = 99;
+string = "Webtechnologien";
+bool = 1 > 3;
+
+console.log(number); // 99
+console.log(string); // Webtechlogien
+console.log(bool); // false
+```
+
+
+2 const
+const weist einer Variable einen Wert zu, der nicht geändert werden kann (ähnlich wie eine final-Variable in Java). Die Deklaration muss sofort zusammen mit der Initialisierung erfolgen.
+```js
+const num = 12;
+const str = "hello world";
+const arr = [true, false, true, false];
+
+const num2; // 'const' declarations must be initialized.ts(1155)
+num2 = 41;  // 'const' declarations must be initialized.ts(1155)
+
+const age = 25;
+age = 26;   // Cannot redeclare block-scoped variable 'age'.ts(2451)
+```
+
+
+3 var
+var ist “problematisch“. Es kann zunächst deklariert und später wie let initialisiert werden. Der Wert kann ebenfalls geändert werden. ==Was es jedoch von let unterscheidet, ist, dass es mehrmals deklariert werden kann.==
+每次被deklarieren, 之前的vararibale 地址都丢失了, 
+新的地址被分配给他 
+
+```js
+var myVar = 3;
+console.log(myVar); // 3
+
+myVar = "haha";
+console.log(myVar); // haha
+
+var myVar = true;
+console.log(myVar); // true
+
+```
+
+
+## 1.2 let、const、var 的总览
 
 
 |?|var	|let	|const|
@@ -14,7 +78,14 @@
 2. 使用let声明的变量，其作用域为该语句所在的代码块内，不存在变量提升。 die Variable ist gültig in dem Anweisungsblock, in dem sie deklariert wird
 3. 使用 const 声明的常量，在后面出现的代码中不能修改该常量的值。  die Variable hat einen festen unveränderlichen Wert
 
-### 1.1.1 let、const与var的区别
+
+- `var` declarations are globally scoped or function scoped while `let` and `const` are block scoped.
+- `var` variables can be updated and re-declared within its scope; `let` variables can be updated but not re-declared; `const` variables can neither be updated nor re-declared.
+- They are all hoisted to the top of their scope. But while `var` variables are initialized with `undefined`, `let` and `const` variables are not initialized.
+- While `var` and `let` can be declared without being initialized, `const` must be initialized during declaration.
+
+
+### 1.2.1 let、const与var的区别
 1. let和const不能重复声明变量
 ```js
          var num = 100;
@@ -71,9 +142,7 @@ function guess(event) {
         const num = 100;//会报错
 
 
-
-
-## 1.2 let和const总结
+## 1.3 let和const总结
 
 1. let 声明的变量会产生块作用域，var 不会产生块作用域
 2. const 声明的常量也会产生块作用域
@@ -82,13 +151,13 @@ function guess(event) {
 5. 应用场景：声明对象类型使用 const，非对象类型声明选择 let
 6. cosnt声明必须赋初始值，标识符一般为大写，值不允许修改。
 
-### 1.2.1 什么时候用 let，什么使用用 const
+### 1.3.1 什么时候用 let，什么使用用 const
 
 原则：如果不知道用什么的时候，就用 const
 
 原因：如果应该是常量，那么刚好符合需求。如果应该是变量，那么后来报错时，再来改为变量也为时不晚。同时，一开始就设置为常量还会避免真的需要为常量时，该值在后来被意外修改的情况。
 
-### 1.2.2 let与const的区别
+### 1.3.2 let与const的区别
 1.let可以重复赋值，const不可以重复赋值
         let num = 100;
         num = 200;
@@ -100,14 +169,102 @@ function guess(event) {
        let num;
        const num;//会报错
 
-## 1.3 let 命令
+
+## 1.4 var
+
+
+### 1.4.1 scope of var 
+
+
+The scope is global when a `var` variable is declared outside a function. This means that any variable that is declared with `var` outside a function block is available for use in the whole window.
+
+`var` is function scoped when it is declared within a function. This means that it is available and can be accessed only within that function.
+
+
+```javascript
+
+
+var tester = "hey hi";
+
+function newFunction() {
+    var hello = "hello";
+}
+console.log(hello); // error: hello is not defined
+
+```
+
+
+### 1.4.2 var variables can be re-declared and updated
+
+This means that we can do this within the same scope and won't get an error.
+
+```js
+
+var greeter = "hey hi";
+var greeter = "say Hello instead";
+
+
+var greeter = "hey hi";
+greeter = "say Hello instead";
+
+
+```
+
+
+
+### 1.4.3 Hoisting of var 变量提升 
+
+
+Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution. This means that if we do this:
+
+```js
+console.log (greeter);
+var greeter = "say hello"
+
+//it is interpreted as this:
+//So var variables are hoisted to the top of their scope and initialized with a value of undefined.
+var greeter;
+console.log(greeter); // greeter is undefined
+greeter = "say hello"
+
+```
+
+
+### 1.4.4 Problem with var
+
+There's a weakness that comes with var. I'll use the example below to explain:
+
+```
+    var greeter = "hey hi";
+    var times = 4;
+
+    if (times > 3) {
+        var greeter = "say Hello instead"; 
+    }
+
+    console.log(greeter) // "say Hello instead"
+```
+
+
+So, since `times > 3` returns true, `greeter` is redefined to `"say Hello instead"`. While this is not a problem if you knowingly want `greeter` to be redefined, it becomes a problem when you do not realize that a variable `greeter` has already been defined before.
+
+If you have used `greeter` in other parts of your code, you might be surprised at the output you might get. This will likely cause a lot of bugs in your code. This is why `let` and `const` are necessary.
+
+
+## 1.5 let 命令
+
+`let` is now preferred for variable declaration. It's no surprise as it comes as an improvement to `var` declarations. 
+It also solves the problem with `var` that we just covered. Let's consider why this is so.
+
+
+
 1、变量声明
 let a;
 let b,c,d;
 let e=100;
 let f=342,g='fgsddgf',h=[];
 
-### 1.3.1 特点
+### 1.5.1 特点
 1. 变量不能重复声明，下面代码就会报错
     1. let star='df'; let star='ff';
 2. let 声明的变量只在所处于的块级有效: 块级作用域（只在{}里面有效）、全局、函数、evel
@@ -138,7 +295,7 @@ if (true) {
 ```
 
 
-### 1.3.2 为块级作用域
+### 1.5.2 为块级作用域
 
 ES6 新增了`let`命令，用来声明变量。它的用法类似于`var`，但是所声明的变量，只在`let`命令所在的代码块内有效。
 使用let 关键字声明的变量才具有块级作用域，使用var声明的变量不具备块级作用域特性
@@ -210,7 +367,29 @@ for (let i = 0; i < 3; i++) {
 
 上面代码正确运行，输出了 3 次`abc`。这表明函数内部的变量`i`与循环变量`i`不在同一个作用域，有各自单独的作用域（同一个作用域不可使用 `let` 重复声明同一个变量）。
 
-### 1.3.3 不存在变量提升
+---
+
+So a variable declared in a block with `let` is only available for use within that block. Let me explain this with an example:
+
+```javascript
+   let greeting = "say Hi";
+   let times = 4;
+
+   if (times > 3) {
+        let hello = "say Hello instead";
+        console.log(hello);// "say Hello instead"
+    }
+   console.log(hello) // hello is not defined
+```
+
+
+
+
+
+
+### 1.5.3 不存在变量提升
+
+> Just like `var`, `let` declarations are hoisted to the top. Unlike `var` which is initialized as `undefined`, the `let` keyword is not initialized. So if you try to use a `let` variable before declaration, you'll get a `Reference Error`.
 
 `var`命令会发生“变量提升”现象，即变量可以在声明之前使用，值为`undefined`。这种现象多多少少是有些奇怪的，按照一般的逻辑，变量应该在声明语句之后才可以使用。
 
@@ -228,7 +407,7 @@ let bar = 2;
 
 上面代码中，变量`foo`用`var`命令声明，会发生变量提升，即脚本开始运行时，变量`foo`已经存在了，但是没有值，所以会输出`undefined`。变量`bar`用`let`命令声明，不会发生变量提升。这表示在声明它之前，变量`bar`是不存在的，这时如果用到它，就会抛出一个错误。
 
-### 1.3.4 暂时性死区
+### 1.5.4 暂时性死区
 
 只要作用域内存在 let、const，它们所声明的变量或常量就自动 “绑定” 这个区域，不再受到外部作用域的影响。
 
@@ -253,7 +432,41 @@ func();
 
 > 只要我们遵守 “**先声明后使用**”，那么其实就基本不会遇到变量提升及暂时性死区问题。
 
-### 1.3.5 不允许重复声明
+### 1.5.5 不允许重复声明 (let can be updated but not re-declared.)
+
+Just like `var`, a variable declared with `let` can be updated within its scope. Unlike `var`, a `let` variable cannot be re-declared within its scope. So while this will work:
+
+
+```js
+let greeting = "say Hi";
+greeting = "say Hello instead";  // 不报错 
+
+//this will return an error:
+let greeting = "say Hi";
+let greeting = "say Hello instead"; // error: Identifier 'greeting' has already been declared
+
+```
+
+
+However, if the same variable is defined in different scopes, there will be no error:
+```javascript
+    let greeting = "say Hi";
+    if (true) {
+        let greeting = "say Hello instead";
+        console.log(greeting); // "say Hello instead"
+    }
+    console.log(greeting); // "say Hi"
+```
+
+Why is there no error? This is because both instances are treated as different variables since they have different scopes.
+
+This fact makes `let` a better choice than `var`. When using `let`, you don't have to bother if you have used a name for a variable before as a variable exists only within its scope.
+
+Also, since a variable cannot be declared more than once within a scope, then the problem discussed earlier that occurs with `var` does not happen.
+
+
+
+-----
 
 `let`不允许在相同作用域内，重复声明同一个变量。
 
@@ -288,14 +501,14 @@ func() // 不报错
 ```
 
 
-## 1.4 const 命令
+## 1.6 const 命令
 
 声明常量，常量就是值(内存地址) 不能变化的量
 
 1、声明常量
 const SCHOOL='sgg';
 
-### 1.4.1 特点
+### 1.6.1 特点
 
 - 一定要赋初值 : const PI; // Missing initializer in const declaration
 - 一般常量使用大写命名（潜规则）
@@ -326,8 +539,49 @@ T.push('DF');
 ```
 
 
-### 1.4.2 特点的详细介绍
-1 `const`声明一个只读的常量。一旦声明，常量的值就不能改变。
+
+### 1.6.2 const cannot be updated or re-declared
+
+This means that the value of a variable declared with `const` remains the same within its scope. It cannot be updated or re-declared. So if we declare a variable with `const`, we can neither do this:
+
+```javascript
+
+const greeting = "say Hi";
+greeting = "say Hello instead"; //  会报错 error: Assignment to constant variable.
+
+const greeting = "say Hi";
+const greeting = "say Hello instead";// 会报错 error: Identifier 'greeting' has already been declared
+
+```
+
+Every `const` declaration, therefore, must be initialized at the time of declaration.
+
+
+> This behavior is somehow different when it comes to objects declared with `const`. While a `const` object cannot be updated, the properties of this objects can be updated. Therefore, if we declare a `const` object as this:
+
+```javascript
+
+const greeting = {
+    message: "say Hi",
+    times: 4
+}
+
+// while we cannot do this:
+greeting = {
+    words: "Hello",
+    number: "five"
+} // error:  Assignment to constant variable.
+
+/// we can do this:
+    greeting.message = "say Hello instead";
+
+
+```
+
+---
+
+
+`const`声明一个只读的常量。一旦声明，常量的值就不能改变。
 
 ```js
 const PI = 3.1415;
@@ -348,28 +602,10 @@ const foo;
 
 上面代码表示，对于`const`来说，只声明不赋值，就会报错。
 
-2 `const`的作用域与`let`命令相同：只在声明所在的块级作用域内有效。
+---
 
-```js
-if (true) {
-  const MAX = 5;
-}
 
-MAX // Uncaught ReferenceError: MAX is not defined
-```
-
-3 `const`命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。
-
-```js
-if (true) {
-  console.log(MAX); // ReferenceError
-  const MAX = 5;
-}
-```
-
-上面代码在常量`MAX`声明之前就调用，结果报错。
-
-4 `const`声明的常量，也与`let`一样不可重复声明。
+ `const`声明的常量，也与`let`一样不可重复声明。
 
 ```js
 var message = "Hello!";
@@ -380,7 +616,36 @@ const message = "Goodbye!";
 const age = 30;
 ```
 
-### 1.4.3 本质
+
+### 1.6.3 const declarations are block scoped
+
+Like `let` declarations, `const` declarations can only be accessed within the block they were declared.
+`const`的作用域与`let`命令相同：只在声明所在的块级作用域内有效。
+
+```js
+if (true) {
+  const MAX = 5;
+}
+
+MAX // Uncaught ReferenceError: MAX is not defined
+```
+
+
+### 1.6.4 Hoisting of const
+
+`const`命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。
+Just like `let`, `const` declarations are hoisted to the top but are not initialized.
+
+```js
+if (true) {
+  console.log(MAX); // ReferenceError
+  const MAX = 5;
+}
+```
+
+上面代码在常量`MAX`声明之前就调用，结果报错。
+
+### 1.6.5 本质
 
 `const`实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动。对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指向实际数据的指针，`const`只能保证这个指针是固定的（即总是指向另一个固定的地址），至于它指向的数据结构是不是可变的，就完全不能控制了。因此，将一个对象声明为常量必须非常小心。
 
@@ -408,7 +673,7 @@ a = ['Dave'];    // 报错
 
 上面代码中，常量`a`是一个数组，这个数组本身是可写的，但是如果将另一个数组赋值给`a`，就会报错。
 
-## 1.5 window 对象的属性和方法（全局作用域中）
+## 1.7 window 对象的属性和方法（全局作用域中）
 
 全局作用域中，`var` 声明的变量，`function` 声明的函数，会自动变成 window 对象的属性或方法。
 
@@ -428,9 +693,9 @@ console.log(window.add === add);     // false
 
 
 
-## 1.6 2.块级作用域
+## 1.8 块级作用域
 
-### 1.6.1 为什么需要块级作用域？
+### 1.8.1 为什么需要块级作用域？
 
 ES5 只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。
 
@@ -465,7 +730,7 @@ console.log(i); // 5
 
 上面代码中，变量`i`只用来控制循环，但是循环结束后，它并没有消失，泄露成了全局变量。
 
-### 1.6.2 ES6 的块级作用域
+### 1.8.2 ES6 的块级作用域
 
 `let`实际上为 JavaScript 新增了块级作用域。
 
@@ -521,7 +786,7 @@ ES6 允许块级作用域的任意嵌套。
 }
 ```
 
-### 1.6.3 块级作用域与函数声明
+### 1.8.3 块级作用域与函数声明
 
 函数能不能在块级作用域之中声明？这是一个相当令人混淆的问题。
 
@@ -667,7 +932,7 @@ if (true)
 ```
 
 
-## 1.7 5.顶层对象的属性
+## 1.9 5.顶层对象的属性
 
 顶层对象，在浏览器环境指的是`window`对象，在 Node 指的是`global`对象。ES5 之中，顶层对象的属性与全局变量是等价的。
 
