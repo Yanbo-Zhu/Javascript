@@ -697,18 +697,18 @@ console.log(newArr);
 
 
 ## 4.5 修改数组元素的方法 push() pop() unshift() shift()
-|方法名	|说明|	返回值|
-|--|--|--|
-|listOfStuff[8] = 100; | listOfStuff 原先只有 4 位, 直接在第八位 插入 100 ||
-|push(参数1…)	|末尾添加一个或多个元素，注意修改原数组	|并返回新的长度|
-|pop()	|删除数组最后一个元素	|返回它删除的元素的值|
-|unshift(参数1…)	|向数组的开头添加一个或更多元素，注意修改原数组	|并返回新的长度|
-|shift()	|删除数组的第一个元素，数组长度减1，无参数，修改原数组	|并返回第一个元素|
+| 方法名                   | 说明                                  | 返回值                   |
+| --------------------- | ----------------------------------- | --------------------- |
+| listOfStuff[8] = 100; | listOfStuff 原先只有 4 位, 直接在第八位 插入 100 |                       |
+| push(参数1…)            | 末尾添加一个或多个元素，注意修改原数组                 | 并返回新的长度               |
+| pop()                 | 删除数组最后一个元素, 修改原数组                   | 返回它删除的元素的值            |
+| unshift(参数1…)         | 向数组的开头添加一个或更多元素，注意修改原数组             | 并返回新的长度               |
+| shift()               | 删除数组的第一个元素，数组长度减1，无参数，修改原数组         | 并返回第一个元素 (返回它删除的元素的值) |
 
 
 
 ```js
-// 1.push() 在我们数组的末尾，添加一个或者多个数组元素 push 推
+// push() 在我们数组的末尾，添加一个或者多个数组元素 push 推
 var arr = [1, 2, 3];
 arr.push(4, '秦晓');
 console.log(arr);
@@ -716,15 +716,33 @@ console.log(arr.push(4, '秦晓'));
 console.log(arr);
 // push 完毕之后，返回结果是新数组的长度
 
+myArray.push("Zweites Element");
+console.log(myArray); // ["Erstes Element", "Zweites Element"]
 
-// 2. unshift 在我们数组的开头 添加一个或者多个数组元素
-arr.unshift('red');
-console.log(arr);
+
 
 // pop() 它可以删除数组的最后一个元素，一次只能删除一个元素
 arr.pop(); //不加参数
+
+let lastElement = a.pop(); // entfernt das letzte Element console.log(a); // das Array ohne das letzte Element console.log(lastElement); // das entfernte Element
+
+
+
+
+
+// unshift 在我们数组的开头 添加一个或者多个数组元素
+arr.unshift('red');
+console.log(arr);
+
+
+
+
+
 // shift() 它剋删除数组的第一个元素,一次只能删除一个元素
 arr.shift(); //不加参数
+
+let firstElement = a.shift(); // entfernt das erste Element console.log(a); // das Array ohne das erste Element console.log(firstElement); // das entfernte Element
+
 ```
 
 
@@ -944,41 +962,75 @@ console.log(demo);
 
 
 
-## 4.9 数组的连接截取 
-|方法名	|说明	|返回值|
-|---|---|---|
-|concat()	|连接两个或多个数组 不影响原数组	|返回一个新的数组, 原来的数组不受影响|
-|slice()|	数组截取slice(begin,end)	|返回被截取项目的新数组,  原来的数组不受影响|
-|splice()	|数组删除splice(第几个开始要删除的个数), 从某个位置移除数组的几个元素 ，并在这个位置上添加新元素|原数组被改为被删除项目后的数组，会return一个数组, 这个额数据包含了 那些元素被删除了|
+## 4.9 数组的连接 concat() and `[...arr, ...secondArray]`
 
-### 4.9.1 concat()
+
+| 方法名                                 | 说明               | 返回值                 |
+| ----------------------------------- | ---------------- | ------------------- |
+| let a = arr.concat(secondArray)     | 连接两个或多个数组 不影响原数组 | 返回一个新的数组, 原来的数组不受影响 |
+| `let a = [...arr, ...secondArray] ` |                  |                     |
+
+
 ```js
  console.log(numbers); // [1, 7, 10, 40, 102]
  let newList=numbers.concat(4,5);  
  console.log(newList); // [1, 7, 10, 40, 102, 4, 5]
  console.log(numbers); // [1, 7, 10, 40, 102]
- 
+
+ // arr 和 aecondArray 都是数组 
+
  newList=numbers.concat(newList,['aha'],[true,false,[0]],5678);
  console.log(newList); // [1, 7, 10, 40, 102, 1, 7, 10, 40, 102, 4, 5, 'aha', true, false, Array(1), 5678]
 
 ```
 
 
-### 4.9.2 slice()
-给入两个值 
- Die Methode gibt einen beliebigen Teilbereich aus einem array zurück.   Mit zwei Argumenten werden Anfang und Ende des Teilbereiches spezifiziert. 
- Dabei wird der Wert des ersten Argumentes mit ausgegeben, aber nicht der des zweiten. Das ursprüngliche array wird nicht verändert.
-```js
- console.log(numbers); //[ 1, 7, 10, 40, 102]
- let partNumbers = numbers.slice(1,3); //   从 index =1 的地方开始取值, 到 index=3 , index=3 的值不被取
- console.log(partNumbers); // [7, 10]
+## 4.10 查询数组是否包含一个元素 
+
+
+1 `.includes()`
+```
+let included = a.includes('New element');
+console.log(included);
 ```
 
-给入一个值 
+.includes() gibt true zurück, wenn 'Neues Element' im Array enthalten ist, sonst false, wenn es nicht enthalten ist
+
+
+
+2 `.indexOf()`
+```
+let elemIndex = a.indexOf('New element'); console.log(elemIndex);
+```
+.indexOf() gibt das Index zurück, wenn 'New element' im Array enthalten ist, sonst gibt -1 zurück
+
+## 4.11 数组的截取 
+
+| 方法名      | 说明                                                    | 返回值                                            |
+| -------- | ----------------------------------------------------- | ---------------------------------------------- |
+| slice()  | 数组截取slice(begin,end)                                  | 返回被截取项目的新数组,  原来的数组不受影响                        |
+| splice() | 数组删除splice(第几个开始要删除的个数), 从某个位置移除数组的几个元素 ，并在这个位置上添加新元素 | 原数组被改为被删除项目后的数组，会return一个数组, 这个额数据包含了 那些元素被删除了 |
+
+### 4.11.1 slice()
+
+
+
+1 
+slice() 中给入一个值 
 Wird nur ein Argument übergeben, dann spezifiziert dieses den Anfang des Teilbereiches und das Ende wird durch das Ende des array spezifiziert.
 从 index =3 的地方开始取值, 
 取到最后 最后一个值要被取进去 
+
 ```js
+// Syntax
+arrayName.slice(indexFrom, indexToButNotIncluded);
+// erstellt einen Teil des Arrays von Index indexFrom bis 
+// (aber nicht einschließlich) indexToButNotIncluded
+```
+
+
+```js
+ console.log(numbers); // [1, 7, 10, 40, 102]
  console.log(numbers.slice(3)); // [40, 102]
  
 ```
@@ -989,8 +1041,30 @@ Negative Argumente beginnen mit dem Teilbereich am Ende des arrays, zählen aber
  console.log(numbers.slice(-3));
 ```
 
-### 4.9.3 splice()
+2 
+slice() 中给入两个值 
+ Die Methode gibt einen beliebigen Teilbereich aus einem array zurück.   Mit zwei Argumenten werden Anfang und Ende des Teilbereiches spezifiziert. 
+ Dabei wird der Wert des ersten Argumentes mit ausgegeben, aber nicht der des zweiten. Das ursprüngliche array wird nicht verändert.
+```js
+ console.log(numbers); //[ 1, 7, 10, 40, 102]
+ let partNumbers = numbers.slice(1,3); //   从 index =1 的地方开始取值, 到 index=3 , index=3 的值不被取
+ console.log(partNumbers); // [7, 10]
+
+
+// Example
+let slicedArray = a.slice(1, 3);
+// erstellt einen Teil des Arrays von Index 1 bis (aber nicht einschließlich) 3
+console.log(slicedArray); // der abgeschnittene Teil des Arrays
+```
+
+
+### 4.11.2 splice()
+
 entfernen und hinzufügen
+
+ändert den Inhalt eines Arrays, indem vorhandene Elemente entfernt oder ersetzt und/oder neue Elemente hinzugefügt werden. 
+==对原数组直接进行改变== Dies geschieht direkt im Array (in-place), ohne dass ein neues Array erstellt wird.
+
 
  Mit dieser Methode können Elemente sowohl eingefügt als auch entfernt werden.  Dabei wird das ursprüngliche array verändert.
   Die Methode gibt ein array zurück, welches die entfernten Elemente enthält.  
@@ -998,6 +1072,33 @@ entfernen und hinzufügen
  - Das zweite Argument spezifiziert die Anzahl der Elemente,  die entfernt werden sollen.
  - Wird das zweite Argument nicht übergeben, wird das Ende des Arrays angenommen.
  - Ab dem 3. Argument kann hinzugefügt werden.
+
+给入三个值 
+```js
+// Syntax
+arrayName.splice(index, n, elements); 
+// ersetzt n Elemente an der Position index gegen elements
+
+// Example
+a.splice(1, 1, 'New element');
+// ersetzt ein Element an der Position 1 gegen 'New element'
+
+
+let arr_3 = [1, 2, 3];
+// 第一个1的意义: Entfernt das Element an Index 1
+// 第二个1的意义 (ab 1 position 1 elemnt modify)
+// 第三个neu的意义: fügt "neu" hinzu
+arr_3.splice(1, 1, "neu"); 
+console.log(arr_3); // [1, "neu", 3]
+
+
+// 如果 第二值的大于 数组本身长度
+arr_3.splice(1, 5, "neu"); // return  [1, "neu", neu", neu",neu",neu"]  // 5 elemnts will be removed and 5 elemnts will be added. although we have only 3 elemnts in array arr_3 orignally
+
+```
+
+
+
 
  
 ```js
@@ -1030,14 +1131,16 @@ console.log(listOfStuff);
 
 # 5 案例
 
-1.请将 [“关羽”,“张飞”,“马超”,“赵云”,“黄忠”,“刘备”,“姜维”]; 数组里的元素依次打印到控制台
+1.请将` [“关羽”,“张飞”,“马超”,“赵云”,“黄忠”,“刘备”,“姜维”];` 数组里的元素依次打印到控制台
 
-var arr = ["关羽","张飞","马超","赵云","黄忠","刘备","姜维"]; 
+`var arr = ["关羽","张飞","马超","赵云","黄忠","刘备","姜维"]; `
+
+```
 // 遍历  从第一个到最后一个
 for(var i = 0; i < arr.length; i++ )  { 
    console.log( arr[i] );
 } 
-
+```
 
 2.求数组 [2,6,1,7, 4] 里面所有元素的和以及平均值
 

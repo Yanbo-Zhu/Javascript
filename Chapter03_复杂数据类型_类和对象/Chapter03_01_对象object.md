@@ -192,6 +192,8 @@ console.log(Object.getPrototypeOf(objOneFromProto) === protoObj); // true
 ## 3.5 利用构造函数创建对象 ( function 构造函数名() { } )
 构造函数 ：是一种特殊的函数，主要用来初始化对象，即为对象成员变量赋初始值，它总与 new 运算符一起使用。我们可以把对象中一些公共的属性和方法抽取出来，然后封装到这个函数里面。
 
+Eine Konstruktorfunktion in JavaScript wird verwendet, um Objekte mit denselben Eigenschaften oder Methoden zu erstellen. Sie wird mit dem Schlüsselwort new aufgerufen.
+
 在 js 中，使用构造函数要时要注意以下两点：
 - 构造函数用于创建某一类对象，其首字母要大写
 - 构造函数要和 new 一起使用才有意义
@@ -220,6 +222,9 @@ function 构造函数名() {
     this.方法 = function() {}
 }
 new 构造函数名();
+
+// this: In einer Konstruktorfunktion verweist this auf das neue Objekt, das gerade erstellt wird. Jede Eigenschaft, die man mit this definiert, wird dem neuen Objekt hinzugefügt. 
+
 ```
 
 ```js
@@ -259,6 +264,16 @@ ldh.sing('冰雨');
 
 var zxy = new Star('张学友',19,'男');
 ```
+
+
+---
+
+![](image/Pasted%20image%2020241122223730.png)
+Beispiel-Erklärung:
+- Auto ist die Konstruktorfunktion.
+- this.marke = marke bedeutet, dass das neue Objekt (z. B. auto1) die Eigenschaft (Schlüssel/key) marke mit dem übergebenen Wert (z. B. "BMW") erhält.
+- Mit new Auto(...) wird ein neues Objekt erstellt, und this verweist in diesem Moment auf dieses Objekt.
+
 
 ### 3.5.1 Verwendung von Prototype für Klassenähnliche Konstrukte
 
@@ -300,6 +315,19 @@ objekt['eigenschaftsname'] // Klammernotation
 
 console.log(star.name)     // 调用名字属性
 console.log(star['name'])  // 调用名字属性
+
+myObject["name"] = "Alice"; // legel
+myObject[name] = "Alice"; // legal
+myObject.name = "Alice"; // legal, Alternative Schreibweise
+myObject."name2" = "Alice"; // 这是不合法的语法。 在 JavaScript 中，属性访问不能直接使用 . 后跟引号的形式。
+ 
+
+myObject[123] = "Zahl als Schlüssel"; // legel
+myObject["12"] = "Zahl als Schlüssel"; // legel
+myObject.1 = "Zahl als Schlüssel"; // Syntaxfehler, 不行 
+myObject."1" = "Zahl als Schlüssel" // 这是不合法的语法。 在 JavaScript 中，属性访问不能直接使用 . 后跟引号的形式。
+
+
 star.sayHi();              // 调用 sayHi 方法,注意，一定不要忘记带后面的括号
 ```
 
@@ -311,6 +339,8 @@ star.sayHi();              // 调用 sayHi 方法,注意，一定不要忘记带
 - 方法：对象里面的函数称为方法，方法不需要声明，使用==“对象.方法名()”==的方式就可以调用，方法用来描述该对象的行为和功能。
 
 
+
+
 ## 4.2 call some unknown property
 ```js
 console.log(anyObject.living); // 返回 undefined
@@ -319,9 +349,15 @@ console.log(anyObject.living); // 返回 undefined
 
 ## 4.3 检查一个属性是否存在 
 ```js
-	// check for a property
-	console.log("firstName" in anyObject); // 返回 true or false 
-	
+
+//方法一
+// check for a property
+console.log("firstName" in anyObject); // 返回 true or false 
+
+// 方法2 使用 hasOwnProperty()
+let hasName = obj.hasOwnProperty('name'); 
+console.log(hasName); // true
+
 ```
 
 
@@ -333,6 +369,12 @@ console.log(Object.values(anyOtherObject));
 
 
 ## 4.5 遍历对象的属性
+
+
+### 4.5.1 for...in 
+
+Um über alle Key-Value-Paare eines Objekts zu iterieren, eignet sich die `for…in`-Schleife. Der `for...in `Loop wird verwendet, um über die enumerierbaren (aufzählbaren) Eigenschaften eines Objekts zu iterieren. Er durchläuft die Schlüssel (Property-Namen) eines Objekts.
+
 - for...in 语句用于对数组或者对象的属性进行循环操作
 - let item in 
 
@@ -377,9 +419,20 @@ for(var k in obj){
 for (let item in anyObject){
     console.log(item+" : "+anyObject[item]);
 }
+
+
+const person = { name: "Alice", age: 25, city: "Berlin" };
+for (let key in person) {
+  console.log(key + ": " + person[key]);
+}
+// name: Alice
+// age: 25 
+// city: Berlin
+
 ```
 
-### 4.5.1 property 为 array 类型
+
+property 为 array 类型
 ```js
 (function init(){
 	"use strict";
@@ -428,6 +481,21 @@ for (let item in anyObject){
 })();
 ```
 
+### 4.5.2 `for...of`
+
+The **`for...of`** statement executes a loop that operates on a sequence of values sourced from an [iterable object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol). Iterable objects include instances of built-ins such as [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), [`String`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [`TypedArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray), [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set), [`NodeList`](https://developer.mozilla.org/en-US/docs/Web/API/NodeList) (and other DOM collections), as well as the [`arguments`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments) object, [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator) produced by [generator functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*), and user-defined iterables.
+
+```js
+const array1 = ['a', 'b', 'c'];
+
+for (const element of array1) {
+  console.log(element);
+}
+
+// Expected output: "a"
+// Expected output: "b"
+// Expected output: "c"
+```
 
 
 ## 4.6 添加删除 property
@@ -492,16 +560,27 @@ objTwo.showThis("MY property!!");
 
 ```
 
-# 6 Copying objects
+## 5.2 concatenate objects
+
+assign 或者 { ...obj, ...obj2 }
+
 ```js
 let anyOtherObject = {};
 Object.assign(anyOtherObject, anyObject);
+
+let obj2 = { city: 'Berlin', country: 'Germany' };
+
+let o = Object.assign(obj, obj2);
+// mit assign()-Methode
+
+let o = { ...obj, ...obj2 };
+// mit dem Spread-Operator
 ```
 
 
 
 
-# 7 Constructors
+# 6 Constructors
 But, don't overuse Object() or Array(), there are some problems you should know of.
 	1. Declare as expression. It's short and easy to read.
 	2. Objects are mutable.
@@ -509,7 +588,7 @@ But, don't overuse Object() or Array(), there are some problems you should know 
 	4. There is delegation to other Constructors of the type object, which might surprise you!
 
 
-## 7.1 object 的constructors的 rules
+## 6.1 object 的constructors的 rules
 - declare objects as literals whenever possible
 - if using DOM-objects like <img>, use built-in-constructors
 - sometimes you need a constructor 
@@ -517,14 +596,14 @@ But, don't overuse Object() or Array(), there are some problems you should know 
     function ConstruktorName(){};
     let o=new ConstruktorName();
 
-## 7.2 打印object的constructor
+## 6.2 打印object的constructor
 
 ```js
 console.log(anyObject.constructor); // 返回值为 Object() { [native code] }
 ```
 
 
-## 7.3 built in Constructors:
+## 6.3 built in Constructors:
 Object();
 Array();
 Function();
@@ -542,7 +621,7 @@ console.log(typeof obj); // object
 ```
 
 
-### 7.3.1 i.e. in DOM:  Image()
+### 6.3.1 i.e. in DOM:  Image()
 
 ```js
 /*Use of built-in-constructors with browsers.*/
@@ -558,7 +637,7 @@ console.log(sonneDOM.width, sonneDOM.height, sonneDOM.src, sonneDOM.alt, sonneDO
 console.log(sonne.width, sonne.height, sonne.src, sonne.alt, sonne.title);
 ```
 
-## 7.4 Customized constructors
+## 6.4 Customized constructors
 
 Customized constructors instead of built-in-constructors!
 ```js
@@ -627,7 +706,7 @@ console.log(PlantArrow);
 ```
 
 
-### 7.4.1 使用上述的Customized constructors
+### 6.4.1 使用上述的Customized constructors
 ```js
 // defining objects
 let tree = new Plant(10000, "green", "Tree");
@@ -640,7 +719,7 @@ console.log(flower.constructor, typeof flower);
 
 ```
 
-## 7.5 return 值
+## 6.5 return 值
 objects invoked with new always return an object usually this, but you can return any object
 
 ```js
