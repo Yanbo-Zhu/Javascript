@@ -22,7 +22,9 @@ console.log(listOfNames, typeof listOfNames); // typeof listOfNames 得到的值
 let listOfSomething=[];
 ```
 
+
 ## 1.2 dense array 和 sparse array 的区别
+
 Ein Array, in dem alle Plätze besetzt sind, nennt sich dense array. Ein Array, in dem sich leere Plätze befinden ist ein sparse array.
 dense array: 所有位置都有值 ` let listOfNames = ["Hans", "Peter", "Susanne"];` 
 sparse array:  有 leere Plätze, 比如 `let listOfStuff = [1,2,3,,true,"Hallo Welt",false,null];`  null 不算做  leere Plätze
@@ -440,6 +442,8 @@ splice()
 slice()
 indexOf()
 lastIndexOf()
+
+![](image/Pasted%20image%2020241123151245.png)
 
 
 ## 4.1 遍历数组 (for, forEach(), for in )

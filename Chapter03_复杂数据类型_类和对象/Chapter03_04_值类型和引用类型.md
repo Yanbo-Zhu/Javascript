@@ -3,10 +3,12 @@ https://blog.fundebug.com/2017/08/09/explain_value_reference_in_js/
 # 1 总览
 简单类型又叫做基本数据类型或者值类型，复杂类型又叫做引用类型。
 
+
+
 值类型：string ，number，boolean，undefined，null
 - 简单数据类型/基本数据类型，在存储时变量中存储的是值本身，因此叫做值类型, 这些基本类型在赋值的时候是通过值传递的方式
 - 当为变量引用基本类型的值时，实际上会拷贝一个值副本给新的变量，引用相同基本类型值的变量相互独立，如下图:
-
+-
 
 引用类型：复杂数据类型，在存储时变量中存储的仅仅是地址（引用），因此叫做引用数据类型, 它们通过引用来传递。
 - 通过 new 关键字创建的对象（系统对象、自定义对象），如 Object、Array、Date等
@@ -138,6 +140,18 @@ console.log(arr1str === arr2str); // true
 另一个方法就是递归地判断每一个属性的值，直到基本类型位置，然后判断是否相同。
 
 # 6 函数中_值类型传参_引用类型传参
+
+
+![](image/Pasted%20image%2020241123150335.png)
+
+左边的 testWert 返回 10, 右边的返回15 
+
+-  Wertparameter (call-by-value) sind Parameter von Funktionen, die beim Aufruf eine Kopie der übergebenen Argumente speichern und im inneren der Funktion auf dieserKopie arbeiten 
+- Werte primitiver Datentypen werden in JavaScript als Wertparameter behandelt
+
+- Referenzparameter (call-by-reference) sind Parameter von Funktionen, die beim Aufruf eine Referenz auf das übergebene Argumente speichern und im inneren der Funktion mit dieser Referenz arbeiten.
+- Objektwerte werden in JavaScript als Referenzparameter behandelt. 
+
 
 ## 6.1 值类型传参
 函数的形参也可以看做是一个变量，当我们把一个值类型变量作为参数传给函数的形参时，其实是把变量在栈空间里的值复制了一份给形参，那么在方法内部对形参做任何修改，都不会影响到的外部变量。

@@ -20,8 +20,6 @@ JavaScript 代码是由浏览器中的 JavaScript 解析器来执行的。JavaSc
 
 ## 1.1 只提升 不初始化
 
-
-
 Allerdings ist zu beachten, daß nur die Deklaration gehoisted wird und nicht die Initialisierung.
 学习预解析能够让我们知道为什么在变量声明之前访问变量的值是 undefined，为什么在函数声明之前就可以调用函数。
 
@@ -119,6 +117,14 @@ function fn() {  // 这个被提到了前面
 }
 fn();
 ```
+
+
+Funktionsanweisungen können überall im Programm eingefügt werden, auch dann, wenn die Funktion vor der Funktionsanweisung aufgerufen wird
+Hoisting (Heben): intern verschiebt der Interpreter alle Funktionsdeklarationen vor der Ausführung eines Scope an seinen Beginn
+Hoisting funktioniert nicht für Funktionsausdrücke
+
+![](image/Pasted%20image%2020241123144826.png)
+
 
 
 # 5 解决 用匿名声明 出来的函数的 调用问题

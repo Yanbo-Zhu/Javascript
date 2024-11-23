@@ -3,10 +3,23 @@
 
 
 # 1 高阶函数 (对其他函数进行操作的函数，)
+
+
+Funktionen höherer Ordnung (Higher-order Functions) sind Funktionen, die Funktionen als Argumente erhalten oder Funktionen als Ergebnis liefern
+Wichtiges Konzept der funktionalen Programmierung
+
+Anwendungen
+- Anwenden einer Funktion zur Abbildung aller Elemente eines Feldes auf eine Zielmenge
+- Filtern von Elementen eines Feldes
+- Berechnungen auf den Elementen eines Feldes
+
+Anwendungen im Bereich Webtechnologien
+- Auswerten von Dokumenten, die von einem Webserver empfangen oder aus der Datenbank gelesen wurden, und ihre Darstellung im Document Object Tree 
+- Registrierung von Callback-Funktionen, die beim Eintreten bestimmter Ereignisse ausgeführt werden
+
 高阶函数是对其他函数进行操作的函数，
 1. 它接收函数作为参数或
 2. 将函数作为返回值输出
-
 
 ## 1.1 接收函数作为参数
 
@@ -29,6 +42,9 @@
 </body>
 ```
 
+![](image/Pasted%20image%2020241123151313.png)
+
+
 
 ## 1.2 将函数作为返回值
 ```html
@@ -44,14 +60,27 @@
 函数也是一种数据类型，同样可以作为参数，传递给另外一个参数使用。最典型的就是作为回调函数
 同理函数也可以作为返回值传递回来
 
+![](image/Pasted%20image%2020241123151627.png)
 
-# 2 闭包(访问另一个函数作用域中的变量的函数)
+
+![](image/7b5e19dd94325ed8aa2b6e275b3a3d8.jpg)
+
+
+
+# 2 闭包 Closures (访问另一个函数作用域中的变量的函数)
+
+==Ein Closure ist eine Funktion, die den Zugriff auf die Umgebung, die sie erstellt hat, behält, und zwar auch dann, wenn diese Umgebung nicht länger existiert==
+
+
+
 ## 2.1 变量作用域
 变量根据作用域的不同分为两种：全局变量和局部变量
 
 函数内部可以使用全局变量
 函数外部不可以使用局部变量
 当函数执行完毕，本作用域内的局部变量会销毁。
+
+
 
 ## 2.2 什么是闭包
 闭包指有权访问另一个函数作用域中的变量的函数
@@ -74,6 +103,16 @@
 </body>
 
 ```
+
+
+![](image/Pasted%20image%2020241123154349.png)
+
+
+
+- Was passiert wenn Funktionen auf Variablen der übergeordneten Umgebung zugreifen, obwohl diese Umgebung nicht mehr länger existiert?
+- Bei Aufruf der anonymen Funktion, die als Rückgabewert von wrapValue den Variablen wrap1 und wrap2 zugewiesen wird, existiert die übergeordnete Umgebung wrapValue nicht mehr
+- Trotzdem bleiben die verschiedenen Instanzen von localVariable erhalten und liefern beim Aufruf den richtigen Wert
+- Ein Closure ist eine Funktion, die den Zugriff auf die Umgebung, die sie erstellt hat, behält, und zwar auch dann, wenn diese Umgebung nicht länger existiert
 
 
 ## 2.3 在chrome中调试闭包

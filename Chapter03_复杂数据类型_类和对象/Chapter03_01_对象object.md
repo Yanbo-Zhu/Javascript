@@ -308,6 +308,14 @@ console.log(CreateFlower("Tulip"));
 - 对象里面属性的另一种调用方式 (Klammernotation) : 对象[‘属性名’]，注意方括号里面的属性必须加引号，我们后面会用
 - 对象里面的方法调用：对象.方法名() ，注意这个方法名字后面一定加括号
 
+变量、属性、函数、方法总结
+- 变量：单独声明赋值，单独存在
+- 属性：对象里面的变量称为属性，不需要声明，用来描述该对象的特征
+- 函数：单独存在的，通过==“函数名()”==的方式就可以调用
+- 方法：对象里面的函数称为方法，方法不需要声明，使用==“对象.方法名()”==的方式就可以调用，方法用来描述该对象的行为和功能。
+
+
+
 ```js
 
 objektname.eigenschaftsname // Punktnotation
@@ -330,14 +338,6 @@ myObject."1" = "Zahl als Schlüssel" // 这是不合法的语法。 在 JavaScri
 
 star.sayHi();              // 调用 sayHi 方法,注意，一定不要忘记带后面的括号
 ```
-
-
-变量、属性、函数、方法总结
-- 变量：单独声明赋值，单独存在
-- 属性：对象里面的变量称为属性，不需要声明，用来描述该对象的特征
-- 函数：单独存在的，通过==“函数名()”==的方式就可以调用
-- 方法：对象里面的函数称为方法，方法不需要声明，使用==“对象.方法名()”==的方式就可以调用，方法用来描述该对象的行为和功能。
-
 
 
 
@@ -501,13 +501,19 @@ for (const element of array1) {
 ## 4.6 添加删除 property
 
 ```js
-anyObject.living = true;
+anyObject.living = true; // 即使living 这个 attribute 之前不存在, 通过这个statement 也可以直接生成出来 这个 attribute 
 console.log(anyObject);
 
 delete anyObject.living;
 console.log(anyObject.living);  // 返回 undefined
 
 ```
+
+
+
+
+
+
 
 # 5 object 的 method
 ## 5.1 method can also be properties of objects
@@ -588,56 +594,19 @@ But, don't overuse Object() or Array(), there are some problems you should know 
 	4. There is delegation to other Constructors of the type object, which might surprise you!
 
 
-## 6.1 object 的constructors的 rules
-- declare objects as literals whenever possible
-- if using DOM-objects like <img>, use built-in-constructors
-- sometimes you need a constructor 
-    for similar objects : make your own constructor 
-    function ConstruktorName(){};
-    let o=new ConstruktorName();
+## 6.1 Customized constructors
 
-## 6.2 打印object的constructor
-
-```js
-console.log(anyObject.constructor); // 返回值为 Object() { [native code] }
-```
+![](image/Pasted%20image%2020241123150806.png)
 
 
-## 6.3 built in Constructors:
-Object();
-Array();
-Function();
-Number();
-String();
-Boolean();
-RegEx()
+- Ein Konstruktor (constructor) ist eine Funktion, die ein Objekt mit bestimmten Eigenschaften erstellt
+- Ein Konstruktor wird aufgerufen mit dem Schlüsselwort new gefolgt vom Namen des Konstruktors und den Werten der Eigenschaften als Argumente
+- Durch new wird this innerhalb des Konstruktors auf das neue Objekt gesetzt 
+- this ist der Präfix für die Referenzierung lokaler Variablen, die dann zu den Eigenschaften des Objekts werden 
+- Konvention: Konstruktorfunktionen sollten mit einem Großbuchstaben beginnen
 
 
-```js
-let obj = new Object();
-console.log(obj);   // {}
-console.log(obj.constructor);  // Object() { [native code] }
-console.log(typeof obj); // object
-```
 
-
-### 6.3.1 i.e. in DOM:  Image()
-
-```js
-/*Use of built-in-constructors with browsers.*/
-
-let sonneDOM = document.querySelector("img");
-console.log(sonneDOM, typeof sonneDOM);
-
-let sonne = new Image();
-sonne.src = "pics/sonne.png";
-console.log(sonne, typeof sonne);
-
-console.log(sonneDOM.width, sonneDOM.height, sonneDOM.src, sonneDOM.alt, sonneDOM.title);
-console.log(sonne.width, sonne.height, sonne.src, sonne.alt, sonne.title);
-```
-
-## 6.4 Customized constructors
 
 Customized constructors instead of built-in-constructors!
 ```js
@@ -706,7 +675,7 @@ console.log(PlantArrow);
 ```
 
 
-### 6.4.1 使用上述的Customized constructors
+### 6.1.1 使用上述的Customized constructors
 ```js
 // defining objects
 let tree = new Plant(10000, "green", "Tree");
@@ -719,7 +688,7 @@ console.log(flower.constructor, typeof flower);
 
 ```
 
-## 6.5 return 值
+## 6.2 return 值
 objects invoked with new always return an object usually this, but you can return any object
 
 ```js
@@ -736,3 +705,54 @@ let o = new ObjectMaker();
 console.log(o);  // ObjectMaker {name: 'This is it'}
 //console.clear();
 ```
+
+
+## 6.3 object 的constructors的 rules
+- declare objects as literals whenever possible
+- if using DOM-objects like <img>, use built-in-constructors
+- sometimes you need a constructor 
+    for similar objects : make your own constructor 
+    function ConstruktorName(){};
+    let o=new ConstruktorName();
+
+## 6.4 打印object的constructor
+
+```js
+console.log(anyObject.constructor); // 返回值为 Object() { [native code] }
+```
+
+
+## 6.5 built in Constructors:
+Object();
+Array();
+Function();
+Number();
+String();
+Boolean();
+RegEx()
+
+
+```js
+let obj = new Object();
+console.log(obj);   // {}
+console.log(obj.constructor);  // Object() { [native code] }
+console.log(typeof obj); // object
+```
+
+
+### 6.5.1 i.e. in DOM:  Image()
+
+```js
+/*Use of built-in-constructors with browsers.*/
+
+let sonneDOM = document.querySelector("img");
+console.log(sonneDOM, typeof sonneDOM);
+
+let sonne = new Image();
+sonne.src = "pics/sonne.png";
+console.log(sonne, typeof sonne);
+
+console.log(sonneDOM.width, sonneDOM.height, sonneDOM.src, sonneDOM.alt, sonneDOM.title);
+console.log(sonne.width, sonne.height, sonne.src, sonne.alt, sonne.title);
+```
+

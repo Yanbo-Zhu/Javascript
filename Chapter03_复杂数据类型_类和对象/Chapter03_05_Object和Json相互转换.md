@@ -4,6 +4,7 @@ JSON: JavaScript Object Notation
 
 
 
+
 # 2 Formatdefinition
 JSON kennt also Objekte, Arrays, Zeichenketten, Zahlen, boolsche Werte oder den null-Wert. 
 
@@ -83,9 +84,12 @@ Dort wo XML auch zum Datenaustausch verwendet wird, sollte immer die Auszeichnun
 
 1 ins JSON konvertieren
 JSON.stringify(simplePerson); 
+wandelt JavaScript-Objekte und Felder in JSON um
+
 
 2 aus JSON konvertieren
-JSON.parse(personFlat)
+JSON.parse(personFlat) wandelt JSON in JavaScript
+
 
 ## 4.1 例子
 
@@ -136,6 +140,9 @@ JSON.parse(personFlat)
 }
 ```
 
+
+
+
 # 5 convert FormData (HTML5 object) to JSON
 
 https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
@@ -174,3 +181,29 @@ var json = JSON.stringify(object);
 
 2 Object.fromEntrie
 JSON.stringify(Object.fromEntries(formData));
+
+
+# 6 FILTERN VON JSON-DATEIEN
+
+- Die Funktion filter(...) entnimmt einem Feld diejenigen Elemente, welche einen "Test" erfüllen 
+- `test` ist ein `Funktionsargument`, das die Referenz auf eine Funktion enthält, welche die Bedingung des Tests enthält
+- Hier: Beispielimplementierung von filter()
+- Hier: Verwendung der auf Feldern definierten Standardmethode filter()
+
+
+![](image/Pasted%20image%2020241123154010.png)
+
+
+
+
+
+# 7 REDUZIEREN VON JSON-DATEIEN
+
+
+- Die Funktion reduce(...) berechnet aus Feldern einen einzigen Wert, z.B. die Summe aller Elemente oder das Element mit dem kleinsten/größten Wert
+- combine ist ein Funktionsargument, welches die zugrundeliegende Berechnung durchführt
+- Hier: Beispielimplementierung von reduce
+- Hier: Verwendung der auf Feldern defi nierten Standardmethode reduce()
+
+![](image/Pasted%20image%2020241123154148.png)
+

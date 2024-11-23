@@ -33,14 +33,23 @@ java就需要提前声明变量的类型了
 ```
 
 （3）数据类型的分类
-简单数据类型 （Number,String,Boolean,Undefined,Null）
-复杂数据类型 （object)
+
+VIER PRIMITIVE DATENTYPEN 简单数据类型 
+Numbers (Zahlen)
+Strings (Zeichenketten)
+Booleans (Wahrheitswerte)
+Undefi ned (undefi nierte Werte)
+
+ZWEI KOMPLEXE DATENTYPEN  复杂数据类型 
+Objects (Objekte)
+Functions (Funktionen)
 
 (4) <mark> 变量的数据类型随时可以更换, 只要给入的值变了 </mark> 
 und sind somit veränderbar über die Laufzeit des Skriptes:
 
 
 ## 1.2 复杂数据类型 Zusammengesetzte Datentypen:
+
 * Object
 * Array
 * Function
@@ -49,7 +58,7 @@ und sind somit veränderbar über die Laufzeit des Skriptes:
 |--|---|---|
 |object| hat Untertypen: object, array, function, null: kein Wert||
 
-## 1.3 简单数据类型 / 基本数据类型 Einfache Datentypen
+## 1.3 简单数据类型 / 基本数据类型 PRIMITIVE Datentypen
 
 Number,String,Boolean,Undefined,Null, empty
 
@@ -87,6 +96,24 @@ JavaScript 数字类型既可以用来保存整数值，也可以保存小数(�
 
 var age = 21; // 整数
 var Age = 21.3747; // 小数
+
+![](image/Pasted%20image%2020241123143417.png)
+
+- Keine Unterscheidung zwischen Ganzzahlen und Fließkommazahlen
+- Alle Zahlen werden als 64-Bit-Fließkommazahlen dargestellt, d.h. 18 Trillionen verschiedene Zahlen können dargestellt werden
+
+SCHREIBWEISEN
+- Dezimalschreibweise (ohne Präfi x)
+- Hexadezimalschreibweise (mit Präfi x 0x)
+- Oktalschreibweise (mit Präfi x 0)
+- Exponentialschreibweise (mit Infi x e)
+- Keine Unterstützung der Binärschreibweise
+
+SPEZIELLE ZAHLEN
+- Infinity und -Infinity werden verwendet, wenn ein Wert außerhalb des Wertebereichs liegt
+- NaN (Not a Number) wird verwendet, wenn eine Berechnung zu einem Ergebnis führt, welches nicht als Zahl repräsentiert werden kann
+
+
 
 (1)数字型进制
 最常见的进制有二进制、八进制、十进制、十六进制。
@@ -148,12 +175,24 @@ jahreszahl = parseFloat("200.9"); //liefert die Zahl 200.9
 
 ### 1.3.2 字符串型 string
 
+
+
 字符串型可以是引号中的任意文本，其语法为 “双引号” 和 "单引号’’
 var strMsg = "我爱北京天安门~";		//使用双引号表示字符串
 var strMsg = '我爱北京';			  //使用单引号表示字符串
 
 
 因为 HTML 标签里面的属性使用的是双引号，JS 这里我们更推荐使用单引号。  
+
+
+- Zeichenketten bestehen aus 16-Bit-Zeichen nach USC-2- oder UTF-16-Kodierung und werden durch einfache oder doppelte Anführungszeichen repräsentiert 
+- Kein Datentyp char zur Darstellung eines einzelnen Zeichens
+- Backslash \ fungiert als Präfi x für Steuerzeichen
+    - \n: Zeilenumbruch
+    - \t: Tabulator
+    - `\"`: Anführungszeichen als Zeichen in und nicht zum Beenden der Zeichenkette
+    - `\\`: Backslash als Zeichen in der Zeichenkette
+- Mehrere Zeichenketten können mit dem +-Operator konkateniert werden
 
 (1)字符串引号嵌套
 JS可以用 单引号嵌套双引号，或者用 双引号嵌套单引号（外双内单，外单内双）
@@ -271,8 +310,18 @@ console.log(flag + 1); // 2 true当加法来看当1来看，flase当0来看
 
 ```
 
+![](image/Pasted%20image%2020241123143743.png)
+
+![](image/Pasted%20image%2020241123143803.png)
+
+![](image/Pasted%20image%2020241123143829.png)
+
+#### 1.3.3.1 GLEICHHEITSVERGLEICHE
+![](image/Pasted%20image%2020241123143926.png)
 
 ### 1.3.4 undefined未定义
+
+
 一个声明后没有被赋值的变量会有一个默认值 undefined ( 如果进行相连或者相加时，注意结果）
 ```js
 // 如果一个变量声明未赋值，就是undefined 未定义数据类型
@@ -368,6 +417,10 @@ console.log(typeof age);//string
 转换为数字型
 转换为布尔型
 
+
+![](image/Pasted%20image%2020241123144100.png)
+
+![](image/Pasted%20image%2020241123144114.png)
 ### 1.5.1 转换为字符串型🔥
 |方式	|说明	|案例|
 |--|--|--|
