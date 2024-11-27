@@ -23,6 +23,64 @@ Anwendungen im Bereich Webtechnologien
 
 ## 1.1 接收函数作为参数
 
+
+```js
+const langs = ['JavaScript', 'Python', 'PHP', 'Java', 'C'];
+
+
+function getLength(word) {
+	return word.length;
+};
+
+// higher order function wit function name 
+let map5 = function(inputArray, foo) {
+    let result = new Array;
+    for (let language of inputArray) {
+        result.push(foo(language));
+    };
+    return result;
+};
+console.log(`for-of-loop with let and foo: ${map5(langs, getLength)}`);
+
+
+// higher order function, anonymous function 
+let map5 = function(inputArray, foo) {
+    let result = new Array;
+    for (let language of inputArray) {
+        result.push(foo(language));
+    };
+    return result;
+};
+console.log(`for-of-loop with let and foo: ${map5(langs, getLength)}`);
+
+
+// use list function map(),  map is built-in Function of datatype arrey in javascript 
+const langs = ['JavaScript', 'Python', 'PHP', 'Java', 'C'];
+let prototype = langs.map(function(lang) {
+    return lang.length;
+});
+console.log(`Array.map: ${prototype}`);
+
+// 分析 
+// 这个 function 给入到 map 这个funtion , 作为map 这个function 的一个参数 
+function(lang) {
+    return lang.length;
+}
+
+
+
+// use list function map() and Lambda expression 
+let lambda = langs.map(lang => lang.length); console.log(`lambda: ${lambda}`);
+
+```
+
+
+
+
+
+
+
+
 ```html
 <body>
     <div></div>

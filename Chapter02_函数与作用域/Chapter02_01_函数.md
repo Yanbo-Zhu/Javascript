@@ -248,8 +248,8 @@ console.log(squareTwo());
 squareTwo;
     
 // Referenz in einer anderen Variablen speichern
-    let takeSquareTwo = squareTwo;
-    console.log(takeSquareTwo);
+let takeSquareTwo = squareTwo;
+console.log(takeSquareTwo);
 ```
 
 ## 3.5 引用函数与调用函数的区别

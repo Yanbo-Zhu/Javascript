@@ -81,14 +81,14 @@ DOM在我们实际开发中主要用来操作元素。
  - 特殊元素获取
 
 
-|x|x|
-|---|---|
-|document.getElementById("wertDerId") |Diese Methode greift auf das Element im HTML-Dokument zu, welches eine id mit dem entsprechenden Wert besitzt.|
-|document.getElementsByTagName("elementBezeichner") |Diese Methode greift auf eine Nodelist von allen Elementen zu, die als Argument übergeben werden. Z.B. alle` <p>` oder alle `<img>.`|
-|document.getElementsByClassName("wertImAttributClass")  | Diese Methode greift ebenfalls auf eine Nodelist zu, nämlich alle Elemente, die das Attribut class. mit einem bestimmten in der Parameterliste spezifizierten Wert besitzen.|
-|document.getElementsByName("wertImAttributName") | Diese Methode wird in Formularen verwendet, gibt auch eine Nodelist wieder und bezieht sich auf alle Elemente, die das name. Attribut verwenden, mit dme entsprechenden Wert.|
-|document.querySelectorAll("jederBeliebigeCSSselektor") |Auch mit dieser Methode bekommen wir eine Nodelist, nämlich alle Elemente, die mit dem in der Parameterliste spezifizierten Selektor angesprochen werden können.|
-|document.querySelector("jederBeliebigeCSSselektor")  | Diese Methode greift nur das erste Element welches den entsprechenden CSS-Selektor verwenden könnte.|
+| x                                                      | x                                                                                                                                                                             |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| document.getElementById("wertDerId")                   | Diese Methode greift auf das Element im HTML-Dokument zu, welches eine id mit dem entsprechenden Wert besitzt.                                                                |
+| document.getElementsByTagName("elementBezeichner")     | Diese Methode greift auf eine Nodelist von allen Elementen zu, die als Argument übergeben werden. Z.B. alle` <p>` oder alle `<img>.`                                          |
+| document.getElementsByClassName("wertImAttributClass") | Diese Methode greift ebenfalls auf eine Nodelist zu, nämlich alle Elemente, die das Attribut class. mit einem bestimmten in der Parameterliste spezifizierten Wert besitzen.  |
+| document.getElementsByName("wertImAttributName")       | Diese Methode wird in Formularen verwendet, gibt auch eine Nodelist wieder und bezieht sich auf alle Elemente, die das name. Attribut verwenden, mit dme entsprechenden Wert. |
+| document.querySelectorAll("jederBeliebigeCSSselektor") | Auch mit dieser Methode bekommen wir eine Nodelist, nämlich alle Elemente, die mit dem in der Parameterliste spezifizierten Selektor angesprochen werden können.              |
+| document.querySelector("jederBeliebigeCSSselektor")    | Diese Methode greift nur das erste Element welches den entsprechenden CSS-Selektor verwenden könnte.                                                                          |
 
 
 ## 3.2 使用不同方法, 其返回值的类型

@@ -78,6 +78,8 @@ alert(10 + num++); // 20
 !=	不等号	37 != 37	false
 === !==	全等 要求值和数据类型都一致	37 === ‘37’	false
 
+==   (nur value geleichen )  , und === (type und value sind gleich)
+
 ① 小结
 符号	作用	用法
 =	赋值	把右边给左边

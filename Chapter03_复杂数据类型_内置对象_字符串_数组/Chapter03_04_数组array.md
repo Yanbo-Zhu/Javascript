@@ -99,6 +99,7 @@ console.log(Array.isArray(obj));   // false
 ## 2.3 数组的索引（下标）
 索引 (下标) ：用来访问数组元素的序号（数组下标从 0 开始）
 
+```
 //定义数组
 var arrStus = [1,2,3];
 //获取数组中的第2个元素
@@ -106,13 +107,16 @@ alert(arrStus[1]);
 //
 listOfNames[3]="Susanne";
 
-
+```
 
 ## 2.4 数组的长度
+
 使用“数组名.length”可以访问数组元素的数量（数组长度）
 
+```
 var arrStus = [1,2,3];
 alert(arrStus.length);  // 3
+```
 
 
 注意：
@@ -446,7 +450,7 @@ lastIndexOf()
 ![](image/Pasted%20image%2020241123151245.png)
 
 
-## 4.1 遍历数组 (for, forEach(), for in )
+## 4.1 遍历数组 (for, forEach(), for in, for..of  )
 
 用 listOfStuff[i].value 是无效的, 是会报错的 
 
@@ -471,13 +475,6 @@ for (var i = 0; i < arr.length; i++){
     console.log(arrStus[i]);
 }
 
-// for...in zeigt nicht die leeren Elemente
-// empty 处 显示 不会显示为 undefined in Console, 根本就不显示在 console 中. do not show undefineds,
-// booleanische Value (值 为 true 或者 false) . 值 为 null, 值为字符串类型的  处的 元素 都能正常显示. 
-for(let item in listOfStuff){
-    console.log(listOfStuff[item]);
-}
-
 // forEach() zeigt nicht die leeren Elemente
 // empty 处 显示 不会显示为 undefined in Console, 根本就不显示在 console 中 
 // booleanische Value (值 为 true 或者 false) . 值 为 null, 值为字符串类型的  处的 元素 都能正常显示. 
@@ -485,6 +482,16 @@ for(let item in listOfStuff){
 listOfStuff.forEach(element => {
     console.log(element);
 });
+
+
+
+// for...in zeigt nicht die leeren Elemente
+// empty 处 显示 不会显示为 undefined in Console, 根本就不显示在 console 中. do not show undefineds,
+// booleanische Value (值 为 true 或者 false) . 值 为 null, 值为字符串类型的  处的 元素 都能正常显示. 
+for(let item in listOfStuff){
+    console.log(listOfStuff[item]);
+}
+
 ```
 
 
@@ -552,7 +559,54 @@ listOfStuff.forEach(element => {
   console.log(denseForEach(listOfStuff, "listOfStuff: "));
 ```
 
-## 4.2 forEach()
+
+## 4.2 for..in, for..of 
+如果  
+```js
+let anyObject = {
+    firstName:	"me",
+    lastName:	"Object",
+    human:	false
+};
+```
+
+ `for..of` 得到的是 key的值, firstName, lastName, human
+ `for..in` 得到的是 value 的值,  "me", "Object", false
+
+> Both `for..of` and `for..in` statements iterate over lists; the values iterated on are different though, `for..in` returns a list of keys on the object being iterated, whereas `for..of` returns a list of values of the numeric properties of the object being iterated.
+> 
+Here is an example that demonstrates this distinction:
+ 
+ ```javascript
+> let list = [4, 5, 6];
+> 
+> for (let i in list) {
+>     console.log(i); // "0", "1", "2",
+> }
+> 
+> for (let i of list) {
+>     console.log(i); // 4, 5, 6
+> }
+> 
+```
+
+ Another distinction is that `for..in` operates on any object; it serves as a way to inspect properties on this object. 
+ `for..of` on the other hand, is mainly interested in values of iterable objects. Built-in objects like `Map` and `Set` implement `Symbol.iterator` property allowing access to stored values.
+ 
+ ```javascript
+> let pets = new Set(["Cat", "Dog", "Hamster"]);
+> pets["species"] = "mammals";
+> 
+> for (let pet in pets) {
+>     console.log(pet); // "species"
+> }
+> 
+> for (let pet of pets) {
+>     console.log(pet); // "Cat", "Dog", "Hamster"
+> }
+ ```
+
+## 4.3 forEach()
 array.forEach(function(currentValue,index,arr))
 
 currentValue : 数组当前项的值
@@ -578,7 +632,7 @@ arr: 数组对象本身
 
 
 
-## 4.3 数组中新增元素
+## 4.4 数组中新增元素
 ①通过修改 length 长度新增数组元素
 可以通过修改 length 长度来实现数组扩容的目的
 
@@ -605,7 +659,7 @@ arr[4] = 'hotpink';
 console.log(arr);
 
 
-### 4.3.1 例子
+### 4.4.1 例子
 
 1.新建一个数组，里面存放10个整数（ 1~10）， 要求使用循环追加的方式输出： [1,2,3,4,5,6,7,8,9,10]
 
@@ -661,7 +715,7 @@ console.log(newArr);
 ```
 
 
-## 4.4 删除指定数组元素
+## 4.5 删除指定数组元素
 
 
 将数组[2, 0, 6, 1, 77, 0, 52, 0, 25, 7]中的 0 去掉后，形成一个不包含 0 的新数组。
@@ -700,7 +754,7 @@ console.log(newArr);
 
 
 
-## 4.5 修改数组元素的方法 push() pop() unshift() shift()
+## 4.6 修改数组元素的方法 push() pop() unshift() shift()
 | 方法名                   | 说明                                  | 返回值                   |
 | --------------------- | ----------------------------------- | --------------------- |
 | listOfStuff[8] = 100; | listOfStuff 原先只有 4 位, 直接在第八位 插入 100 |                       |
@@ -766,7 +820,7 @@ console.log(newArr);
 
 
 
-## 4.6 翻转数组 reverse()	
+## 4.7 翻转数组 reverse()	
 |方法名	|说明	|是否修改原数组|
 |---|---|---|
 |reverse()	|颠倒数组中元素的顺序，无参数	|该方法会改变原来的数组，返回新数组|
@@ -801,14 +855,14 @@ console.log(newArr);
 
 
 
-## 4.7 数组排序 sort()
+## 4.8 数组排序 sort()
 
 |方法名	|说明	|是否修改原数组|
 |---|---|---|
 |reverse()	|颠倒数组中元素的顺序，无参数	|该方法会改变原来的数组，返回新数组|
 |sort()|	对数组的元素进行排序	|该方法会改变原来的数组，返回新数组|
 
-### 4.7.1 不给入自定义的 vergleichsfunktion
+### 4.8.1 不给入自定义的 vergleichsfunktion
 按照  alphabetisch 排序
 Wird kein Argument übergeben, dann wird das array alphabetisch sortiert.
 
@@ -842,7 +896,7 @@ console.log(listOfStuff);  // [1, 2, 3, empty, true, 'Hallo Welt', false, null, 
 console.log(listOfStuff.sort()); // [1, 100, 2, 3, 'Hallo Welt', false, null, true, empty × 3]    
 ```
 
-### 4.7.2 自定义的 Vergleichsfunktion 
+### 4.8.2 自定义的 Vergleichsfunktion 
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 
 A 为当前元素, b 为下一个元素 
@@ -890,7 +944,7 @@ listOfNumbers.sort((a,b) => a-b);
 
 ```
 
-### 4.7.3 冒泡排序
+### 4.8.3 冒泡排序
 将数组 [5, 4, 3, 2, 1]中的元素按照从小到大的顺序排序，输出： 1，2，3，4，5
 
 ```js
@@ -911,7 +965,7 @@ console.log(arr);
 
 
 
-## 4.8 数组索引 indexOf() lastIndexOf()
+## 4.9 数组索引 indexOf() lastIndexOf()
 |方法名	|说明|	返回值|
 |---|---|---|
 |indexOf(true, 4)或者 indexOf("Z") 	|数组中查找给定元素的第一个索引	|如果存在返回索引号，如果不存在，则返回-1, gibt den index eines gesuchten Wertes zurück, Wird ein Wert nicht gefunden, liefert sie -1 zurück|
@@ -940,7 +994,7 @@ console.log(listOfStuff.indexOf("Z")); // 结果是 找不到 显示  -1
 ``` 
 
 
-### 4.8.1 数组去重
+### 4.9.1 数组去重
 
 分析：把旧数组里面不重复的元素选取出来放到新数组中，重复的元素只保留一个，放到新数组中去重。
 
@@ -966,7 +1020,7 @@ console.log(demo);
 
 
 
-## 4.9 数组的连接 concat() and `[...arr, ...secondArray]`
+## 4.10 数组的连接 concat() and `[...arr, ...secondArray]`
 
 
 | 方法名                                 | 说明               | 返回值                 |
@@ -989,7 +1043,7 @@ console.log(demo);
 ```
 
 
-## 4.10 查询数组是否包含一个元素 
+## 4.11 查询数组是否包含一个元素 
 
 
 1 `.includes()`
@@ -1008,14 +1062,14 @@ let elemIndex = a.indexOf('New element'); console.log(elemIndex);
 ```
 .indexOf() gibt das Index zurück, wenn 'New element' im Array enthalten ist, sonst gibt -1 zurück
 
-## 4.11 数组的截取 
+## 4.12 数组的截取 
 
 | 方法名      | 说明                                                    | 返回值                                            |
 | -------- | ----------------------------------------------------- | ---------------------------------------------- |
 | slice()  | 数组截取slice(begin,end)                                  | 返回被截取项目的新数组,  原来的数组不受影响                        |
 | splice() | 数组删除splice(第几个开始要删除的个数), 从某个位置移除数组的几个元素 ，并在这个位置上添加新元素 | 原数组被改为被删除项目后的数组，会return一个数组, 这个额数据包含了 那些元素被删除了 |
 
-### 4.11.1 slice()
+### 4.12.1 slice()
 
 
 
@@ -1062,7 +1116,7 @@ console.log(slicedArray); // der abgeschnittene Teil des Arrays
 ```
 
 
-### 4.11.2 splice()
+### 4.12.2 splice()
 
 entfernen und hinzufügen
 
@@ -1090,7 +1144,7 @@ a.splice(1, 1, 'New element');
 
 let arr_3 = [1, 2, 3];
 // 第一个1的意义: Entfernt das Element an Index 1
-// 第二个1的意义 (ab 1 position 1 elemnt modify)
+// 第二个1的意义 (ab 1 position nur  1 elemnt modify)
 // 第三个neu的意义: fügt "neu" hinzu
 arr_3.splice(1, 1, "neu"); 
 console.log(arr_3); // [1, "neu", 3]

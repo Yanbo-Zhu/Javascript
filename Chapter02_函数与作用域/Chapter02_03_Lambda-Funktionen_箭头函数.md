@@ -1,5 +1,21 @@
 
+Lambda-Function ist nicht ein Objekt 
+
+![](image/Pasted%20image%2020241123154912.png)
+
+
+Lambda-Ausdrücke oder Pfeilfunktionen sind eine alternative Syntax zu anonymen Funktionsausdrücken
+Verfügbar ab JavaScript-ES6
+Argumente der Funktion werden in Klammern defi niert (bei einem Argument sind die Klammern optional), gefolgt von einem Pfeil =>, der die Argumente von einem Ausdruck, einer Anweisung oder einem Anweisungsblock trennt
+Lambda-Ausdrücke werden nicht als Methoden von Objekten verwendet und haben kein eigenes this
+Lambda-Ausdrücke werden hauptsächlich als Argumente an Funktionen höher Ordnung über- oder zurückgegeben
+
+
+
 # 1 前言
+
+In JavaScript sind Lambda-Funktionen (oder auch Arrow Functions) eine kompakte und moderne Art, Funktionen zu schreiben. Sie sind besonders nützlich, wenn man kürzere Funktionen benötigt, die oft in Callback-Situationen verwendet werden.
+
 
 在编程中使用最多的就是函数，在 ES5 中是用 `function` 关键字来定义函数的，由于历史原因 `function` 定义的函数存在一些问题，如 `this` 的指向、函数参数 `arguments` 等。
 
@@ -20,6 +36,12 @@ ES6 规定了可以使用 “箭头” `=>` 来定义一个函数，语法更加
 - `() => {}`
 
 > 由于箭头函数是匿名函数，所以我们通常把它赋给一个变量
+
+```
+let functionName = (parameter1, parameter2) => {
+  // Function body
+};
+```
 
 ```javascript
 const add = (x, y) => {
@@ -43,22 +65,21 @@ var f = function(v) {
 
 # 3 写法
 
-## 3.1 行参个数和省略写法
+## 3.1 Parameter number 
 
-如果箭头函数不需要参数或多个参数：
+### 3.1.1 Ohne Parameter
+
+Eine Arrow Function kann auch ohne Parameter definiert werden. In diesem Fall müssen leere Klammern `()` verwendet werden.
+
 ```js
-var f = () => 5;
-//等同于
-var f = function(){return 5};
-
-var sum = (num1,num2) => num1 + num2;
-//等同于
-var sum = function(num1,num2){return num1 + num2}
-
-
+let greet = () => "Hello, world!";
+console.log(greet()); // Ausgabe: Hello, world!
 ```
 
+### 3.1.2 Mit nur einem Parameter:
+Wenn man nur einen Parameter hat, kann man die Klammern weglassen.
 如果形参只有一个，可以省略小括号
+
 ```js
 function fn(v){
     retuen v;
@@ -94,6 +115,15 @@ var sum = function(num1,num2){return num1 + num2}
 ```
 
 ## 3.2 代码数量
+
+### 3.2.1 单行函数体
+函数体中只有一句代码，且代码的执行结果就是返回值，可以省略大括号, 省略 return 
+
+**Ohne geschweifte Klammern (`{}`) und explizites `return`:**
+
+Wenn die Funktion nur eine einzelne Ausdruckszeile hat, kann man die geschweiften Klammern und das `return`-Statement weglassen. In diesem Fall gibt die Arrow Function automatisch den Wert des Ausdrucks zurück.
+
+
 函数体中只有一句代码，且代码的执行结果就是返回值，可以省略大括号
 ```js
 function sum(num1, num2) {
@@ -102,24 +132,7 @@ function sum(num1, num2) {
 const sum = (num1, num2) => num1 + num2;
 ```
 
-如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
-```js
-var sum = (num1, num2) => { return num1 + num2; }
-1
-由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
 
-var getTempItem = id => ({ id: id, name: "Temp" });
-```
-
-
-由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
-
-```javascript
-va#r getTempItem = id => ({ id: id, name: "Temp" });
-```
-
-## 3.3 单行函数体
-函数体中只有一句代码，且代码的执行结果就是返回值，可以省略大括号
 ```javascript
 const add = (x, y) => {
     return x + y;
@@ -133,17 +146,10 @@ const add = (x, y) => {
 
 // 单行函数体可以省略 return 和 {}，且一但省略就 return 和 {} 都要一起省略
 const add = (x, y) => x + y; 
-```
 
-### 3.3.1 单行函数体, 函数带返回对象 
-
-
-由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
-```javascript
-var sum = (num1, num2) => ({ return num1 + num2; }
-                       // 数组就没有以上问题
-const add = (x, y) => [x, y];
-
+// Hier gibt die Funktion a + b zurück, ohne dass ein explizites return-Statement notwendig ist.
+let add = (a, b) => a + b;
+console.log(add(2, 3)); // Ausgabe: 5
 ```
 
 
@@ -157,15 +163,53 @@ const add = (x, y) => ({value: x + y});
 
 ```
 
-### 3.3.2 多行函数体
+### 3.2.2 多行函数体
+Mit geschweiften Klammern ({}) und explizitem return:
+
+如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
+Wenn man mehr als nur eine Zeile in der Funktion hat, muss man geschweifte Klammern verwenden und explizit return schreiben, um einen Wert zurückzugeben.
+
+
 如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
 ```js
+var sum = (num1, num2) => { return num1 + num2; }
+1
+由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
+
 var getTempItem = id => ({ id: id, name: "Temp" });
+```
+
+
+
+```js
+var getTempItem = id => ({ id: id, name: "Temp" });
+
+
+let multiply = (a, b) => {
+  let result = a * b;
+  return result;
+};
+console.log(multiply(2, 3)); // Ausgabe: 6
+
+```
+
+### 3.2.3 单行函数体, 函数带返回对象 
+
+由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
+
+```javascript
+va#r getTempItem = id => ({ id: id, name: "Temp" });
+```
+
+```javascript
+var sum = (num1, num2) => ({ return num1 + num2; }
+/// 数组就没有以上问题
+const add = (x, y) => [x, y];
 
 ```
 
 
-## 3.4 简化回调函数
+## 3.3 简化 return 
 ```js
 //ES5写法
 [1,2,3].map(function(x)){
@@ -176,6 +220,20 @@ var getTempItem = id => ({ id: id, name: "Temp" });
 [1,2,3].map(x => x * x);
 ```
 
+## 3.4 Funktionen ohne Rückgabewert (void):
+
+Wenn eine Arrow Function keine Rückgabe hat (z. B. Logging), kann man (muss man aber nicht) die geschweiften Klammern verwenden, aber ohne ein return.
+
+```js
+let logMessage = message => console.log(message);
+logMessage("Hello!"); // Ausgabe: Hello!
+
+let logMessage = message => {
+  console.log(message);
+};
+logMessage("Hello!"); // Ausgabe: Hello!
+
+```
 
 
 # 4 语法注意点
