@@ -3,8 +3,102 @@
 Promise 是异步操作的一种解决方案。
 Promise是ES6引入的异步编程（回调地狱）的新解决方案。语法上Promise是一个构造函数，用来封装异步操作并可以获取其成功或失败的结果。
 
+# 1 基础 
 
-# 1 什么时候使用 Promise 呢: 回调地狱 callback hell
+“Promises (in anderen Programmiersprachen auch Futures genannt) sind ein sehr nützliches Werkzeug für die asynchrone Programmierung mit JavaScript. Sie repräsentieren Platzhalter für Ergebnisse, die erst in der Zukunft eintreffen. Indem man den Promises Callback-Funktionen übergibt, kann man Funktionalität definieren, die asynchron ausgeführt wird, also erst dann, wenn das Ergebnis vorliegt.”
+
+就是将 function 的具体内容, 就是在之前某一个function 中写下这个 function 作为 placeholder,  之后再定义这个function , 在给入这个function具体要干什么 
+
+In JavaScript sind _Promises_ ein Konzept, das dazu dient, **asynchrone** Operationen auf eine einfache und gut lesbare Weise zu behandeln. Ein Promise repräsentiert den zukünftigen Wert einer asynchronen Operation – entweder den Erfolg oder das Scheitern.
+
+Promises helfen, das sogenannte "Callback Hell" zu vermeiden – ein häufiges Problem, wenn man viele verschachtelte Callback-Funktionen verwendet. Sie verbessern die Lesbarkeit und Strukturierung von asynchronem Code und machen Fehlerbehandlung einfacher.
+
+## 1.1 Was ist eine Callback-Funktion
+
+
+Eine Callback-Funktion in JavaScript ist eine Funktion, die als Argument an eine andere Funktion übergeben wird und in dieser aufgerufen wird, um eine bestimmte Aktion auszuführen.
+
+
+```js
+function sayHello(name) {
+    console.log(`Hello, ${name}!`);
+}
+
+function greetUser(callback, userName) {
+    console.log("Fetching user information...");
+    setTimeout(() => {
+        // Aufruf der Callback-Funktion nach 2 Sekunden
+        callback(userName);
+    }, 2000);
+}
+
+// Die Funktion sayHello wird als Callback übergeben
+greetUser(sayHello, "Szymon");
+
+```
+
+
+![](image/Pasted%20image%2020241204222416.png)
+
+## 1.2 Sind Callback-Funktionen also Funktionen höherer Ordnung?
+
+Nein
+
+- Eine Callback-Funktion ist eine Funktion, die von einer anderen Funktion verwendet wird.
+- Funktionen höherer Ordnung sind Funktionen, die entweder andere Funktionen akzeptieren (z. B. Array.map) oder Funktionen zurückgeben.
+- Eine Funktion höherer Ordnung verwendet oft Callback-Funktionen. Zum Beispiel ist Array.map eine Funktion höherer Ordnung, die einen Callback akzeptiert:
+
+```js
+[1, 2, 3].map(x => x * 2); 
+// Die Lambda-Funktion `x => x * 2` ist ein Callback.
+```
+
+---
+
+**Callback-Funktionen:**
+
+Eine Callback-Funktion ist eine Funktion, die als Argument an eine andere Funktion **übergeben** **wird**, um später innerhalb dieser aufgerufen zu werden. Callbacks ****selbst sind also **keine** Funktionen höherer Ordnung – sie sind oft normale Funktionen, die von einer höheren Ordnungs-Funktion verwendet werden.
+
+```js
+function callbackExample(callback) {
+    console.log("Before calling the callback...");
+    callback(); // Aufruf der übergebenen Funktion
+    console.log("After calling the callback...");
+}
+
+function myCallback() {
+    console.log("This is a callback function.");
+}
+
+callbackExample(myCallback);
+```
+
+Hier ist myCallback eine normale Funktion, die als Callback verwendet wird. Sie selbst ist keine Funktion höherer Ordnung.
+
+---
+
+
+**Funktionen höherer Ordnung:**
+
+Eine Funktion höherer Ordnung ist eine Funktion, die entweder:
+Eine andere Funktion als Argument akzeptiert (wie callbackExample rechts), oder Eine Funktion zurückgibt.
+
+```
+function higherOrderFunction() {
+    return function () {
+        console.log("This is a returned function.");
+    };
+}
+
+// Aufruf der HOF
+const returnedFunction = higherOrderFunction();
+returnedFunction(); // Gibt "This is a returned function." aus
+
+```
+
+Hier ist higherOrderFunction eine Funktion höherer Ordnung, da sie eine Funktion zurückgibt.
+
+# 2 什么时候使用 Promise 呢: 回调地狱 callback hell
 
 Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback hell）的问题。
 Als Callback-Hölle (Callback Hell) werden mehrere ineinander verschachtelte Callbacks bezeichnet, deren Code nur noch sehr schwer nachvollziehbar ist
@@ -41,7 +135,7 @@ x(()=>{
 ```
 
 
-## 1.1 例子1：分别间隔一秒打印省市县
+## 2.1 例子1：分别间隔一秒打印省市县
 
 ```html
 <!DOCTYPE html>
@@ -90,7 +184,7 @@ x(()=>{
 
 ![555](https://i0.hdslb.com/bfs/album/a45ebe3c65367ca98ec1e4932a40f978cae5e818.gif)
 
-## 1.2 例子2：当我们点击窗口后，盒子依次 “右——>下——>左” 移动
+## 2.2 例子2：当我们点击窗口后，盒子依次 “右——>下——>左” 移动
 
 ```html
 <!DOCTYPE html>
@@ -153,13 +247,21 @@ x(()=>{
 
 
 
-# 2 Promise 的含义
+# 3 Promise 的含义
 
 Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了`Promise`对象。
 
 所谓`Promise`，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
 
 Promise 有三个状态：pending（等待）、fulfilled 或 resolved（成功）、rejected（失败）。
+
+Ein Promise hat drei mögliche Zustände:
+1. Pending (ausstehend): Das Promise wurde erstellt, die Operation ist aber noch nicht abgeschlossen.
+2. Fulfilled (erfüllt): Die Operation wurde erfolgreich abgeschlossen, und das Promise hat nun einen Wert.
+3. Rejected (abgelehnt): Die Operation ist fehlgeschlagen, und das Promise hat einen Fehlerwert.
+
+---
+
 
 并且 Promise 必须接收一个回调函数，这个回调函数有两个参数，这两个参数也是两个函数，`(resolve, reject) => {}`。
 - 实例化 Promise 后，默认是等待状态。
@@ -174,12 +276,25 @@ Promise 有三个状态：pending（等待）、fulfilled 或 resolved（成功�
 
 有了`Promise`对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。此外，`Promise`对象提供统一的接口，使得控制异步操作更加容易。
 
+
+
+---
+
+Vorteile von Promises:
+- Ermöglichen Chaining mit .then() und .catch().
+- Bessere Lesbarkeit und Fehlerbehandlung im Vergleich zu Callbacks.
+- Unterstützt Funktionen wie Promise.all() oder Promise.race().
+
+Nachteile von Promises:
+- Verschachtelung kann bei komplexen Operationen zu schlechter Lesbarkeit führen.
+- Fehlende native Syntax-Unterstützung für strukturiertes Warten.
+
 `Promise`也有一些缺点。
 - 首先，无法取消`Promise`，一旦新建它就会立即执行，无法中途取消。
 - 其次，如果不设置回调函数，`Promise`内部抛出的错误，不会反应到外部。
 - 第三，当处于`pending`状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。
 
-# 3 Promise 的基本用法和沟槽函数
+# 4 Promise 的基本用法和沟槽函数
 
 ES6 规定，`Promise`对象是一个构造函数，用来生成`Promise`实例。
 
@@ -193,7 +308,7 @@ ES6 规定，`Promise`对象是一个构造函数，用来生成`Promise`实例�
 - Das vom Konstruktor erzeugte Promise-Objekt enthält eine `**then**`-Methode, welcher als Argument eine **_Konsumfunktion_** (**_Consumer Function_**) für den Erfolgsfall und eine für den Fehlerfall übergeben wird
 - Konsumfunktionen werden in eine Job Queue im Erfolgsfall bzw. Fehlerfall aufgenommen und von der Event Loop mit dem Ergebnis- bzw. Fehlerobjekt aufgerufen
 
-## 3.1 Promise构造函数：Promise(excutor){}
+## 4.1 Promise构造函数：Promise(excutor){}
 下面代码创造了一个`Promise`实例。
 ```js
 const promise = new Promise(function(resolve, reject) {
@@ -221,7 +336,31 @@ const promise = new Promise(function(resolve, reject) {
 `reject(new Error("出错了！"));`
 
 
-## 3.2 `then`方法分别指定`resolved`状态和`rejected`状态的回调函数
+---
+
+Ein Promise wird normalerweise durch das Erstellen einer neuen Instanz des Promise-Objekts initialisiert, wobei eine Callback-Funktion verwendet wird, die zwei Parameter hat: resolve und reject.
+resolve und reject sind Funktionen, die von JavaScript automatisch an die Funktion übergeben werden, die man beim Erstellen eines Promises mit new Promise() angibt.
+
+1. resolve wird verwendet, um das Promise als erfolgreich zu markieren.
+    1. Das übergebene Argument wird an die .then() Methode weitergegeben.
+2. reject wird verwendet, um das Promise als abgelehnt zu markieren.
+    1. Das übergebene Argument wird an die .catch() Methode weitergegeben.
+
+---
+
+```js
+let myPromise = new Promise((resolve, reject) => {
+    let success = true;
+    if (success) {
+        resolve("Erfolg!"); // wird aufgerufen, wenn die Operation erfolgreich ist
+    } else {
+        reject("Fehler!"); // wird aufgerufen, wenn die Operation fehlschlägt
+    }
+});
+```
+
+
+## 4.2 `then`方法分别指定`resolved`状态和`rejected`状态的回调函数
 
 
 `Promise`实例生成以后，可以用`then`方法分别指定`resolved`状态和`rejected`状态的回调函数。
@@ -259,7 +398,58 @@ promise.then(
 `reject(new Error("出错了！"));`
 
 
-## 3.3 DER PROMISE-LIFE-CYCLE
+---
+
+Promise-Methoden: .then(), .catch() und .finally()
+
+1
+then(): Diese Methode wird aufgerufen, wenn das Promise erfüllt ist und erlaubt den Zugriff auf das Ergebnis.
+```
+myPromise.then(result => {
+    console.log(result); // Ausgabe: Erfolg!
+});
+```
+
+2
+catch(): Diese Methode fängt Fehler ab und wird aufgerufen, wenn das Promise abgelehnt wird.
+```
+myPromise.catch(error => {
+    console.log(error); // Ausgabe: Fehler! (wenn success = false wäre)
+});
+```
+
+3
+finally(): Diese Methode wird unabhängig vom Erfolg oder Misserfolg der Operation ausgeführt und wird häufig für Bereinigungsaktionen genutzt.
+
+```
+myPromise.finally(() => {
+    console.log("Promise abgeschlossen");
+});
+```
+
+
+4
+```js
+let myPromise = new Promise((resolve, reject) => {
+    let success = true;
+    if (success) {
+        resolve("Erfolg!");
+    } else {
+        reject("Fehler!");
+    }
+})
+.then(result => {
+    console.log(result);
+})
+.catch(error => {
+    console.log(error);
+})
+.finally(() => {
+    console.log("Promise abgeschlossen");
+});
+```
+
+## 4.3 DER PROMISE-LIFE-CYCLE
 
 
 ![](image/Pasted%20image%2020241129201353.png)
@@ -274,7 +464,7 @@ Zustände des Promise-Objekts
 
 
 
-# 4 例子 
+## 4.4 例子 
 
 例子 
 ![](image/Pasted%20image%2020241129172805.png)
@@ -462,7 +652,57 @@ new Promise((resolve, reject) => {
 ```
 
 
-# 5 Chained Promises
+
+### 4.4.1 
+
+```js
+// mit Promise-Methoden
+
+let myPromise = new Promise( (resolve, reject) => {
+    console.log("The game has started.");
+    setTimeout(() => {
+        if (Math.random() < 0.1) {
+            resolve("You won! Congratulations!")
+        } else {
+            reject("You lost. Try again!")
+        }
+    }, 2_000)
+})
+.then(win => console.log(win)) // success condition
+.catch(lose => console.log(lose)) // reject condition oder error
+.finally(() => console.log("Thanks for playing!"))
+```
+
+
+
+```js
+// mit async/await
+
+async function playGame() {
+    console.log("The game has started.");
+    try {
+        const result = await new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (Math.random() < 0.1) {
+                    resolve("You won! Congratulations!");
+                } else {
+                    reject("You lost. Try again!");
+                }
+            }, 2_000);
+        });
+        console.log(result); // success condition
+    } catch (error) {
+        console.log(error); // reject condition oder error
+    } finally {
+        console.log("Thanks for playing!");
+    }
+}
+playGame();
+```
+
+
+
+# 5 Chained Promises (多个 then, catch, finally )
 
 
 ```js
@@ -482,6 +722,90 @@ let myPromise=new Promise((resolve, reject)=> {
 - `**then**`, `**catch**` und `**finally**` geben nach Beendigung ein neues Promise-Objekt zurück, wodurch **_verkettete Promises_** (**_Chained Promises_**) möglich werden
 - Konsumfunktionen in verketteten `**then**`-Methoden werden in der vorgegebenen Reihenfolge asynchron abgearbeitet
 - Wird in einer der Konsumfunktionen ein Fehler ausgelöst, wird `**then**`-Kette abgebrochen und der Fehler optional durch eine an `**catch**` übergebene Konsumfunktion behandelt
+
+
+## 5.1 ##
+
+```js
+let myPromise = new Promise( (resolve, reject) => {
+    console.log("The game has started.");
+    setTimeout(() => {
+        if (Math.random() < 0.1) {
+            resolve("You won! Congratulations!")
+        } else {
+            reject("You lost. Try again!")
+        }
+    }, 2_000)
+})
+.then(win => console.log(win)) // success condition
+.catch(lose => console.log(lose)) // reject condition oder error
+.then(win => console.log(win)) // success condition
+.finally(() => console.log("Thanks for playing!"))
+```
+
+
+Code Walkthrough:
+
+1. **Creating the `Promise`**:
+    - The `Promise` is created, and the executor function is immediately executed.
+    - The message `"The game has started."` is logged to the console.
+2. **Timeout Logic**:
+    - After 2 seconds (`setTimeout`), the `Math.random()` generates a random number between 0 and 1:
+        - If the number is less than `0.1` (10% chance), the promise is **resolved** with `"You won! Congratulations!"`.
+        - Otherwise, the promise is **rejected** with `"You lost. Try again!"`.
+3. **Chaining with `then`, `catch`, `finally`**:
+    - The `.then()` handler is called when the promise is **resolved**:
+        - It logs `"You won! Congratulations!"` to the console.
+    - The `.catch()` handler is called when the promise is **rejected**:
+        - It logs `"You lost. Try again!"` to the console.
+4. **Second `.then()`**:
+    - Regardless of the outcome (resolved or rejected), the second `.then()` runs.
+    - ==Since the `catch` block doesn't return a value, the `win` parameter in this `.then()` will be `undefined`. Thus, `console.log(win)` logs `undefined` unless the promise was resolved.==
+5. **`.finally()`**:
+    - Runs after the promise settles (whether resolved or rejected).
+    - Logs `"Thanks for playing!"` to the console.
+
+
+
+---
+
+Possible Outputs:
+Case 1: Random number is less than `0.1` (Promise is resolved):
+```js
+The game has started.
+You won! Congratulations!
+You won! Congratulations!
+Thanks for playing!
+
+```
+
+Case 2: Random number is greater than or equal to 0.1 (Promise is rejected):
+```js
+The game has started.
+You lost. Try again!
+undefined
+Thanks for playing!
+```
+
+
+---
+
+Explanation of `undefined` in the Second `.then()`:
+- The second `.then()` follows the `catch()` block, which doesn't return a value. As a result:
+    - If the promise is resolved, the original resolution value propagates to the second `.then()`.
+    - If the promise is rejected, `catch()` intercepts the rejection but doesn't pass any value to the next `.then()`.
+
+To avoid undefined, return a value explicitly in the catch block, like:
+```js
+.catch(lose => {
+    console.log(lose);
+    return "Better luck next time!";
+})
+```
+
+Now the second .then() will log "Better luck next time!" instead of undefined after a rejection.
+
+
 
 # 6 方法
 ## 6.1 Promise.prototype.then()
