@@ -146,6 +146,58 @@ JS 有3中书写位置，分别为行内、内嵌和外部
 可以将多行JS代码写到`<script>`标签中
 内嵌 JS 是学习时常用的方式
 
+-  JavaScript-Programme werden sofort nach dem Laden ausgeführt
+-  Ausführung beginnt mit den Anweisungen auf der globalen Ebene, Funktionen werden nur bei Aufruf ausgeführt
+
+Im `<head>` von HTML
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript-Test</title>
+  <script>
+    function meineFunktion() {
+      document.getElementById("meinTest").innerHTML=
+        "Ein Javascript wurde ausgeführt";
+    }
+  </script>
+</head>
+<body>
+  <h1>Ein Javascript bei der Ausführung</h1>
+  <p id="meinTest">JavaScript testen</p>
+  <button onClick="meineFunktion()">
+    JavaScript Starten
+  </button>
+</body>
+```
+- JavaScript-Programm befindet sich im Header des HTML-Dokuments innerhalb des `<script>-Elements`
+- Problem: bei großen Webseiten wird das JavaScript gestartet bevor die Webseite komplett gerendert is
+
+
+
+
+
+Im `<Body>` von HTML
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript-Test</title>
+</head>
+<body>
+  <h1>Ein Javascript bei der Ausführung</h1>
+  <p id="meinTest">JavaScript testen</p>
+  <button onClick="meineFunktion()">
+    JavaScript Starten
+  </button>
+  <script>
+    function meineFunktion() {
+      document.getElementById("meinTest").innerHTML=
+        "Ein Javascript wurde ausgeführt";
+    }
+  </script>
+</body>
+```
+- JavaScript-Programm befindet sich im Body des HTML-Dokuments innerhalb des `<script>`-Elements
+- JavaScript wird zuletzt geladen, wenn Webseite fast fertig gerendert ist
 
 ## 6.3 外部JS
 
@@ -170,6 +222,35 @@ JS 有3中书写位置，分别为行内、内嵌和外部
 利于HTML页面代码结构化，把单独JS代码独立到HTML页面之外，既美观，又方便
 引用外部JS文件的script标签中间不可以写代码
 适合于JS代码量比较大的情况
+
+
+---
+
+Einbindung des JavaScript-Programms als externe Datei im Header oder im Body
+Oftmals eine einzelne JavaScript-Datei für alle Webseiten einer Website
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript-Test</title>
+</head>
+<body>
+  <h1>Ein Javascript bei der Ausführung</h1>
+  <p id="meinTest">JavaScript testen</p>
+  <button onClick="meineFunktion()">
+    JavaScript Starten
+  </button>
+  <script src="js/meinScript.js"></script>
+</body>
+```
+
+```js
+function meineFunktion() {
+  document.getElementById("meinTest").innerHTML=
+    "Ein JavaScript wurde ausgeführt!";
+};
+```
+
 
 # 7 引入方式: die Attribute defer und async
 https://www.mediaevent.de/javascript/programm-struktur.html
@@ -331,3 +412,9 @@ Das Auslagern von Javascript in eine externe Scriptdatei kann die Performance vo
 Wenn Design und Entwicklung der Webseite abgeschlossen sind, wurden früher externe Javascript-Dateien so weit wie möglich zu einer Script-Datei zusammengeführt. Weniger HTTP-Requests – das reduziert die Ladezeit.
 
 Mit HTTP/2 fällt diese Optimierung weniger ins Gewicht, zudem hat uns ECMAScript 6 den [Export und Import von Script-Dateien als Module](https://www.mediaevent.de/javascript/import-export.html) mitgebracht.
+
+
+# 8 Die Javascript-Laufzeitumgebung im Browser
+
+
+![](image/Pasted%20image%2020241208210247.png)

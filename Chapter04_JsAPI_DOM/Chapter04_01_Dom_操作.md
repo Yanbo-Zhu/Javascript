@@ -1,24 +1,5 @@
-# 1 什么是DOM
-Das Document Object Model ist eine allgemeine Vorgehensweise, um auf Bestandteile eines Dokumentes zugreifen zu können. 
-Es bietet eine Schnittstelle für Script- und Programmiersprachen, sodass alle dieselben Funktionen aufrufen können und wurde vom W3C empfohlen.
-Programmierschnittstelle für HTML- und XML-Dokumente
 
-文档对象模型（Document Object Model，简称 DOM），是 W3C 组织推荐的处理可扩展标记语言（HTML或者XML）的标准编程接口
-W3C 已经定义了一系列的 DOM 接口，通过这些 DOM 接口可以改变网页的内容、结构和样式。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/fc42557d25be4683881c2f0f231bc778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
-
-DOM 把以下内容都看做是对象
-文档：一个页面就是一个文档，DOM中使用doucument来表示
-元素：页面中的所有标签都是元素，DOM中使用 element 表示
-节点：网页中的所有内容都是节点（标签，属性，文本，注释等），DOM中使用node表示
-
-
-Ein HTML-Dokument ist hierarchisch, wie eine Baumstruktur, aus vielen Knoten aufgebaut. 
-Der oberste oder Wurzelknoten ist das Dokument selbst, das document.
-Mit js kann man auf das DOM zugreifen, es auslesen, Knoten löschen, ändern oder hinzufügen.
-
-
-# 2 DOM操作总览
+# 1 DOM操作总览
 对于DOM操作，我们主要针对子元素的操作，主要有
 
 创建
@@ -68,9 +49,9 @@ getAttribute：得到dom的属性值
 removeAttribute：移除属性
 
 
-# 3 获取元素
+# 2 获取元素
 
-## 3.1 方法总览
+## 2.1 方法总览
 DOM在我们实际开发中主要用来操作元素。
 我们如何来获取页面中的元素呢?
 
@@ -80,6 +61,13 @@ DOM在我们实际开发中主要用来操作元素。
  - 通过 HTML5 新增的方法获取
  - 特殊元素获取
 
+## 2.2 Auffinden von Elementen im Document-Objekt
+
+
+>Die meisten Eigenschaften von document liefern ein Objekt vom Typ HTMLCollection
+>Elemente sind beginnend mit 0 indiziert
+
+![](image/Pasted%20image%2020241208212000.png)
 
 | x                                                      | x                                                                                                                                                                             |
 | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -90,8 +78,11 @@ DOM在我们实际开发中主要用来操作元素。
 | document.querySelectorAll("jederBeliebigeCSSselektor") | Auch mit dieser Methode bekommen wir eine Nodelist, nämlich alle Elemente, die mit dem in der Parameterliste spezifizierten Selektor angesprochen werden können.              |
 | document.querySelector("jederBeliebigeCSSselektor")    | Diese Methode greift nur das erste Element welches den entsprechenden CSS-Selektor verwenden könnte.                                                                          |
 
+# 3 Auffinden von Knoten im Element-Objekt#
 
-## 3.2 使用不同方法, 其返回值的类型
+![](image/Pasted%20image%2020241208212126.png)
+
+## 3.1 使用不同方法, 其返回值的类型
 
 
 Einzelne Elemente (object):
@@ -109,7 +100,7 @@ HTML Collections
 
 
 
-### 3.2.1 Einzelne Elemente (object)
+### 3.1.1 Einzelne Elemente (object)
 
 Die id finden Sie im HTML-Dokument
 ```js
@@ -131,7 +122,7 @@ console.log(code, typeof code);
 
     
 
-### 3.2.2 Listen von Elementen
+### 3.1.2 Listen von Elementen
 ```js
  const h2 = document.getElementsByTagName("h2");
 console.log(h2);
@@ -151,7 +142,7 @@ for(let i=0; i<allRadio.length; i++){
 ```
    
 
-### 3.2.3 HTML Collections
+### 3.1.3 HTML Collections
 ```js
 const form = document.forms[0];
 console.log(form);
@@ -159,7 +150,7 @@ console.log(form);
 
 
 
-## 3.3 获取特殊元素 document.XX
+## 3.2 获取特殊元素 document.XX
 1 获取body元素
 返回body元素对象: document.body;
 
@@ -173,7 +164,7 @@ const form = document.forms[0];
 
 
 
-## 3.4 根据ID获取 getElementByld()
+## 3.3 根据ID获取 getElementByld()
 返回 一个 element 
 使用 getElementByld() 方法可以获取带ID的元素对象
     doucument.getElementByld('id名')
@@ -196,7 +187,7 @@ const form = document.forms[0];
 ```
 
 
-## 3.5 根据标签名获取  getElementByTagName()
+## 3.4 根据标签名获取  getElementByTagName()
 返回一个 array 
 还可以根据标签名获取某个元素（父元素）内部所有指定标签名的子元素,获取的时候不包括父元素自己
     element.getElementsByTagName('标签名')
@@ -251,18 +242,18 @@ document.getElementsByTagName('标签名');
 ```
 
 
-## 3.6 根据类名获取 getElementsByClassName()
+## 3.5 根据类名获取 getElementsByClassName()
 根据类名返回元素对象合集
 document.getElementsByClassName('类名')
 ol.getElementsByClassName('类名')
 
 
-## 3.7 根据AttributName获取  getElementsByName()
+## 3.6 根据AttributName获取  getElementsByName()
 document.getElementsByName("wertImAttributName")
 
 
 
-## 3.8 querySelector
+## 3.7 querySelector
 https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
 根据指定选择器返回第一个元素对象. 返回一个 erste Element  
 
@@ -291,7 +282,7 @@ const el = document.querySelector("div.user-panel.main input[name='login']");
 
 ```
 
-## 3.9 querySelectorAll
+## 3.8 querySelectorAll
 返回 nodelist
 根据指定选择器返回所有元素对象
     document.querySelectorAll('选择器');
@@ -332,6 +323,7 @@ querySelector 和 querySelectorAll 里面的选择器需要加符号,比如: doc
 # 4 改变元素
 
 JavaScript 的 DOM 操作可以改变网页内容、结构和样式，我们可以利用 DOM 操作元素来改变元素里面的内容 、属性等。注意以下都是属性
+
 
 
 ## 4.1 总结
