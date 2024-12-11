@@ -7,16 +7,21 @@
 - Das DOM wird in einer hierarchischer Baumstruktur mit verschiedenen Knotentypen dargestellt
 
 
-
-
 # 1 什么是DOM
 Das Document Object Model ist eine allgemeine Vorgehensweise, um auf Bestandteile eines Dokumentes zugreifen zu können. 
 Es bietet eine Schnittstelle für Script- und Programmiersprachen, sodass alle dieselben Funktionen aufrufen können und wurde vom W3C empfohlen.
 Programmierschnittstelle für HTML- und XML-Dokumente
 
+DOM (Document Object Model) Manipulation in JavaScript bezieht sich auf das Verändern, Hinzufügen oder Löschen von Elementen und deren Eigenschaften im HTML-Dokument, während es im Browser ausgeführt wird. Durch DOM-Manipulation wird es möglich, die Struktur, den Inhalt und das Styling einer Webseite dynamisch anzupassen.
+
+
+
 文档对象模型（Document Object Model，简称 DOM），是 W3C 组织推荐的处理可扩展标记语言（HTML或者XML）的标准编程接口
 W3C 已经定义了一系列的 DOM 接口，通过这些 DOM 接口可以改变网页的内容、结构和样式。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/fc42557d25be4683881c2f0f231bc778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
+
+
+![](image/Pasted%20image%2020241211171615.png)
 
 DOM 把以下内容都看做是对象
 文档：一个页面就是一个文档，DOM中使用doucument来表示

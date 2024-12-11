@@ -1,6 +1,8 @@
 
 # 1 事件基础
 
+Ein Event-Handler in JavaScript ist eine Funktion, die auf ein bestimmtes Ereignis (z. B. Klick, Mausbewegung oder Tastendruck) reagiert. Sie wird einem HTML-Element zugewiesen und aktiviert, wenn das Ereignis eintritt. Beispielsweise kann ein Button ein click-Event auslösen, das durch den zugehörigen Event-Handler verarbeitet wird. Event-Handler werden häufig mit Methoden wie addEventListener oder direkt als Attribut im HTML (onclick, onmouseover) definiert.
+
 
 ## 1.1 事件概述
 JavaScript 使我们有能力创建动态页面，而事件是可以被 JavaScript 侦测到的行为。
@@ -8,6 +10,7 @@ JavaScript 使我们有能力创建动态页面，而事件是可以被 JavaScri
 简单理解： 触发— 响应机制。
 
 网页中的每个元素都可以产生某些可以触发 JavaScript 的事件，例如，我们可以在用户点击某按钮时产生一个事件，然后去执行某些操作。
+
 
 ## 1.2 事件三要素
 事件源(谁)
@@ -216,6 +219,15 @@ eventTarget.addEventListener('click', function(event) {
 |e.returnValue	|该属性阻止默认行为 非标准，ie6-8使用|
 |e.preventDefault()	|该方法阻止默认行为 标准 比如不让链接跳转|
 |e.stopPropagation()	|阻止冒泡 标准|
+
+- click : Wird ausgelöst, wenn ein Element angeklickt wird.
+- mouseover : Wird ausgelöst, wenn die Maus über ein Element bewegt wird.
+- mouseout : Wird ausgelöst, wenn die Maus das Element verlässt.
+- keydown : Wird ausgelöst, wenn eine Taste auf der Tastatur gedrückt wird.
+- keyup : Wird ausgelöst, wenn eine gedrückte Taste wieder losgelassen wird.
+- submit : Wird ausgelöst, wenn ein Formular abgeschickt wird.
+- load : Wird ausgelöst, wenn ein Bild Oder eine Seite vollständig geladen ist.
+- scroll : Wird ausgelöst, wenn der Benutzer scrollt.
 
 ### 3.1.3 e.target
 
@@ -479,9 +491,123 @@ https://vfhwebp.eduloop.de/loop/Aufbau_eine_js-scripts
 |btn.onclick = function() {}	|IE9 之前的 IE 不支持此方法，可使用 attachEvent() 代替|
 |特点：注册事件的唯一性|	特点：同一个元素同一个事件可以注册多个监听器|
 |同一个元素同一个事件只能设置一个处理函数，最后注册的处理函数将会覆盖前面注册的处理函数	|按注册顺序依次执行|
+## 6.1 Event Listener
+
+不用 Event Listener doe muss die ganze  Zeit überprüft, ob etwas passiert ist. 
+
+Ein Event Listener ist eine Funktion in JavaScript, die verwendet wird, um auf bestimmte Ereignisse (Events) zu reagieren, die im DOM auftreten. Der Event Listener „lauscht“ auf das Auftreten eines bestimmten Ereignisses und führt dann eine bestimmte Aktion aus, wenn das Ereignis eintritt, ==ohne dass der Code die ganze Zeit überprüft, ob etwas passiert ist.== Stattdessen wird der Event Listener nur dann aktiv, wenn das definierte Ereignis auftritt.
 
 
-## 6.1 addEventListener事件监听方式
+Die addEventListener-Methode ist die gebräuchlichste Art, Event Listener zu einem Element hinzuzufügen, da sie mehrere Listener für das gleiche Ereignis unterstützt und die Handhabung von Events flexibel und sauber gestaltet.
+
+### 6.1.1 Vorteile der Verwendung von addEventListener
+
+1  Mehrere Listener
+
+Man kann mehrere Event-Listener für dasselbe Ereignis und dasselbe Element hinzufügen, was mit dem direkten Attribut wie onclick oder onmouseover nicht möglich ist.
+
+Wenn man mehrere onclick-Handler direkt über die Eigenschaft onclick zuweit, überschreibt der letzte Handler die vorherigen. Es kann also nur ein Handler gleichzeitig aktiv sein:
+
+```js
+const button = document.getElementById("myButton");
+
+// Erster Handler
+button.onclick = function() {
+    console.log("Erster Klick-Handler");
+};
+
+// Zweiter Handler überschreibt den ersten
+button.onclick = function() {
+    console.log("Zweiter Klick-Handler");
+};
+```
+
+---
+
+
+2 Entfernen von Listenern
+Mit removeEventListener kann man einen bestimmten Event Listener auch wieder entfernen.
+
+Beispiel mit benannter Funktion:
+```js
+const button = document.getElementById("myButton");
+
+// Handler-Funktion definieren
+function handlerFunktion() {
+    console.log("Button wurde geklickt!");
+}
+
+// Event-Listener hinzufügen
+button.addEventListener("click", handlerFunktion);
+
+// Event-Listener entfernen
+button.removeEventListener("click", handlerFunktion);
+```
+In diesem Fall wird der click-Event-Handler erfolgreich entfernt, da die gleiche handlerFunktion verwendet wurde.
+
+
+
+Beispiel mit anonymer Funktion (nicht entfernbar):
+```js
+const button = document.getElementById("myButton");
+
+// Anonyme Funktion als Event-Handler
+button.addEventListener("click", function() {
+    console.log("Button wurde geklickt!");
+});
+
+// Versuch, den Event-Listener zu entfernen (funktioniert nicht!)
+button.removeEventListener("click", function() {
+    console.log("Button wurde geklickt!");
+});
+```
+
+==Hier funktioniert das Entfernen nicht==, da die anonyme Funktion, die in addEventListener verwendet wurde, nicht dieselbe ist wie die in removeEventListener.
+- Wenn man eine Funktion zuweist, wird ihre Referenz (Adresse im Speicher) gespeichert.
+- Beim Entfernen eines Event-Listeners sucht removeEventListener nach genau dieser Referenz. Wenn die Referenz nicht übereinstimmt, findet der Browser den Event-Handler nicht und kann ihn daher nicht entfernen.
+
+
+
+
+## 6.2 传统方式 : Direkt im HTML-Code:
+
+```html
+<button onclick="alert('Button wurde geklickt!')">Klick mich</button>
+```
+
+
+```html
+<div style="background-color: yellow; width: 200px; height: 200px;" 
+		 onmouseover="this.style.backgroundColor = 'blue';" 
+		 onmouseout="this.style.backgroundColor = 'yellow'">
+</div>
+```
+
+
+## 6.3 传统方式: Über JavaScript im Skriptbereich oder einer separaten Datei:
+
+```js
+<script>
+	const myBtn = document.getElementById("meinButton");
+	myBtn.onclick = function() {
+	  alert("Button wurde geklickt!");
+	};
+</script>
+
+<script>
+	const myDiv = document.getElementById("exampleDiv");
+	myDiv.onmouseover = function() {
+    myDiv.style.backgroundColor = 'blue';
+	};
+	myDiv.onmouseout = function() {
+    myDiv.style.backgroundColor = 'yellow';
+	};
+</script>
+
+```
+
+
+## 6.4 addEventListener事件监听方式
 https://www.runoob.com/jsref/met-document-addeventlistener.html
 https://www.cnblogs.com/embrace-ly/p/10570052.html
 
@@ -536,7 +662,7 @@ addEventListener("event", anonyme Funktion als Wrapper für Funktionsaufrufe, ca
 
 ```
 
-### 6.1.1 添加多个事件
+### 6.4.1 添加多个事件
 您可以在文档中添加许多事件，添加的事件不会覆盖已存在的事件。
 document.addEventListener("click", myFunction);
 document.addEventListener("click", someOtherFunction);
@@ -546,7 +672,7 @@ document.addEventListener("mouseover", myFunction);
 document.addEventListener("click", someOtherFunction);
 document.addEventListener("mouseout", someOtherFunction);
 
-### 6.1.2 使用 函数引用, 函数调用 , 匿名函数的 区别
+### 6.4.2 使用 函数引用, 函数调用 , 匿名函数的 区别
 
 ```js
 eventTarget.addEventListener(typeOfevent,eventFunction,[useCapture])
@@ -606,7 +732,7 @@ Man behilft sich mit einer Wrapper-Funktion, die anonym ist, weil sie sofort auf
 
 ```
 
-### 6.1.3 useCapture
+### 6.4.3 useCapture
 为什么是 propagation: Das event wird hochgereicht und man bezeichnet das als propagation. 
 - useCapture：可选参数，是一个布尔值，默认是 false。学完 DOM 事件流后，我们再进一步学习
     - 如果是 false (不写默认就是false), 表示在事件冒泡阶段 (propagation phase) 调用事件处理程序, 就是 目前的element 上升到 祖先的element     (von Kind zu Vorfahren weitergegeben.  )
@@ -620,8 +746,80 @@ Gesteuert wird das über den dritten Parameter in der Methode addEventListener()
 
 Über das event aus der anonymen Funktion können wir mit der Methode stopPropagation() dieses Verhalten unterbinden.
 
-### 6.1.4 例子
-1 点击图片 来更换图片的颜色
+### 6.4.4 mit this
+
+```js
+<script>
+	const myDiv = document.getElementById("exampleDiv");
+	myDiv.addEventListener("mouseover", function() {
+		// "this" funktioniert auch und verweist auf das Element
+		this.style.backgroundColor = "blue";
+	});
+	// mit Lambda-Funktionen funktioniert "this" nicht
+	myDiv.addEventListener("mouseout", function() {
+		this.style.backgroundColor = "yellow";
+	});
+</script>
+```
+
+
+## 6.5 attachEvent事件监听方式(兼容)
+- eventTarget.attachEvent()方法将指定的监听器注册到 eventTarget（目标对象） 上
+- 当该对象触发指定的事件时，指定的回调函数就会被执行
+
+eventTarget.attachEvent(eventNameWithOn,callback)
+该方法接收两个参数：
+eventNameWithOn：事件类型字符串，比如 onclick 、onmouseover ，这里要带 on
+callback： 事件处理函数，当目标触发事件时回调函数被调用
+ie9以前的版本支持
+
+## 6.6 注册事件兼容性解决方案
+兼容性处理的原则：首先照顾大多数浏览器，再处理特殊浏览器
+```js
+ function addEventListener(element, eventName, fn) {
+      // 判断当前浏览器是否支持 addEventListener 方法
+      if (element.addEventListener) {
+        element.addEventListener(eventName, fn);  // 第三个参数 默认是false
+      } else if (element.attachEvent) {
+        element.attachEvent('on' + eventName, fn);
+      } else {
+        // 相当于 element.onclick = fn;
+        element['on' + eventName] = fn;
+ } 
+
+```
+
+
+
+# 7 Eventhandler的例子 with addEventListener
+
+HTML Online Editor: [https://www.w3schools.com/html/tryit.asp?filename=tryhtml_editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_editor)
+
+直接用这个 来 显示 效果 
+
+## 7.1 
+```js
+
+<script>
+	const myBtn = document.getElementById("meinButton");
+	myBtn.addEventListener("click", function() {
+	  alert("Button wurde geklickt!");
+	});
+</script>
+
+<script>
+	const myDiv = document.getElementById("exampleDiv");
+	myDiv.addEventListener("mouseover", function() {
+		myDiv.style.backgroundColor = "blue";
+	});
+	myDiv.addEventListener("mouseout", () => {
+		myDiv.style.backgroundColor = "yellow";
+	});
+</script>
+
+```
+
+## 7.2 点击图片 来更换图片的颜色
 ```js
 // Ändern von Attributen
 const pic = document.querySelector("img");
@@ -647,7 +845,8 @@ const changeStyle = () => pic.classList.toggle("invert");
 pic.addEventListener("mouseover", changeStyle, false);
 ```
 
-2 点击 reset 按钮以后, 页面要reload
+## 7.3 点击 reset 按钮以后, 页面要reload
+
 不然默认默认状态下, 点击 reset 按钮以后, 
 - 页面不会reload, 
     - 导入 一些通过 js script 填入的元素 依然存在  
@@ -679,7 +878,7 @@ const reset = document.querySelector("[type=reset]");
 reset.addEventListener("click", e => { location.reload() });
 ```
 
-3 鼠标event: formdata
+## 7.4 鼠标event: formdata
 https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event
 
 The formdata event fires after the entry list representing the form's data is constructed. This happens when the form is submitted, but can also be triggered by the invocation of a FormData() constructor.
@@ -713,7 +912,7 @@ This event is not cancelable and does not bubble.
 ```
 
 
-4 Radio Button
+## 7.5 Radio Button
 https://stackoverflow.com/questions/58606047/how-to-use-on-addeventlistener-on-radio-button-in-plain-javascript
 best practice in this scenario would be to listen to the "change" event rather than "click", then it doesn't fire unnecessarily when the user clicks an already-selected radio.
 
@@ -756,37 +955,355 @@ for (let i = 0; i < contact.length; i++) {
 }
 ```
 
+## 7.6 klicken button and a new message shows up 
 
-## 6.2 attachEvent事件监听方式(兼容)
-- eventTarget.attachEvent()方法将指定的监听器注册到 eventTarget（目标对象） 上
-- 当该对象触发指定的事件时，指定的回调函数就会被执行
-
-eventTarget.attachEvent(eventNameWithOn,callback)
-该方法接收两个参数：
-eventNameWithOn：事件类型字符串，比如 onclick 、onmouseover ，这里要带 on
-callback： 事件处理函数，当目标触发事件时回调函数被调用
-ie9以前的版本支持
-
-## 6.3 注册事件兼容性解决方案
-兼容性处理的原则：首先照顾大多数浏览器，再处理特殊浏览器
 ```js
- function addEventListener(element, eventName, fn) {
-      // 判断当前浏览器是否支持 addEventListener 方法
-      if (element.addEventListener) {
-        element.addEventListener(eventName, fn);  // 第三个参数 默认是false
-      } else if (element.attachEvent) {
-        element.attachEvent('on' + eventName, fn);
-      } else {
-        // 相当于 element.onclick = fn;
-        element['on' + eventName] = fn;
- } 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Beispiel</title>
+</head>
+<body>
 
+  <!-- Der Button wird hier durch JavaScript hinzugefügt -->
+
+  <script>
+    const newBtn = document.createElement("button"); // neuen Button erstellen
+    newBtn.textContent = "Klicke mich";
+    
+    document.body.appendChild(newBtn); // Button zum Body hinzufügen
+
+    // Event-Listener hinzufügen
+    newBtn.addEventListener("click", () => {
+	     alert("Button wurde geklickt!");
+    });
+  </script>
+  
+</body>
+</html>
+```
+
+![](image/Pasted%20image%2020241211210540.png)
+
+## 7.7 Inhalt verändern
+
+![](image/Pasted%20image%2020241211210649.png)
+
+```js
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beispiel für innerHTML</title>
+</head>
+<body>
+
+	<div id="content">
+		Dies ist der ursprüngliche Inhalt.
+	</div>
+	<button onclick="changeContent()">Inhalt ändern</button>
+	
+	<script>
+		function changeContent() {
+			const element = document.getElementById("content");
+      element.innerHTML = "<p>Neuer Inhalt: Dieser Text wurde dynamisch hinzugefügt und befindet sich in einem &lt;p&gt;-Tag.</p>";
+    }
+  </script>
+  
+</body>
+</html>
 ```
 
 
-# 7 删除事件(解绑事件)
+## 7.8 klicken button and add new element 
 
-## 7.1 removeEventListener删除事件方式
+![](image/Pasted%20image%2020241211210733.png)
+
+```js
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beispiel für createTextNode</title>
+</head>
+<body>
+
+	<div>
+		<p id="content">Dies ist der ursprüngliche Inhalt.</p>
+	</div>
+	<button onclick="increment()">Inhalt ändern</button>
+	
+	<script>
+		let counter = 0;
+		function increment() {
+			counter++;
+			if (counter == 1) {
+				changeContent();
+			} else {
+				addListItems();
+			}
+		}
+
+    const element = document.getElementById("content"); 
+    function changeContent() {
+	    element.innerText = "Der Inhalt wurde geändert."
+	  }
+
+    const uList = document.createElement('ul');
+    const myDiv = document.getElementsByTagName("div")[0];
+    myDiv.appendChild(uList);
+		
+		function addListItems() {
+			const listItem = document.createElement('li');
+			const textNode = document.createTextNode(`Hallo ${counter - 1}!`)
+            
+      listItem.appendChild(textNode);
+      uList.appendChild(listItem);
+    }
+  </script>
+  
+</body>
+</html>
+```
+
+
+## 7.9 
+
+![](image/Pasted%20image%2020241211210855.png)
+
+```js
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beispiel für getElementsByClassName</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: lightgray;
+            margin: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">Box 1</div>
+    <div class="box">Box 2</div>
+    <div class="box">Box 3</div>
+    <button>Farbe ändern</button>
+
+    <script>
+    const myButton = document.getElementsByTagName("button")[0];
+    myButton.addEventListener("click", () => {
+	    const boxes = document.getElementsByClassName("box");
+	    let i = 1; // Zähler
+	    
+	    // Schleife über die HTMLCollection, um jedes Element zu ändern    
+	    for (let box of boxes) {
+		    box.style.backgroundColor = "lightblue"; // Farbe ändern
+		    box.textContent = `Box ${i} geändert`; // Text ändern
+		    i++;
+		  }});
+    </script>
+
+</body>
+</html>
+```
+
+
+## 7.10 mouseover , mouseout, mouseclick
+
+![](image/Pasted%20image%2020241211210921.png)
+
+
+```js
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beispiel für Event Listener</title>
+</head>
+<body>
+	<div id="yellowDiv" style="background-color: yellow; width: 200px; height: 200px;"></div>
+	<br>
+ 	<p id="message">The div is yellow!</p>
+ 	
+ 	<script>
+        const yellowDiv = document.getElementById("yellowDiv");
+        const message = document.getElementById("message");
+        const copiedText = message.innerHTML;
+        const copiedColor = yellowDiv.style.backgroundColor;
+      
+        // div-Listener für Mauszeiger
+        yellowDiv.addEventListener("mouseover", () => yellowDiv.style.backgroundColor = "red")
+        yellowDiv.addEventListener("mouseover", () => message.innerText = "The div is red!")
+        //div.addEventListener("mouseover", () => { div.style.backgroundColor = "red"; message.innerText = "Das div ist rot!";
+
+        // div-Listener für Mauszeiger weg vom div
+        function yellowDivAgain() {
+            yellowDiv.style.backgroundColor = copiedColor;
+            message.innerHTML = copiedText;
+        }
+        yellowDiv.addEventListener("mouseout", yellowDivAgain);
+        
+        
+        // div-Listener für Klick
+        yellowDiv.addEventListener("click", function() {
+            yellowDiv.style.backgroundColor = "blue";
+            message.textContent = "The div is " + yellowDiv.style.backgroundColor + "!"
+        });
+        
+ </script>
+
+</body>
+</html>
+```
+
+
+## 7.11 Button 随机移动
+
+![](image/Pasted%20image%2020241211211102.png)
+
+
+```js
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Einfach ein dummes Beispiel für ein dummes Spielchen</title>
+</head>
+<body>
+
+	<h1 id="h1">Reveal the secret!<h1>
+	<button style="position: absolute;">Click me!</button>
+
+	<script>
+	
+		const button = document.getElementsByTagName("button")[0];
+		const h1 = document.getElementById("h1");
+		
+	  let counter = 0;
+
+		function doSomeAction() {
+		  counter++;
+    
+	    if (counter == 100) {
+		    button.removeEventListener("mouseover", doSomeAction);
+	      h1.textContent = "It is time. You have deserved it!"
+	    }
+        
+			let random1 = Math.random() * window.innerHeight;
+	    let random2 = Math.random() * window.innerWidth;
+	    button.style.top = `${random1}px`;
+	    button.style.left = `${random2}px`;
+		}
+    
+		button.addEventListener("mouseover", doSomeAction);
+	  button.addEventListener("click", () => alert("Webtech is a bad ass subject and Szymon is the best tutor!!"));  
+</script>
+
+</body>
+</html>
+```
+
+
+## 7.12 load video 
+
+![](image/Pasted%20image%2020241211211139.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Einfach ein Beispiel für mehrere Sachen zusammengefasst (und bisschen Selbstdarstellung)</title>
+	</head>
+	<body style="font-family: Arial, Helvetica, sans-serif;">
+
+		<button id="myBtn">Load the video</button>
+		
+		<div style="display: none;">
+			<br>
+			<img id="eng" src="https://www.countryflags.com/wp-content/uploads/united-kingdom-flag-png-xl.png" alt="ENG">
+			<img id="deu" src="https://www.countryflags.com/wp-content/uploads/germany-flag-png-xl.png" alt="GER">
+			<img id="pol" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Flag_of_Poland.svg/2560px-Flag_of_Poland.svg.png" alt="POL">
+			<img id="esp" src="https://cdn.countryflags.com/thumbs/spain/flag-400.png" alt="ESP">
+			<img id="ndl" src="https://www.countryflags.com/wp-content/uploads/netherlands-flag-png-xl.png" alt="NDL">
+			<img id="ukr" src="https://cdn.countryflags.com/thumbs/ukraine/flag-400.png" alt="UKR">
+		</div>
+		
+		<div style="width: 560px; color: darkblue;">
+			<h1 id="heading"></h1>
+			<p id="description"></p>
+		</div>
+	</body>
+
+	<script>
+		
+		const myBtn = document.getElementById("myBtn");
+		const langDiv = document.getElementsByTagName("div")[0];
+
+		const video = document.createElement("iframe");
+		video.setAttribute("src", "https://www.youtube.com/embed/6f9ctfWDNGY");
+		video.setAttribute("width", "560");
+		video.setAttribute("height", "315");
+
+		myBtn.addEventListener("click", () => {
+	    document.body.insertBefore(video, langDiv);
+	    myBtn.remove();
+    	langDiv.removeAttribute("style");
+		});
+
+		const heading = document.getElementById("heading");
+		const description = document.getElementById("description");
+		const images = document.getElementsByTagName("img");
+		
+		for (let image of images) {
+	    image.setAttribute("width", "30");
+      image.setAttribute("height", "20");
+      image.setAttribute("style", "border: 1px solid black");
+    }
+
+		for (let i = 0; i < images.length; i++) {
+	    images[i].addEventListener("click", function() {
+	      for (let image of images) {
+	        image.setAttribute("height", "20");
+          image.setAttribute("width", "30");
+        }
+        heading.innerText = languages[i].title;
+	      description.innerText = languages[i].description;
+        this.setAttribute("height", "40");
+        this.setAttribute("width", "60");
+        console.log(languages[i]);
+    	});
+		}
+    
+    const languages = [
+    	{ language: "ENG", title: "Description:", description: "In this video, Szymon talks about his adventures with learning foreign languages. Weirdo. He has been living in Germany for 10 years and his German still sucks. So, what level must his other languages be at?" },
+    	{ language: "DEU", title: "Beschreibung:", description: "In diesem Video erzählt Szymon von seinen Abenteuern beim Lernen von Fremdsprachen. Ein komischer Typ. Er lebt seit 10 Jahren in Deutschland und sein Deutsch ist immer noch Scheiße. Auf welchem Niveau müssen dann seine anderen Sprachen sein?" },
+    	{ language: "POL", title: "Opis:", description: "W tym filmie Szymon opowiada o swoich przygodach z nauką języków obcych. Dziwny typ. Od 10 lat mieszka w Niemczech i nadal mówi słabo po niemiecku. Na jakim poziomie musi być w takim razie reszta jego języków?"},
+    	{ language: "ESP", title: "Descripción:", description: "En este video, Szymon habla sobre sus aventuras aprendiendo idiomas extranjeros. Un tipo extraño. Lleva 10 años viviendo en Alemania y todavía habla mal alemán. ¿Entonces, en qué nivel estarán sus otros idiomas?" },
+    	{ language: "NDL", title: "Beschrijving:", description: "In deze video vertelt Szymon over zijn avonturen met het leren van vreemde talen. Een rare kerel. Hij woont al 10 jaar in Duitsland en spreekt nog steeds slecht Duits. Op welk niveau zouden zijn andere talen dan zijn?" },
+    	{ language: "UKR", title: "Oпис:", description: "У цьому відео Шимон розповідає про свої пригоди з вивченням іноземних мов. Дивний тип. Він живе в Німеччині вже 10 років, але досі погано говорить німецькою. То на якому рівні тоді мають бути його інші мови?" }
+		];
+		
+	</script>
+
+</html>
+```
+
+
+# 8 删除事件(解绑事件)
+
+## 8.1 removeEventListener删除事件方式
 eventTarget.removeEventListener(type,listener[,useCapture]);
 
 该方法接收三个参数：
@@ -802,7 +1319,53 @@ document.addEventListener("mousemove", myFunction);
 document.removeEventListener("mousemove", myFunction);
 ```
 
-## 7.2 detachEvent删除事件方式(兼容)
+---
+
+2 Entfernen von Listenern
+Mit removeEventListener kann man einen bestimmten Event Listener auch wieder entfernen.
+
+2.1
+Beispiel mit benannter Funktion:
+```js
+const button = document.getElementById("myButton");
+
+// Handler-Funktion definieren
+function handlerFunktion() {
+    console.log("Button wurde geklickt!");
+}
+
+// Event-Listener hinzufügen
+button.addEventListener("click", handlerFunktion);
+
+// Event-Listener entfernen
+button.removeEventListener("click", handlerFunktion);
+```
+In diesem Fall wird der click-Event-Handler erfolgreich entfernt, da die gleiche handlerFunktion verwendet wurde.
+
+
+2.2 
+Beispiel mit anonymer Funktion (nicht entfernbar):
+```js
+const button = document.getElementById("myButton");
+
+// Anonyme Funktion als Event-Handler
+button.addEventListener("click", function() {
+    console.log("Button wurde geklickt!");
+});
+
+// Versuch, den Event-Listener zu entfernen (funktioniert nicht!)
+button.removeEventListener("click", function() {
+    console.log("Button wurde geklickt!");
+});
+```
+
+==Hier funktioniert das Entfernen nicht==, da die anonyme Funktion, die in addEventListener verwendet wurde, nicht dieselbe ist wie die in removeEventListener.
+- Wenn man eine Funktion zuweist, wird ihre Referenz (Adresse im Speicher) gespeichert.
+- Beim Entfernen eines Event-Listeners sucht removeEventListener nach genau dieser Referenz. Wenn die Referenz nicht übereinstimmt, findet der Browser den Event-Handler nicht und kann ihn daher nicht entfernen.
+
+
+
+## 8.2 detachEvent删除事件方式(兼容)
 eventTarget.detachEvent(eventNameWithOn,callback);
 
 该方法接收两个参数：
@@ -810,7 +1373,7 @@ eventNameWithOn：事件类型字符串，比如 onclick 、onmouseover ，这�
 callback： 事件处理函数，当目标触发事件时回调函数被调用
 ie9以前的版本支持
 
-## 7.3 传统事件删除方式
+## 8.3 传统事件删除方式
 eventTarget.onclick = null;
 
 事件删除示例：
@@ -845,7 +1408,7 @@ eventTarget.onclick = null;
 ```
 
 
-## 7.4 删除事件兼容性解决方案
+## 8.4 删除事件兼容性解决方案
 ```js
  function removeEventListener(element, eventName, fn) {
       // 判断当前浏览器是否支持 removeEventListener 方法
@@ -859,7 +1422,7 @@ eventTarget.onclick = null;
 ```
 
 
-# 8 事件对象阻止默认行为 e.preventDefault()
+# 9 事件对象阻止默认行为 e.preventDefault()
 ```html
 <body>
     <div>123</div>
@@ -899,7 +1462,7 @@ eventTarget.onclick = null;
 
 ```
 
-## 8.1 阻止submit 这个 button 的默认行为
+## 9.1 阻止submit 这个 button 的默认行为
 
 Defautl behavior von Submit: Page neue laden. page neue laden 导致  feld in Form leer machen
 
@@ -988,7 +1551,7 @@ submit.addEventListener("click",function(e){
 ```
 
 
-# 9 阻止事件冒泡 e.stopPropagation()
+# 10 阻止事件冒泡 e.stopPropagation()
 事件冒泡：开始时由最具体的元素接收，然后逐级向上传播到到 DOM 最顶层节点
 事件冒泡本身的特性，会带来的坏处，也会带来的好处，需要我们灵活掌握。
 
@@ -1005,7 +1568,7 @@ The stopPropagation() method of the Event interface prevents further propagation
 
 该函数只阻止事件向祖辈元素的传播，不会阻止该元素自身绑定的其他事件处理函数的函数。event.stopImmediatePropagation()不仅会阻止事件向祖辈元素的传播，还会阻止该元素绑定的其他(尚未执行的)事件处理函数的执行。
 
-## 9.1 写法
+## 10.1 写法
 
 标准写法
 e.stopPropagation();
@@ -1053,7 +1616,7 @@ if(e && e.stopPropagation){
 
 
 
-## 9.2 例子
+## 10.2 例子
 
 ```js
 (function init() {
@@ -1089,7 +1652,7 @@ if(e && e.stopPropagation){
 ![](image/Chapter04_事件高级_addEventListener_Propagation_02.png)
 
 
-# 10 事件委托
+# 11 事件委托
 事件委托也称为事件代理，在 jQuery 里面称为事件委派
 事件委托的原理: 不是每个子节点单独设置事件监听器，而是事件监听器设置在其父节点上，然后利用冒泡原理影响设置每个子节点
 
