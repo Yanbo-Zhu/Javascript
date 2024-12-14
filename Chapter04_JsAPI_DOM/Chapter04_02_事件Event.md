@@ -3,13 +3,20 @@
 
 Ein Event-Handler in JavaScript ist eine Funktion, die auf ein bestimmtes Ereignis (z. B. Klick, Mausbewegung oder Tastendruck) reagiert. Sie wird einem HTML-Element zugewiesen und aktiviert, wenn das Ereignis eintritt. Beispielsweise kann ein Button ein click-Event auslösen, das durch den zugehörigen Event-Handler verarbeitet wird. Event-Handler werden häufig mit Methoden wie addEventListener oder direkt als Attribut im HTML (onclick, onmouseover) definiert.
 
+![](image/Pasted%20image%2020241214160833.png)
 
-## 1.1 事件概述
+## 1.1 事件概述 Ereignis/Events
 JavaScript 使我们有能力创建动态页面，而事件是可以被 JavaScript 侦测到的行为。
 
 简单理解： 触发— 响应机制。
 
 网页中的每个元素都可以产生某些可以触发 JavaScript 的事件，例如，我们可以在用户点击某按钮时产生一个事件，然后去执行某些操作。
+
+
+- Interaktive Webseiten mit Hilfe von **_Ereignissen_** (**_Events_**)
+- Beispiel: Wechsel von Bildern beim Überfahren mit der Maus
+- Ereignisse werden durch die Laufzeitumgebung erkannt oder können durch das Programm ausgelöst werden
+- **_Event Handler_** oder **_Event Listener_** sind Callbacks, die ausgeführt werden wenn ein bestimmtes Ereignis auf einem Element oder Objekt ausgelöst wurde
 
 
 ## 1.2 事件三要素
@@ -32,7 +39,7 @@ JavaScript 使我们有能力创建动态页面，而事件是可以被 JavaScri
 ```
 
 
-## 1.3 执行事件的步骤
+## 1.3 执行事件的步骤 Ablauf 
 获取事件源
 注册事件(绑定事件)
 添加事件处理程序(采取函数赋值形式)
@@ -50,6 +57,12 @@ JavaScript 使我们有能力创建动态页面，而事件是可以被 JavaScri
     }
 </script>
 ```
+
+1. Registrierung des Event Listener bei der Laufzeitumgebung für Ereignisse auf bestimmten Elementen bzw. Objekten
+2. Auftreten des Ereignisses, zum Beispiel Betätigung eines Buttons mit der Maus
+3. Erkennung des Ereignisses durch die Laufzeitumgebung
+4. Benachrichtigung des Event Listener
+5. Durchführung ereignisbezogener Aktionen
 
 
 
@@ -141,7 +154,8 @@ son -> father ->body -> html -> document
 - 有些事件是没有冒泡的，比如 onblur、onfocus、onmouseenter、onmouseleave
 
 
-# 3 事件对象
+# 3 事件对象 Ereignis/Ergebnis
+
 ```js
 eventTarget.onclick = function(event) {
    // 这个 event 就是事件对象，我们还喜欢的写成 e 或者 evt 
@@ -186,7 +200,7 @@ eventTarget.addEventListener('click', function(event) {
 </body>
 ```
 
-### 3.1.1 事件对象的兼容性方案
+## 3.1 事件对象的兼容性方案
 事件对象本身的获取存在兼容问题：
 标准浏览器中是浏览器给方法传递的参数，只需要定义形参 e 就可以获取到。
 在 IE6~8 中，浏览器不会给方法传递参数，如果需要的话，需要到 window.event 中获取查找
@@ -209,16 +223,31 @@ eventTarget.addEventListener('click', function(event) {
 ```
 
 
-### 3.1.2 事件对象的常见属性和方法
-|事件对象属性方法|	说明|
-|--|---|
-|e.target	|返回触发事件的对象 标准|
-|e.srcElement	|返回触发事件的对象 非标准 ie6-8使用|
-|e.type	|返回事件的类型 比如click mouseover 不带on|
-|e.cancelBubble	|该属性阻止冒泡，非标准，ie6-8使用|
-|e.returnValue	|该属性阻止默认行为 非标准，ie6-8使用|
-|e.preventDefault()	|该方法阻止默认行为 标准 比如不让链接跳转|
-|e.stopPropagation()	|阻止冒泡 标准|
+
+
+## 3.2 `event`-Object
+
+event-Object: Methoden und Eigenschaften zur Abfrage von Daten, die das Event näher beschreiben
+Eigenschaften des event-Objekts
+
+| Eigenschaft                                      | Beschreibung                                                                   |
+| ------------------------------------------------ | ------------------------------------------------------------------------------ |
+| **`event.currentTarget`**                        | Liefert das Element welches das Ereignis ausgelöst hat                         |
+| `**event.timeStamp**`                            | Liefert den Zeitstempel im ms zu dem das Ereignis auftrat                      |
+| `**event.clientX**` und  <br>`**event.clientY**` | Koordinaten des Mauszeigers zum Zeitpunkt eines aufgetretenen Maus-Ereignisses |
+| `**event.key**`                                  | Liefert Wert der Taste die bei einem Tastatur-Ereignis ausgelöst wurde         |
+|                                                  |                                                                                |
+
+## 3.3 事件对象的常见属性和方法
+| 事件对象属性方法            | 说明                             |
+| ------------------- | ------------------------------ |
+| e.target            | 返回触发事件的对象 标准                   |
+| e.srcElement        | 返回触发事件的对象 非标准 ie6-8使用          |
+| e.type              | 返回事件的类型 比如click mouseover 不带on |
+| e.cancelBubble      | 该属性阻止冒泡，非标准，ie6-8使用            |
+| e.returnValue       | 该属性阻止默认行为 非标准，ie6-8使用          |
+| e.preventDefault()  | 该方法阻止默认行为 标准 比如不让链接跳转          |
+| e.stopPropagation() | 阻止冒泡 标准                        |
 
 - click : Wird ausgelöst, wenn ein Element angeklickt wird.
 - mouseover : Wird ausgelöst, wenn die Maus über ein Element bewegt wird.
@@ -229,7 +258,133 @@ eventTarget.addEventListener('click', function(event) {
 - load : Wird ausgelöst, wenn ein Bild Oder eine Seite vollständig geladen ist.
 - scroll : Wird ausgelöst, wenn der Benutzer scrollt.
 
-### 3.1.3 e.target
+
+---
+
+Fenstereignisse
+
+| Ereignis...          | ... wird ausgelöst ...                                                     |
+| -------------------- | -------------------------------------------------------------------------- |
+| **`onafterprint`**   | nachdem das Dokument ausgedruckt wurde                                     |
+| `**onbeforeprint**`  | bevor das Dokument ausgedruckt wird                                        |
+| `**onbeforeunload**` | bevor das Dokument verlassen wird                                          |
+| `**onerror**`        | wenn ein Fehler auftritt                                                   |
+| `**onhaschange**`    | wenn das Dokument verändert wurde                                          |
+| `**onload**`         | wenn die Webseite "fertig" geladen ist                                     |
+| `**onmessage**`      | wenn eine Nachricht ausgelöst wurde                                        |
+| `**onoffline**`      | wenn die Internetverbindung unterbrochen wurde                             |
+| `**ononline**`       | wenn die Internetverbindung hergestellt wurde                              |
+| `**onpagehide**`     | wenn das Fenster welches das Dokument anzeigt versteckt wird               |
+| `**onpageshow**`     | wenn das Fenster welches das Dokument anzeigt sichtbar wird                |
+| `**onpopstate**`     | wenn sich die Historie des Fensters ändert                                 |
+| `**onredo**`         | wenn das Dokument einen Vorgang "Nochmals tun" ausführt                    |
+| `**onresize**`       | wenn die Größe des Browserfensters verändert wird                          |
+| `**onstorage**`      | wenn eine gespeicherte Webseite aktualisiert wird                          |
+| `**onundo**`         | wenn das Dokument einen Vorgang "Rückgängig machen" ausführt               |
+| `**onunload**`       | wenn das Dokument verlassen wurde oder das Browserfenster geschlossen wird |
+|                      |                                                                            |
+
+---
+
+Mausereignisse
+
+| Ereignis...        | ... wird ausgelöst ...                                   |
+| ------------------ | -------------------------------------------------------- |
+| **`onclick`**      | bei einem Mausklick auf das Element                      |
+| `**ondbclick**`    | bei einem Maus-Doppelklick auf das Element               |
+| `**ondrag**`       | wenn das Element mit der Maus gezogen wird               |
+| `**ondragend**`    | beim Beenden des Drag-Vorgangs                           |
+| `**ondragenter**`  | wenn eine Element auf ein Zielelement gezogen wurde      |
+| `**ondragleave**`  | wenn ein Element das Zielelement verlässt                |
+| `**ondragstart**`  | beim Beginn eines Drag-Vorgangs                          |
+| `**ondrop**`       | wenn das gezogene Element fallen gelassen wird           |
+| `**onmousedown**`  | wenn die Maustaste auf einem Element gedrückt wird       |
+| `**onmousemove**`  | wenn der Mauszeiger sich über ein Element bewegt         |
+| `**onmouseout**`   | wenn der Mauszeiger sich aus einem Element heraus bewegt |
+| `**onmousover**`   | wenn sich der Mauszeiger über einem Element bewegt       |
+| `**onmouseup**`    | wenn die Maustaste losgelassen wird                      |
+| `**onmousewheel**` | wenn das Mausrad betätigt wird                           |
+| `**onscroll**`     | wenn der Scrollbalken eines Elements bewegt wird         |
+
+---
+
+Tastaturereignisse
+
+| Ereignis...      | ... wird ausgelöst ...              |
+| ---------------- | ----------------------------------- |
+| **`onkeydown`**  | der Nutzer eine Taste gedrückt hält |
+| `**onkeypress**` | wenn der Nutzer eine Taste drückt   |
+| `**onkeyup**`    | wenn der Nutzer eine Taste loslässt |
+
+---
+
+Formularereignisse
+
+| Ereignis...         | ... wird ausgelöst ...                                                           |
+| ------------------- | -------------------------------------------------------------------------------- |
+| **`onblur`**        | in dem Moment wenn eine Element den Fokus verliert                               |
+| `**onchange**`      | in dem Moment wenn sich der Wert eines Elementes ändert                          |
+| `**oncontextmenu**` | wenn eine Kontextmenü ausgelöst wird (nicht unterstützt in den meisten Browsern) |
+| `**onfocus**`       | wenn eine Element den Fokus erhält                                               |
+| `**onformchange**`  | wenn sich ein Formular verändert                                                 |
+| `**onforminput**`   | wenn das Formular mit Nutzerinhalten gefüllt wird                                |
+| `**oninput**`       | wenn ein Element mit Nutzerinhalten gefüllt wird                                 |
+| `**oninvalid**`     | wenn ein Element ungültig ist                                                    |
+| `**onselect**`      | nachdem Text in einem Element ausgewählt wurde                                   |
+| `**onsubmit**`      | ein Formular abgeschickt wird                                                    |
+
+---
+
+Medienereignisse
+
+| Ereignis...            | ... wird ausgelöst ...                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **`onabort`**          | wenn das Laden von Medieninhalten abgebrochen wird                                                                             |
+| `**oncanplay**`        | wenn eine Datei fertig zum Abspielen ist (d.h. der Buffer bis zu einer bestimmten Größe geladen wurde)                         |
+| `**oncanplaytrough**`  | wenn eine Datei komplett im Buffer geladen ist und ohne Unterbrechungen bis zum Ende abgespielt werden kann                    |
+| `**ondurationchange**` | wenn sich die Laufzeit verändert                                                                                               |
+| `**onemptied**`        | wenn etwas unvorhergesehenes passiert ist und die Datei nicht abspielbereit ist (zum Beispiel Abbruch der Internetverbindung). |
+| `**onended**`          | wenn der Abspielvorgang das Ende der Datei erreicht hat                                                                        |
+| `**onerror**`          | wenn eine Fehler beim Laden einer Mediendatei oder eines Medienstreams ausgetreten ist.                                        |
+| `**onloadeddata**`     | wenn das gezogene Element fallen gelassen wird                                                                                 |
+| `**onloadedmetadata**` | wenn Metadaten (Abspieldauer, Format, etc.) geladen wurden                                                                     |
+| `**onloadstart**`      | in dem Moment wenn eine Datei beginnt zu laden                                                                                 |
+| `**onpause**`          | wenn der Nutzer oder ein Programm die Abspielung anhält                                                                        |
+| `**onplay**`           | wenn der Medieninhalt bereit zum Abspielen ist                                                                                 |
+| `**onplaying**`        | wenn mit dem Abspielen gerade begonnen wurde                                                                                   |
+| `**onprogress**`       | wenn der Browser die Medieninhalte lädt                                                                                        |
+
+---
+
+Medienereignisse
+
+| Ereignis...              | ... wird ausgelöst ...                                                                                                                |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **`onratechange`**       | jedesmal wenn die Abspielrate verändert wird                                                                                          |
+| `**onreadystatechange**` | wenn sich der "Ready State" einer Übertragung verändert                                                                               |
+| `**onseeked**`           | wenn das Seeking-Attribut auf false gesetzt wurde                                                                                     |
+| `**onseeking**`          | wenn das Seeking-Attribut auf true gesetzt wurde                                                                                      |
+| `**onstalled**`          | wenn der Browser den Inhalt nicht laden kann                                                                                          |
+| `**onsuspend**`          | wenn das Laden von Inhalten vorzeitig abgebrochen wurde                                                                               |
+| `**ontimeupdate**`       | wenn sich die Abspielposition verändert hat                                                                                           |
+| `**onvolumechanged**`    | wenn sich der Lautstärkepegel geändert hat                                                                                            |
+| `**onwaiting**`          | wenn die Medienabspielung angehalten wurde, aber fortgesetzt werden soll (zum Beispiel bei Unterbrechung durch Leerlaufen des Buffer) |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 3.4 e.target
 
 ```js
 1
@@ -264,7 +419,7 @@ form.addEventListener("blur",
     true);
 ```
 
-#### 3.1.3.1 e.target 和 this 的区别
+### 3.4.1 e.target 和 this 的区别
 this 是事件绑定的元素， 这个函数的调用者（绑定这个事件的元素）
 e.target 是事件触发的元素。
 
@@ -571,6 +726,14 @@ button.removeEventListener("click", function() {
 
 ## 6.2 传统方式 : Direkt im HTML-Code:
 
+
+- Einrichten des Event Listener durch Ereignis-Attribut des jeweiligen Elements
+- Bei einem Ereignis auf dem Element wird hinterlegte Funktion aufgerufen
+- Vermischung von JavaScript und HTML
+- Nur auf HTML-Elemente anwendbar
+- Jeweils nur ein Event Listener pro Ereignistyp und Element
+
+
 ```html
 <button onclick="alert('Button wurde geklickt!')">Klick mich</button>
 ```
@@ -583,8 +746,25 @@ button.removeEventListener("click", function() {
 </div>
 ```
 
+```html 
+<!-- vorheriges HTML -->
+<button onclick="changeColor()">
+  Farbe ändern
+</button>
+
+<script>
+  function changeColor() {
+    //Funktionslogik
+  }
+</script>
+```
 
 ## 6.3 传统方式: Über JavaScript im Skriptbereich oder einer separaten Datei:
+
+
+- Einrichten des Event Listener durch eine Ereignis-Eigenschaft im Objekt, welches das Element repräsentiert
+- Jeweils nur ein Event Listener pro Ereignistyp und Element - ==bei Registrierung mehrerer Event Listener werden vorherige überschrieben==
+
 
 ```js
 <script>
@@ -604,16 +784,75 @@ button.removeEventListener("click", function() {
 	};
 </script>
 
+
+
+--------------------
+
+var element=document.getElementById("eineID");
+element.onmouseover=function() {/*Funktionslogik*/};
+
+var element=document.getElementById("eineID");
+element.onmouseover=changeColor;
+function changeColor() {
+  //Funktionslogik
+}
+
+
 ```
 
 
+```html
+<!-- vorheriges HTML -->
+<button onclick="changeColor(event)">
+  Farbe ändern
+</button>
+
+<script>
+  function changeColor(evt) {
+    //Funktionslogik
+  }
+</script>
+```
+
+
+```js
+var element=document.getElementById("eineID");
+element.onmouseover=function(evt) {/*Funktionslogik*/};
+```
+
+
+```js
+let element=document.getElementById("but01");
+element.addEventListener("click", changeColor);
+element.addEventListener("click", changeText);
+  
+function changeColor(evt) {
+  //Funktionslogik
+};
+  
+function changeText(evt) {
+  //Funktionslogik
+}
+```
+
+
+
 ## 6.4 addEventListener事件监听方式
+
 https://www.runoob.com/jsref/met-document-addeventlistener.html
 https://www.cnblogs.com/embrace-ly/p/10570052.html
 
 eventTarget.addEventListener()方法将指定的监听器注册到 eventTarget（目标对象）上
 当该对象触发指定的事件时，就会执行事件处理函数
 Die Methode addEventListener lauscht auf ein bestimmtes Event und ruft bei Eintritt des events eine Funktion auf. 
+
+- Verknüpfung zwischen Element und Event Listener mittels der Methode `**addEventListener()**` auf dem jeweiligen Element
+- Erster Parameter bezeichnet die Art des Events (ohne den Präfix "`**on**`")
+    - Erster Parameter des Event Listener referenziert ein `**event**`-Objekt, das beim Aufruf des Listener durch die Laufzeitumgebung übergeben wird
+- Zweiter Parameter enthält die Referenz des Event Listener
+    - Übergabeparameter muss nicht notwendigerweise im Funktionskopf deklariert werden
+- Erster Parameter des Event Listener ist eine Referenz auf ein Objekt vom Typ `**Event**`, welches weitere Informationen über das Event liefert
+- Beispiel: `**currentTarget**` von Event bezeichnet das Element auf das sich das Ereignis bezieht (siehe nächste Folie)
 
 syntax
 ```js
@@ -662,6 +901,29 @@ addEventListener("event", anonyme Funktion als Wrapper für Funktionsaufrufe, ca
 
 ```
 
+
+
+```js
+<!-- vorheriges HTML -->
+<button id="but01">
+  Farbe ändern
+</button>
+<!-- weiteres HTML -->
+
+<script>
+  let element=document.getElementById("but01");
+  element.addEventListener("click", changeColor);
+  element.addEventListener("click", changeText);
+  
+  function changeColor() {
+    //Funktionslogik
+  };
+  
+  function changeText() {
+    //Funktionslogik
+  }
+</script>
+```
 ### 6.4.1 添加多个事件
 您可以在文档中添加许多事件，添加的事件不会覆盖已存在的事件。
 document.addEventListener("click", myFunction);

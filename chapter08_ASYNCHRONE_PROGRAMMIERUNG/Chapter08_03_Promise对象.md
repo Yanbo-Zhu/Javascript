@@ -83,7 +83,7 @@ Hier ist myCallback eine normale Funktion, die als Callback verwendet wird. Sie 
 Eine Funktion höherer Ordnung ist eine Funktion, die entweder:
 Eine andere Funktion als Argument akzeptiert (wie callbackExample rechts), oder Eine Funktion zurückgibt.
 
-```
+```js
 function higherOrderFunction() {
     return function () {
         console.log("This is a returned function.");
@@ -404,7 +404,7 @@ Promise-Methoden: .then(), .catch() und .finally()
 
 1
 then(): Diese Methode wird aufgerufen, wenn das Promise erfüllt ist und erlaubt den Zugriff auf das Ergebnis.
-```
+```js
 myPromise.then(result => {
     console.log(result); // Ausgabe: Erfolg!
 });
@@ -412,7 +412,7 @@ myPromise.then(result => {
 
 2
 catch(): Diese Methode fängt Fehler ab und wird aufgerufen, wenn das Promise abgelehnt wird.
-```
+```js
 myPromise.catch(error => {
     console.log(error); // Ausgabe: Fehler! (wenn success = false wäre)
 });
@@ -421,7 +421,7 @@ myPromise.catch(error => {
 3
 finally(): Diese Methode wird unabhängig vom Erfolg oder Misserfolg der Operation ausgeführt und wird häufig für Bereinigungsaktionen genutzt.
 
-```
+```js
 myPromise.finally(() => {
     console.log("Promise abgeschlossen");
 });
