@@ -41,7 +41,7 @@ When you use the `+` operator with a number (`x = 2`) and a string (`y = "3"`), 
 ## 2.2 subtraction operation: 优先string变成number
 
 ```
-et y = "3";
+let y = "3";
 let z = "4";
 console.log(z - y);
 ```
