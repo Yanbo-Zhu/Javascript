@@ -1,6 +1,10 @@
 
 # 1 fetch API 
 
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+Die fetch-Funktion ist eine moderne JavaScript-API, die verwendet wird, um Netzwerk-Anfragen zu senden und Daten von einem Server abzurufen. Sie ist Teil der Web-API und wird häufig für asynchrone HTTP-Anfragen wie GET, POST, PUT oder DELETE verwendet.
+
 XMLHttpRequest
 ```js
 let xhr=new XMLHttpRequest();
@@ -30,6 +34,7 @@ fetch("https://dummyjson.com/products")
 ```
 
 
+
 - `fetch` API als moderne Alternative zu `XMLHttpRequest`
 - Basiert auf Promises.
     - fetch is Promises funtion 
@@ -40,17 +45,37 @@ fetch("https://dummyjson.com/products")
 - HTTP-Antwort wird dann von der an `**then**` übergebenen Funktion abgefangen und ausgewertet
 - Netzwerkfehler werden den an `**catch**` übergebenen Funktion behandelt
 
+Eigenschaften von fetch
+- Promises-basiert: Es arbeitet mit Promises, was die Arbeit mit asynchronem Code einfach und übersichtlich macht.
+- Nicht blockierend: Es blockiert den Hauptthread nicht, sodass die Benutzeroberfläche reibungslos bleibt.
 
----
 
 
-fetch wit chained promises 
+## 1.1 fetch wit chained promises 
 
 ```js
 fetch("https://dummyjson.com/products")
   .then(response=>response.json())
   .then(data=>console.log(data))
   .catch(()=>console.log("Netzwerkfehler"));
+
+// Beispiel
+fetch('https://dummyjson.com/posts')
+    .then(response => response.json())                 // Antwort parsen
+    .then(data => console.log(data))                   // Daten verwenden
+    .catch(error => console.error("Fehler:", error));  // Fehler behandeln
+
+// Syntax
+fetch(url, options)
+  .then(response => {
+    // Umgang mit der Antwort
+  })
+  .catch(error => {
+    // Fehlerbehandlung
+  })
+  .finally(() => {
+    // ausgeführt unabhängig vom Erfolg oder Misserfolg der Operation
+	});
 ```
 
 
@@ -61,16 +86,74 @@ fetch("https://dummyjson.com/products")
 
 - **`fetch("https://dummyjson.com/products")`**:
     - Sends an HTTP GET request to the provided URL to fetch data from the API.
+    - url: Die URL der Ressource, die abgerufen werden soll.
+    - options: Ein Objekt, das weitere Einstellungen wie die Methode, Header und Body enthält. (optional)
+        - ![](image/f5137f53-adb6-43f6-946c-3b30a209ea27.webp)
+- **`fetch() 的 Rückgabewert: 
+    - fetch gibt ein Promise zurück, das entweder:
+        - aufgelöst wird, wenn die Antwort vom Server kommt.
+        - abgelehnt wird, wenn ein Netzwerkfehler auftritt.
 - **`.then(response => response.json())`**:
+    - res.json  的作用的是 等候 所有的 response geladen 
     - The `fetch` API returns a `Response` object. Here, `response.json()` extracts the JSON body content from the response.
+    - Die Methode `.json()` wird häufig mit der `fetch`-API verwendet, um den Body einer HTTP-Antwort in ein JavaScript-Objekt umzuwandeln. Sie analysiert den JSON-Text der Antwort und gibt ein Promise zurück, das das geparste Objekt enthält.
 - **`.then(data => console.log(data))`**:
     - Once the JSON data is parsed, it logs the resulting JavaScript object (`data`) to the console.
 - **`.catch(() => console.log("Netzwerkfehler"))`**:
     - Handles any errors that occur during the fetch operation, such as network issues or a failed request.
     - Logs `"Netzwerkfehler"` (German for "network error") to the console in case of an error.
 
+### 1.1.1 Json
 
-## 1.1 Anpassung von fetch (I/II)
+JSON (JavaScript Object Notation) ist ein leichtgewichtiges Datenformat, das zum Austausch von Daten zwischen Systemen verwendet wird. Es basiert auf einer einfachen, textbasierten Struktur und ist leicht lesbar für Menschen und Maschinen. JSON wird in der Webentwicklung beim Datenaustausch zwischen einem Server und einem Client eingesetzt.
+
+Objekte: Eine Sammlung von Schlüssel-Wert-Paaren.
+```json
+{
+  "firstname": "Jane",
+  "lastname": "Doe"
+  "age": 25,
+  "country": "US"
+}
+```
+
+Arrays: Eine geordnete Liste von Werten.
+```json
+[
+  "Apple",
+  "Banana",
+  "Orange",
+  "Cherry"
+]
+```
+
+
+**Beispiel: API-Daten**
+*Ein Server könnte folgende JSON-Daten an einen Client senden:*
+```json
+{
+  "benutzer": {
+    "id": 123,
+    "name": "Max Mustermann",
+    "email": "max@example.com"
+  },
+  "bestellungen": [
+    {
+      "id": 1,
+      "produkt": "Laptop",
+      "preis": 1200.99
+    },
+    {
+      "id": 2,
+      "produkt": "Maus",
+      "preis": 25.5
+    }
+  ]
+}
+```
+
+
+## 1.2 Anpassung von fetch (I/II)
 
 在 fetch 中使用 specific  request message 
 

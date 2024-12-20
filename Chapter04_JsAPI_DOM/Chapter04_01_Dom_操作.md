@@ -426,18 +426,20 @@ JavaScript 的 DOM 操作可以改变网页内容、结构和样式，我们可�
 ## 7.2 改变元素内容
 https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
 
-1  element.innerText
-从起始位置到终止位置的内容，但它去除html标签，同时空格和换行也会去掉。
-ändert nur den sichtbaren Textinhalt eines Elements und berücksichtigt dabei das CSS-Rendering. Nicht sichtbare Inhalte (z. B. aufgrund von display: none) werden ignoriert.
-```
-element.innerText = "Neuer Inhalt";
-```
 
-
-2 element.innerHTML
+1 element.innerHTML
 起始位置到终止位置的全部内容，包括HTML标签，同时保留空格和换行
 erlaubt das Einfügen von HTML-Inhalten in ein Element.
 `element.innerHTML = "<p>Neuer Inhalt</p>";`
+
+- **功能**: 获取或设置 HTML 格式的内容。
+- **特点**:
+    - 会解析 HTML 标签。
+    - 支持嵌入的 HTML 代码。
+- 用法
+    - `document.getElementById('example').innerHTML = '<b>Bold Text</b>';`  如果元素内容是 `<b>Bold Text</b>`，`innerHTML` 将返回：`<b>Bold Text</b>`。
+    - **优点**: 能动态插入 HTML 代码，适合需要嵌入复杂结构时使用。
+    - **缺点**: 容易引发 **XSS (跨站脚本攻击)**，如果内容来源不可信，请避免使用。
 
 
 ```html
@@ -466,6 +468,29 @@ erlaubt das Einfügen von HTML-Inhalten in ein Element.
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/f3394f40561e45c299c09d7bbecdb513.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F1Z2Vuc3Rlcm5fUVhM,size_16,color_FFFFFF,t_70#pic_center)
 
 
+
+2  element.innerText
+从起始位置到终止位置的内容，但它去除html标签，同时空格和换行也会去掉。
+==ändert nur den sichtbaren Textinhalt eines Elements== und berücksichtigt dabei das CSS-Rendering. Nicht sichtbare Inhalte (z. B. aufgrund von display: none) werden ignoriert.  就是说 element.innerText  根本找不到  Nicht sichtbare Inhalte, 自然也就无法改变它的 值了  
+```
+element.innerText = "Neuer Inhalt";
+```
+
+- **功能**: 获取或设置元素中**可见的文本内容**。
+- **特点**:
+    - 不解析 HTML 标签，只返回用户在页面上看到的文本。
+    - 会忽略隐藏的内容（如通过 `display: none` 隐藏的部分）。
+    - 会受 CSS 的影响，比如 `text-transform`。
+- 实例
+    - `document.getElementById('example').innerText = 'Plain Text';`  如果元素内容是 `<b>Bold Text</b>`，`innerText` 将返回：`Bold Text`。
+- **优点**:
+    - 操作简单，直接返回可见内容。
+- **缺点**:
+    - 访问效率较低，因为它会触发浏览器的**回流（reflow）**，计算当前的可见内容。
+
+
+
+
 3  element.textContent
 
 ändert den Textinhalt, ohne HTML-Tags zu interpretieren.
@@ -480,6 +505,34 @@ doFoo.onclick = () => {
 
 ```
 
+- **优点**:
+    - 操作简单，直接返回可见内容。
+- **缺点**:
+    - 访问效率较低，因为它会触发浏览器的**回流（reflow）**，计算当前的可见内容。
+- 示例 
+    - `document.getElementById('example').textContent = 'Plain Text';`
+- **优点**:
+    - 性能更高，因为它不会触发回流。
+    - 更安全，用于防止 XSS 攻击。
+- **缺点**:
+    - 不会保留 HTML 格式，所有标签会被当作普通文本。
+
+
+4 innerHTML 和 innerText, textContent 三者的比较 
+
+| 特性             | `innerHTML`  | `innerText`  | `textContent` |
+| -------------- | ------------ | ------------ | ------------- |
+| **包含 HTML 标签** | ✅ 解析 HTML    | ❌ 不解析        | ❌ 不解析         |
+| **包含隐藏内容**     | ✅ 包含         | ❌ 不包含        | ✅ 包含          |
+| **性能**         | 较低（解析 HTML）  | 较低（触发回流）     | 高（只读写文本内容）    |
+| **安全性**        | 容易受 XSS 攻击   | 较安全          | 非常安全          |
+| **典型应用场景**     | 动态插入或修改 HTML | 获取或设置可见的文本内容 | 获取或设置所有文本内容   |
+
+### 7.2.1 **使用建议**
+
+- **`innerHTML`**: 需要动态操作 HTML 时使用，但要避免不可信内容。
+- **`innerText`**: 操作用户可见文本时使用。
+- **`textContent`**: 获取纯文本内容时优先使用，性能更好且更安全。
 
 4 element.replaceChildren(...arrayOfNewChildren);
 

@@ -86,4 +86,3 @@ Zusammenfassung:
 
 ![](image/Pasted%20image%2020241030154053.png)
 
-+:  
