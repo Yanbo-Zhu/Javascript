@@ -844,6 +844,7 @@ https://www.cnblogs.com/embrace-ly/p/10570052.html
 
 eventTarget.addEventListener()方法将指定的监听器注册到 eventTarget（目标对象）上
 当该对象触发指定的事件时，就会执行事件处理函数
+
 Die Methode addEventListener lauscht auf ein bestimmtes Event und ruft bei Eintritt des events eine Funktion auf. 
 
 - Verknüpfung zwischen Element und Event Listener mittels der Methode `**addEventListener()**` auf dem jeweiligen Element
@@ -924,7 +925,10 @@ addEventListener("event", anonyme Funktion als Wrapper für Funktionsaufrufe, ca
   }
 </script>
 ```
+
+
 ### 6.4.1 添加多个事件
+
 您可以在文档中添加许多事件，添加的事件不会覆盖已存在的事件。
 document.addEventListener("click", myFunction);
 document.addEventListener("click", someOtherFunction);

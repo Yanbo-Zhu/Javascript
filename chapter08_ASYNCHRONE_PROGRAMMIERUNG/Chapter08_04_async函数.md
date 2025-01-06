@@ -4,7 +4,6 @@ ES17 kennt die neuen Schlüsselworte async und await. Damit werden eine Methode 
 
 Promises und async/await sind zwei verschiedene Ansätze in JavaScript, um mit asynchronem Code umzugehen. Beide haben ihre Vor- und Nachteile und können je nach Anwendungsfall eingesetzt werden.
 
-
 # 1 async/await Funktionen
 
 Async/Await ist eine syntaktische Verbesserung für die Arbeit mit Promises, die es ermöglicht, asynchronen Code wie synchronen Code zu schreiben.
@@ -109,10 +108,9 @@ Das angezeigte Ergebnis lautet [object Promise] 7. Ersteres ist das Promise (nic
 
 ## 2.2 async
 
-
 `async`函数返回一个 Promise 对象，可以使用`then`方法添加回调函数。当函数执行的时候，一旦遇到`await`就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
 
-Präfi x async vor Funktionen zeigt an, dass die Funktion ein Promise als Rückgabeargument liefert
+Präfix async vor Funktionen zeigt an, dass die Funktion ein Promise als Rückgabeargument liefert
 Der Rückgabewert kann explizit als Promise deklariert werden, wird der Rückgabewert mit einem anderen Datentyp deklariert wird er automatisch in ein Promise eingepackt
 
 ```js

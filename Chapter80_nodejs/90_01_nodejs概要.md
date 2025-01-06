@@ -10,19 +10,6 @@ In der Vorlesung als Webserver und als Basis für die Entwicklungsumgebung Vite 
 
 > Node.js ermöglicht das Ausführen von JavaScript außerhalb des Browsers, also auf Servern oder Computern, was die Erstellung von serverseitigen Anwendungen in JavaScript ermöglicht.
 
-# 1 npm (nodejs package manager)
-
-
-
-Eingebauter Packet-Manager von node.js
-
-Tool zum Installieren, Aktualisieren und Entfernen von node.js- Paketen
-
-Steuerung mittels Command Line Interface npm Registry ist ein Repository mit mehr als 350.000 Paketen für node.js
-
-![](image/Pasted%20image%2020241030151148.png)
-
-
 
 # 2 nodejs 中的implicit type conversion
 
