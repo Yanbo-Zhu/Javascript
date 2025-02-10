@@ -500,6 +500,8 @@ for (const element of array1) {
 
 ## 4.6 添加删除 property
 
+Der delete-Operator in JavaScript wird verwendet, um Eigenschaften aus Objekten zu entfernen. 
+
 ```js
 anyObject.living = true; // 即使living 这个 attribute 之前不存在, 通过这个statement 也可以直接生成出来 这个 attribute 
 console.log(anyObject);
