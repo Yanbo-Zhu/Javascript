@@ -5,6 +5,14 @@
 流程控制主要有三种结构，分别是顺序结构、分支结构和循环结构，这三种结构代表三种代码执行的顺序
 JS 语言提供了两种分支结构语句：JS 语句 switch语句
 
+- Mehrere `**if**`/`**else**`-Anweisungen können miteinander verknüpft werden   
+- `**switch**`-Anweisung ist oftmals anstelle von langen Ketten von `**if**`/`**else**`-Anweisungen vorzuziehen
+- Ein `**case**` ist ein Einsprungpunkt, ab dem mit der Ausführung einer Sequenz von Anweisungen begonnen wird
+- Ausdruck hinter `**switch**` wird evaluiert und mit den Werten hinter `**case**` verglichen
+- Bei Übereinstimmung wird mit der Ausführung ab der Anweisung hinter `**case**` fortgesetzt bis zum Ende der `**switch**`-Blockes 
+- Bei einem `**break**` wird die Ausführung abgebrochen und der `**switch**`-Block verlassen
+- Gibt es für keinen `**case**`-Wert eine Übereinstimmung, wird mit den Anweisungen hinter `**default**` fortgesetzt
+
 ## 1.1 三元表达式
 
 语法结构 : 表达式1 ? 表达式2 : 表达式3
@@ -174,7 +182,18 @@ switch (fruit) {
 }
 ```
 
+```js
+switch(prompt("Gib einen HTTP Status Code ein!")) {
+  case 200: console.log("OK"); break;
+  case 201: console.log("Created"); break;
+  case 202: console.log("Accepted"); break; 
+  case 203: console.log("Non-Authorative Information"); break;
+  case 204: console.log("No Content"); break;
+  default: console.log("Unbekannter Status Code"); break;
+}
 
+
+```
 # 2 循环
 ## 2.1 for循环
 在程序中，一组被重复执行的语句被称之为循环体，能否继续重复执行，取决于循环的终止条件。由循环体及循环的终止条件组成的语句，被称之为循环语句

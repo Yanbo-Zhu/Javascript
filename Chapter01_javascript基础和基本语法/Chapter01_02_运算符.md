@@ -1,5 +1,16 @@
 https://blog.csdn.net/Augenstern_QXL/article/details/119249534
 
+| Operation      | Operator | Beschreibung                                                                                                      |
+| -------------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+| Addition       | +        | Summe der Operanden                                                                                               |
+| Subtraktion    | -        | Differenz der Operanden                                                                                           |
+| Multiplikation | *        | Produkt der Operanden                                                                                             |
+| Division       | /        | Quotient der Operanden                                                                                            |
+| Modulo         | %        | Ganzzahliger Rest der Division der Operanden                                                                      |
+| Inkrement      | ++       | Unärer Operator, der den Operanden um eins erhöht. Kann als Präfix- und als Postfix-Operator verwendet werden     |
+| Dekrement      | --       | Unärer Operator, der den Operanden um eins verringert. Kann als Präfix- und als Postfix-Operator verwendet werden |
+| unäre Negation | !        | Unärer Operator, der die Negation der Operanden liefert. Nur Präfix-Notation.                                     |
+
 ![](image/Pasted%20image%2020241123143540.png)
 # 1 运算符
 

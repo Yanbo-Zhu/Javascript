@@ -43,7 +43,7 @@ fetch(url, options)
   })
   .finally(() => {
     // ausgeführt unabhängig vom Erfolg oder Misserfolg der Operation
-	});
+  });
 ```
 
 

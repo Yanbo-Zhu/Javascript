@@ -359,7 +359,15 @@ getSum(6，5) //11
 ```
 
 
-## 5.2 形参和实参个数不匹配
+## 5.2 形参和实参个数不匹配  Optionale Argumente
+
+- JavaScript ist sehr tolerant hinsichtlich der Anzahl der Parameter, die einer Funktion beim Aufruf übergeben werden
+    - Wenn beim Aufruf mehr Werte übergeben werden, als die Funktion Parameter definiert, werden die restlichen ignoriert
+    - Wenn beim Aufruf weniger Werte übergeben werden, als die Funktion Parameter definiert, werden die fehlenden Parameter mit undefined belegt
+- Verhalten ermöglicht die Definition von Funktionen mit optionalen Parametern und von solchen, die eine beliebige Anzahl von Parametern akzeptieren und bearbeiten können
+
+
+![](image/Pasted%20image%2020250217214816.png)
 
 |参数个数| 说明|
 |--|--|

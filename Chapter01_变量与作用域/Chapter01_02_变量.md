@@ -1,12 +1,34 @@
 https://blog.csdn.net/Augenstern_QXL/article/details/119249534
 
 
-# 1 变量
+# 1 总览 
+
 
 变量是用于存放数据的容器，我们通过变量名获取数据，甚至数据可以修改
 本质：变量是程序在内存中申请的一块用来存放数据的空间
 
-## 1.1 变量的命名规范 Namingkonvention 
+![](image/Pasted%20image%2020250217213033.png)
+
+- Daten werden in **_Variablen_** gespeichert und repräsentieren den internen Zustand eines Programmes
+- Deklaration einer Variablen erfolgt mit dem Schlüsselwort `**let**` gefolgt vom Namen der Variablen
+- Optional kann die Variable während der Deklaration durch den `**=**`-Operator gefolgt von einem Ausdruck mit einem Wert initialisiert werden
+- **_Typinferenz_** (**_Type Inference_**): Deklaration einer Variablen erfolgt ohne Typangabe, d.h. Bestimmung des Datentyps erfolgt automatisch zur Laufzeit
+- Nach Definition einer Variable, kann sie als Ausdruck oder in einem Ausdruck verwendet werden
+- Variablen können während der Laufzeit des Programms verschiedene Werte unterschiedlicher Datentypen annehmen
+- Variablen primitiver Datentypen speichern den Wert, Variablen komplexer Datentypen speichern die Referenz auf den Wert
+
+
+# 2 Blockanweisungen 
+
+- Eine **_Blockanweisung_** gruppiert 0 oder mehrere Anweisungen
+- Ein Block wird durch ein Paar geschweifte Klammern abgegrenzt und kann optional mit einem Label gekennzeichnet werden
+- Eine Blockanweisungen wird meistens in Verbindung mit Kontrollflussanweisungen (`**if**`/`**else**`, `**for**`, `**while**`) genutzt 
+- Unter dem **_Block Scope_** (**_Block-Sichtbarkeitsbereich_**) einer Variablen versteht man den Programmabschnitt, in dem eine Variable sicht- und nutzbar ist
+- Variablen, die mit `**let**` deklariert werden, haben einen Block Scope
+
+![](image/Pasted%20image%2020250217213214.png)
+
+# 3 变量的命名规范 Namingkonvention 
 
 Groß- und Kleinschreibung wird unterschieden
 ein Variablenname besteht nur aus Buchstaben, Ziffern oder dem Unterstrich, keine Leerzeichen
@@ -25,7 +47,7 @@ JavaScript-Schlüsselworte dürfen keine Variablennamen sein
    1. MMD 、BBD、 nl → age
 6. 遵守驼峰命名法。首字母小写，后面单词的首字母需要大写。 myFirstName
 
-## 1.2 标识符、关键字、保留字
+# 4 标识符、关键字、保留字
 
 （1）标识符
 标识(zhi)符：就是指开发人员为变量、属性、函数、参数取的名字。
@@ -40,7 +62,7 @@ JavaScript-Schlüsselworte dürfen keine Variablennamen sein
 包括：boolean、byte、char、class、const、debugger、double、enum、export、extends、fimal、float、goto、implements、import、int、interface、long、mative、package、private、protected、public、short、static、super、synchronized、throws、transient、volatile 等。
 
 
-## 1.3 变量初始化
+# 5 变量初始化
 
 1. var是一个JS关键字，用来声明变量(variable变量的意思)。使用该关键字声明变量后，计算机会自动为变量分配内存空间。
 2. age 是程序员定义的变量名，我们要通过变量名来访问内存中分配的空间
@@ -71,7 +93,7 @@ var age = 18, address ='火影村',salary = 15000;
 </script>
 ```
 
-## 1.4 变量的声明,赋值
+# 6 变量的声明,赋值
 
 - let - blockscope
 - const - blockscope

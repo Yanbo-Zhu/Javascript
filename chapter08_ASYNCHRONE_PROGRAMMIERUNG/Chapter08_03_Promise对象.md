@@ -360,7 +360,7 @@ let myPromise = new Promise((resolve, reject) => {
 ```
 
 
-## 4.2 `then`方法分别指定`resolved`状态和`rejected`状态的回调函数
+## 4.2 `then`方法分别指定`resolved`状态和`rejected`状态的回调函数 (重要)
 
 
 `Promise`实例生成以后，可以用`then`方法分别指定`resolved`状态和`rejected`状态的回调函数。
@@ -403,7 +403,7 @@ promise.then(
 Promise-Methoden: .then(), .catch() und .finally()
 
 1
-then(): Diese Methode wird aufgerufen, wenn das Promise erfüllt ist und erlaubt den Zugriff auf das Ergebnis.
+then(): Diese Methode wird aufgerufen, wenn das Promise erfüllt ist (就是 resolve(value); 被使用了) und erlaubt den Zugriff auf das Ergebnis.
 ```js
 myPromise.then(result => {
     console.log(result); // Ausgabe: Erfolg!
@@ -411,7 +411,7 @@ myPromise.then(result => {
 ```
 
 2
-catch(): Diese Methode fängt Fehler ab und wird aufgerufen, wenn das Promise abgelehnt wird.
+catch(): Diese Methode fängt Fehler ab  (就是 reject(value); 被使用了)  und wird aufgerufen, wenn das Promise abgelehnt wird.
 ```js
 myPromise.catch(error => {
     console.log(error); // Ausgabe: Fehler! (wenn success = false wäre)
@@ -804,6 +804,23 @@ To avoid undefined, return a value explicitly in the catch block, like:
 ```
 
 Now the second .then() will log "Better luck next time!" instead of undefined after a rejection.
+
+## 5.2 
+
+```js
+new Promise((resolve, reject) => { reject("A"); }) 
+    .then(wert => {console.log(wert); return "B";})
+    .catch(err => {console.log(err); return "C";})
+    .then(wert => {console.log(wert); return "D";})
+    .catch(wert => {console.log(wert); return "E";})
+    .finally(() => console.log("F"));
+```
+
+返回的值 是 A, C, F
+
+- reject("A"); 中的A 传给 catch(err => {console.log(err); return "C";}) 中的 err, console 输出 A
+- catch(err => {console.log(err); return "C";}) 中 c 传给 then(wert => {console.log(wert); return "D";}) 中的 wert,  console 输出 c
+- then(wert => {console.log(wert); return "D";}) 执行完了以后 执行 finally(() => console.log("F"));  输出 f.  不会输出 d 因为 虽然 return D , 但是 finally(() => console.log("F")); 中并没有什么语句 要 拿到 D 输出. 
 
 
 

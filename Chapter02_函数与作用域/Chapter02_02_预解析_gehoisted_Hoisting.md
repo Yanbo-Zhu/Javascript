@@ -75,12 +75,20 @@ var  fn = function() {
 ```
 
 
-# 2 英语对应
+# 2 德语英语对应
+
 变量提升
 keine hoisting的意思是 : 不用先定义后使用, funtion 可以, 先 ausfuhre, 然后在下一行 进行 这个 funtion 的 decalre 
 Funktion ist hoisted 的意思是: funktion 已经在前面先被定义了, 然后再 之后的行中被使用了 
 
+
+- Funktionsanweisungen können überall im Programm eingefügt werden, auch dann, wenn die Funktion vor der Funktionsanweisung aufgerufen wird
+- **_Hoisting_** (**_Heben_**): intern verschiebt der Interpreter alle Funktionsdeklarationen vor der Ausführung eines Scope an seinen Beginn
+- Hoisting funktioniert nicht für Funktionsausdrücke
+
 # 3 变量预解析(变量提升 )
+
+
 变量预解析也叫做变量提升
 
 
@@ -101,6 +109,7 @@ num = 10;		// 变量的赋值不会提升
 
 
 # 4 函数预解析(函数提升,gehoisted, hositing)
+
 函数提升： 函数的声明会被提升到当前作用域的最上面，但是不会调用函数。
 
 Funktionsdeklarationen werden gehoisted (an den Anfang des Skripts geschoben)
@@ -159,6 +168,7 @@ var  fn = function() {
 
 
 # 6 预解析练习
+
 预解析部分十分重要，可以通过下面4个练习来理解。
 Pink老师的视频讲解预解析：https://www.bilibili.com/video/BV1Sy4y1C7ha?p=143
 

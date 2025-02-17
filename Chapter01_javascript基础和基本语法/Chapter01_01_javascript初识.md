@@ -79,7 +79,27 @@ BOM (Browser Object Model，简称BOM) 是指浏览器对象模型，它提供�
 面向对象是软件开发中的一种重要的编程思想，其优点非常多。
 
 
-![](image/Pasted%20image%2020241123143052.png)
+Script-Sprache
+- Programmiersprachen, die nicht vor der Ausführung durch einen **_Compiler_** übersetzt werden, sondern während der Ausführung durch einen **_Interpreter_**
+- Einfacher in der Umsetzung als Compiler-Sprachen, da Kompilierungszeit entfällt
+- Interpretierte Sprachen benötigen längere Ausführungszeit, da die Übersetzung während der Ausführung erfolgt 
+
+**Dynamische Typisierung**
+- Datentypen werden dynamisch zur Laufzeit ermittelt
+- Keine Möglichkeiten, eine Variable mit einem Typ zu deklarieren
+- Typ einer Variablen kann sich zur Laufzeit ändern
+- Automatische Konvertierung von Typen, beispielsweise bei Vergleichen mit dem `**==**`-Operator
+
+
+**Funktionale Programmierung**
+- Funktionen als **_erstklassige Objekte_**, d.h. sie können Variablen zugewiesen und als Parameter anderer Funktionen verwendet werden
+- _**Deklarativ**_: Man bestimmt was ein Programm macht, nicht wie es etwas macht
+
+**Prototypische Objektorientierung**
+- Umsetzung des objektorientierten Paradigmas basierend auf **_Prototypen_**, nicht Klassen
+- Spätere Versionen von Javascript untewrstützen auch die _**klassenbasierte Objektorientierung**_
+
+
 
 # 3 注释
 

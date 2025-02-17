@@ -6,6 +6,13 @@ https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/
 
 ## 1.1 let,const, var的德语解析 
 
+- Seit Version 6 von ECMAScript können Variablen mit den Schlüsselwörtern `**let**` und `**const**` deklariert werden
+- `**let**` deklariert Variablen auf Blockebene werden, d.h. der Scope der Variablen wird durch den umgebenden Block gebildet
+- Außerhalb des umgebenden Blockes ist eine mit `**let**` deklarierte Variable nicht zugreifbar
+- Traditionelle Deklaration von Variablen (vor Version 6) mit `**var**`
+- `**var**` hat keinen Block-Scope
+- Mit `**const**` können nicht veränderbare Variablen (_Konstanten_) deklariert werden, deren Scope durch den umgebenden Block gegeben ist
+
 
 In JavaScript, im Gegensatz zu z.B. Java oder C, müssen wir uns keine Gedanken darüber machen, welchen Typ unsere Variable hat. Wir müssen keine int oder long vor Zahlen, double oder float vor Gleitkommazahlen setzen.
 
@@ -68,11 +75,11 @@ console.log(myVar); // true
 ## 1.2 let、const、var 的总览
 
 
-|?|var	|let	|const|
-|---|---|---|---|
-|scope|函数级作用域|	块级作用域|	块级作用域|
-|预解析 gehoisten, Hoist |变量提升	|不存在变量提升|	不存在变量提升|
-|值的变化|值可更改|	值可更改	|值不可更改|
+| ?                    | var    | let     | const   |
+| -------------------- | ------ | ------- | ------- |
+| scope                | 函数级作用域 | 块级作用域   | 块级作用域   |
+| 预解析 gehoisten, Hoist | 变量提升   | 不存在变量提升 | 不存在变量提升 |
+| 值的变化                 | 值可更改   | 值可更改    | 值不可更改   |
 
 1. 使用var声明的变量，其作用域为该语句所在的函数内，且存在变量提升现象。  die Variable ist gültig in der Funktion, in der sie deklariert wird
 2. 使用let声明的变量，其作用域为该语句所在的代码块内，不存在变量提升。 die Variable ist gültig in dem Anweisungsblock, in dem sie deklariert wird

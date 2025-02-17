@@ -11,9 +11,9 @@ In der Vorlesung als Webserver und als Basis für die Entwicklungsumgebung Vite 
 > Node.js ermöglicht das Ausführen von JavaScript außerhalb des Browsers, also auf Servern oder Computern, was die Erstellung von serverseitigen Anwendungen in JavaScript ermöglicht.
 
 
-# 2 nodejs 中的implicit type conversion
+# 1 nodejs 中的implicit type conversion
 
-## 2.1 add operator (a string + a number): 优先number变成string
+## 1.1 add operator (a string + a number): 优先number变成string
 
 ```
 let x = 2;
@@ -25,7 +25,7 @@ When you use the `+` operator with a number (`x = 2`) and a string (`y = "3"`), 
 
 
 
-## 2.2 subtraction operation: 优先string变成number
+## 1.2 subtraction operation: 优先string变成number
 
 ```
 let y = "3";
@@ -36,7 +36,7 @@ console.log(z - y);
 - The `-` operator in JavaScript triggers **implicit type conversion** for both `z` and `y`, treating them as numbers for the subtraction operation.
 - So `z - y` becomes `4 - 3`, resulting in `1`.
 
-## 2.3 multiple operator (a string + a number): string变成number
+## 1.3 multiple operator (a string + a number): string变成number
 
 
 例子1
@@ -68,7 +68,7 @@ console.log(z + y * x);
 
 
 
-## 2.4 总结
+## 1.4 总结
 Zusammenfassung:
 
 ![](image/Pasted%20image%2020241030154053.png)
