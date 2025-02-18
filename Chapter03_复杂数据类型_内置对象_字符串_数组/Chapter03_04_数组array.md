@@ -1,4 +1,12 @@
 
+- Ein **_Array (Feld_**) ist ein JavaScript-Objekt und speichert mehrere Werte unter einem gemeinsamen Namen
+- Werte sind die Eigenschaften des Array-Objekts, deren Eigenschaftsnamen numerisch und abzählbar sind, um den Index des Array zu realisieren
+- Index beginnt bei 0
+- In Gegensatz zu anderen Programmiersprachen ist die Größe des Array dynamisch und die Werte können unterschiedliche Datentypen haben
+- Felder können mit der **_Literal-Notation_** oder mit einem **_Array-Konstruktor_** erzeugt werden
+- Arrays haben vordefinierte Eigenschaften wie z.B. `**length**` zur Bestimmung der Länge des Arrays oder zahlreiche Methoden zur Bearbeitung des Arrays
+
+
 # 1 数组的原理
 
 数组(Array)是指一组数据的集合，其中的每个数据被称作元素，在数组中可以存放任意类型的元素。数组是一种将一组数据存储在单个变量名下的优雅方式。
@@ -83,7 +91,55 @@ var arrStus =['小白'，12,true,28.9];
 声明数组并赋值称为数组的初始化
 这种字面量方式也是我们以后最多使用的方式
 
+
+### 2.1.1 Literalnotation
+
+```js
+let obst=[];
+obst[0]="Apfel";
+obst[1]="Kirsche";
+obst[2]="Birne";
+obst;
+
+obst.length;
+
+let gemuese=["Paprika", "Tomate", "Gurke"];
+gemuese;
+gemuese.length;
+
+gemuese.length;
+
+```
+
+
+### 2.1.2 Array-Konstruktor
+```js
+let buecher=new Array("JS Programmieren für Einsteiger", 
+                      "JS: Das umfassende Handbuch", 
+                      "Einstieg in JS");
+buecher;
+
+
+buecher.length;
+```
+
+
+### 2.1.3 Mehrdimensionale Felder
+
+```js
+var buecher=new Array();
+buecher[0]=new Array("Paul Fuchs", "JS Programmieren für Einsteiger", "BMU Verlag", 2019);
+buecher[1]=new Array("Philip Ackermann", "JS Das umfassende Handbuch", "Rheinwerk Computing", 2021);
+buecher[2]=new Array("Thomas Theis", "Einstieg in JS", "Rheinwerk Computing", 2021);
+buecher;
+
+buecher[1][2];
+buecher[1];
+
+```
+
 ## 2.2 检测是否为数组
+
 instanceof 运算符，可以判断一个对象是否属于某种类型
 Array.isArray(对象的名字 ) 用于判断一个对象是否为数组，isArray() 是 HTML5 中提供的方法
 
@@ -97,9 +153,10 @@ console.log(Array.isArray(obj));   // false
 ```
 
 ## 2.3 数组的索引（下标）
+
 索引 (下标) ：用来访问数组元素的序号（数组下标从 0 开始）
 
-```
+```js
 //定义数组
 var arrStus = [1,2,3];
 //获取数组中的第2个元素
@@ -113,7 +170,7 @@ listOfNames[3]="Susanne";
 
 使用“数组名.length”可以访问数组元素的数量（数组长度）
 
-```
+```js
 var arrStus = [1,2,3];
 alert(arrStus.length);  // 3
 ```
@@ -125,11 +182,42 @@ alert(arrStus.length);  // 3
 
 
 
+# 3 Methoden auf Arrays
 
-# 3 扩展运算符 ES6 spreads arguments into a real Array
+| Methode         | Beschreibung                                                                                           |
+| --------------- | ------------------------------------------------------------------------------------------------------ |
+| `**concat()**`  | Hängt Elemente oder Felder an ein bestehendes Feld an.                                                 |
+| `**filter()**`  | Filtert Elemente aus dem Feld auf Basis eines in Form einer Funktion übergebenen Filterkriteriums.     |
+| `**forEach()**` | Wendet eine übergebene Funktion auf jedes Element im Feld an.                                          |
+| `**join()**`    | Wandelt ein Feld in eine Zeichenkette um.                                                              |
+| `**map()**`     | Bildet die Elemente eines Feldes auf Basis einer übergebenen Umwandlungsfunktion auf neue Elemente ab. |
+| `**pop()**`     | Entfernt das letzte Element eines Feldes.                                                              |
+| `**push()**`    | Fügt ein neues Element am Ende des Feldes ein.                                                         |
+| `**reduce()**`  | Fasst die Elemente eines Feldes auf der Basis einer übergebenen Funktion zu einem Wert zusammen.       |
+| `**reverse()**` | Kehrt die Reihenfolge der Elemente im Feld um.                                                         |
+| `**shift()**`   | Entfernt das erste Element eines Feldes.                                                               |
+| `**slice()**`   | Schneidet einzelne Elemente aus einem Feld heraus.                                                     |
+| `**splice()**`  | Fügt neue Elemente an beliebiger Position im Feld hinzu.                                               |
+| `**sort()**`    | Sortiert das Feld, optional auf Basis einer übergebenen Vergleichsfunktion.                            |
+
+
+```js
+let slogan=[];
+slogan.push("Wir");
+slogan.push("haben", "die", "Ideen", "für", "Zukunft");
+slogan;
+
+slogan.pop();
+slogan.push("morgen");
+
+```
+
+
+
+# 4 扩展运算符 ES6 spreads arguments into a real Array
 https://www.mediaevent.de/javascript/spread-operator.html
 
-## 3.1 含义
+## 4.1 含义
 
 扩展运算符（spread）是三个点（`...`）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。
 
@@ -251,7 +339,7 @@ console.log(...[1, 2])
 
 上面三种情况，扩展运算符都放在圆括号里面，但是前两种情况会报错，因为扩展运算符所在的括号不是函数调用。
 
-## 3.2 替代函数的 apply() 方法
+## 4.2 替代函数的 apply() 方法
 
 由于扩展运算符可以展开数组，所以不再需要`apply()`方法将数组转为函数的参数了。
 
@@ -312,7 +400,7 @@ new (Date.bind.apply(Date, [null, 2015, 1, 1]))
 new Date(...[2015, 1, 1]);
 ```
 
-## 3.3 扩展运算符的应用
+## 4.3 扩展运算符的应用
 
 
 (0)扩展运算符可以将数组或者对象转为用逗号分隔的参数序列。

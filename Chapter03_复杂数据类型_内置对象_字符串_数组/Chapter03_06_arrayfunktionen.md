@@ -756,16 +756,38 @@ let evenNumbers = numbers.filter(function(num) {
     return num % 2 === 0;
 });
 console.log(evenNumbers); // [2, 4]
+
+function filter(array, test) {
+  let passed=[];
+  for (let i=0; i<array.length; i++)
+    if (test(array[i]))
+      passed.push(array[i]);
+  return passed;
+};
+
+filter(ancestry, function(person) {
+  return person.born>1900 && person.born<1925;
+});
+
+ancestry.filter(function(person) {
+  return person.father=="Carel Haverbeke";
+});
 ```
 
 Verwendung: Wenn man ein Array nach bestimmten Kriterien filtern möchte.
+
+- Die Funktion `**filter(...)**` entnimmt einem Feld diejenigen Elemente, welche einen "Test" erfüllen
+- `**test**` ist ein **_Funktionsargument_**, das die Referenz auf eine Funktion enthält, welche die Bedingung des Tests enthält
+- Hier: Beispielimplementierung von `**filter()**`
+
+- Hier: Verwendung der auf Feldern definierten Standardmethode `**filter()**`
 
 
 ----
 
 
 array.filter(function(currentValue,index,arr))
-filter()方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素，主要用于筛选数组
+filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素，主要用于筛选数组
 注意它直接返回一个新数组
 -   currentValue : 数组当前项的值
 -   index ：数组当前项的索引
@@ -853,6 +875,30 @@ let sum = numbers.reduce(function(acc, num) {
     return acc + num;
 }, 0);
 console.log(sum); // 10
+
+
+function reduce(array, combine, start) {
+  let current=start;
+  for (let i=0; i<array.length; i++)
+    current=combine(current, array[i]);
+  return current;
+};
+
+reduce([1,2,3,4], function(a,b) {
+  return a+b;}, 0);
+}
+
+reduce(ancestry, function(a,b) {
+  if (b.sex=="f") return a+1;
+  else return a;}, 0); 
+}
+
+
+ancestry.reduce(function(min, cur) {
+  if (cur.born<min.born) return cur;
+  else return min;
+});
+
 ```
 
 acc 的初始值 为0

@@ -8,6 +8,8 @@ Promises und async/await sind zwei verschiedene Ansätze in JavaScript, um mit a
 
 Async/Await ist eine syntaktische Verbesserung für die Arbeit mit Promises, die es ermöglicht, asynchronen Code wie synchronen Code zu schreiben.
 
+
+
 async markiert eine Funktion als asynchron und gibt implizit ein Promise zurück.
 
 await pausiert die Ausführung, bis das Promise aufgelöst ist (fulfilled oder rejected).
@@ -110,8 +112,26 @@ Das angezeigte Ergebnis lautet [object Promise] 7. Ersteres ist das Promise (nic
 
 `async`函数返回一个 Promise 对象，可以使用`then`方法添加回调函数。当函数执行的时候，一旦遇到`await`就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
 
-Präfix async vor Funktionen zeigt an, dass die Funktion ein Promise als Rückgabeargument liefert
-Der Rückgabewert kann explizit als Promise deklariert werden, wird der Rückgabewert mit einem anderen Datentyp deklariert wird er automatisch in ein Promise eingepackt
+
+- Präfix `**async**` vor Funktionen zeigt an, dass die Funktion ein Promise als Rückgabeargument liefert
+- Der Rückgabewert kann explizit als Promise deklariert werden, wird der Rückgabewert mit einem anderen Datentyp deklariert wird er automatisch in ein Promise eingepackt
+
+```js
+async function meineFunktion() {
+  return new Promise(resolve=>resolve(1));
+}
+
+async function meineFunktion() {
+  return 1;
+}
+
+async function meineFunktion() {
+  console.log("nix");
+}
+
+meineFunktion().then(wert=>console.log("Ergebnis: "+wert));
+```
+
 
 ```js
 async function meineFunktion() {

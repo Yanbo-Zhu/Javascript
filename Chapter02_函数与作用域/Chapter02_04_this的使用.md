@@ -1,5 +1,6 @@
 
 # 1 函数内this的指向
+
 this指向，是当我们调用函数的时候确定的，调用方式的不同决定了this的指向不同，一般我们指向我们的调用者
 
 |调用方式|	this指向|
@@ -55,11 +56,13 @@ this指向，是当我们调用函数的时候确定的，调用方式的不同�
 
 
 # 2 改变函数内部this指向
+
 JavaScript 为我们专门提供了一些函数方法来帮我们处理函数内部 this 的指向问题，常用的有 bind(), call(), apply()三种方法
 
 ## 2.1 call() 方法
+
 - call()方法调用一个对象，简单理解为调用函数的方式，但是它可以改变函数的this指向
-- fun.call(thisArg,arg1,arg2,.....)
+- `fun.call(thisArg,arg1,arg2,.....)`
     - thisArg: 在 fun 函数运行时指定的 this 值
     - arg1,arg2: 传递的其他参数
 - 返回值就是函数的返回值，因为它就是调用函数
@@ -127,8 +130,9 @@ showThis.call(objOne, "called with call()!");  // The 42 is called with call()!
 
 
 ## 2.2 apply()方法
+
 - apply()方法调用一个函数，简单理解为调用函数的方式，但是它可以改变函数的 this指向
-- fun.apply(thisArg,[argsArray])
+- `fun.apply(thisArg,[argsArray])`
     - thisArg: 在 fun 函数运行时指定的 this 值
     - argsArray : 传递的值，必须包含在数组里面
 - 返回值就是函数的返回值，因为它就是调用函数
@@ -167,6 +171,7 @@ showThis.call(objOne, "called with call()!");  // The 42 is called with call()!
 
 
 ## 2.3 bind()方法
+
 bind()方法不会调用函数。但是能改变函数内部 this指向
 fun.bind(thisArg,arg1,arg2,....)
 返回由指定的 this值和初始化参数改造的 原函数拷贝

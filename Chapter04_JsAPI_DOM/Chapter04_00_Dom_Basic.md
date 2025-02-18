@@ -8,6 +8,7 @@
 
 
 # 1 什么是DOM
+
 Das Document Object Model ist eine allgemeine Vorgehensweise, um auf Bestandteile eines Dokumentes zugreifen zu können. 
 Es bietet eine Schnittstelle für Script- und Programmiersprachen, sodass alle dieselben Funktionen aufrufen können und wurde vom W3C empfohlen.
 Programmierschnittstelle für HTML- und XML-Dokumente
@@ -35,6 +36,7 @@ Mit js kann man auf das DOM zugreifen, es auslesen, Knoten löschen, ändern ode
 
 
 # 2 Use Cases des DOM
+
 - Navigation zwischen den einzelnen Knoten
 - Erzeugen, Verschieben und Löschen von Knoten
 - Auslesen, Ändern und Löschen von Inhalten
@@ -221,7 +223,6 @@ Eigenschaft innerHTML ermöglicht das Auslesen oder Ersetzen des Inhalts eines H
 ![](image/Pasted%20image%2020241208211826.png)
 
 ---
-
 
 - Änderung der CSS-Eigenschaften von Elementen in JavaScript mit style-Objekt innerhalb von document 
 - Objekt enthält Eigenschaften, die denen von CSS entsprechen

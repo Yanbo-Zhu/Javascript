@@ -400,22 +400,72 @@ sum(200);                  // 实参个数少于形参，多的形参定义为un
 
 # 6 SCOPE VON FUNKTIONEN
 
-![](image/Pasted%20image%2020241123145455.png)
+Funktion mit einer lokalen Variablen
+```js
+let power=function(base, exponent) {
+  let result=1;
+  for (let count=0; count<exponent; count++)
+    result*=base;
+  return result;
+};
+power(2,10);
+```
 
-- Unter dem Scope (Sichtbarkeitsbereich) einer Variablen versteht man den Programmabschnitt, in dem eine Variable sicht- und nutzbar ist Beachte Unterschied zwischen Block Scope und Function Scope 
-- Übergabeparameter und Variablen, die innerhalb einer Funktion deklariert werden, sind lokal und nicht außerhalb der Funktion sichtbar, d.h. der Function Scope ist die umgebende Funktion
-- Variablen, die außerhalb aller Funktionen deklariert werden, sind global und überall im Programm sichtbar
+
+Globale und lokale Variablen mit dem gleichen Namen
+```js
+let x1="outside";
+let f1=function() {
+  let x1="inside f2";
+};
+f1();
+x1;
+
+let x2="outside";
+let f2=function() {
+  x2="inside f2";
+};
+f2();
+x2;
+```
+
+
+- Unter dem **_Scope_** (**_Sichtbarkeitsbereich_**) einer Variablen versteht man den Programmabschnitt, in dem eine Variable sicht- und nutzbar ist
+- Beachte Unterschied zwischen **_Block Scope_** und **_Function Scope_**
+- Übergabeparameter und Variablen, die innerhalb einer Funktion deklariert werden, sind **_lokal_** und nicht außerhalb der Funktion sichtbar, d.h. der **_Function Scope_** ist die umgebende Funktion
+- Variablen, die außerhalb aller Funktionen deklariert werden, sind **_global_** und überall im Programm sichtbar
 - Auf globale Variablen kann innerhalb von Funktionen zugegriffen werden, wenn die jeweilige Funktion nicht eine Variable mit dem gleichen Namen deklariert
 
 ## 6.1 NESTED SCOPES 
 
 
-![](image/Pasted%20image%2020241123145514.png)
+```js
+let landscape=function() {
+  let result="";
+  let flat=function(size) {
+    for (let count=0; count<size; count++)
+      result+="_";
+  };
+  let mountain=function(size) {
+    result+="/";
+    for (let count=0; count<size; count++)
+      result+="'";
+    result+="\\";
+  }
+  flat(3);
+  mountain(4);
+  flat(6);
+  mountain(1);
+  flat(1);
+  return result;
+};
+landscape();
+```
 
 
 - Nested Scopes sind verschiedene Ebenen von Sichtbarkeitsbereichen von Variablen, die entstehen, wenn Funktionen in andere Funktionen eingebettet werden
-- Beispiel: result kann in den Funktionen flat und mountain gesehen und genutzt werden, da sie in der umgebenden Funktion deklariert wird
-- flat und mountain können nicht gegenseitig ihre count-Variable sehen, da sie außerhalb des Scope der jeweils anderen Funktion liegen
+- Beispiel: `**result**` kann in den Funktionen `**flat**` und `**mountain**` gesehen und genutzt werden, da sie in der umgebenden Funktion deklariert wird
+- `**flat**` und `**mountain**` können nicht gegenseitig ihre `**count**`-Variable sehen, da sie außerhalb des Scope der jeweils anderen Funktion liegen
 
 
 

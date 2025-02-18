@@ -8,18 +8,48 @@
 
 # 1 同步的概念
 
-Synchrone Programme werden durch die Laufzeitumgebung Zeile für Zeile abgearbeitet
+- **_Synchrone Programme_** werden durch die Laufzeitumgebung Zeile für Zeile abgearbeitet
+- Laufzeitumgebung wartet bis die gegenwärtige Zeile abgearbeitet ist und springt dann zur nächsten Zeile
+- Bei Funktionsaufruf wird der Befehlszeiger auf den Speicherbereich mit der ersten Anweisung innerhalb der Funktion gesetzt und dort die synchrone Ausführung fortgesetzt
+- Bei Rückkehr aus einer Funktion wird ab der nächsten Zeile nach dem ursprünglichen Funktionsaufruf fortgesetzt
+- Mit rein synchroner Programmierung kann nicht auf Ereignisse reagiert werden
+- Synchrone Programme führen oft zu **_Blockierungen_**, z.B. auf Interaktionen mit einer Webseite wird nicht reagiert, weil die Laufzeitumgebung "mit anderen Dingen beschäftigt" ist
 
-Laufzeitumgebung wartet bis die gegenwärtige Zeile abgearbeitet ist und springt dann zur nächsten Zeile
+```js
+function x(callback) {
+  setTimeout(function() {
+    console.log("Ergebnis von x()");
+    callback();
+  }, 2000);
+};
+function y(callback) {
+  setTimeout(function() {
+    console.log("Ergebnis von y()");
+    callback();
+  }, 1000);
+};
+function z(callback) {
+  setTimeout(function() {
+    console.log("Ergebnis von z()");
+    callback();
+  }, 3000);
+};
+```
 
-Bei Funktionsaufruf wird der Befehlszeiger auf den Speicherbereich mit der ersten Anweisung innerhalb der Funktion gesetzt und dort die synchrone Ausführung fortgesetzt
 
-Bei Rückkehr aus einer Funktion wird ab der nächsten Zeile nach dem ursprünglichen Funktionsaufruf fortgesetzt
-Mit rein synchroner Programmierung kann nicht auf Ereignisse reagiert werden
+```js
+x(()=>{
+  console.log("x() ist fertig");
+  y(()=>{
+   console.log("y() ist fertig");
+   z(()=>{
+    console.log("z() ist fertig");
+   });
+  });
+});
+```
 
-Synchrone Programme führen oft zu Blockierungen, z.B. auf Interaktionen mit einer Webseite wird nicht reagiert, weil die Laufzeitumgebung "mit anderen Dingen beschäftigt" ist
 
-![](image/Pasted%20image%2020241129143102.png)
 # 2 异步的概念
 
  异步（Asynchronous, async）是与同步（Synchronous, sync）相对的概念。
@@ -29,19 +59,90 @@ Synchrone Programme führen oft zu Blockierungen, z.B. auf Interaktionen mit ein
  简单来理解就是：同步按你的代码顺序执行，异步不按照代码顺序执行，异步的执行效率更高。
 
 
-- Bei asynchronen Programmen werden Teile des Programms aus der synchronen Ausführung herausgenommen und auf einen bestimmten oder unbestimmten späteren Zeitpunkt verschoben
-- Spätere Ausführung der asynchronen Programmteile wird durch vordefi nierter Ereignisse ausgelöst oder fi ndet statt, wenn die Laufzeitumgebung "nichts anderes zu tun hat"
+- Bei **_asynchronen Programmen_** werden Teile des Programms aus der synchronen Ausführung herausgenommen und auf einen bestimmten oder unbestimmten späteren Zeitpunkt verschoben
+- Spätere Ausführung der asynchronen Programmteile wird durch vordefinierter Ereignisse ausgelöst oder findet statt, wenn die Laufzeitumgebung "nichts anderes zu tun hat" 
 - Wird eingesetzt, wenn ein zeitlich vorhersehbarer Ablauf des Programms nicht gegeben ist
 - Asynchrone Programmierung führt zu reaktiven Programmen, die i.d.R. weniger blockieren
-- Callbacks sind Funktionen, die der Laufzeitumgebung zur asynchronen Ausführung übergeben werden
 - ==Callbacks are functions that are passed to the runtime environment for asynchronous execution.==
+
+
+Asynchrone Mechanismen im Webbrowser
+- Web APIs (`**XMLHttpRequest**`, Fetch API,...)
+- `**setTimeout**`, `**setInterval**`
+- Promises
+
+
+```js
+function x(callback) {
+  setTimeout(function() {
+    console.log("Ergebnis von x()");
+    callback();
+  }, 2000);
+};
+function y(callback) {
+  setTimeout(function() {
+    console.log("Ergebnis von y()");
+    callback();
+  }, 1000);
+};
+function z(callback) {
+  setTimeout(function() {
+    console.log("Ergebnis von z()");
+    callback();
+  }, 3000);
+};
+x(()=>{
+  console.log("x() ist fertig");
+  y(()=>{
+   console.log("y() ist fertig");
+   z(()=>{
+    console.log("z() ist fertig");
+   });
+  });
+});
+```
+
 
  以上是关于异步的概念的解释，接下来我们通俗地解释一下异步：异步就是从主线程发射一个子线程来完成任务。
 
  ![img](https://i0.hdslb.com/bfs/album/d1cc4d26fc4056acf3f704bddb4bfecdf3b3ddd0.png)
 
 
-# 3 什么时候用异步编程
+# 3 对比
+
+
+Synchrone Anfragen
+```js
+function callWebServerSync(url) {
+    console.log("Calling "+url);
+    var n=5000000000;
+    while (n>0) n--;
+    console.log(url+": 200"); 
+};
+
+callWebServerSync("http://www.tu.berlin");
+callWebServerSync("http://www.tu.berlin/main.css");
+callWebServerSync("http://www.tu.berlin/main.js");
+```
+
+
+ASynchrone Anfragen
+```js
+function callWebServerAsync(url) {
+    console.log("Calling "+url);
+    setTimeout(
+      ()=>console.log(url+": 200"), 5000
+    );
+};
+
+callWebServerAsync("http://www.tu.berlin");
+callWebServerAsync("http://www.tu.berlin/main.css");
+callWebServerAsync("http://www.tu.berlin/main.js");
+
+```
+
+
+# 4 什么时候用异步编程
 
  在前端编程中（甚至后端有时也是这样），我们在处理一些简短、快速的操作时，例如计算 1 + 1 的结果，往往在主线程中就可以完成。主线程作为一个线程，不能够同时接受多方面的请求。所以，当一个事件没有结束时，界面将无法处理其他请求。
 
@@ -51,7 +152,7 @@ Synchrone Programme führen oft zu Blockierungen, z.B. auf Interaktionen mit ein
 
  JavaScript 是单线程语言，为了解决多线程问题，JavaScript 中的异步操作函数往往通过**回调函数**来实现异步任务的结果处理。
 
-# 4 回调函数 (callback function)
+# 5 回调函数 (callback function)
 
 
 
@@ -99,9 +200,9 @@ Synchrone Programme führen oft zu Blockierungen, z.B. auf Interaktionen mit ein
 ```
 
 
-## 4.1 例子 
+## 5.1 例子 
 
-### 4.1.1 
+### 5.1.1 
 
 ```javascript
 function z(callback) {
@@ -132,7 +233,7 @@ When `z()` is called with a callback, here's what happens:
     - `"z() operation completed"` is logged.
     - The callback function is executed.
 
-### 4.1.2 
+### 5.1.2 
 
 
 ```js
@@ -177,7 +278,7 @@ callWebServerAsync("http://www.tu.berlin/main.js");
 
 
 
-## 4.2 异步任务: JS中的异步是通过回调函数实现的
+## 5.2 异步任务: JS中的异步是通过回调函数实现的
 
 异步任务有以下三种类型
 普通事件，如click,resize等
@@ -185,7 +286,7 @@ callWebServerAsync("http://www.tu.berlin/main.js");
 定时器，包括setInterval,setTimeout等
 
 
-## 4.3 回调同步和回调异步
+## 5.3 回调同步和回调异步
 
 回调函数就是一个作为参数的函数，它是在我们启动一个异步任务的时候就告诉它：等你完成了这个任务之后要干什么。这样一来主线程几乎不用关心异步任务的状态了，他自己会善始善终。
 
@@ -216,8 +317,9 @@ callWebServerAsync("http://www.tu.berlin/main.js");
 
 
 
-# 5 实例
-## 5.1 实例1
+# 6 实例
+
+## 6.1 实例1
  `setInterval()` 和 `setTimeout()` 是两个异步语句。
 
 异步（asynchronous）：不会阻塞 CPU 继续执行其他语句，当异步完成时（包含回调函数的主函数的正常语句完成时），会执行 “回调函数”（callback）。
@@ -255,7 +357,7 @@ callWebServerAsync("http://www.tu.berlin/main.js");
 
 当然，JavaScript 语法十分友好，我们不必单独定义一个函数 print ，我们常常将上面的程序写成：
 
-## 5.2 实例2
+## 6.2 实例2
 
  ```html
 > <!DOCTYPE html>
@@ -289,7 +391,7 @@ callWebServerAsync("http://www.tu.berlin/main.js");
 
 **注意：**既然 setTimeout 会在子线程中等待 3 秒，在 setTimeout 函数执行之后主线程并没有停止，所以：
 
-## 5.3 实例3
+## 6.3 实例3
 
  ```html
 > <!DOCTYPE html>

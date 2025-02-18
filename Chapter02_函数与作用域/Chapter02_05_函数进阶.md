@@ -2,24 +2,40 @@
 
 
 
-# 1 高阶函数 (对其他函数进行操作的函数，)
+# 1 高阶函数 (对其他函数进行操作的函数)
 
 
-Funktionen höherer Ordnung (Higher-order Functions) sind Funktionen, die Funktionen als Argumente erhalten oder Funktionen als Ergebnis liefern
-Wichtiges Konzept der funktionalen Programmierung
+- **_Funktionen höherer Ordnung_** (**_Higher-order Functions_**) sind Funktionen, die Funktionen als Argumente erhalten oder Funktionen als Ergebnis liefern
+- Wichtiges Konzept der funktionalen Programmierung
+- Anwendungen
+    - Anwenden einer Funktion zur Abbildung aller Elemente eines Feldes auf eine Zielmenge
+    - Filtern von Elementen eines Feldes
+    - Berechnungen auf den Elementen eines Feldes
+- Anwendungen im Bereich Webtechnologien
+    - Auswerten von Dokumenten, die von einem Webserver empfangen oder aus der Datenbank gelesen wurden, und ihre Darstellung im Document Object Tree
+    - Registrierung von Callback-Funktionen, die beim Eintreten bestimmter Ereignisse ausgeführt werden
 
-Anwendungen
-- Anwenden einer Funktion zur Abbildung aller Elemente eines Feldes auf eine Zielmenge
-- Filtern von Elementen eines Feldes
-- Berechnungen auf den Elementen eines Feldes
 
-Anwendungen im Bereich Webtechnologien
-- Auswerten von Dokumenten, die von einem Webserver empfangen oder aus der Datenbank gelesen wurden, und ihre Darstellung im Document Object Tree 
-- Registrierung von Callback-Funktionen, die beim Eintreten bestimmter Ereignisse ausgeführt werden
 
 高阶函数是对其他函数进行操作的函数，
 1. 它接收函数作为参数或
 2. 将函数作为返回值输出
+
+```js
+function forEach(array, action) {
+  for (let i=0; i<array.length; i++)
+    action(array[i]);
+};
+
+forEach(["Hunde", "Katzen", "Pferde"], console.log);
+
+let sum=0;
+forEach([1,2,3,4,5], function(number) {
+  sum+=number;
+});
+
+sum;
+```
 
 ## 1.1 接收函数作为参数
 
@@ -76,11 +92,6 @@ let lambda = langs.map(lang => lang.length); console.log(`lambda: ${lambda}`);
 
 
 
-
-
-
-
-
 ```html
 <body>
     <div></div>
@@ -100,11 +111,14 @@ let lambda = langs.map(lang => lang.length); console.log(`lambda: ${lambda}`);
 </body>
 ```
 
+
+
 ![](image/Pasted%20image%2020241123151313.png)
 
 
 
 ## 1.2 将函数作为返回值
+
 ```html
 <script>
     function fn(){
@@ -132,6 +146,7 @@ let lambda = langs.map(lang => lang.length); console.log(`lambda: ${lambda}`);
 
 
 ## 2.1 变量作用域
+
 变量根据作用域的不同分为两种：全局变量和局部变量
 
 函数内部可以使用全局变量
@@ -141,6 +156,7 @@ let lambda = langs.map(lang => lang.length); console.log(`lambda: ${lambda}`);
 
 
 ## 2.2 什么是闭包
+
 闭包指有权访问另一个函数作用域中的变量的函数
 简单理解：一个作用域可以访问另外一个函数内部的局部变量
 
