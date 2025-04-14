@@ -1,8 +1,188 @@
-# 1 async 函数
 
-## 1.1 基本用法
+
+ES17 kennt die neuen Schlüsselworte async und await. Damit werden eine Methode als asynchron deklariert und mit await die Auswertung eines sog. Promises in der asynchronen Methode abgewartet. Ein Promise ist ein Ausdruck, der erst zu einem späteren Zeitpunkt evaluiert wird. 
+
+Promises und async/await sind zwei verschiedene Ansätze in JavaScript, um mit asynchronem Code umzugehen. Beide haben ihre Vor- und Nachteile und können je nach Anwendungsfall eingesetzt werden.
+
+# 1 async/await Funktionen
+
+Async/Await ist eine syntaktische Verbesserung für die Arbeit mit Promises, die es ermöglicht, asynchronen Code wie synchronen Code zu schreiben.
+
+
+
+async markiert eine Funktion als asynchron und gibt implizit ein Promise zurück.
+
+await pausiert die Ausführung, bis das Promise aufgelöst ist (fulfilled oder rejected).
+Das await-Schlüsselwort in JavaScript wird verwendet, um die Ausführung der Funktion so lange anzuhalten, bis ein Promise aufgelöst wird. Es pausiert also die Ausführung der Funktion, ohne den gesamten Programmablauf zu blockieren. Funktionsweise von await: 
+
+Warten auf ein Promise:
+- Wenn das Promise aufgelöst wird, gibt await dessen Ergebnis zurück.
+- Wird das Promise erfüllt, gibt await den Wert zurück.
+- Wird das Promise abgelehnt, löst await einen Fehler aus, der mit try/catch behandelt werden kann.
+
+Pausiert nicht-blockierend:
+- Während await auf das Promise wartet, kann der JavaScript-Event-Loop andere Aufgaben ausführen.
+
+
+## 1.1 Vorteil und Nachteil 
+
+
+
+Vorteile von Async/Await:
+• Einfachere Lesbarkeit: Asynchroner Code wirkt wie synchroner.
+• Einfachere Fehlerbehandlung: Durch können Fehler sauber try/ catch abgefangen werden.
+• Kompatibel mit Promises: await arbeitet direkt mit Promises.
+
+Nachteile:
+- Kann in Kombination mit mehreren await Operationen dazu führen, dass die Ausführung länger dauert, wenn die Promises nicht parallel ausgeführt werden.
+- Muss in einer async Funktion verwendet werden, was Einschränkungen in manchen Kontexten mit sich bringt.
+
+# 2 Wann welches verwenden?
+
+• Verwenden Sie Promises, wenn:
+o Sie mehrere asynchrone Operationen in parallelen Abläufen ausführen möchten.
+o Eine reine Verkettung ohne komplexe Logik erforderlich ist.
+
+• Verwenden Sie async/await, wenn:
+o Der Code leichter lesbar und wartbar sein soll.
+o Sie mit sequentiellen Operationen arbeiten, bei denen der Output einer Operation als Input für die nächste dient.
+
+
+![](image/Pasted%20image%2020241204224556.png)
+
+
+## 2.1 Beispiel eines Promises ohne async und await
+
+Zuerst ein simples Beispiel eines Promises ohne async und await, das mit function* notiert wird:
+
+```js
+// Beispiel f. e. Generator (Basis für async und await), der ein Promise zurück gibt
+// mit function*
+function* meingenerator() {
+    let a = 1;
+    let b = 1;
+    while (true) {
+        // Fibo-Zahlen
+        [a, b] = [b, a + b];
+        yield a;
+    }
+}
+```
+
+yield wartet auf das Entgegennehmen des Wertes, hier den Inhalt der Variable 'a'. Mit next() wird von außen der aktuelle Wert abgeholt und blockiert (d.h. gewartet), solange er noch nicht da ist. Technisch gesprochen löst next() das mit yield getroffene Promise ein.
+
+Zur Verwendung unseres neuen Generators etwas Code:
+
+```js
+// generierte Werte, das Feld 'done' im Wertepaar aus next() ist hier stets FALSCH,
+// weil der Generator nicht terminiert
+let gg = meingenerator();
+gg.next().value; // 1
+gg.next().value; // 2
+gg.next().value; // 3
+```
+
+Generatoren können, wie hier in diesem Beispiel, unendlich laufen, oder aber auch endlich sein.
+
+AUFGABE
+
+Warum sollte man nicht meingenerator() selbst in den Aufrufen nutzen? Probieren Sie es.
+
+---
+
+
+Nun async und await zur Veranschaulichung, sie sind sog. 'syntaktischer Zucker' auf Promises, yield und next(), d.h. machen sie genießbarer:
+
+```js
+async function deferred() {
+  let promise = new Promise((resolve, reject) =>
+  {resolve(3 + 4);});
+  document.writeln(promise);
+  let myeval = await promise;
+  document.writeln(myeval);
+}
+deferred();
+```
+
+Das angezeigte Ergebnis lautet [object Promise] 7. Ersteres ist das Promise (nicht evaluiert), letzteres ist das evaluierte Ergebnis aus dem Promise. reject() wird im Fehlerfall aufgerufen (im Beispiel nicht gezeigt).
+
+
+
+## 2.2 async
 
 `async`函数返回一个 Promise 对象，可以使用`then`方法添加回调函数。当函数执行的时候，一旦遇到`await`就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
+
+
+- Präfix `**async**` vor Funktionen zeigt an, dass die Funktion ein Promise als Rückgabeargument liefert
+- Der Rückgabewert kann explizit als Promise deklariert werden, wird der Rückgabewert mit einem anderen Datentyp deklariert wird er automatisch in ein Promise eingepackt
+
+```js
+async function meineFunktion() {
+  return new Promise(resolve=>resolve(1));
+}
+
+async function meineFunktion() {
+  return 1;
+}
+
+async function meineFunktion() {
+  console.log("nix");
+}
+
+meineFunktion().then(wert=>console.log("Ergebnis: "+wert));
+```
+
+
+```js
+async function meineFunktion() {
+  return new Promise(resolve=>resolve(1));
+}
+
+async function meineFunktion() {
+  return 1;
+}
+
+async function meineFunktion() {
+  console.log("nix");
+}
+
+meineFunktion().then(wert=>console.log("Ergebnis: "+wert));
+```
+
+
+## 2.3 await
+
+- Präfix `**await**` vor einem Promise zeigt an, dass auf die Finalisierung des Promise gewartet wird
+- Warten geschieht asynchron, d.h. die Event Loop erledigt zwischenzeitlich andere Aufgaben
+-  `**await**` ==ersetzt zudem die Referenz auf das Promise durch das Promise-Ergebnis==
+- `**await**` darf nur in `**async**`-Funktionen angewendet werden
+
+```js
+let meinPromise=()=>{
+  return new Promise((resolve, reject)=> {
+    setTimeout(()=> resolve("Ich wurde ausgelöst"), 3000);
+  });
+};
+
+async function ohneAwait() {
+  let wert=meinPromise();
+  console.log("Ergebnis: "+wert);
+};
+ohneAwait();
+// output
+// Ergebnis: [object Promise]
+
+async function mitAwait() {
+  let wert=await meinPromise();
+  console.log("Ergebnis: "+wert);
+};
+mitAwait();
+// output
+// Ergebnis: Ich wurde ausgelöst
+
+```
+
+# 3 例子 
 
 下面是一个例子。
 
@@ -19,6 +199,9 @@ getStockPriceByName('goog').then(function (result) {
 ```
 
 上面代码是一个获取股票报价的函数，函数前面的`async`关键字，表明该函数内部有异步操作。调用该函数时，会立即返回一个`Promise`对象。
+
+
+---
 
 下面是另一个例子，指定多少毫秒后输出一个值。
 
@@ -38,6 +221,8 @@ asyncPrint('hello world', 50);
 ```
 
 上面代码指定 50 毫秒以后，输出`hello world`。
+
+---
 
 由于`async`函数返回的是 Promise 对象，可以作为`await`命令的参数。所以，上面的例子也可以写成下面的形式。
 
@@ -73,11 +258,94 @@ obj.foo().then(...)
 const foo = async () => {};
 ```
 
-## 1.2 语法
+# 4 语法
 
 `async`函数的语法规则总体上比较简单，难点是错误处理机制。
 
-### 1.2.1 返回 Promise 对象
+```js
+async function myFunction() {
+  try {
+    const result = await someAsyncOperation();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+myFunction();
+```
+
+## 4.1 Syntaxvergleich
+
+promise
+```js
+fetch('https://fakestoreapi.com/products/1')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Fehler', error));
+```
+
+async/await: ist klarer und lesbarer, insbesondere bei komplexeren Abläufen.
+```js
+async function fetchData() {
+  try {
+    const response = await fetch('https://fakestoreapi.com/products/1');
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+fetchData();
+```
+
+1. fetch( https : //fakestoreapi.com/products/l') : liefert ein Promise zurück.
+2. await response.json() : wartet auf die Umwandlung der Antwort in JSON.
+3. Das Programm geht erst weiter, wenn die Operationen abgeschlossen Sind.
+
+---
+
+Was passiert ohne await ?
+Ohne await würde die Funktion den Promise sofort zurückgeben, und derWert wäre nicht direkt verfügbar. Mit await Wird das tatsächliche Ergebnis des Promises verwendet.
+
+```js
+async function fetchData() {
+    const response = await fetch('https://fakestoreapi.com/products/1');
+    const data = await response.json();
+    console.log(data);
+}
+fetchData();
+```
+
+![](image/Pasted%20image%2020241204224838.png)
+
+---
+
+```js
+async function fetchData() {
+    const response = fetch('https://fakestoreapi.com/products/1');
+    const data = response.json();
+    console.log(data);
+}
+fetchData();
+```
+
+![](image/Pasted%20image%2020241204224859.png)
+
+
+---
+
+```js
+async function fetchData() {
+    const response = fetch('https://fakestoreapi.com/products/1');
+    const data = await response.json();
+    console.log(data);
+}
+fetchData();
+```
+
+![](image/Pasted%20image%2020241204225137.png)
+
+## 4.2 返回 Promise 对象
 
 `async`函数返回一个 Promise 对象。
 
@@ -108,7 +376,7 @@ f().then(
 //reject Error: 出错了
 ```
 
-### 1.2.2 Promise 对象的状态变化
+## 4.3 Promise 对象的状态变化
 
 `async`函数返回的 Promise 对象，必须等到内部所有`await`命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到`return`语句或者抛出错误。也就是说，只有`async`函数内部的异步操作执行完，才会执行`then`方法指定的回调函数。
 
@@ -126,7 +394,7 @@ getTitle('https://tc39.github.io/ecma262/').then(console.log)
 
 上面代码中，函数`getTitle`内部有三个操作：抓取网页、取出文本、匹配页面标题。只有这三个操作全部完成，才会执行`then`方法里面的`console.log`。
 
-### 1.2.3 await 命令
+## 4.4 async联合await使用
 
 正常情况下，`await`命令后面是一个 Promise 对象，返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值。
 
@@ -220,7 +488,7 @@ f()
 // hello world
 ```
 
-### 1.2.4 错误处理
+## 4.5 错误处理
 
 如果`await`后面的异步操作出错，那么等同于`async`函数返回的 Promise 对象被`reject`。
 
@@ -292,9 +560,9 @@ test();
 
 上面代码中，如果`await`操作成功，就会使用`break`语句退出循环；如果失败，会被`catch`语句捕捉，然后进入下一轮循环。
 
-## 1.3 使用注意点 
+# 5 使用注意点 
 
-第一点，前面已经说过，`await`命令后面的`Promise`对象，运行结果可能是`rejected`，所以最好把`await`命令放在`try...catch`代码块中。
+## 5.1 `await`命令后面的`Promise`对象，运行结果可能是`rejected`，所以最好把`await`命令放在`try...catch`代码块中。
 
 ```js
 async function myFunction() {
@@ -315,7 +583,7 @@ async function myFunction() {
 }
 ```
 
-第二点，多个`await`命令后面的异步操作，如果不存在继发关系，最好让它们同时触发。
+## 5.2 多个`await`命令后面的异步操作，如果不存在继发关系，最好让它们同时触发。
 
 ```js
 let foo = await getFoo();
@@ -337,7 +605,7 @@ let bar = await barPromise;
 
 上面两种写法，`getFoo`和`getBar`都是同时触发，这样就会缩短程序的执行时间。
 
-第三点，`await`命令只能用在`async`函数之中，如果用在普通函数，就会报错。
+## 5.3 `await`命令只能用在`async`函数之中，如果用在普通函数，就会报错。
 
 ```js
 async function dbFuc(db) {
@@ -374,6 +642,10 @@ async function dbFuc(db) {
   }
 }
 ```
+
+
+---
+
 
 另一种方法是使用数组的`reduce()`方法。
 
@@ -417,7 +689,10 @@ async function dbFuc(db) {
 }
 ```
 
-第四点，async 函数可以保留运行堆栈。
+
+
+
+## 5.4 async 函数可以保留运行堆栈。
 
 ```js
 const a = () => {
@@ -438,7 +713,7 @@ const a = async () => {
 
 上面代码中，`b()`运行的时候，`a()`是暂停执行，上下文环境都保存着。一旦`b()`或`c()`报错，错误堆栈将包括`a()`。
 
-## 1.4 es13新增
+# 6 es13新增
 
 在 JavaScript 中，await 运算符用于暂停执行，直到 Promise 被解决（履行或拒绝）。以前，我们只能在 async 函数中使用此运算符 - 使用 async 关键字声明的函数。我们无法在全球范围内这样做。
 

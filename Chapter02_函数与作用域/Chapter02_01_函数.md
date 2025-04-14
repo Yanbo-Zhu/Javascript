@@ -141,6 +141,16 @@ let func = functions(par1){
 fn();
 ```
 
+
+### 3.1.4 DEFINITION IN BEDINGTEN ANWEISUNGEN
+
+Funktionsanweisungen und -ausdrücke innerhalb eines bedingten Blockes einer if-Anweisung sind erlaubt, aber problematisch und sollten daher daher vermieden werden
+
+![](image/Pasted%20image%2020241123145059.png)
+
+
+
+
 ## 3.2 Immediately Invoked Function Expression
 Funktionen können auch in einem Arbeitsgang deklariert und ausgeführt werden. Auch die IIFE gelten als Ausdruck.
 
@@ -212,6 +222,14 @@ Funktionen können auch in einem Arbeitsgang deklariert und ausgeführt werden. 
 ```
 
 
+
+### 3.3.2 OPTIONALE ARGUMENTE
+
+- Wenn beim Aufruf mehr Werte übergeben werden, als die Funktion Parameter defi niert, werden die restlichen ignoriert
+- Wenn beim Aufruf weniger Werte übergeben werden, als die Funktion Parameter defi niert, werden die fehlenden Parameter mit undefi ned belegt
+
+![](image/Pasted%20image%2020241123145832.png)
+
 ## 3.4 引用函数/Funktionsreferenz
 不加 () 使用函数
 
@@ -230,8 +248,8 @@ console.log(squareTwo());
 squareTwo;
     
 // Referenz in einer anderen Variablen speichern
-    let takeSquareTwo = squareTwo;
-    console.log(takeSquareTwo);
+let takeSquareTwo = squareTwo;
+console.log(takeSquareTwo);
 ```
 
 ## 3.5 引用函数与调用函数的区别
@@ -341,7 +359,15 @@ getSum(6，5) //11
 ```
 
 
-## 5.2 形参和实参个数不匹配
+## 5.2 形参和实参个数不匹配  Optionale Argumente
+
+- JavaScript ist sehr tolerant hinsichtlich der Anzahl der Parameter, die einer Funktion beim Aufruf übergeben werden
+    - Wenn beim Aufruf mehr Werte übergeben werden, als die Funktion Parameter definiert, werden die restlichen ignoriert
+    - Wenn beim Aufruf weniger Werte übergeben werden, als die Funktion Parameter definiert, werden die fehlenden Parameter mit undefined belegt
+- Verhalten ermöglicht die Definition von Funktionen mit optionalen Parametern und von solchen, die eine beliebige Anzahl von Parametern akzeptieren und bearbeiten können
+
+
+![](image/Pasted%20image%2020250217214816.png)
 
 |参数个数| 说明|
 |--|--|
@@ -372,11 +398,80 @@ sum(200);                  // 实参个数少于形参，多的形参定义为un
 - 形参的个数可以和实参个数不匹配，但是结果不可预计，我们尽量要匹配
 
 
+# 6 SCOPE VON FUNKTIONEN
+
+Funktion mit einer lokalen Variablen
+```js
+let power=function(base, exponent) {
+  let result=1;
+  for (let count=0; count<exponent; count++)
+    result*=base;
+  return result;
+};
+power(2,10);
+```
 
 
-# 6 带 return 的函数
+Globale und lokale Variablen mit dem gleichen Namen
+```js
+let x1="outside";
+let f1=function() {
+  let x1="inside f2";
+};
+f1();
+x1;
 
-## 6.1 return语句
+let x2="outside";
+let f2=function() {
+  x2="inside f2";
+};
+f2();
+x2;
+```
+
+
+- Unter dem **_Scope_** (**_Sichtbarkeitsbereich_**) einer Variablen versteht man den Programmabschnitt, in dem eine Variable sicht- und nutzbar ist
+- Beachte Unterschied zwischen **_Block Scope_** und **_Function Scope_**
+- Übergabeparameter und Variablen, die innerhalb einer Funktion deklariert werden, sind **_lokal_** und nicht außerhalb der Funktion sichtbar, d.h. der **_Function Scope_** ist die umgebende Funktion
+- Variablen, die außerhalb aller Funktionen deklariert werden, sind **_global_** und überall im Programm sichtbar
+- Auf globale Variablen kann innerhalb von Funktionen zugegriffen werden, wenn die jeweilige Funktion nicht eine Variable mit dem gleichen Namen deklariert
+
+## 6.1 NESTED SCOPES 
+
+
+```js
+let landscape=function() {
+  let result="";
+  let flat=function(size) {
+    for (let count=0; count<size; count++)
+      result+="_";
+  };
+  let mountain=function(size) {
+    result+="/";
+    for (let count=0; count<size; count++)
+      result+="'";
+    result+="\\";
+  }
+  flat(3);
+  mountain(4);
+  flat(6);
+  mountain(1);
+  flat(1);
+  return result;
+};
+landscape();
+```
+
+
+- Nested Scopes sind verschiedene Ebenen von Sichtbarkeitsbereichen von Variablen, die entstehen, wenn Funktionen in andere Funktionen eingebettet werden
+- Beispiel: `**result**` kann in den Funktionen `**flat**` und `**mountain**` gesehen und genutzt werden, da sie in der umgebenden Funktion deklariert wird
+- `**flat**` und `**mountain**` können nicht gegenseitig ihre `**count**`-Variable sehen, da sie außerhalb des Scope der jeweils anderen Funktion liegen
+
+
+
+# 7 带 return 的函数
+
+## 7.1 return语句
 有的时候，我们会希望函数将值返回给调用者，此时通过使用 return 语句就可以实现。
 
 - 在使用 return 语句时，函数会停止执行，并返回指定的值
@@ -405,7 +500,7 @@ sum();      // 此时 sum 的值就等于666，因为 return 语句会把自身�
 ```
 
 
-## 6.2 return 终止函数
+## 7.2 return 终止函数
 return 语句之后的代码不被执行
 ```js
 function add(num1，num2){
@@ -419,9 +514,9 @@ alert(resNum);          // 27
 ```
 
 
-## 6.3 return 的返回值
+## 7.3 return 的返回值
 
-### 6.3.1 返回一个值
+### 7.3.1 返回一个值
 return 返回一个值。如果用逗号隔开多个值，以最后一个为准
 ```js
 function add(num1，num2){
@@ -432,7 +527,7 @@ var resNum = add(21,6); // 调用函数，传入两个实参，并通过 resNum 
 alert(resNum);          // 6
 ```
 
-### 6.3.2 返回多个值
+### 7.3.2 返回多个值
 
 1. 使用数组的方式
 ```js
@@ -497,19 +592,19 @@ const { age , name } = getDetails ()
 
 
 
-## 6.4 小结
+## 7.4 小结
 函数都是有返回值的
 
 如果有 return ，则返回 return 后面的值
 如果没有 return，则返回 undefined
 
-## 6.5 break、continue、return 的区别
+## 7.5 break、continue、return 的区别
 
 break ： 结束当前循环体(如 for、while)
 continue ：跳出本次循环，继续执行下次循环(如for、while)
 return ：不仅可以退出循环，还能够返回 return 语句中的值，同时还可以结束当前的函数体内的代码
 
-## 6.6 回调函数例子
+## 7.6 回调函数例子
 1.利用函数求任意两个数的最大值
 ```js
 function getMax(num1, num2) {
@@ -585,7 +680,7 @@ function sort(arr) {
 
 
 
-# 7 arguments对象的使用
+# 8 arguments对象的使用
 当我们不确定有多少个参数传递的时候，可以用 arguments 来获取。在 JavaScript 中，arguments 实际上它是当前函数的一个内置对象。所有函数都内置了一个 arguments 对象，arguments 对象中存储了传递的所有实参。
 
 arguments存放的是传递过来的实参
@@ -637,11 +732,11 @@ function funcArgs(x,y,z){
 }
 ```
 
-## 7.1 
+## 8.1 
 
 
 
-# 8 函数块内 调用另外一个函数
+# 9 函数块内 调用另外一个函数
 因为每个函数都是独立的代码块，用于完成特殊任务，因此经常会用到函数相互调用的情况。具体演示在下面的函数练习中会有。
 
 3.输入一个年份，判断是否是闰年（闰年：能被4整除并且不能被100整数，或者能被400整除）

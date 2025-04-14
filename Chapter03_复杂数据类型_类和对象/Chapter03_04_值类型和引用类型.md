@@ -1,12 +1,15 @@
 https://blog.fundebug.com/2017/08/09/explain_value_reference_in_js/
 
 # 1 总览
+
 简单类型又叫做基本数据类型或者值类型，复杂类型又叫做引用类型。
+
+
 
 值类型：string ，number，boolean，undefined，null
 - 简单数据类型/基本数据类型，在存储时变量中存储的是值本身，因此叫做值类型, 这些基本类型在赋值的时候是通过值传递的方式
 - 当为变量引用基本类型的值时，实际上会拷贝一个值副本给新的变量，引用相同基本类型值的变量相互独立，如下图:
-
+-
 
 引用类型：复杂数据类型，在存储时变量中存储的仅仅是地址（引用），因此叫做引用数据类型, 它们通过引用来传递。
 - 通过 new 关键字创建的对象（系统对象、自定义对象），如 Object、Array、Date等
@@ -50,9 +53,19 @@ https://blog.fundebug.com/2017/08/09/explain_value_reference_in_js/
 
 # 4 值传递 (值类型使用的方法)
 
+
+Werte und variablen primitiver Datentypen
+- Variablen primitiver Datentypen speichern den konkreten Wert
+- Der `**==**`-Operator liefert `**true**`, wenn es sich um den gleichen Wert handelt, nicht um die dieselben Werte 
+- Werte von primitiven Datentypen sind **_unveränderbar_** (**_immutable_**) - es ist nicht möglich den existierenden Wert eines primitiven Datentyps nachträglich zu verändern
+    - 存在stack 中, 耗内存 
+
+
 如果一个基本的数据类型绑定到某个变量，我们可以认为该变量包含这个基本数据类型的值。
+
 当我们使用=将这些变量赋值到另外的变量，实际上是将对应的值拷贝了一份，然后赋值给新的变量。我们把它称作值传递。
 
+```
 var x = 10;
 var y = "abc";
 
@@ -60,84 +73,153 @@ var a = x;
 var b = y;
 
 console.log(x, y, a, b); // 10, 'abc', 10, 'abc'
+```
+
+
 
 a和x都包含 10，b和y都包含'abc'，并且它们是完全独立的拷贝，互不干涉。如果我们将a的值改变，x不会受到影响。
+```
 var x = 10;
 var y = "abc";
 var a = x;
 var b = y;
+
 a = 5;
 b = "def";
+
 console.log(x, y, a, b); // 10, 'abc', 5, 'def'
+```
+
+
+![](image/Pasted%20image%2020250218103001.png)
+
 
 
 # 5 引用传递 (引用类型使用的方法)
+
+
+
+
+Referenzierung von Eigenschaften
+Eigenschaften können auf zwei Arten referenziert werden
+- dot-Notation, z.B. `**objectname.propertyname**`, wobei `**propertyname**` ein gültiger Bezeichner sein muss 
+- Klammer-Notation, z.B. `**objectname[expression]**`, wobei `**expression**` ein Ausdruck sein muss, der einen Wert berechnet, der einem Eigenschaftsnamen entspricht
+- Abzählbare Eigenschaftsnamen sind möglich, müssen aber aufgrund der Regeln für Bezeichner (dürfen nicht mit einer Zahl beginnen) in Anführungszeichen definiert werden
+- Referenzierung von abzählbaren Eigenschaftsnamen ist nur in der Klammernotation möglich
+
+Objekte und Variablen von Objekten
+- Objektvariablen speichern den Verweis auf ein Objekt
+- Der `**==**`-Operator liefert `**true**`, wenn es sich um dieselben Objekte handelt, nicht um die gleichen
+- Objektwerte sind _veränderbar_ (_mutable_) - es ist möglich ihre Eigenschaften nachträglich zu verändern
+- 存在heap中 
+
+
 
 ## 5.1 对象
 如果一个变量绑定到一个非基本数据类型(Array, Function, Object)，那么它只记录了一个内存地址，该地址存放了具体的数据。注意之前提到指向基本数据类型的变量相当于包含了数据，而现在指向非基本数据类型的变量本身是不包含数据的。
 
 对象在内存中被创建，当我们声明arr = []，我们在内存中创建了一个数组。arr记录的是该内存的地址。
+```
 var arr = []; // (a)
 arr.push(1); // (b)
+```
 
 当执行完(a)之后，内存中创建了一个空的数组对象，其内存地址为#001，arr指向该地址。
 变量	地址	对象
+```
 arr	#001	[]
+```
 
 当执行完(b)之后，数组对象中多了一个元素，但是数组的地址依然没有变，arr也没有变。
 变量	地址	对象
+```
 arr	#001	[1]
+```
 
 ## 5.2 引用传递
 对象是通过引用传递，而不是值传递。也就是说，变量赋值只会将地址传递过去。
+```
 var reference = [1];
 var refCopy = reference;
+```
 
 变量	地址	对象
+```
 reference	#001	[1]
 refCopy	#001
+```
 
 
 reference和refCopy指向同一个数组。 如果我们更新reference，refCopy也会受到影响。
+```
 reference.push(2);
 console.log(reference, refCopy); // [1, 2], [1, 2]
+
 变量	地址	对象
 reference	#001	[1, 2]
 refCopy	#001
+```
 
 ## 5.3 引用重新赋值
+
 如果我们将一个已经赋值的变量重新赋值，那么它将包含新的数据或则引用地址。
 
+
 obj从指向第一个对象变为指向第二个对象。
+
+```
 var obj = { first: "fundebug.com" };
 obj = { second: "fundebug.cn" };
+```
+
 
 变量	地址	对象
+```
 obj	#001	{first: ‘fundebug.com’}
 obj   #002	{second: ‘fundebug.cn’}
+```
+
 如果一个对象没有被任何变量指向，就如第一个对象(地址为#001)，JavaScript 引擎的垃圾回收机制会将该对象销毁并释放内存。
 
 
 ## 5.4 == 和 ===
 对于引用类型的变量，`==和===` 只会判断引用的地址是否相同，而不会判断对象具体里属性以及值是否相同。因此，如果两个变量指向相同的对象，则返回true。
 
+```
 var arrRef = ["Hi!"];
 var arrRef2 = arrRef;
 console.log(arrRef === arrRef2); // true
+```
 
 如果是不同的对象，及时包含相同的属性和值，也会返回false。
+```
 var arr1 = ["Hi!"];
 var arr2 = ["Hi!"];
 console.log(arr1 === arr2); // false
+```
 
 如果想判断两个不同的对象是否真的相同，一个简单的方法就是将它们转换为字符串然后判断。
+```
 var arr1str = JSON.stringify(arr1);
 var arr2str = JSON.stringify(arr2);
 console.log(arr1str === arr2str); // true
+```
 
 另一个方法就是递归地判断每一个属性的值，直到基本类型位置，然后判断是否相同。
 
 # 6 函数中_值类型传参_引用类型传参
+
+
+![](image/Pasted%20image%2020241123150335.png)
+
+左边的 testWert 返回 10, 右边的返回15 
+
+-  Wertparameter (call-by-value) sind Parameter von Funktionen, die beim Aufruf eine Kopie der übergebenen Argumente speichern und im inneren der Funktion auf dieserKopie arbeiten 
+- Werte primitiver Datentypen werden in JavaScript als Wertparameter behandelt
+
+- Referenzparameter (call-by-reference) sind Parameter von Funktionen, die beim Aufruf eine Referenz auf das übergebene Argumente speichern und im inneren der Funktion mit dieser Referenz arbeiten.
+- Objektwerte werden in JavaScript als Referenzparameter behandelt. 
+
 
 ## 6.1 值类型传参
 函数的形参也可以看做是一个变量，当我们把一个值类型变量作为参数传给函数的形参时，其实是把变量在栈空间里的值复制了一份给形参，那么在方法内部对形参做任何修改，都不会影响到的外部变量。

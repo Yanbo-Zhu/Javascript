@@ -1,6 +1,17 @@
 https://blog.csdn.net/Augenstern_QXL/article/details/119249534
 
+| Operation      | Operator | Beschreibung                                                                                                      |
+| -------------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+| Addition       | +        | Summe der Operanden                                                                                               |
+| Subtraktion    | -        | Differenz der Operanden                                                                                           |
+| Multiplikation | *        | Produkt der Operanden                                                                                             |
+| Division       | /        | Quotient der Operanden                                                                                            |
+| Modulo         | %        | Ganzzahliger Rest der Division der Operanden                                                                      |
+| Inkrement      | ++       | Unärer Operator, der den Operanden um eins erhöht. Kann als Präfix- und als Postfix-Operator verwendet werden     |
+| Dekrement      | --       | Unärer Operator, der den Operanden um eins verringert. Kann als Präfix- und als Postfix-Operator verwendet werden |
+| unäre Negation | !        | Unärer Operator, der die Negation der Operanden liefert. Nur Präfix-Notation.                                     |
 
+![](image/Pasted%20image%2020241123143540.png)
 # 1 运算符
 
 运算符（operator）也被称为**操作符**，是用于实现赋值、比较和执行算数运算等功能的符号
@@ -78,6 +89,8 @@ alert(10 + num++); // 20
 !=	不等号	37 != 37	false
 === !==	全等 要求值和数据类型都一致	37 === ‘37’	false
 
+==   (nur value geleichen )  , und === (type und value sind gleich)
+
 ① 小结
 符号	作用	用法
 =	赋值	把右边给左边
@@ -85,6 +98,18 @@ alert(10 + num++); // 20
 ===	全等	判断两边的值和数据类型是否完全相同
 console.log(18 == '18');		//true
 console.log(18 === '18');		//false
+
+
+
+![](image/Pasted%20image%2020241123143743.png)
+
+![](image/Pasted%20image%2020241123143803.png)
+
+![](image/Pasted%20image%2020241123143829.png)
+
+### 1.4.1 GLEICHHEITSVERGLEICHE
+![](image/Pasted%20image%2020241123143926.png)
+
 
 
 ## 1.5 逻辑运算符
@@ -186,8 +211,8 @@ console.log(d);		//true
 
 
 
-# 1 运算符的扩展
-## 1.1 指数运算符
+# 2 运算符的扩展
+## 2.1 指数运算符
 
 ES2016 新增了一个指数运算符（`**`）。
 
@@ -218,7 +243,7 @@ b **= 3;
 // 等同于 b = b * b * b;
 ```
 
-## 1.2 链判断运算符
+## 2.2 链判断运算符
 
 编程实务中，如果读取对象内部的某个属性，往往需要判断一下，属性的上层对象是否存在。比如，读取`message.body.user.firstName`这个属性，安全的写法是写成下面这样。
 
@@ -357,7 +382,7 @@ super?.foo
 a?.b = c
 ```
 
-## 1.3 Null 判断运算符
+## 2.3 Null 判断运算符
 
 读取对象属性的时候，如果某个属性的值是`null`或`undefined`，有时候需要为它们指定默认值。常见做法是通过`||`运算符指定默认值。
 
@@ -435,7 +460,7 @@ lhs || (middle ?? rhs);
 lhs ?? (middle || rhs);
 ```
 
-## 2 逻辑赋值运算符 
+## 2.4 逻辑赋值运算符 
 
 ES2021 引入了三个新的逻辑赋值运算符（logical assignment operators），将逻辑运算符与赋值运算符进行结合。
 

@@ -28,21 +28,6 @@ function foo(...a) {
 
 Das ergibt z.B. beim Aufruf foo(47,1,1) den Wert 48. Probieren Sie den Aufruf mit nur 2 Argumenten, z. B. foo(47,1), und dann mit drei Argumenten, z. B. foo(47,1,1,'bar'), und bewundern das Ergebnis.
 
-# 2 Fetch-API
-
-Die Fetch-API ist der Nachfolger zu AJAX und dient dem asynchronen Nachladen von Webseitenelementen, auch Code. Eine Anwendung, die fetchdata.txt nachlädt:
-
-[...]
-fetch('./fetchdata.txt')
-.then(response => response.json())
-.then(data => {
-console.log(data) // Druckt Ergebnis von `response.json()` in
-getRequest
-})
-.catch(error => console.error(error))
-[...]
-
-then ist ein alternativer Weg, ein Promise asynchron einzulösen (zu evaluieren) und fortzufahren, sobald das Ergebnis geliefert wird. Mit catch() wird im Fehlerfall verzweigt. Bald mehr dazu im Kapitel zu AJAX.
 
 # 3 Threads in Javascript: Web Worker
 

@@ -33,14 +33,23 @@ java就需要提前声明变量的类型了
 ```
 
 （3）数据类型的分类
-简单数据类型 （Number,String,Boolean,Undefined,Null）
-复杂数据类型 （object)
+
+Vier primitive Datentypen
+- Numbers (Zahlen)
+- Strings (Zeichenketten)
+- Booleans (Wahrheitswerte)
+- Undefined (undefinierte Werte)
+
+**Zwei Komplexe Datentypen**
+- Objects (Objekte)
+- Functions (Funktionen)
 
 (4) <mark> 变量的数据类型随时可以更换, 只要给入的值变了 </mark> 
 und sind somit veränderbar über die Laufzeit des Skriptes:
 
 
 ## 1.2 复杂数据类型 Zusammengesetzte Datentypen:
+
 * Object
 * Array
 * Function
@@ -49,7 +58,7 @@ und sind somit veränderbar über die Laufzeit des Skriptes:
 |--|---|---|
 |object| hat Untertypen: object, array, function, null: kein Wert||
 
-## 1.3 简单数据类型 / 基本数据类型 Einfache Datentypen
+## 1.3 简单数据类型 / 基本数据类型 PRIMITIVE Datentypen
 
 Number,String,Boolean,Undefined,Null, empty
 
@@ -87,6 +96,24 @@ JavaScript 数字类型既可以用来保存整数值，也可以保存小数(�
 
 var age = 21; // 整数
 var Age = 21.3747; // 小数
+
+![](image/Pasted%20image%2020241123143417.png)
+
+- Keine Unterscheidung zwischen Ganzzahlen und Fließkommazahlen
+- Alle Zahlen werden als 64-Bit-Fließkommazahlen dargestellt, d.h. 18 Trillionen verschiedene Zahlen können dargestellt werden
+
+SCHREIBWEISEN
+- Dezimalschreibweise (ohne Präfi x)
+- Hexadezimalschreibweise (mit Präfi x 0x)
+- Oktalschreibweise (mit Präfi x 0)
+- Exponentialschreibweise (mit Infi x e)
+- Keine Unterstützung der Binärschreibweise
+
+SPEZIELLE ZAHLEN
+- Infinity und -Infinity werden verwendet, wenn ein Wert außerhalb des Wertebereichs liegt
+- NaN (Not a Number) wird verwendet, wenn eine Berechnung zu einem Ergebnis führt, welches nicht als Zahl repräsentiert werden kann
+
+
 
 (1)数字型进制
 最常见的进制有二进制、八进制、十进制、十六进制。
@@ -148,12 +175,24 @@ jahreszahl = parseFloat("200.9"); //liefert die Zahl 200.9
 
 ### 1.3.2 字符串型 string
 
+
+
 字符串型可以是引号中的任意文本，其语法为 “双引号” 和 "单引号’’
 var strMsg = "我爱北京天安门~";		//使用双引号表示字符串
 var strMsg = '我爱北京';			  //使用单引号表示字符串
 
 
 因为 HTML 标签里面的属性使用的是双引号，JS 这里我们更推荐使用单引号。  
+
+
+- Zeichenketten bestehen aus 16-Bit-Zeichen nach USC-2- oder UTF-16-Kodierung und werden durch einfache oder doppelte Anführungszeichen repräsentiert 
+- Kein Datentyp char zur Darstellung eines einzelnen Zeichens
+- Backslash \ fungiert als Präfi x für Steuerzeichen
+    - \n: Zeilenumbruch
+    - \t: Tabulator
+    - `\"`: Anführungszeichen als Zeichen in und nicht zum Beenden der Zeichenkette
+    - `\\`: Backslash als Zeichen in der Zeichenkette
+- Mehrere Zeichenketten können mit dem +-Operator konkateniert werden
 
 (1)字符串引号嵌套
 JS可以用 单引号嵌套双引号，或者用 双引号嵌套单引号（外双内单，外单内双）
@@ -261,7 +300,6 @@ console.log(`${m} ist ungleich ${test}`);
 ```
 
 
-
 ### 1.3.3 布尔型Boolean
 布尔类型有两个值：true 和 false ，其中 true 表示真（对），而 false 表示假（错）。
 布尔型和数字型相加的时候， true 的值为 1 ，false 的值为 0。
@@ -271,8 +309,50 @@ console.log(flag + 1); // 2 true当加法来看当1来看，flase当0来看
 
 ```
 
+![](image/Pasted%20image%2020241123143743.png)
+
+- Werte vom Typ Boolean können `**true**` oder `**false**` sein
+- Verwendung von Boolean als Ergebnistyp für logische Operatoren und Vergleichsoperatoren (nächste Folie)
+- Neben booleschen Werten interpretiert JavaScript auch nicht-boolesche Werte als **_truthy_** oder **_falsy_**
+- `**undefined**`, leere Zeichenketten, `**0**`, `**NaN**` und `**null**` (Literal für optionale Objekte) zählen zu den Werten, die als falsy interpretiert werden, alle anderen Werte als truthy interpretiert
+
+- Vergleichsoperator `**==**` liefert für `**null==false**` und `**null==true**` in beiden Fällen `**false**`
+- Vergleichsoperator `**==**` liefert für `**undefined==false**` und `**undefined==true**` in beiden Fällen `**false**`
+- Vergleichsoperator `**==**` liefert für `**NaN==false**` und `**NaN==true**` in beiden Fällen `**false**`
+- `**null**` und `**undefined**` sind nur untereinander gleich
+- `**NaN**` ist nicht mit sich selber gleich
+
+
+Vergleichsoperatoren
+
+| Operation            | Operator | Beschreibung                                                                     |
+| -------------------- | -------- | -------------------------------------------------------------------------------- |
+| Gleicheit            | ==       | true wenn die Operanden gleich sind                                              |
+| Ungleichheit         | !=       | true wenn die Operanden nicht gleich sind                                        |
+| strikte Gleichheit   | ===      | true wenn die Operanden gleich sind und außerdem den gleichen Datentyp haben     |
+| strikte Ungleichheit | !==      | true wenn die Operanden nicht gleich sind oder nicht den gleichen Datentyp haben |
+| größer als           | >        | true wenn der linke Operand größer als der rechte ist                            |
+| größer oder gleich   | >=       | true wenn der linke Operand größer als oder gleich dem rechten ist               |
+| kleiner als          | <        | true wenn der linke Operand kleiner als der rechte ist                           |
+| kleiner oder gleich  | <=       | true wenn der linke Operand kleiner als oder gleich dem rechten ist              |
+
+
+Logische Operatoren
+
+|Operation|Operator|Beschreibung|
+|---|---|---|
+|logisches UND|&&|Gibt den ersten Operanden zurück falls dieser false ist. Ansonsten wird der zweite Operand zurückgegeben.|
+|logisches ODER|\||Gibt den ersten Operanden zurück falls dieser true ist. Ansonsten wird der zweite Operand zurückgegeben.|
+|logisches NICHT|!|Unärer Operator der den Operanden negiert.|
+|konditionaler Operator|_ ? _:_|Ternärer Operator mit einem Boolean-Ausdruck vor dem Fragezeichen. Bei true wird der Ausdruck links vom Doppelpunkt berechnet, bei false der Ausdruck rechts vom Doppelpunkt|
+
+#### 1.3.3.1 GLEICHHEITSVERGLEICHE
+
+![](image/Pasted%20image%2020241123143926.png)
 
 ### 1.3.4 undefined未定义
+
+
 一个声明后没有被赋值的变量会有一个默认值 undefined ( 如果进行相连或者相加时，注意结果）
 ```js
 // 如果一个变量声明未赋值，就是undefined 未定义数据类型
@@ -288,6 +368,7 @@ console.log(variable + 18); //NaN
 2.undefined 和 数字相加，最后结果是NaN
 
 ### 1.3.5 空值null
+
 一个声明变量给 null 值，里面存的值为空
 ```js
 var space = null;
@@ -360,6 +441,7 @@ console.log(typeof age);//string
 ```
 
 ## 1.5 数据类型转换
+
 使用表单、prompt 获取过来的数据默认是字符串类型的，此时就不能直接简单的进行加法运算，而需要转换变量的数据类型。通俗来说，就是把一种数据类型的变量转换成另外一种数据类型。
 
 我们通常会实现3种方式的转换：
@@ -367,6 +449,27 @@ console.log(typeof age);//string
 转换为字符串类型
 转换为数字型
 转换为布尔型
+
+
+- Wenn Operatoren auf den falschen Datentypen angewendet werden, führt JavaScript eine **_automatische Typkonvertierung_** durch
+- Typkonvertierung basiert auf einer großen Anzahl teils komplizierter, teils verwirrender Regeln
+- Automatische Typkonvertierung ist in einigen Fällen sinnvoll:
+    - Testen ob eine Variable einen richtigen Wert hat oder `**null**` bzw. `**undefined**` ist
+    - Testen ob eine Variable den Wert `**0**` hat
+- In vielen Fällen führt automatische Typkonvertierung zu fehlerhaftem Code und sollte vermieden werden
+- Bei Verwendung der strikten Vergleichsoperatoren `**===**` und `!==` wird keine Typkonvertierung durchgeführt
+
+Beachte
+- `**undefined**` ist ein eigener Datentyp und bedeutet, dass einer deklarierten Variablen kein Wert zugewiesen wurde
+- `**null**` ist ein Objekt, welches einer Variablen zugewiesen werden kann, um zu kennzeichnen, dass die Variable keinen Wert hat
+
+![](image/Pasted%20image%2020250217212715.png)
+
+
+
+![](image/Pasted%20image%2020241123144114.png)
+
+
 
 ### 1.5.1 转换为字符串型🔥
 |方式	|说明	|案例|
@@ -445,5 +548,31 @@ console.log(Boolean(undefined)); //false
 console.log(Boolean('小白')); //true
 console.log(Boolean(12));   //true
 ```
+
+
+# 2 Ausdruck 
+
+- Ein **_Ausdruck_** (**_Expression_**) ist ein Stück Programmcode, das einen Wert zurück liefert, aber keine Daten modifiziert
+- Ausdrücke modifizieren keine Daten
+- Ergebnisse von Ausdrücken bilden die Eingabe für andere Ausdrücke, werden in Konstanten oder Variablen gespeichert oder bei Methodenaufrufen übergeben
+- Ausdrücke sind oftmals Bestandteil von Anweisungen
+
+![](image/Pasted%20image%2020250217212940.png)
+
+# 3 Anweisung
+
+- Eine **_Anweisung_** (**_Statement_**) ist ein Befehl, der den Interpreter veranlasst, etwas zu tun:
+    - Ausgabeanweisungen
+    - Zuweisungsanweisung
+    - Kontrollanweisung
+    - Funktionsaufrufe
+    - Ausdruck
+- Anweisungen haben i.d.R keinen Wert
+- Sequentielle Ausführung von Anweisungen ist ein **_Programm_**
+
+![](image/Pasted%20image%2020250217212954.png)\
+
+
+
 
 

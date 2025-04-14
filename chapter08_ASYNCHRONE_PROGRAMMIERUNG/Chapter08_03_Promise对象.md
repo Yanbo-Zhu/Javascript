@@ -1,228 +1,141 @@
-# 1 Promise对象
 
-## 1.1 同步异步的介绍
 
 Promise 是异步操作的一种解决方案。
 Promise是ES6引入的异步编程（回调地狱）的新解决方案。语法上Promise是一个构造函数，用来封装异步操作并可以获取其成功或失败的结果。
 
+# 1 基础 
 
-### 1.1.1 异步的概念
- 异步（Asynchronous, async）是与同步（Synchronous, sync）相对的概念。
+“Promises (in anderen Programmiersprachen auch Futures genannt) sind ein sehr nützliches Werkzeug für die asynchrone Programmierung mit JavaScript. Sie repräsentieren Platzhalter für Ergebnisse, die erst in der Zukunft eintreffen. Indem man den Promises Callback-Funktionen übergibt, kann man Funktionalität definieren, die asynchron ausgeführt wird, also erst dann, wenn das Ergebnis vorliegt.”
 
- 在我们学习的传统单线程编程中，程序的运行是同步的（同步不意味着所有步骤同时运行，而是指步骤在一个控制流序列中按顺序执行）。而异步的概念则是不保证同步的概念，也就是说，一个异步过程的执行将不再与原有的序列有顺序关系。
+就是将 function 的具体内容, 就是在之前某一个function 中写下这个 function 作为 placeholder,  之后再定义这个function , 在给入这个function具体要干什么 
 
- 简单来理解就是：同步按你的代码顺序执行，异步不按照代码顺序执行，异步的执行效率更高。
+In JavaScript sind _Promises_ ein Konzept, das dazu dient, **asynchrone** Operationen auf eine einfache und gut lesbare Weise zu behandeln. Ein Promise repräsentiert den zukünftigen Wert einer asynchronen Operation – entweder den Erfolg oder das Scheitern.
 
- 以上是关于异步的概念的解释，接下来我们通俗地解释一下异步：异步就是从主线程发射一个子线程来完成任务。
+Promises helfen, das sogenannte "Callback Hell" zu vermeiden – ein häufiges Problem, wenn man viele verschachtelte Callback-Funktionen verwendet. Sie verbessern die Lesbarkeit und Strukturierung von asynchronem Code und machen Fehlerbehandlung einfacher.
 
- ![img](https://i0.hdslb.com/bfs/album/d1cc4d26fc4056acf3f704bddb4bfecdf3b3ddd0.png)
+## 1.1 Was ist eine Callback-Funktion
 
-### 1.1.2 什么时候用异步编程
 
- 在前端编程中（甚至后端有时也是这样），我们在处理一些简短、快速的操作时，例如计算 1 + 1 的结果，往往在主线程中就可以完成。主线程作为一个线程，不能够同时接受多方面的请求。所以，当一个事件没有结束时，界面将无法处理其他请求。
+Eine Callback-Funktion in JavaScript ist eine Funktion, die als Argument an eine andere Funktion übergeben wird und in dieser aufgerufen wird, um eine bestimmte Aktion auszuführen.
 
- 现在有一个按钮，如果我们设置它的 onclick 事件为一个死循环，那么当这个按钮按下，整个网页将失去响应。
 
- 为了避免这种情况的发生，我们常常用子线程来完成一些可能消耗时间足够长以至于被用户察觉的事情（或者是一些需要等待某个时机在背后自动执行的任务，比如：事件监听），比如读取一个大文件或者发出一个网络请求。因为子线程独立于主线程，所以即使出现阻塞也不会影响主线程的运行。但是子线程有一个局限：一旦发射了以后就会与主线程失去同步，我们无法确定它的结束，如果结束之后需要处理一些事情，比如处理来自服务器的信息，我们是无法将它合并到主线程中去的。
+```js
+function sayHello(name) {
+    console.log(`Hello, ${name}!`);
+}
 
- JavaScript 是单线程语言，为了解决多线程问题，JavaScript 中的异步操作函数往往通过**回调函数**来实现异步任务的结果处理。
+function greetUser(callback, userName) {
+    console.log("Fetching user information...");
+    setTimeout(() => {
+        // Aufruf der Callback-Funktion nach 2 Sekunden
+        callback(userName);
+    }, 2000);
+}
 
-### 1.1.3 回调函数（callback function）
-
-在 JavaScript 中，回调函数具体的定义为：函数A 作为参数（函数引用）传递到另一个 函数B 中，并且这个 函数B 执行函数A。我们就说 函数A 叫做回调函数。如果没有名称（函数表达式），就叫做匿名回调函数。
-
-简单理解就是：函数a有一个参数，这个参数的值 给入的是 函数b，当函数a执行完以后执行函数b。那么这个过程就叫回调
-```html
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<script language="javascript" type="text/javascript">
-    function a(callback)
-    {
-        alert("我是parent函数a！");
-        alert("调用回调函数");
-        callback();
-    }
-    function b(){
-        alert("我是回调函数b");
-
-    }
-    function c(){
-        alert("我是回调函数c");
-
-    }
-
-    function test()
-    {
-        a(b);
-        a(c);
-    }
-
-</script>
-<body>
-<h1>学习js回调函数</h1>
-<button onClick=test()>click me</button>
-<p>应该能看到调用了两个回调函数</p>
-</body>
-</html>
+// Die Funktion sayHello wird als Callback übergeben
+greetUser(sayHello, "Szymon");
 
 ```
 
 
-#### 1.1.3.1 回调同步 和 回调异步
+![](image/Pasted%20image%2020241204222416.png)
 
-回调函数就是一个作为参数的函数，它是在我们启动一个异步任务的时候就告诉它：等你完成了这个任务之后要干什么。这样一来主线程几乎不用关心异步任务的状态了，他自己会善始善终。
+## 1.2 Sind Callback-Funktionen also Funktionen höherer Ordnung?
 
-注意：回调和异步不是同一个东西，许多人误认为 js 中每个回调函数都是异步处理的，实际上并不是，可以同步回调，也可以异步回调。
-只不过说：**回调可以是同步也可以是异步，异步必须放在回调里执行，也就是对于一个异步任务只有回调函数里的才是异步的部分。**
+Nein
 
- 回调同步的例子：
+- Eine Callback-Funktion ist eine Funktion, die von einer anderen Funktion verwendet wird.
+- Funktionen höherer Ordnung sind Funktionen, die entweder andere Funktionen akzeptieren (z. B. Array.map) oder Funktionen zurückgeben.
+- Eine Funktion höherer Ordnung verwendet oft Callback-Funktionen. Zum Beispiel ist Array.map eine Funktion höherer Ordnung, die einen Callback akzeptiert:
 
- ```javascript
-> > const test = function (func) {
-> >  func();
-> > }
-> > 
-> > test(() => {
-> >  console.log('func');
-> > })
- ```
-
-回调异步的例子：
-
- ```javascript
-> > setTimeout(()=>{
-> >  console.log('one');
-> > }, 3000);
-> > console.log('two');
- ```
-
-## 1.2 实例
-### 1.2.1 实例1
- `setInterval()` 和 `setTimeout()` 是两个异步语句。
-
-异步（asynchronous）：不会阻塞 CPU 继续执行其他语句，当异步完成时（包含回调函数的主函数的正常语句完成时），会执行 “回调函数”（callback）。
-
-```html
-
- ```h
-> <!DOCTYPE html>
-> <html>
-> 
-> <head>
-> <meta charset="utf-8">
-> <title>菜鸟教程(runoob.com)</title>
-> </head>
-> 
-> <body>
-> 
-> <p>回调函数等待 3 秒后执行。</p>
-> <p id="demo"></p>
-> <p>异步方式，不影响后续执行。</p>
-> <script>
->   function print() {
->       document.getElementById("demo").innerHTML = "RUNOOB!";
->   }
->   setTimeout(print, 3000);
-> </script>
-> 
-> </body>
-> 
-> </html>
- ```
-
-![1](https://i0.hdslb.com/bfs/album/365c74378381a0e69761dfe542d2de267c1b3828.gif)
-这段程序中的 setTimeout 就是一个消耗时间较长（3 秒）的过程，它的第一个参数是个回调函数，第二个参数是毫秒数，这个函数执行之后会产生一个子线程，子线程会等待 3 秒，然后执行回调函数 "print"，在命令行输出 "RUNOOB!"。
-
-当然，JavaScript 语法十分友好，我们不必单独定义一个函数 print ，我们常常将上面的程序写成：
-
-### 1.2.2 实例2
-
- ```html
-> <!DOCTYPE html>
-> <html>
-> 
-> <head>
-> <meta charset="utf-8">
-> <title>菜鸟教程(runoob.com)</title>
-> </head>
-> 
-> <body>
-> 
-> <p>回调函数等待 3 秒后执行。</p>
-> <p id="demo"></p>
-> <p>异步方式，不影响后续执行。</p>
-> <script>
->   setTimeout(function () {
->       document.getElementById("demo").innerHTML = "RUNOOB!";
->   }, 3000);
->   /* ES6 箭头函数写法
->   setTimeout(() => {
->       document.getElementById("demo").innerHTML = "RUNOOB!";
->   }, 3000);
->   */
-> </script>
-> 
-> </body>
-> 
-> </html>
- ```
-
-**注意：**既然 setTimeout 会在子线程中等待 3 秒，在 setTimeout 函数执行之后主线程并没有停止，所以：
-
-### 1.2.3 实例3
-
- ```html
-> <!DOCTYPE html>
-> <html>
-> 
-> <head>
-> <meta charset="utf-8">
-> <title>菜鸟教程(runoob.com)</title>
-> </head>
-> 
-> <body>
-> 
-> <p>回调函数等待 3 秒后执行。</p>
-> <p id="demo1"></p>
-> <p id="demo2"></p>
-> <script>
->   setTimeout(function () {
->       document.getElementById("demo1").innerHTML = "RUNOOB-1!";
->   }, 3000);
->   document.getElementById("demo2").innerHTML = "RUNOOB-2!";
-> </script>
-> 
-> </body>
-> 
-> </html>
- ```
-
-这段程序的执行结果是：
-
- ![2](https://i0.hdslb.com/bfs/album/ad3300e4fccf3861082bcb9633584d5aad190b98.gif)
-
-（之前常用的异步操作解决方案是：回调函数）
-
-```javascript
-document.addEventListener(
-    'click',
-    () => {
-        console.log('这里是异步的');
-    },
-    false
-);
-console.log('这里是同步的');
+```js
+[1, 2, 3].map(x => x * 2); 
+// Die Lambda-Funktion `x => x * 2` ist ein Callback.
 ```
 
-## 1.3 什么时候使用 Promise 呢？
+---
+
+**Callback-Funktionen:**
+
+Eine Callback-Funktion ist eine Funktion, die als Argument an eine andere Funktion **übergeben** **wird**, um später innerhalb dieser aufgerufen zu werden. Callbacks ****selbst sind also **keine** Funktionen höherer Ordnung – sie sind oft normale Funktionen, die von einer höheren Ordnungs-Funktion verwendet werden.
+
+```js
+function callbackExample(callback) {
+    console.log("Before calling the callback...");
+    callback(); // Aufruf der übergebenen Funktion
+    console.log("After calling the callback...");
+}
+
+function myCallback() {
+    console.log("This is a callback function.");
+}
+
+callbackExample(myCallback);
+```
+
+Hier ist myCallback eine normale Funktion, die als Callback verwendet wird. Sie selbst ist keine Funktion höherer Ordnung.
+
+---
+
+
+**Funktionen höherer Ordnung:**
+
+Eine Funktion höherer Ordnung ist eine Funktion, die entweder:
+Eine andere Funktion als Argument akzeptiert (wie callbackExample rechts), oder Eine Funktion zurückgibt.
+
+```js
+function higherOrderFunction() {
+    return function () {
+        console.log("This is a returned function.");
+    };
+}
+
+// Aufruf der HOF
+const returnedFunction = higherOrderFunction();
+returnedFunction(); // Gibt "This is a returned function." aus
+
+```
+
+Hier ist higherOrderFunction eine Funktion höherer Ordnung, da sie eine Funktion zurückgibt.
+
+# 2 什么时候使用 Promise 呢: 回调地狱 callback hell
 
 Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback hell）的问题。
+Als Callback-Hölle (Callback Hell) werden mehrere ineinander verschachtelte Callbacks bezeichnet, deren Code nur noch sehr schwer nachvollziehbar ist
 
-例如下面展示两个回调地狱的例子：
+```js
+function x(callback) {
+  setTimeout(function() {
+    console.log("Ergebnis von x()");
+    callback();
+  }, 2000);
+};
+function y(callback) {
+  setTimeout(function() {
+    console.log("Ergebnis von y()");
+    callback();
+  }, 1000);
+};
+function z(callback) {
+  setTimeout(function() {
+    console.log("Ergebnis von z()");
+    callback();
+  }, 3000);
+};
 
-例子1：分别间隔一秒打印省市县
+x(()=>{
+  console.log("x() ist fertig");
+  y(()=>{
+   console.log("y() ist fertig");
+   z(()=>{
+    console.log("z() ist fertig");
+   });
+  });
+});
+```
+
+
+## 2.1 例子1：分别间隔一秒打印省市县
 
 ```html
 <!DOCTYPE html>
@@ -271,7 +184,7 @@ Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback he
 
 ![555](https://i0.hdslb.com/bfs/album/a45ebe3c65367ca98ec1e4932a40f978cae5e818.gif)
 
-例子2：当我们点击窗口后，盒子依次 “右——>下——>左” 移动
+## 2.2 例子2：当我们点击窗口后，盒子依次 “右——>下——>左” 移动
 
 ```html
 <!DOCTYPE html>
@@ -332,7 +245,9 @@ Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback he
 
 <img src="https://i0.hdslb.com/bfs/album/97e97a5e20c5634615ea020b9840ef838d9c0718.gif" style="zoom:25%;" />
 
-## 1.4 Promise 的含义
+
+
+# 3 Promise 的含义
 
 Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了`Promise`对象。
 
@@ -340,15 +255,20 @@ Promise 是异步编程的一种解决方案，比传统的解决方案——回
 
 Promise 有三个状态：pending（等待）、fulfilled 或 resolved（成功）、rejected（失败）。
 
+Ein Promise hat drei mögliche Zustände:
+1. Pending (ausstehend): Das Promise wurde erstellt, die Operation ist aber noch nicht abgeschlossen.
+2. Fulfilled (erfüllt): Die Operation wurde erfolgreich abgeschlossen, und das Promise hat nun einen Wert.
+3. Rejected (abgelehnt): Die Operation ist fehlgeschlagen, und das Promise hat einen Fehlerwert.
+
+---
+
+
 并且 Promise 必须接收一个回调函数，这个回调函数有两个参数，这两个参数也是两个函数，`(resolve, reject) => {}`。
-
 - 实例化 Promise 后，默认是等待状态。
-
 - 当执行 `resolve()` 函数时，Promise 从等待状态——>成功状态。
-
 - 当执行 `reject()` 函数时，Promise 从等待状态——>失败状态。
 
-注意：当 Promise 的状态一但从等待转变为某一个状态后，后续的转变就自动忽略了，比如：先调用 resolve() 再调用 reject()，那么 Promise 的最终结果是成功状态。
+注意：当 Promise 的状态一但从等待转变为某一个状态后，后续的转变就自动忽略了，比如：先调用 `resolve()` 再调用 `reject()`，那么 Promise 的最终结果是成功状态。
 
 > 注意：这里的 resolve reject 只是一个形参，可以取任意名字，但是我们约定直接使用 resolve reject。
 
@@ -356,16 +276,40 @@ Promise 有三个状态：pending（等待）、fulfilled 或 resolved（成功�
 
 有了`Promise`对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。此外，`Promise`对象提供统一的接口，使得控制异步操作更加容易。
 
-`Promise`也有一些缺点。首先，无法取消`Promise`，一旦新建它就会立即执行，无法中途取消。其次，如果不设置回调函数，`Promise`内部抛出的错误，不会反应到外部。第三，当处于`pending`状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。
 
-## 1.5 Promise 的基本用法和沟槽函数
+
+---
+
+Vorteile von Promises:
+- Ermöglichen Chaining mit .then() und .catch().
+- Bessere Lesbarkeit und Fehlerbehandlung im Vergleich zu Callbacks.
+- Unterstützt Funktionen wie Promise.all() oder Promise.race().
+
+Nachteile von Promises:
+- Verschachtelung kann bei komplexen Operationen zu schlechter Lesbarkeit führen.
+- Fehlende native Syntax-Unterstützung für strukturiertes Warten.
+
+`Promise`也有一些缺点。
+- 首先，无法取消`Promise`，一旦新建它就会立即执行，无法中途取消。
+- 其次，如果不设置回调函数，`Promise`内部抛出的错误，不会反应到外部。
+- 第三，当处于`pending`状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。
+
+# 4 Promise 的基本用法和沟槽函数
 
 ES6 规定，`Promise`对象是一个构造函数，用来生成`Promise`实例。
-1)Promise构造函数：Promise(excutor){}
 
 
+![](image/Pasted%20image%2020241129201322.png)
+
+- Ein **_Promise_** ist ein "Versprechen" welches in Zukunft entweder erfüllt (**_fulfilled_**) oder nicht eingehalten (**_rejected_**) wird
+- Promises sind Objekte, an die beim Aufruf ihres Konstruktors eine **_Ausführungsfunktion_** (**_Executor Function_**) übergeben wird
+- Ausführungsfunktion wird synchron bei Instanziierung des Promise ausgeführt, definiert aber i.d.R. asynchronen Code in Form von Callbacks, die an Funktionen höherer Ordnung, z.B. Web APIs, übergeben werden
+- Ausführungsfunktion endet mit Aufruf von `**resolve**` und Übergabe eines Ergebnisobjekts oder/und mit `**reject**` und Übergabe eines Fehlerobjekts
+- Das vom Konstruktor erzeugte Promise-Objekt enthält eine `**then**`-Methode, welcher als Argument eine **_Konsumfunktion_** (**_Consumer Function_**) für den Erfolgsfall und eine für den Fehlerfall übergeben wird
+- Konsumfunktionen werden in eine Job Queue im Erfolgsfall bzw. Fehlerfall aufgenommen und von der Event Loop mit dem Ergebnis- bzw. Fehlerobjekt aufgerufen
+
+## 4.1 Promise构造函数：Promise(excutor){}
 下面代码创造了一个`Promise`实例。
-
 ```js
 const promise = new Promise(function(resolve, reject) {
   // ... some code
@@ -380,44 +324,213 @@ const promise = new Promise(function(resolve, reject) {
 
 `Promise`构造函数接受一个函数作为参数，该函数的两个参数分别是`resolve`和`reject`。它们是两个函数，由 JavaScript 引擎提供，不用自己部署。
 
-`resolve`函数的作用是，将`Promise`对象的状态从“未完成”变为“成功”（即从 pending 变为 resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；`reject`函数的作用是，将`Promise`对象的状态从“未完成”变为“失败”（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
+- `resolve`函数的作用是，将`Promise`对象的状态从“未完成”变为“成功”（即从 pending 变为 resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；
+    - resolve(value);  中 的value 就是 异步操作的结果 会被传递出去
+- `reject`函数的作用是，将`Promise`对象的状态从“未完成”变为“失败”（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
 
-`Promise`实例生成以后，可以用`then`方法分别指定`resolved`状态和`rejected`状态的回调函数。
-
-`resolve()` 和 `reject()` 函数是可以接收参数的。
-
+`resolve()` 和 `reject()` 函数是可以接收参数的。比如上面的  resolve(value); 中的 value 就是 `resolve()`接受到的参数 
 - `resolve()` 接收的参数会传递给 then 方法的第一个回调函数
 - `reject()` 接收的参数会传递给 then 方法的第二个回调函数
 
 注意：通常我们不仅仅会传递一个基本数据类型的值，我们还常常传递对象，比如再 reject 中传递一个错误对象：
-
 `reject(new Error("出错了！"));`
 
+
+---
+
+Ein Promise wird normalerweise durch das Erstellen einer neuen Instanz des Promise-Objekts initialisiert, wobei eine Callback-Funktion verwendet wird, die zwei Parameter hat: resolve und reject.
+resolve und reject sind Funktionen, die von JavaScript automatisch an die Funktion übergeben werden, die man beim Erstellen eines Promises mit new Promise() angibt.
+
+1. resolve wird verwendet, um das Promise als erfolgreich zu markieren.
+    1. Das übergebene Argument wird an die .then() Methode weitergegeben.
+2. reject wird verwendet, um das Promise als abgelehnt zu markieren.
+    1. Das übergebene Argument wird an die .catch() Methode weitergegeben.
+
+---
+
 ```js
-promise.then(function(value) {
-  // success
-}, function(error) {
-  // failure
+let myPromise = new Promise((resolve, reject) => {
+    let success = true;
+    if (success) {
+        resolve("Erfolg!"); // wird aufgerufen, wenn die Operation erfolgreich ist
+    } else {
+        reject("Fehler!"); // wird aufgerufen, wenn die Operation fehlschlägt
+    }
 });
 ```
 
-`then`方法可以接受两个回调函数作为参数。第一个回调函数是`Promise`对象的状态变为`resolved`时调用，第二个回调函数是`Promise`对象的状态变为`rejected`时调用。这两个函数都是可选的，不一定要提供。它们都接受`Promise`对象传出的值作为参数。
 
+## 4.2 `then`方法分别指定`resolved`状态和`rejected`状态的回调函数 (重要)
+
+
+`Promise`实例生成以后，可以用`then`方法分别指定`resolved`状态和`rejected`状态的回调函数。
+
+
+```js
+
+const promise = new Promise(function(resolve, reject) {
+  // ... some code
+
+  if (/* 异步操作成功 */){
+    resolve(value);
+  } else {
+    reject(error);
+  }
+});
+
+
+promise.then(
+    function(value) { }, // success  
+    function(error) { } // failure
+);
+
+```
+
+`then`方法可以接受两个回调函数作为参数。第一个回调函数是`Promise`对象的状态变为`resolved`时调用，第二个回调函数是`Promise`对象的状态变为`rejected`时调用。
+
+这两个函数都是可选的，不一定要提供。它们都接受`Promise`对象传出的值作为参数。
+
+`resolve()` 和 `reject()` 函数是可以接收参数的。比如上面的  resolve(value); 中的 value 就是 `resolve()`接受到的参数 
+- `resolve()` 接收的参数会传递给 then 方法的第一个回调函数
+- `reject()` 接收的参数会传递给 then 方法的第二个回调函数
+
+注意：通常我们不仅仅会传递一个基本数据类型的值，我们还常常传递对象，比如再 reject 中传递一个错误对象：
+`reject(new Error("出错了！"));`
+
+
+---
+
+Promise-Methoden: .then(), .catch() und .finally()
+
+1
+then(): Diese Methode wird aufgerufen, wenn das Promise erfüllt ist (就是 resolve(value); 被使用了) und erlaubt den Zugriff auf das Ergebnis.
+```js
+myPromise.then(result => {
+    console.log(result); // Ausgabe: Erfolg!
+});
+```
+
+2
+catch(): Diese Methode fängt Fehler ab  (就是 reject(value); 被使用了)  und wird aufgerufen, wenn das Promise abgelehnt wird.
+```js
+myPromise.catch(error => {
+    console.log(error); // Ausgabe: Fehler! (wenn success = false wäre)
+});
+```
+
+3
+finally(): Diese Methode wird unabhängig vom Erfolg oder Misserfolg der Operation ausgeführt und wird häufig für Bereinigungsaktionen genutzt.
+
+```js
+myPromise.finally(() => {
+    console.log("Promise abgeschlossen");
+});
+```
+
+
+4
+```js
+let myPromise = new Promise((resolve, reject) => {
+    let success = true;
+    if (success) {
+        resolve("Erfolg!");
+    } else {
+        reject("Fehler!");
+    }
+})
+.then(result => {
+    console.log(result);
+})
+.catch(error => {
+    console.log(error);
+})
+.finally(() => {
+    console.log("Promise abgeschlossen");
+});
+```
+
+## 4.3 DER PROMISE-LIFE-CYCLE
+
+
+![](image/Pasted%20image%2020241129201353.png)
+
+Zustände des Promise-Objekts
+- `**pending**`: initialer Zustand, Ausführungsfunktion noch nicht abgeschlossen
+- `**fulfilled**`: Ausführungsfunktion wurde erfolgreich abgeschlossen
+- `**rejected**`: Ausführungsfunktion ist gescheitert
+- `**settled**`: Ausführungsfunktion mit fulfilled oder rejected beendet
+- Konsumfunktion im Fehlerfalle kann alternativ auch der `**catch**`-Methode übergeben werden (anstelle als zweites Argument in `**then**`), optional
+- An `**finally**` übergebene Callbacks werden unabhängig von `**fulfilled**` und `**rejected**` ausgeführt und sind keine Konsumfunktionen, das sie keine Argumente haben
+
+
+
+## 4.4 例子 
+
+例子 
+![](image/Pasted%20image%2020241129172805.png)
+
+```js
+
+let p=new Promise(function(resolve, reject) {
+  setTimeout(()=>resolve("Fertig! hier ist das Ergebnis"), 3000);  // 过3s 后 执行 resolve("Fertig! hier ist das Ergebnis")
+}).then(
+  result=>console.log(result), // 从 resolve("Fertig! hier ist das Ergebnis") 中获取 "Fertig! hier ist das Ergebnis" 作为 result 的值 
+  error=>console.log(error)
+).finally(()=>console.log("Bearbeitung beendet")); 
+
+
+
+let p=new Promise(function(resolve, reject) {
+  setTimeout(()=>reject(new Error("Fertig! hier ist der Fehler")), 3000);
+}).then(
+  result=>console.log(result),
+  error=>console.log(error)
+).finally(()=>console.log("Bearbeitung beendet")); 
+
+```
+
+
+
+
+
+---
+
+
+例子1
 下面是一个`Promise`对象的简单例子。
 
 ```js
 function timeout(ms) {
-  return new Promise((resolve, reject) => {
+  return new Promise( (resolve, reject) => {
     setTimeout(resolve, ms, 'done');
   });
 }
 
-timeout(100).then((value) => {
-  console.log(value);
-});
+timeout(5000).then(
+    (value) => { console.log(value); } // 这个回调函数是`Promise`对象的状态变为`resolved`时调用，
+);
+
+```
+
+或者写为
+
+```js
+function timeout(ms) {
+  return new Promise( (resolve, reject) => {
+    setTimeout(resolve("test"), ms);
+  });
+}
+
+timeout(5000).then(
+    (value) => { console.log(value); } // 这个回调函数是`Promise`对象的状态变为`resolved`时调用，
+);
 ```
 
 上面代码中，`timeout`方法返回一个`Promise`实例，表示一段时间以后才会发生的结果。过了指定的时间（`ms`参数）以后，`Promise`实例的状态变为`resolved`，就会触发`then`方法绑定的回调函数。
+
+
+----
+例子2 
 
 Promise 新建后就会立即执行。
 
@@ -439,6 +552,10 @@ console.log('Hi!');
 ```
 
 上面代码中，Promise 新建后立即执行，所以首先输出的是`Promise`。然后，`then`方法指定的回调函数，将在当前脚本所有同步任务执行完才会执行，所以`resolved`最后输出。
+
+
+---
+例子3 
 
 下面是异步加载图片的例子。
 
@@ -462,6 +579,11 @@ function loadImageAsync(url) {
 
 上面代码中，使用`Promise`包装了一个图片加载的异步操作。如果加载成功，就调用`resolve`方法，否则就调用`reject`方法。
 
+
+
+---
+例子4 
+
 如果调用`resolve`函数和`reject`函数时带有参数，那么它们的参数会被传递给回调函数。`reject`函数的参数通常是`Error`对象的实例，表示抛出的错误；`resolve`函数的参数除了正常的值以外，还可能是另一个 Promise 实例，比如像下面这样。
 
 ```js
@@ -479,6 +601,9 @@ const p2 = new Promise(function (resolve, reject) {
 
 注意，这时`p1`的状态就会传递给`p2`，也就是说，`p1`的状态决定了`p2`的状态。如果`p1`的状态是`pending`，那么`p2`的回调函数就会等待`p1`的状态改变；如果`p1`的状态已经是`resolved`或者`rejected`，那么`p2`的回调函数将会立刻执行。
 
+
+---
+
 ```js
 const p1 = new Promise(function (resolve, reject) {
   setTimeout(() => reject(new Error('fail')), 3000)
@@ -495,6 +620,11 @@ p2
 ```
 
 上面代码中，`p1`是一个 Promise，3 秒之后变为`rejected`。`p2`的状态在 1 秒之后改变，`resolve`方法返回的是`p1`。由于`p2`返回的是另一个 Promise，导致`p2`自己的状态无效了，由`p1`的状态决定`p2`的状态。所以，后面的`then`语句都变成针对后者（`p1`）。又过了 2 秒，`p1`变为`rejected`，导致触发`catch`方法指定的回调函数。
+
+
+---
+
+例子5 
 
 注意，调用`resolve`或`reject`并不会终结 Promise 的参数函数的执行。
 
@@ -522,10 +652,182 @@ new Promise((resolve, reject) => {
 ```
 
 
-## 1.6 方法
-### 1.6.1 Promise.prototype.then()
 
-#### 1.6.1.1 Promise的基本结构
+### 4.4.1 
+
+```js
+// mit Promise-Methoden
+
+let myPromise = new Promise( (resolve, reject) => {
+    console.log("The game has started.");
+    setTimeout(() => {
+        if (Math.random() < 0.1) {
+            resolve("You won! Congratulations!")
+        } else {
+            reject("You lost. Try again!")
+        }
+    }, 2_000)
+})
+.then(win => console.log(win)) // success condition
+.catch(lose => console.log(lose)) // reject condition oder error
+.finally(() => console.log("Thanks for playing!"))
+```
+
+
+
+```js
+// mit async/await
+
+async function playGame() {
+    console.log("The game has started.");
+    try {
+        const result = await new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (Math.random() < 0.1) {
+                    resolve("You won! Congratulations!");
+                } else {
+                    reject("You lost. Try again!");
+                }
+            }, 2_000);
+        });
+        console.log(result); // success condition
+    } catch (error) {
+        console.log(error); // reject condition oder error
+    } finally {
+        console.log("Thanks for playing!");
+    }
+}
+playGame();
+```
+
+
+
+# 5 Chained Promises (多个 then, catch, finally )
+
+
+```js
+let myPromise=new Promise((resolve, reject)=> {
+  setTimeout(()=> {
+    resolve("Immer");
+  }, 3000)
+}).then(wert=>wert+" und immer")
+  .then(wert=>wert+" und immer wieder")
+  .then(wert=>wert+" wiederhole ich mich.")
+  .then(wert=>console.log(wert))
+  .then(wert=>{throw new Error("Achtung Fehler")})
+  .catch(err=>console.error(err));
+```
+
+
+- `**then**`, `**catch**` und `**finally**` geben nach Beendigung ein neues Promise-Objekt zurück, wodurch **_verkettete Promises_** (**_Chained Promises_**) möglich werden
+- Konsumfunktionen in verketteten `**then**`-Methoden werden in der vorgegebenen Reihenfolge asynchron abgearbeitet
+- Wird in einer der Konsumfunktionen ein Fehler ausgelöst, wird `**then**`-Kette abgebrochen und der Fehler optional durch eine an `**catch**` übergebene Konsumfunktion behandelt
+
+
+## 5.1 ##
+
+```js
+let myPromise = new Promise( (resolve, reject) => {
+    console.log("The game has started.");
+    setTimeout(() => {
+        if (Math.random() < 0.1) {
+            resolve("You won! Congratulations!")
+        } else {
+            reject("You lost. Try again!")
+        }
+    }, 2_000)
+})
+.then(win => console.log(win)) // success condition
+.catch(lose => console.log(lose)) // reject condition oder error
+.then(win => console.log(win)) // success condition
+.finally(() => console.log("Thanks for playing!"))
+```
+
+
+Code Walkthrough:
+
+1. **Creating the `Promise`**:
+    - The `Promise` is created, and the executor function is immediately executed.
+    - The message `"The game has started."` is logged to the console.
+2. **Timeout Logic**:
+    - After 2 seconds (`setTimeout`), the `Math.random()` generates a random number between 0 and 1:
+        - If the number is less than `0.1` (10% chance), the promise is **resolved** with `"You won! Congratulations!"`.
+        - Otherwise, the promise is **rejected** with `"You lost. Try again!"`.
+3. **Chaining with `then`, `catch`, `finally`**:
+    - The `.then()` handler is called when the promise is **resolved**:
+        - It logs `"You won! Congratulations!"` to the console.
+    - The `.catch()` handler is called when the promise is **rejected**:
+        - It logs `"You lost. Try again!"` to the console.
+4. **Second `.then()`**:
+    - Regardless of the outcome (resolved or rejected), the second `.then()` runs.
+    - ==Since the `catch` block doesn't return a value, the `win` parameter in this `.then()` will be `undefined`. Thus, `console.log(win)` logs `undefined` unless the promise was resolved.==
+5. **`.finally()`**:
+    - Runs after the promise settles (whether resolved or rejected).
+    - Logs `"Thanks for playing!"` to the console.
+
+
+
+---
+
+Possible Outputs:
+Case 1: Random number is less than `0.1` (Promise is resolved):
+```js
+The game has started.
+You won! Congratulations!
+You won! Congratulations!
+Thanks for playing!
+
+```
+
+Case 2: Random number is greater than or equal to 0.1 (Promise is rejected):
+```js
+The game has started.
+You lost. Try again!
+undefined
+Thanks for playing!
+```
+
+
+---
+
+Explanation of `undefined` in the Second `.then()`:
+- The second `.then()` follows the `catch()` block, which doesn't return a value. As a result:
+    - If the promise is resolved, the original resolution value propagates to the second `.then()`.
+    - If the promise is rejected, `catch()` intercepts the rejection but doesn't pass any value to the next `.then()`.
+
+To avoid undefined, return a value explicitly in the catch block, like:
+```js
+.catch(lose => {
+    console.log(lose);
+    return "Better luck next time!";
+})
+```
+
+Now the second .then() will log "Better luck next time!" instead of undefined after a rejection.
+
+## 5.2 
+
+```js
+new Promise((resolve, reject) => { reject("A"); }) 
+    .then(wert => {console.log(wert); return "B";})
+    .catch(err => {console.log(err); return "C";})
+    .then(wert => {console.log(wert); return "D";})
+    .catch(wert => {console.log(wert); return "E";})
+    .finally(() => console.log("F"));
+```
+
+返回的值 是 A, C, F
+
+- reject("A"); 中的A 传给 catch(err => {console.log(err); return "C";}) 中的 err, console 输出 A
+- catch(err => {console.log(err); return "C";}) 中 c 传给 then(wert => {console.log(wert); return "D";}) 中的 wert,  console 输出 c
+- then(wert => {console.log(wert); return "D";}) 执行完了以后 执行 finally(() => console.log("F"));  输出 f.  不会输出 d 因为 虽然 return D , 但是 finally(() => console.log("F")); 中并没有什么语句 要 拿到 D 输出. 
+
+
+
+# 6 方法
+## 6.1 Promise.prototype.then()
+
+### 6.1.1 Promise的基本结构
 ```js
 const p = new Promise((resolve,reject)=>{
 	//成功就用resolve
@@ -537,6 +839,7 @@ p.then(value=>{},reason=>{});
 
 
 then方法的返回结果：(then方法返回的是Promise对象，但对象的状态时由回调函数的执行结果决定：)
+
 ```js
 const result = p.then(value=>{},reason=>{});
 //then方法返回的也是Promise对象
@@ -544,100 +847,107 @@ console.log(result);
 ```
 
 
-#### 1.6.1.2 工作伦理
+### 6.1.2 工作伦理
 1. then 方法的两个回调函数什么时候执行
-
    - pending——>resolved时，执行 then 的第一个回调函数
    - pending——>rejected 时，执行 then 的第二个回调函数
 
 2. then 方法执行后的返回值
-
    - then 方法执行后默认自动返回一个新的 Promise 对象
 
 3. then 方法返回的 Promise 对象的状态改变
+   - then 方法其实默认返回的是 undefined，即：`return undefined`，但是 ES6 的机制规定：当 then 返回 undefined 时，那么会将这个 undefined 包装成一个 Promise，并且这个 Promise 默认调用了 `resolve()` 方法（成功态），并且把 undefined 作为了 resolve() 的参数，相当于：
 
-   - then 方法其实默认返回的是 undefined，即：`return undefined`，但是 ES6 的机制规定：当 then 返回 undefined 时，那么会将这个 undefined 包装成一个 Promise，并且这个 Promise 默认调用了 `resilve()` 方法（成功态），并且把 undefined 作为了 resilve() 的参数，相当于：
-
-     ```javascript
-     const p = new Promise((resolve, reject) => {
-         resolve();
-     });
-     p.then(() => {
-         // 默认会执行这一条
-         // return undefined;
-     }, () => {
-     });
-     
-     // 实际上，return 会包装为一个 Promise 对象，同时默认执行 resolve()，并把 return 的值作为 resolve() 的参数
-     /*
-     return new Promise(resolve => {
-         resolve(undefined);
-     });
-     */
-     
-     // -----------------------------
-     // 如果我们在这个返回的 Promise 上继续调用 then 方法，并接收参数的话，可以发现 then 中成功接收到了被 Promise 包装后的参数
-     const p2 = new Promise((resolve, reject) => {
-         resolve();
-     });
-     p2.then(() => {
-         // 默认会执行这一条
-         // return undefined;
-     }).then(data => {
-         console.log(data);  // 打印 undefined
-         // 手动 return 一个值
-         return 24;
-         // 相当于：return new Promise(resolve => {resolve(24);});
-     }).then((data) => {
-         console.log(data);	// 打印 24
-     });
-     ```
+```javascript
+ const p = new Promise((resolve, reject) => {
+     resolve();
+ });
+ 
+ p.then(() => {
+     // 默认会执行这一条
+     // return undefined;
+ }, () => {
+ });
+ 
+ // 实际上，return 会包装为一个 Promise 对象，同时默认执行 resolve()，并把 return 的值作为 resolve() 的参数
+ /*
+ return new Promise(resolve => {
+     resolve(undefined);
+ });
+ */
+ 
+ // -----------------------------
+ // 如果我们在这个返回的 Promise 上继续调用 then 方法，并接收参数的话，可以发现 then 中成功接收到了被 Promise 包装后的参数
+ const p2 = new Promise((resolve, reject) => {
+     resolve();
+ });
+ 
+ p2.then(() => {
+     // 默认会执行这一条
+     // return undefined;
+ }).then(data => {
+     console.log(data);  // 打印 undefined
+     // 手动 return 一个值
+     return 24;
+     // 相当于：return new Promise(resolve => {resolve(24);});
+ }).then((data) => {
+     console.log(data);	// 打印 24
+ });
+```
 
    - 如果我们要让 then 返回一个失败状态的 Promise，那么我们可以手动 return 一个 Promise 并执行 reject() 方法。
 
-     ```javascript
-     const p3 = new Promise((resolve, reject) => {
-         resolve();
-     });
-     p3.then(() => {
-         // 手动返回一个调用了 reject 的 Promise
-         return new Promise((resolve, reject) => {
-             reject("失败");
-         })
-     }).then(() => {}, errData => {
-         console.log(errData);	// 失败
-     });
-     ```
-
- **总结**：
- Promise 是一个构造函数，需要 new 才能使用。在 new Promise() 的时候需要传递一个匿名回调函数作为 Promise() 唯一的参数，这个回调函数有两个参数 resolve reject，这两个参数也是函数，当回调函数执行第一个 resolve 函数后 Promise 便变为了成功状态，反之回调函数执行了 reject 后 Promise 便变为了失败状态，且每个 Promise 只能要么执行 resolve，要么执行 reject，不能同时执行！当 Promise 被 new 之后就会有一个 then 方法，该方法默认接收两个匿名回调函数作为参数，其中第一个回调函数是在 Promise 为成功状态时自动调用的，反之第二个回调函数是在 Promise 为失败状态时自动调用的，并且这两个回调函数是可以接收参数的，参数就来自于 resolve 或 reject 调用时传递的实参！在 then 方法执行后会默认返回 undefined（在没有指定返回值的情况下），ES6 会将其包装为一个新的成功态的 Promise，该 Promise 会自动执行 resolve 函数，该函数的参数来自于 then 方法的返回值（如果没有返回值那么默认就返回 undefined）。如果需要返回一个失败态的 Promise，那么需要在 then 中手动指定返回值：
-
-```javascript
-> return new Promise((resolve, reject) => {
-> 	reject(参数);
-> }
+ ```javascript
+ const p3 = new Promise((resolve, reject) => {
+     resolve();
+ });
+ p3.then(() => {
+     // 手动返回一个调用了 reject 的 Promise
+     return new Promise((resolve, reject) => {
+         reject("失败");
+     })
+ }).then(() => {}, errData => {
+     console.log(errData);	// 失败
+ });
  ```
 
-#### 1.6.1.3 回调函数中返回的不结果产生的不同操作
+ **总结**：
+ Promise 是一个构造函数，需要 new 才能使用。
+ 在 new Promise() 的时候需要传递一个匿名回调函数作为 Promise() 唯一的参数，这个回调函数有两个参数 resolve reject，这两个参数也是函数，当回调函数执行第一个 resolve 函数后 Promise 便变为了成功状态，反之回调函数执行了 reject 后 Promise 便变为了失败状态，且每个 Promise 只能要么执行 resolve，要么执行 reject，不能同时执行！
+ 
+ 当 Promise 被 new 之后就会有一个 then 方法，该方法默认接收两个匿名回调函数作为参数，其中第一个回调函数是在 Promise 为成功状态时自动调用的，反之第二个回调函数是在 Promise 为失败状态时自动调用的，并且这两个回调函数是可以接收参数的，参数就来自于 resolve 或 reject 调用时传递的实参！
+ 
+ 在 then 方法执行后会默认返回 undefined（在没有指定返回值的情况下），ES6 会将其包装为一个新的成功态的 Promise，该 Promise 会自动执行 resolve 函数，该函数的参数来自于 then 方法的返回值（如果没有返回值那么默认就返回 undefined）。如果需要返回一个失败态的 Promise，那么需要在 then 中手动指定返回值：
+
+```javascript
+return new Promise((resolve, reject) => {
+	reject(参数);
+}
+ ```
+
+### 6.1.3 回调函数中返回不同的结果产生的不同操作
 
 (1）如果回调函数中返回的结果是 非promise类型的属性，状态则为成功，返回值为对象的成功值
 ```js
-  const result = p.then(value => {
-            console.log("成功");
-            console.log(value);
-            return 123;
-        }, reason => {
-            console.log("失败");
-            console.log(reason);
-        });
-        console.log(result);
+const result = p.then(value => {
+        console.log("成功");
+        console.log(value);
+        return 123;
+    }, reason => { 
+        console.log("失败");
+        console.log(reason);
+    }
+);
 
+console.log(result);
 ```
 
 返回的结果为123，非promise类型，所以状态为成功，返回123  
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/edd9a6f19f134c8e888e3d2b08e003bd.png)  
+
 若没写return，返回undefined，也是非promise类型，所以状态为成功  
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/1c05fce2c7a14eac99198e2af8a7bc08.png)
+
 
 (2) 如果回调函数中返回的结果时 是promise对象则：
 
@@ -769,7 +1079,7 @@ const result = p.then(value => {
 p.then(value=>{},reject=>{}).then(value=>{},reject=>{})
 
 
-#### 1.6.1.4 案例：分别间隔一秒打印省市县。
+### 6.1.4 案例：分别间隔一秒打印省市县。
 
 ```javascript
 <!DOCTYPE html>
@@ -815,7 +1125,7 @@ p.then(value=>{},reject=>{}).then(value=>{},reject=>{})
 
 
 
-### 1.6.2 Promise.prototype.catch() 
+## 6.2 Promise.prototype.catch() 
 用来指定promise失败的一个回调，相当于没有第一个参数的then方法。
 
 由之前的例子可以看出，我们在使用 Promise 的时候，大部分情况下，我们只用 resolve() 方法（成功态），所以在 Promise 回调函数中我们常常省略 reject 函数参数，在 then 中我们常常省略第二个回调函数。
@@ -892,7 +1202,7 @@ new Promise((resolve, reject) => {
 
 > 一般总是建议，Promise 对象后面要跟一个或多个 catch 方法，这样可以处理 Promise 内部发生的错误！
 
-### 1.6.3 Promise.prototype.finally()
+## 6.3 Promise.prototype.finally()
 
  当 Promise 状态发生变化时，不论如何变化都会执行，不变化不执行。
 
@@ -963,7 +1273,7 @@ new Promise((resolve, reject) => {
 
 `finally`：主要是用来处理一些必做操作，比如在操作数据库之后（无论成功与否）都要关闭数据库连接。
 
-### 1.6.4 Promise.all()
+## 6.4 Promise.all()
 
 `Promise.all()`方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
 
@@ -1067,7 +1377,7 @@ p2 完成了
 */
 ```
 
-### 1.6.5 Promise.resolve()和Promise.reject()
+## 6.5 Promise.resolve()和Promise.reject()
 
  以上两者都是 Promise 构造函数的方法。
 
@@ -1169,7 +1479,7 @@ res then
 
 > 与 Promise.resolve() 不同，Promise.reject() 无论接收什么类型的参数，都会原封不动的向后传递！
 
-### 1.6.6 Promise.race()
+## 6.6 Promise.race()
 
 `Promise.race()`方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
 
@@ -1198,7 +1508,7 @@ p
 
 上面代码中，如果 5 秒之内`fetch`方法无法返回结果，变量`p`的状态就会变为`rejected`，从而触发`catch`方法指定的回调函数。
 
-### 1.6.7 Promise.allSettled()
+## 6.7 Promise.allSettled()
 
 有时候，我们希望等到一组异步操作都结束了，不管每一个操作是成功还是失败，再进行下一步操作。但是，现有的 Promise 方法很难实现这个要求。
 
@@ -1280,10 +1590,9 @@ const errors = results
   .filter(p => p.status === 'rejected')
   .map(p => p.reason);
 ```
+# 7 Promise的应用
 
-## 1.7 Promise的应用
-
-### 1.7.1 异步加载图片
+### 7.1.1 异步加载图片
 
 异步加载：也称为图片的预加载。利用 js 代码提前加载图片，用户需要时可以直接从本地缓存获取，但是会增加服务器前端的压力。这样做可以提高用户的体验，因为同步加载大图片的时候，图片会一层一层的显示处理，但是经过预加载后，直接显示出整张图片。
 
@@ -1347,7 +1656,7 @@ const errors = results
 
 ![image-20220528144323405](https://i0.hdslb.com/bfs/album/3d95f9d84019bfe212e1abec0eb135f92636a8ef.png)
 
-### 1.7.2 Promise封装读取文件
+### 7.1.2 Promise封装读取文件
 一般写法, 不使用Promise封装：
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/19496369779441a99dccd408e4b713d7.png)
 
@@ -1390,7 +1699,7 @@ p.then((value) => {
 
 输出结果同上。
 
-### 1.7.3 多个文件读取
+### 7.1.3 多个文件读取
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/b1395e0bb8a84a4bbfb558fd359432eb.png)
 
 一般写法, 不用promise封装（模拟回调地狱）：
@@ -1436,7 +1745,7 @@ p.then(value => {
 ```
 
 
-### 1.7.4 Promise封装ajax请求
+### 7.1.4 Promise封装ajax请求
 
 先写个服务器端：
 ```js
@@ -1567,48 +1876,3 @@ console.log('网站服务器启动成功');
 
 ```
 
-# 2 德语资料 
-
-ES17 kennt die neuen Schlüsselworte async und await. Damit werden eine Methode als asynchron deklariert und mit await die Auswertung eines sog. Promises in der asynchronen Methode abgewartet. Ein Promise ist ein Ausdruck, der erst zu einem späteren Zeitpunkt evaluiert wird. Zuerst ein simples Beispiel eines Promises ohne async und await, das mit function* notiert wird:
-
-    // Beispiel f. e. Generator (Basis für async und await), der ein Promise zurück gibt
-    // mit function*
-    function* meingenerator() {
-	let a = 1;
-	let b = 1;
-	while (true) {
-	    // Fibo-Zahlen
-	    [a, b] = [b, a + b];
-	    yield a;
-	}
-    }
-
-yield wartet auf das Entgegennehmen des Wertes, hier den Inhalt der Variable 'a'. Mit next() wird von außen der aktuelle Wert abgeholt und blockiert (d.h. gewartet), solange er noch nicht da ist. Technisch gesprochen löst next() das mit yield getroffene Promise ein.
-
-Zur Verwendung unseres neuen Generators etwas Code:
-
-// generierte Werte, das Feld 'done' im Wertepaar aus next() ist hier stets FALSCH,
-// weil der Generator nicht terminiert
-let gg = meingenerator();
-gg.next().value; // 1
-gg.next().value; // 2
-gg.next().value; // 3
-
-Generatoren können, wie hier in diesem Beispiel, unendlich laufen, oder aber auch endlich sein.
-
-AUFGABE
-
-Warum sollte man nicht meingenerator() selbst in den Aufrufen nutzen? Probieren Sie es.
-
-Nun async und await zur Veranschaulichung, sie sind sog. 'syntaktischer Zucker' auf Promises, yield und next(), d.h. machen sie genießbarer:
-
-async function deferred() {
-  let promise = new Promise((resolve, reject) =>
-  {resolve(3 + 4);});
-  document.writeln(promise);
-  let myeval = await promise;
-  document.writeln(myeval);
-}
-deferred();
-
-Das angezeigte Ergebnis lautet [object Promise] 7. Ersteres ist das Promise (nicht evaluiert), letzteres ist das evaluierte Ergebnis aus dem Promise. reject() wird im Fehlerfall aufgerufen (im Beispiel nicht gezeigt).

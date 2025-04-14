@@ -29,6 +29,9 @@ App(Cordova)
 2. JS 脚本语言–编程类语言
     1. 实现业务逻辑和页面控制( 决定功能 )，相当于人的各种动作
 
+
+![](image/Pasted%20image%2020241123143024.png)
+
 ## 1.4 浏览器执行JS简介
 
 浏览器分成两部分：渲染引擎和 JS 引擎
@@ -75,6 +78,29 @@ BOM (Browser Object Model，简称BOM) 是指浏览器对象模型，它提供�
 3 支持面向对象
 面向对象是软件开发中的一种重要的编程思想，其优点非常多。
 
+
+Script-Sprache
+- Programmiersprachen, die nicht vor der Ausführung durch einen **_Compiler_** übersetzt werden, sondern während der Ausführung durch einen **_Interpreter_**
+- Einfacher in der Umsetzung als Compiler-Sprachen, da Kompilierungszeit entfällt
+- Interpretierte Sprachen benötigen längere Ausführungszeit, da die Übersetzung während der Ausführung erfolgt 
+
+**Dynamische Typisierung**
+- Datentypen werden dynamisch zur Laufzeit ermittelt
+- Keine Möglichkeiten, eine Variable mit einem Typ zu deklarieren
+- Typ einer Variablen kann sich zur Laufzeit ändern
+- Automatische Konvertierung von Typen, beispielsweise bei Vergleichen mit dem `**==**`-Operator
+
+
+**Funktionale Programmierung**
+- Funktionen als **_erstklassige Objekte_**, d.h. sie können Variablen zugewiesen und als Parameter anderer Funktionen verwendet werden
+- _**Deklarativ**_: Man bestimmt was ein Programm macht, nicht wie es etwas macht
+
+**Prototypische Objektorientierung**
+- Umsetzung des objektorientierten Paradigmas basierend auf **_Prototypen_**, nicht Klassen
+- Spätere Versionen von Javascript untewrstützen auch die _**klassenbasierte Objektorientierung**_
+
+
+
 # 3 注释
 
 1 单行注释 :  // xxx
@@ -109,16 +135,16 @@ sdasda
 
 
 
-# 6 断点调试
+# 5 断点调试
 浏览器中按 F12–> sources -->找到需要调试的文件–>在程序的某一行设置断点(在行数点一下)
 刷新浏览器
 Watch: 监视，通过watch可以监视变量的值的变化，非常的常用
 F11: 程序单步执行，让程序一行一行的执行，这个时候，观察watch中变量的值的变化
 
-# 7 JS引入方式
+# 6 JS引入方式
 JS 有3中书写位置，分别为行内、内嵌和外部
 
-## 7.1 行内式JS
+## 6.1 行内式JS
 由于现代网页开发提倡结构、样式、行为的分离，即分离HTML、CSS、 JavaScript三部分的代码，避免直接写在HTML标签的属性中，从而更有利于维 护。因此在实际开发中不推荐使用行内式。
 
 `<input type="button" value="点我试试" onclink="javascript:alert('Hello World')" />`
@@ -129,7 +155,7 @@ JS 有3中书写位置，分别为行内、内嵌和外部
 4. 引号易错，引号多层嵌套匹配时，非常容易弄混
 5.  特殊情况下使用
 
-## 7.2 内嵌式JS
+## 6.2 内嵌式JS
 ```javascript
 <script>
      alert('Hello World!');
@@ -140,8 +166,60 @@ JS 有3中书写位置，分别为行内、内嵌和外部
 可以将多行JS代码写到`<script>`标签中
 内嵌 JS 是学习时常用的方式
 
+-  JavaScript-Programme werden sofort nach dem Laden ausgeführt
+-  Ausführung beginnt mit den Anweisungen auf der globalen Ebene, Funktionen werden nur bei Aufruf ausgeführt
 
-## 7.3 外部JS
+Im `<head>` von HTML
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript-Test</title>
+  <script>
+    function meineFunktion() {
+      document.getElementById("meinTest").innerHTML=
+        "Ein Javascript wurde ausgeführt";
+    }
+  </script>
+</head>
+<body>
+  <h1>Ein Javascript bei der Ausführung</h1>
+  <p id="meinTest">JavaScript testen</p>
+  <button onClick="meineFunktion()">
+    JavaScript Starten
+  </button>
+</body>
+```
+- JavaScript-Programm befindet sich im Header des HTML-Dokuments innerhalb des `<script>-Elements`
+- Problem: bei großen Webseiten wird das JavaScript gestartet bevor die Webseite komplett gerendert is
+
+
+
+
+
+Im `<Body>` von HTML
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript-Test</title>
+</head>
+<body>
+  <h1>Ein Javascript bei der Ausführung</h1>
+  <p id="meinTest">JavaScript testen</p>
+  <button onClick="meineFunktion()">
+    JavaScript Starten
+  </button>
+  <script>
+    function meineFunktion() {
+      document.getElementById("meinTest").innerHTML=
+        "Ein Javascript wurde ausgeführt";
+    }
+  </script>
+</body>
+```
+- JavaScript-Programm befindet sich im Body des HTML-Dokuments innerhalb des `<script>`-Elements
+- JavaScript wird zuletzt geladen, wenn Webseite fast fertig gerendert ist
+
+## 6.3 外部JS
 
 放入 `</head> ` 中
 ```js
@@ -165,18 +243,47 @@ JS 有3中书写位置，分别为行内、内嵌和外部
 引用外部JS文件的script标签中间不可以写代码
 适合于JS代码量比较大的情况
 
-# 8 引入方式: die Attribute defer und async
+
+---
+
+Einbindung des JavaScript-Programms als externe Datei im Header oder im Body
+Oftmals eine einzelne JavaScript-Datei für alle Webseiten einer Website
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript-Test</title>
+</head>
+<body>
+  <h1>Ein Javascript bei der Ausführung</h1>
+  <p id="meinTest">JavaScript testen</p>
+  <button onClick="meineFunktion()">
+    JavaScript Starten
+  </button>
+  <script src="js/meinScript.js"></script>
+</body>
+```
+
+```js
+function meineFunktion() {
+  document.getElementById("meinTest").innerHTML=
+    "Ein JavaScript wurde ausgeführt!";
+};
+```
+
+
+# 7 引入方式: die Attribute defer und async
 https://www.mediaevent.de/javascript/programm-struktur.html
 
 1. Externe Scripte werden mit async asynchron – parallel zu anderen Ressourcen – geladen. 
 2. defer verspricht dem Browser, dass die Webseite nicht durch Anweisungen wie document.write geändert wird.
 
 
-## 8.1 Ablauf
+## 7.1 Ablauf
 Der Browser interpretiert das HTML-Dokument Zeile für Zeile. Steht das script-Tag im head-Tag der Seite, wird der Browser das Javascript an Ort und Stelle ausführen.
 
 
-### 8.1.1 将 js script 放入 head 中出现的问题
+### 7.1.1 将 js script 放入 head 中出现的问题
 
 Die meisten Funktionen können allerdings erst ausgeführt werden, wenn bestimmte Elemente der Webseite geladen sind. Der Browser muss die angesprochenen Elemente bereits geladen haben, sonst entsteht ein Javascript-Fehler.
 Wenn es gute Gründe gibt, Javascript bereits im head zu laden, rangiert das Script nach den CSS-Dateien.
@@ -218,7 +325,7 @@ Die Ausführung des Scripts muss mit onload oder addEventListener unterbrochen u
 
 Die Logik für das Anhalten des Scripts und das Registrieren des Events, bei dem das Script fortgesetzt werden soll, ist kompliziert. In der Vergangenheit musste das Javascript darum zu wilden Konstruktionen greifen.
 
-### 8.1.2 将 js script 放入 html 末端 不会出现问题
+### 7.1.2 将 js script 放入 html 末端 不会出现问题
 
 Es ist einfacher, das Script am Ende der HTML-Seite vor dem schließenden body-Tag unterzubringen. Die generelle Regel lautet:
 CSS-Dateien im head, Javascript am Ende der Webseite einbinden.
@@ -241,16 +348,16 @@ CSS-Dateien im head, Javascript am Ende der Webseite einbinden.
 </html>
 ```
 
-## 8.2 async and  defer
+## 7.2 async and  defer
 
-### 8.2.1 Script ohne async / defer laden 会出现的问题
+### 7.2.1 Script ohne async / defer laden 会出现的问题
 
 Auch wenn das Script am Ende der Seite geladen wird und selbst wenn die Seite bereits im Browser gerendert ist, kann der Benutzer vor dem Laden und Interpretieren des Scripts nicht auf Links zugreifen und nicht scrollen.
 
 ![Script ohne defer und ohne async laden](https://www.mediaevent.de/javascript/svg/programm-struktur-ohne-defer-async.svg)
 
 
-### 8.2.2 Script asynchron laden的优势
+### 7.2.2 Script asynchron laden的优势
 
 Aufbau der Seite的时候, 有html 相关的元素出现,  Browser就同时开始 laden das 相关的Script. 
 - zuerst geladen zuerst ausgeführt
@@ -266,7 +373,7 @@ async kann aber auch ein Dilemma sein (进退两难), denn es ist nicht vorherse
 
 ![Script asynchron mit async laden](https://www.mediaevent.de/javascript/svg/programm-struktur-async.svg)
 
-### 8.2.3 Laden mit defer verzögern的优势
+### 7.2.3 Laden mit defer verzögern的优势
 
 Aufbau der Seite的最后, 等到其他komponenten都被 laden 完成,  Browser才开始 laden das Script 
 
@@ -278,7 +385,7 @@ Es ist nicht einfach vorauszusehen, wann das Script tatsächlich vollständig ge
 Die Ladezeit der Seite wird immer noch durch das Laden des Scripts verlängert. Der Benutzer kann Links noch nicht benutzen und noch nicht scrollen.
 ![Script mit defer laden](https://www.mediaevent.de/javascript/svg/programm-struktur-defer-async.svg)
 
-### 8.2.4 DOMContentLoaded mit defer / async
+### 7.2.4 DOMContentLoaded mit defer / async
 优点是 Scripte 不会阻碍 Rendern der Seite
 
 Sowohl async als auch defer weisen den Browser an, die Seite zu laden und aufzubauen, und die Scripte im Hintergrund auszuführen. Die Scripte sollen den Aufbau des DOM und das Rendern der Seite nicht blockieren.
@@ -289,7 +396,7 @@ Sowohl async als auch defer weisen den Browser an, die Seite zu laden und aufzub
 |Scripte mit async können geladen und ausgeführt werden während das Dokument noch nicht vollständig geladen wurde, etwa wenn das Script klein oder im Cache ist und das Dokument lang genug.|Scripts mit defer müssen warten, bis das Dokument geladen und geparst ist, also bis DOMContentLoaded.|
 
 
-## 8.3 Script Insertion
+## 7.3 Script Insertion
 某些 Javascript 中的 东西, 对于某个 html 的render 并不需要.  这一部分的东西 (in java script), 会在 所有的东西 都被加载后,才会被加在 
 Wenn Javascript nicht für den Aufbau der Seite benötigt wird, muss ein externes Script erst geladen werden, wenn das DOM und alle Elemente geladen sind.
 
@@ -318,10 +425,16 @@ if (window.addEventListener) {
 ```
 
 
-## 8.4 Ladezeiten verkürzen
+## 7.4 Ladezeiten verkürzen
 
 Das Auslagern von Javascript in eine externe Scriptdatei kann die Performance von Webseiten verbessern. Wenn die Scripte auf mehreren Webseiten eingesetzt werden, liegen die Scripte beim Aufrufe einer weiteren Seite bereits im Cache des Browsers.
 
 Wenn Design und Entwicklung der Webseite abgeschlossen sind, wurden früher externe Javascript-Dateien so weit wie möglich zu einer Script-Datei zusammengeführt. Weniger HTTP-Requests – das reduziert die Ladezeit.
 
 Mit HTTP/2 fällt diese Optimierung weniger ins Gewicht, zudem hat uns ECMAScript 6 den [Export und Import von Script-Dateien als Module](https://www.mediaevent.de/javascript/import-export.html) mitgebracht.
+
+
+# 8 Die Javascript-Laufzeitumgebung im Browser
+
+
+![](image/Pasted%20image%2020241208210247.png)
