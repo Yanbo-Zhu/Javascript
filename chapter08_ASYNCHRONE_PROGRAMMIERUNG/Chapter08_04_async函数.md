@@ -4,7 +4,80 @@ ES17 kennt die neuen Schlüsselworte async und await. Damit werden eine Methode 
 
 Promises und async/await sind zwei verschiedene Ansätze in JavaScript, um mit asynchronem Code umzugehen. Beide haben ihre Vor- und Nachteile und können je nach Anwendungsfall eingesetzt werden.
 
-# 1 async/await Funktionen
+
+# 1 中文解释(重要 ) 
+
+`async` 和 `await` 是用于 **异步编程** 的关键字，主要出现在 Python 和 JavaScript 中（语法相似，概念一致）。它们的主要作用是：**让代码以非阻塞的方式执行等待操作（如 I/O、网络请求、定时器等）**。
+
+- `async`：用于声明一个“异步函数”。
+    - - `async` 表示函数内部可能有异步操作，返回值会被自动包装成一个 `Promise`。
+- `await`：等待一个异步操作完成（非阻塞）. 只能在 `async` 函数中使用，用于等待一个“异步操作”的结果，而不阻塞后面的代码执行。   ==阻塞的的意思 是 后面的测地不执行了== 
+    - - `await` 用来等待一个 `Promise` 的完成，并“暂停”后面的代码，直到该 Promise 被 `resolve`。
+    - 只是暂停 async 标识的 function 中 指令的运行 , 直到 await 的 promise 返回结果, 然后执行 await 的 zuweisung 的下一行 (在 同一个async function 中的)
+    - 一个程序 有很多个 function , 很多thread.  只是 暂停某一个 function 的运行  不妨碍其他的 
+
+
+
+
+## 1.1 例子   async function 之外的 directive 的执行先后
+
+```
+console.log("A");
+
+setTimeout(() => console.log("B"), 0);
+
+async function test() {
+  await Promise.resolve();
+  console.log("C");
+}
+
+test();
+
+console.log("D");
+```
+
+
+输出顺序是 
+```
+A
+D
+C
+B
+```
+
+为什么？因为：
+
+1. `await Promise.resolve()` 会让出执行权（放入微任务队列）。
+2. 所以 `D` 先执行，接着微任务队列中的 `C` 执行。
+3. `B` 是宏任务（定时器），最后执行。
+
+
+## 1.2 例子  async function 之内的 directive 的执行先后
+
+await 只能在 async 函数中使用，用于等待一个 Promise 的完成，它会“暂停”当前函数的执行，直到异步操作完成（resolved/rejected），不会阻塞主线程。
+
+
+- 它“暂停”的是当前 `async` 函数，而不是整个程序。
+- 它只对返回 Promise 的表达式起作用。
+- 后面的代码虽然**写在下面**，但实际上会被延后执行，直到当前 `await` 的 Promise 完成。
+
+```js
+async function fetchData() {
+  console.log("1. 开始获取数据...");
+  const data = await fetch('https://example.com'); // 等待 fetch 完成
+  console.log("2. 数据获取完毕");
+}
+```
+
+
+输出顺序 
+```
+1. 开始获取数据...
+（等待网络请求）
+2. 数据获取完毕
+```
+
+# 2 async/await Funktionen
 
 Async/Await ist eine syntaktische Verbesserung für die Arbeit mit Promises, die es ermöglicht, asynchronen Code wie synchronen Code zu schreiben.
 
@@ -24,7 +97,9 @@ Pausiert nicht-blockierend:
 - Während await auf das Promise wartet, kann der JavaScript-Event-Loop andere Aufgaben ausführen.
 
 
-## 1.1 Vorteil und Nachteil 
+
+
+## 2.1 Vorteil und Nachteil 
 
 
 
@@ -37,7 +112,7 @@ Nachteile:
 - Kann in Kombination mit mehreren await Operationen dazu führen, dass die Ausführung länger dauert, wenn die Promises nicht parallel ausgeführt werden.
 - Muss in einer async Funktion verwendet werden, was Einschränkungen in manchen Kontexten mit sich bringt.
 
-# 2 Wann welches verwenden?
+# 3 Wann welches verwenden?
 
 • Verwenden Sie Promises, wenn:
 o Sie mehrere asynchrone Operationen in parallelen Abläufen ausführen möchten.
@@ -51,7 +126,7 @@ o Sie mit sequentiellen Operationen arbeiten, bei denen der Output einer Operati
 ![](image/Pasted%20image%2020241204224556.png)
 
 
-## 2.1 Beispiel eines Promises ohne async und await
+## 3.1 Beispiel eines Promises ohne async und await
 
 Zuerst ein simples Beispiel eines Promises ohne async und await, das mit function* notiert wird:
 
@@ -108,7 +183,7 @@ Das angezeigte Ergebnis lautet [object Promise] 7. Ersteres ist das Promise (nic
 
 
 
-## 2.2 async
+## 3.2 async
 
 `async`函数返回一个 Promise 对象，可以使用`then`方法添加回调函数。当函数执行的时候，一旦遇到`await`就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
 
@@ -150,7 +225,7 @@ meineFunktion().then(wert=>console.log("Ergebnis: "+wert));
 ```
 
 
-## 2.3 await
+## 3.3 await
 
 - Präfix `**await**` vor einem Promise zeigt an, dass auf die Finalisierung des Promise gewartet wird
 - Warten geschieht asynchron, d.h. die Event Loop erledigt zwischenzeitlich andere Aufgaben
@@ -182,7 +257,7 @@ mitAwait();
 
 ```
 
-# 3 例子 
+# 4 例子 
 
 下面是一个例子。
 
@@ -258,7 +333,7 @@ obj.foo().then(...)
 const foo = async () => {};
 ```
 
-# 4 语法
+# 5 语法
 
 `async`函数的语法规则总体上比较简单，难点是错误处理机制。
 
@@ -274,7 +349,7 @@ async function myFunction() {
 myFunction();
 ```
 
-## 4.1 Syntaxvergleich
+## 5.1 Syntaxvergleich
 
 promise
 ```js
@@ -345,7 +420,7 @@ fetchData();
 
 ![](image/Pasted%20image%2020241204225137.png)
 
-## 4.2 返回 Promise 对象
+## 5.2 返回 Promise 对象
 
 `async`函数返回一个 Promise 对象。
 
@@ -376,7 +451,7 @@ f().then(
 //reject Error: 出错了
 ```
 
-## 4.3 Promise 对象的状态变化
+## 5.3 Promise 对象的状态变化
 
 `async`函数返回的 Promise 对象，必须等到内部所有`await`命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到`return`语句或者抛出错误。也就是说，只有`async`函数内部的异步操作执行完，才会执行`then`方法指定的回调函数。
 
@@ -394,7 +469,7 @@ getTitle('https://tc39.github.io/ecma262/').then(console.log)
 
 上面代码中，函数`getTitle`内部有三个操作：抓取网页、取出文本、匹配页面标题。只有这三个操作全部完成，才会执行`then`方法里面的`console.log`。
 
-## 4.4 async联合await使用
+## 5.4 async联合await使用
 
 正常情况下，`await`命令后面是一个 Promise 对象，返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值。
 
@@ -488,7 +563,7 @@ f()
 // hello world
 ```
 
-## 4.5 错误处理
+## 5.5 错误处理
 
 如果`await`后面的异步操作出错，那么等同于`async`函数返回的 Promise 对象被`reject`。
 
@@ -560,9 +635,9 @@ test();
 
 上面代码中，如果`await`操作成功，就会使用`break`语句退出循环；如果失败，会被`catch`语句捕捉，然后进入下一轮循环。
 
-# 5 使用注意点 
+# 6 使用注意点 
 
-## 5.1 `await`命令后面的`Promise`对象，运行结果可能是`rejected`，所以最好把`await`命令放在`try...catch`代码块中。
+## 6.1 `await`命令后面的`Promise`对象，运行结果可能是`rejected`，所以最好把`await`命令放在`try...catch`代码块中。
 
 ```js
 async function myFunction() {
@@ -583,7 +658,7 @@ async function myFunction() {
 }
 ```
 
-## 5.2 多个`await`命令后面的异步操作，如果不存在继发关系，最好让它们同时触发。
+## 6.2 多个`await`命令后面的异步操作，如果不存在继发关系，最好让它们同时触发。
 
 ```js
 let foo = await getFoo();
@@ -605,7 +680,7 @@ let bar = await barPromise;
 
 上面两种写法，`getFoo`和`getBar`都是同时触发，这样就会缩短程序的执行时间。
 
-## 5.3 `await`命令只能用在`async`函数之中，如果用在普通函数，就会报错。
+## 6.3 `await`命令只能用在`async`函数之中，如果用在普通函数，就会报错。
 
 ```js
 async function dbFuc(db) {
@@ -692,7 +767,7 @@ async function dbFuc(db) {
 
 
 
-## 5.4 async 函数可以保留运行堆栈。
+## 6.4 async 函数可以保留运行堆栈。
 
 ```js
 const a = () => {
@@ -713,7 +788,7 @@ const a = async () => {
 
 上面代码中，`b()`运行的时候，`a()`是暂停执行，上下文环境都保存着。一旦`b()`或`c()`报错，错误堆栈将包括`a()`。
 
-# 6 es13新增
+# 7 es13新增
 
 在 JavaScript 中，await 运算符用于暂停执行，直到 Promise 被解决（履行或拒绝）。以前，我们只能在 async 函数中使用此运算符 - 使用 async 关键字声明的函数。我们无法在全球范围内这样做。
 
