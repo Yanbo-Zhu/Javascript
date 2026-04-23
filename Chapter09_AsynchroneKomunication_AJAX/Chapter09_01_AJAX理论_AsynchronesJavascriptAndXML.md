@@ -19,7 +19,7 @@ Mit Hilfe des **XMLHttpRequest**-Objekts kann JavaScript eine (XHR-)Anfrage an e
 
 ![](image/Pasted%20image%2020241214140014.png)
 
-# **Vorteile und Nachteile von Ajax**  
+# 1 **Vorteile und Nachteile von Ajax**  
 
 Die großen Vorteile von Ajax sind die **verbesserte Usability' _und_** _höhere Interaktvität_,' ohne die komplette Seite neu laden zu müssen und die sich daraus ergebende **geringere Ladezeit** sowie die **verminderte Serverauslastung**, da nur Teile der Webanwendung aktualisiert werden.
 
